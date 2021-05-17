@@ -1,0 +1,28 @@
+{
+  /* editor */
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  /* format */
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "eslint.format.enable": true,
+  "eslint.packageManager": "npm",
+  "eslint.run": "onSave",
+  "eslint.probe": [
+    "javascript",
+    "typescript",
+    "html",
+    "vue"
+  ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": false
+  },
+}
