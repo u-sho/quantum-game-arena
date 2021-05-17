@@ -28,4 +28,7 @@
     "editor.formatOnPaste": true,
     "editor.formatOnType": false
   },
+  /* Vue, TypeScript */
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "volar.tsPlugin": true,
 }
