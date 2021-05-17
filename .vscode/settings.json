@@ -1,7 +1,10 @@
 {
   /* editor */
   "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
   "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
   /* format */
   "editor.codeActionsOnSave": {
     "source.fixAll": true
