@@ -1,31 +1,33 @@
 {
-  /* editor */
-  "editor.tabSize": 2,
-  "editor.trimAutoWhitespace": true,
-  "files.eol": "\n",
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
-  /* format */
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": false,
-  "editor.formatOnType": false,
-  "eslint.format.enable": true,
-  "eslint.packageManager": "npm",
-  "eslint.run": "onSave",
-  "eslint.probe": [
-    "javascript",
-    "typescript",
-    "html",
-    "vue"
-  ],
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "editor.formatOnType": false
-  },
+	/* editor */
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.trimAutoWhitespace": true,
+	"files.eol": "\n",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	/* format */
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"editor.formatOnType": false,
+	"eslint.format.enable": true,
+	"eslint.packageManager": "npm",
+	"eslint.run": "onSave",
+	"eslint.probe": [
+		"javascript",
+		"typescript",
+		"html",
+		"vue"
+	],
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features",
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true,
+		"editor.formatOnType": false
+	},
 }
