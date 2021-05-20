@@ -4,3 +4,8 @@ static/**
 build/**
 functions/**
 node_modules/**
+package-lock.json
+.npmrc
+.*ignore
+LICENSE
+.*/
