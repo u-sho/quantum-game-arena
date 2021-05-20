@@ -1,7 +1,9 @@
 {
 	/* editor */
-	"editor.detectIndentation": false,
+	"editor.detectIndentation": true,
 	"editor.insertSpaces": false,
+	"editor.renderControlCharacters": true,
+	"editor.renderWhitespace": "boundary",
 	"editor.tabSize": 2,
 	"editor.trimAutoWhitespace": true,
 	"files.eol": "\n",
