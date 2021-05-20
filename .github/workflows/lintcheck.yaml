@@ -1,0 +1,25 @@
+name: Lint Check
+on: [pull_request]
+jobs:
+  lint:
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Cache npm
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint Check
+        run: npm run lint
