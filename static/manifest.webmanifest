@@ -35,8 +35,7 @@
 		{
 			"src": "top-screenshot.png",
 			"sizes": "1080x610",
-			"type": "image/png",
-			"label": "Top Page"
+			"type": "image/png"
 		}
 	]
 }
