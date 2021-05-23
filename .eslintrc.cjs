@@ -15,6 +15,7 @@ module.exports = {
 		'prefer-const': 'error'
 	},
 	settings: {
+		'svelte3/ignore-styles': () => true,
 		'svelte3/typescript': () => require('typescript')
 	},
 	parserOptions: {
