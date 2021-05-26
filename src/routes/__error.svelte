@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
-	// @ts-ignore
-	export function load({ error, status }) {
+	import type { ErrorLoadInput, ErrorLoad } from '@sveltejs/kit/types/page';
+	export function load({ error, status }: ErrorLoadInput): ReturnType<ErrorLoad> {
 		return { props: { title: `${status}: ${error.message}` } };
 	}
 </script>
