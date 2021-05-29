@@ -13,7 +13,7 @@ self.addEventListener('install', (event) => {
 			.open(ASSETS)
 			.then((cache) => cache.addAll(build))
 			.then(() => {
-				self.skipWaiting();
+				void self.skipWaiting();
 			})
 	);
 });
@@ -25,7 +25,7 @@ self.addEventListener('activate', (event) => {
 			for (const key of keys) {
 				if (key !== ASSETS) await caches.delete(key);
 			}
-			self.clients.claim();
+			void self.clients.claim();
 		})
 	);
 });
@@ -56,9 +56,9 @@ self.addEventListener('fetch', (event) => {
 		caches.open(`offline${timestamp}`).then(async (cache) => {
 			try {
 				const response = await fetch(event.request);
-				cache.put(event.request, response.clone());
+				void cache.put(event.request, response.clone());
 				return response;
-			} catch (err) {
+			} catch (err: unknown) {
 				const response = await cache.match(event.request);
 				if (response) return response;
 

@@ -19,7 +19,7 @@
 	"editor.formatOnType": false,
 	"eslint.format.enable": true,
 	"eslint.packageManager": "npm",
-	"eslint.probe": ["javascript", "typescript", "html", "svelte", "markdown"],
+	"eslint.probe": ["javascript", "typescript", "html", "svelte"],
 	"eslint.run": "onSave",
 	"prettier.enable": true,
 	/* Svelte */
