@@ -1,0 +1,25 @@
+.nav {
+  text-align: center;
+  li {
+    list-style-type: none;
+    box-sizing: border-box;
+    margin: 1.5rem;
+    padding: auto;
+  }
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 1.2rem;
+  width: 10rem;
+  height: 2.5rem;
+  line-height: 1.5;
+  font-size: 1.25rem;
+  background-color: var(--theme-color);
+  color: var(--bg-color);
+}
+
+.coming-soon {
+  opacity: 0.5;
+}

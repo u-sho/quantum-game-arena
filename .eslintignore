@@ -1,11 +1,10 @@
-*.cjs
-.svelte-kit/**
-static/**
-build/**
-functions/**
+.eslintrc.js
+public/**
+styles/**
+.next/**
 node_modules/**
 package-lock.json
 .npmrc
 .*ignore
 LICENSE
-.*/
+*.md

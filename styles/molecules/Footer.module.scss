@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: var(--theme-color);
+  @media (min-width: 480px) {
+    padding: 40px 0;
+  }
+}
