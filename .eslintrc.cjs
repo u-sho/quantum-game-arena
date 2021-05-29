@@ -24,7 +24,7 @@ module.exports = {
 
 		'no-restricted-imports': [
 			'error',
-			{ patterns: ['../*', './lib/*'] } // use `$lib/*' instead
+			{ patterns: ['../*', 'src/lib/*'] } // use `$lib/*' instead
 		],
 
 		'@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
