@@ -31,6 +31,7 @@
 			"type": "image/png"
 		}
 	],
+	"splash_pages": null,
 	"screenshots": [
 		{
 			"src": "top-screenshot.png",
