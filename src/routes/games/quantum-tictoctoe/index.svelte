@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Qunatum Tic-Toc-Toe - Quantum Game Arena</title>
+	<title>Quantum Tic-Toc-Toe - Quantum Game Arena</title>
 </svelte:head>
 
 <h1>Quantum Tic-Toc-Toe</h1>
@@ -12,7 +12,7 @@
 		<a
 			class="btn"
 			sveltekit:prefetch
-			href="/games/quantum-tictocote/tutorial"
+			href="/games/quantum-tictoctoe/tutorial"
 			type="text/html;charset=utf-8">チュートリアル</a
 		>
 	</li>
@@ -20,7 +20,7 @@
 		<a
 			class="btn"
 			sveltekit:prefetch
-			href="/games/qunatum-tictoctoe/play/human"
+			href="/games/quantum-tictoctoe/play/human"
 			type="application/ecmascript">オフライン対局</a
 		>
 	</li>
