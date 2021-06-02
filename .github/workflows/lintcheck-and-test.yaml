@@ -22,5 +22,5 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Lint Check
-        run: npm run lint
+      - name: Lint Check & Test
+        run: npm run ci
