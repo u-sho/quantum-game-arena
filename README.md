@@ -4,7 +4,7 @@ powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/package
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `npm instal`, start a development server:
 
 ```bash
 npm run dev
@@ -22,3 +22,17 @@ npm run build
 ```
 
 > You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+
+## Format & Lint
+
+Please exec formatter & linter before commit.
+
+```bash
+npm run format
+
+# check warnings
+npm run lint
+
+# fix warnings
+npm run lint --fix
+```
