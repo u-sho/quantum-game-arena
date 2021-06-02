@@ -13,7 +13,16 @@ module.exports = {
 		'prettier'
 	],
 	plugins: ['svelte3', '@typescript-eslint'],
-	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
+	overrides: [
+		{ files: ['*.svelte'], processor: 'svelte3/svelte3' },
+		{
+			files: ['src/lib/types/**/*.test.ts'],
+			rules: {
+				'@typescript-eslint/ban-ts-comment': 'off',
+				'@typescript-eslint/no-unused-vars': 'off'
+			}
+		}
+	],
 	rules: {
 		'no-console': isProduction() ? 'error' : 'off',
 		eqeqeq: ['error', 'always', { null: 'ignore' }],
@@ -22,10 +31,8 @@ module.exports = {
 		'no-var': 'error',
 		'prefer-const': 'error',
 
-		'no-restricted-imports': [
-			'error',
-			{ patterns: ['../*', 'src/lib/*'] } // use `$lib/*' instead
-		],
+		// use '$lib/*' instead
+		'no-restricted-imports': ['error', { patterns: ['../*', 'src/lib/*'] }],
 
 		'@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
