@@ -1,5 +1,5 @@
 *.cjs
-*.config.js
+*.config.*
 .svelte-kit/**
 static/**
 build/**
