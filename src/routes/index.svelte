@@ -22,7 +22,7 @@
 		<nav>
 			<ul class="game-list">
 				<li>
-					<a sveltekit:prefetch href="/games/quantum-tictoctoe" type="text/html">量子三目並べ</a>
+					<a sveltekit:prefetch href="/games/quantum-tictactoe" type="text/html">量子三目並べ</a>
 				</li>
 				<li class="comming-soon">
 					<span>量子囲碁</span>

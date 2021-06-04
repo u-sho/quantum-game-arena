@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>Tutorial - Quantum Tic-Toc-Toe - Quantum Game Arena</title>
+	<title>Tutorial - Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 </svelte:head>
 
-<h1>Quantum Tic-Toc-Toe Tutorial</h1>
+<h1>Quantum Tic-Tac-Toe Tutorial</h1>
 nee
