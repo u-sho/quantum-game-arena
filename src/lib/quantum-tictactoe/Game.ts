@@ -1,6 +1,7 @@
 import type { RequiredAtLeastOne } from '$lib/types/generics';
 import type { ConstArray } from '$lib/types/objects';
-import Graph, { NodeIdType } from './Graph';
+import type { NodeIdType } from './Graph';
+import Graph from './Graph';
 
 type SocketIdType = string;
 
@@ -18,7 +19,7 @@ type SquareNumType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 type StatusType = RequiredAtLeastOne<{ [P in PlayerType]: string }>;
 
-type StateType = {
+export type StateType = {
 	/**
 	 * `i`th element contains classical mark for `i`th square, `null` if it has none
 	 * (3x3 grid of squares is represented as 1D array of length 9).
@@ -146,7 +147,7 @@ export default class Game {
 		if (this.isSecondMove() && this.state.lastMove === i)
 			return {
 				[this.whoseTurn()]:
-					"Can't move twice in the same square! \n What do you think this is... regular tic tac toe??"
+					"Can't move twice in the same square! \n What do you think this is... regular tic-tac-toe??"
 			} as RequiredAtLeastOne<{ X?: string; Y?: string }>;
 
 		return this.handleNormalMove(i);
@@ -301,7 +302,7 @@ function getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 	return '';
 }
 
-type WinnersType = Array<PlayerType>;
+type WinnersType = PlayerType[];
 function calculateWinners(squares: ConstArray<[PlayerType, any], 9>): WinnersType {
 	const lines = [
 		[0, 1, 2],
