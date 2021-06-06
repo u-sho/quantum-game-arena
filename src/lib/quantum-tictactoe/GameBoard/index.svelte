@@ -34,3 +34,11 @@
 		</div>
 	{/each}
 </div>
+
+<style lang="scss">
+	.board-row:after {
+		clear: both;
+		content: '';
+		display: table;
+	}
+</style>

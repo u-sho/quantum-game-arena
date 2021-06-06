@@ -28,3 +28,35 @@
 		<div class="status">{status}</div>
 	</div>
 {/if}
+
+<style lang="scss">
+	.collapseChoice {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 50px;
+		height: 50px;
+		border: 2px;
+		border-color: #e74c3c;
+		text-align: center;
+		cursor: default;
+		border-style: solid;
+		margin: 5px;
+		user-select: none;
+
+		&:hover {
+			background-color: #e74c3c;
+		}
+	}
+
+	.game-info {
+		margin-left: 20px;
+		top: 0px;
+	}
+
+	.status {
+		margin-bottom: 10px;
+		width: 300px;
+	}
+</style>

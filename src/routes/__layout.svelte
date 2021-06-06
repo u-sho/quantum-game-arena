@@ -33,16 +33,28 @@
 		text-decoration: none;
 	}
 
+	:global(#svelte) {
+		min-height: 100vh;
+		position: relative;
+		box-sizing: border-box;
+		padding-bottom: 120px;
+	}
+
 	main {
 		display: flex;
 		flex-direction: column;
 		padding: 0;
 		margin: 0;
 		width: 100%;
+		height: 100%;
 		box-sizing: border-box;
 	}
 
 	footer {
+		position: absolute;
+		bottom: 0;
+		box-sizing: border-box;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

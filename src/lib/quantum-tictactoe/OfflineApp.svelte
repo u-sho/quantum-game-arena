@@ -50,3 +50,27 @@
 		<SideBar {status} {choices} onChoiceClick={handleCollapse} />
 	</div>
 </div>
+
+<style lang="scss">
+	.game {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin-top: 50px;
+
+		&-board {
+			width: 500px;
+		}
+	}
+
+	.xScore {
+		margin-top: 10px;
+		font-size: 20px;
+		float: left;
+	}
+	.yScore {
+		margin-top: 10px;
+		font-size: 20px;
+		float: right;
+	}
+</style>

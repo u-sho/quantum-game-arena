@@ -19,3 +19,17 @@
 		<span class={spanClass(m)}>{m[0]}<sub>{m[1]}</sub>{i === marks.length - 1 ? '' : ', '}</span>
 	{/each}
 </div>
+
+<style lang="scss">
+	.white {
+		color: #e0e0e0;
+	}
+
+	.blue {
+		color: #00bbd3;
+	}
+
+	.red {
+		color: #e74c3c;
+	}
+</style>
