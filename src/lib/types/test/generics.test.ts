@@ -7,7 +7,7 @@ type BaseOptions = {
 };
 
 test('RequiredAtLeastOne<T>', () => {
-	// at least one of 'foo', 'bar', 'baz' is required
+	// One of 'foo', 'bar', 'baz' is required at least.
 	type Options = RequiredAtLeastOne<BaseOptions>;
 
 	// @ts-expect-error
@@ -22,7 +22,7 @@ test('RequiredAtLeastOne<T>', () => {
 });
 
 test('RequiredAtLeastOne<T, K>', () => {
-	// at least one of 'foo', 'bar' is required
+	// One of 'foo', 'bar' is required at least. 'baz' is required by 'BaseOption' type.
 	type NumOptions = RequiredAtLeastOne<BaseOptions, 'foo' | 'bar'>;
 
 	// @ts-expect-error
@@ -35,4 +35,23 @@ test('RequiredAtLeastOne<T, K>', () => {
 	const npt22: NumOptions = { foo: 5, baz: 'foo' };
 	const npt23: NumOptions = { foo: 5, bar: 2 };
 	const npt3: NumOptions = { foo: 123, bar: 123, baz: 'foo' };
+
+	// @ts-expect-error
+	let npt: NumOptions = { foo: 'str' };
+	// @ts-expect-error
+	npt = { bar: 'str' };
+	// @ts-expect-error
+	npt = { bar: 5, baz: 5 };
+	// @ts-expect-error
+	npt = { bar: 'str', baz: 'str' };
+	// @ts-expect-error
+	npt = { foo: 5, baz: 5 };
+	// @ts-expect-error
+	npt = { foo: 'str', baz: 'str' };
+	// @ts-expect-error
+	npt = { foo: 5, bar: 'str' };
+	// @ts-expect-error
+	npt = { foo: 'str', bar: 3 };
+	// @ts-expect-error
+	npt = { foo: 1, bar: 1, baz: 'ff', who: 4 };
 });
