@@ -17,17 +17,16 @@
 	export let status: string;
 </script>
 
-{#if choices}
-	{#each choices as choice (choice)}
-		<div class="collapseChoice" onClick={() => onChoiceClick(choice)}>
-			{choice}
-		</div>
-	{/each}
-{:else}
-	<div class="game-info">
-		<div class="status">{status}</div>
-	</div>
-{/if}
+<div class="game-info">
+	<div class="status">{status}</div>
+	{#if choices}
+		{#each choices as choice (choice)}
+			<div class="collapseChoice" onClick={() => onChoiceClick(choice)}>
+				{choice}
+			</div>
+		{/each}
+	{/if}
+</div>
 
 <style lang="scss">
 	.collapseChoice {

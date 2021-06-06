@@ -6,11 +6,14 @@
 	export let isHighlighted: boolean;
 	export let isBeingCollapsed: boolean;
 
-	const marks = qMarks?.filter((x) => x) || [];
+	$: marks = qMarks?.filter((x) => x) || [];
 
 	function spanClass(mark: TurnType) {
-		if (!cycleMarks?.includes(mark)) return 'white';
-		return `white${isHighlighted ? ' blue' : ''}${isBeingCollapsed ? ' red' : ''}`;
+		if (cycleMarks?.includes(mark)) {
+			if (isBeingCollapsed) return 'red';
+			if (isHighlighted) return 'blue';
+		}
+		return 'white';
 	}
 </script>
 

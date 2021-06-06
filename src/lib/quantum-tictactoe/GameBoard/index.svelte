@@ -11,17 +11,17 @@
 	// Passes index of square that was clicked up to Game.handleSquareClick.
 	export let onSquareClick: (i: SquareNumType) => void;
 
-	const loop = [0, 1, 2] as const;
+	const rows = [0, 1, 2] as const;
+	const columns = [0, 1, 2] as const;
 
-	function onClick(row: 0 | 1 | 2, column: 0 | 1 | 2) {
+	$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
 		onSquareClick((row * 3 + column) as SquareNumType);
-	}
 </script>
 
 <div>
-	{#each loop as row}
+	{#each rows as row}
 		<div class="board-row">
-			{#each loop as column}
+			{#each columns as column}
 				<BoardSquare
 					cMark={cSquares[row * 3 + column]}
 					qMarks={qSquares[row * 3 + column]}

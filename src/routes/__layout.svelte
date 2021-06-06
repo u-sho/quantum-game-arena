@@ -29,15 +29,15 @@
 		padding: 0;
 	}
 
-	:global(a) {
-		text-decoration: none;
-	}
-
 	:global(#svelte) {
 		min-height: 100vh;
-		position: relative;
+		width: 100%;
+		height: 100%;
 		box-sizing: border-box;
-		padding-bottom: 120px;
+	}
+
+	:global(a) {
+		text-decoration: none;
 	}
 
 	main {

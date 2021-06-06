@@ -6,7 +6,7 @@
 	export let cycleMarks: StateType['cycleMarks'];
 	export let isHighlighted: boolean;
 	export let isBeingCollapsed: boolean;
-	export let onClick: svelte.JSX.MouseEventHandler<HTMLDivElement>;
+	export let onClick: () => void;
 
 	import QuantumMarks from './QuantumMarks.svelte';
 
@@ -17,7 +17,7 @@
 	$: marksClass = cMark ? 'marks adjustCenter' : 'marks';
 </script>
 
-<div class={squareClass} on:click={onClick}>
+<div class={squareClass} on:click|preventDefault={(_) => onClick()}>
 	<div>
 		<span class="dashing"><i /></span>
 		<span class="dashing"><i /></span>
@@ -75,36 +75,36 @@
 		position: relative;
 		overflow: hidden;
 		color: #00bbd3;
-	}
 
-	.dashing {
-		display: block;
-		width: 100%;
-		height: 100%;
-		position: absolute;
+		.dashing {
+			display: block;
+			width: 100%;
+			height: 100%;
+			position: absolute;
 
-		&:nth-of-type(1) {
-			transform: rotate(0deg);
-		}
-		&:nth-of-type(2) {
-			transform: rotate(90deg);
-		}
-		&:nth-of-type(3) {
-			transform: rotate(180deg);
-		}
-		&:nth-of-type(4) {
-			transform: rotate(270deg);
-		}
-	}
+			&:nth-of-type(1) {
+				transform: rotate(0deg);
+			}
+			&:nth-of-type(2) {
+				transform: rotate(90deg);
+			}
+			&:nth-of-type(3) {
+				transform: rotate(180deg);
+			}
+			&:nth-of-type(4) {
+				transform: rotate(270deg);
+			}
 
-	i {
-		display: block;
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 200%;
-		border-bottom: 5px dashed;
-		animation: slideDash 2.5s infinite linear;
+			i {
+				display: block;
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 200%;
+				border-bottom: 5px dashed;
+				animation: slideDash 2.5s infinite linear;
+			}
+		}
 	}
 
 	@keyframes slideDash {

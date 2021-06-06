@@ -31,7 +31,7 @@
 </script>
 
 <div>
-	<h1>Quantum Tic-Tac-Toe</h1>
+	<h1 class="title">Quantum Tic-Tac-Toe</h1>
 	<div class="game">
 		<div class="game-board">
 			<GameBoard
@@ -42,25 +42,27 @@
 				collapseSquare={game.state.collapseSquare}
 				onSquareClick={handleSquareClick}
 			/>
-
 			<div class="xScore">X: {game.state.xScore}</div>
 			<div class="yScore">Y: {game.state.yScore}</div>
 		</div>
-
 		<SideBar {status} {choices} onChoiceClick={handleCollapse} />
 	</div>
 </div>
 
 <style lang="scss">
+	.title {
+		text-align: center;
+	}
+
 	.game {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		margin-top: 50px;
+	}
 
-		&-board {
-			width: 500px;
-		}
+	.game-board {
+		width: 500px;
 	}
 
 	.xScore {
