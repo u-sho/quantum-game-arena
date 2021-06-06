@@ -44,7 +44,8 @@ module.exports = {
 		'@typescript-eslint/method-signature-style': ['error', 'property'],
 		'@typescript-eslint/no-confusing-non-null-assertion': 'warn',
 		'@typescript-eslint/no-implicit-any-catch': 'error',
-		'@typescript-eslint/no-require-imports': 'error'
+		'@typescript-eslint/no-require-imports': 'error',
+		'@typescript-eslint/unbound-method': 'off'
 	},
 	settings: {
 		'svelte3/ignore-styles': () => true,
