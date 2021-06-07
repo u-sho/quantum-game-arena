@@ -26,7 +26,6 @@ module.exports = {
 	rules: {
 		'no-console': isProduction() ? 'error' : 'off',
 		eqeqeq: ['error', 'always', { null: 'ignore' }],
-		'no-duplicate-imports': 'error',
 		'no-unused-expressions': 'error',
 		'no-var': 'error',
 		'prefer-const': 'error',
@@ -43,6 +42,7 @@ module.exports = {
 		'@typescript-eslint/member-delimiter-style': 'error',
 		'@typescript-eslint/method-signature-style': ['error', 'property'],
 		'@typescript-eslint/no-confusing-non-null-assertion': 'warn',
+		'@typescript-eslint/no-duplicate-imports': ['error'],
 		'@typescript-eslint/no-implicit-any-catch': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
 		'@typescript-eslint/unbound-method': 'off'

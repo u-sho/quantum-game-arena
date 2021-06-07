@@ -1,7 +1,6 @@
-import type { RequiredAtLeastOne } from '$lib/types/generics';
-import type { ConstArray } from '$lib/types/objects';
-// eslint-disable-next-line
-import Graph, { NodeIdType } from './Graph';
+import type { ConstArray, RequiredAtLeastOne } from '$lib/types/generics';
+import type { NodeIdType } from './Graph';
+import Graph from './Graph';
 
 type SocketIdType = string;
 
