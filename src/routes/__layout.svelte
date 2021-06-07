@@ -9,7 +9,7 @@
 <footer>
 	<div class="footer__logo">
 		<a sveltekit:prefetch href="/#top">
-			<img src="logo-144x144.png" alt="QuantumGameArena" />
+			<img src="/logo-144x144.png" alt="QuantumGameArena" />
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
