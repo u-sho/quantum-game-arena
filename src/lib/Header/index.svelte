@@ -1,7 +1,7 @@
 <header>
 	<hgroup class="logo">
 		<a sveltekit:prefetch href="/">
-			<img src="logo-144x144.png" alt="QuantumGameArena" />
+			<img src="/logo-144x144.png" alt="QuantumGameArena" />
 			<h1>Quantum Game Arena</h1>
 		</a>
 	</hgroup>
