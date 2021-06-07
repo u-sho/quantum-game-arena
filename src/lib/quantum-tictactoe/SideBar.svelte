@@ -1,19 +1,13 @@
 <script lang="ts">
 	import type { TurnType } from './Game';
 
-	/**
-		Contains marks in selected square if collapse ongoing, else is `null`
-	*/
+	// Contains marks in selected square if collapse ongoing
 	export let choices: TurnType[] | undefined;
 
-	/**
-		Passes selected choice of mark up to Game.handleCollapse
-	*/
+	// Passes selected choice of mark up to Game.handleCollapse
 	export let onChoiceClick: Function;
 
-	/**
-		Conveys player information about the state of the game
-	*/
+	// Conveys player information about the state of the game
 	export let status: string;
 </script>
 
@@ -21,7 +15,7 @@
 	<div class="status">{status}</div>
 	{#if choices}
 		{#each choices as choice (choice)}
-			<div class="collapseChoice" onClick={() => onChoiceClick(choice)}>
+			<div class="collapseChoice" on:click|preventDefault={(_) => onChoiceClick(choice)}>
 				{choice}
 			</div>
 		{/each}

@@ -6,7 +6,8 @@
 <main>
 	<slot />
 </main>
-<footer>
+
+<!-- <footer>
 	<div class="footer__logo">
 		<a sveltekit:prefetch href="/#top">
 			<img src="/logo-144x144.png" alt="QuantumGameArena" />
@@ -14,8 +15,7 @@
 		</a>
 	</div>
 	twitter
-</footer>
-
+</footer> -->
 <style lang="scss">
 	:root {
 		--theme-color: #7a9de3;
@@ -34,6 +34,8 @@
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
+		position: relative;
+		top: 0;
 	}
 
 	:global(a) {
@@ -50,30 +52,30 @@
 		box-sizing: border-box;
 	}
 
-	footer {
-		position: absolute;
-		bottom: 0;
-		box-sizing: border-box;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-		background-color: var(--theme-color);
-		@media (min-width: 480px) {
-			padding: 40px 0;
-		}
-	}
+	// footer {
+	// 	position: absolute;
+	// 	bottom: 0;
+	// 	box-sizing: border-box;
+	// 	width: 100%;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	justify-content: center;
+	// 	align-items: center;
+	// 	padding: 40px;
+	// 	background-color: var(--theme-color);
+	// 	@media (min-width: 480px) {
+	// 		padding: 40px 0;
+	// 	}
+	// }
 
-	.footer__logo a {
-		font-weight: bold;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	// .footer__logo a {
+	// 	font-weight: bold;
+	// 	display: flex;
+	// 	align-items: center;
+	// 	justify-content: center;
 
-		img {
-			height: 2rem;
-		}
-	}
+	// 	img {
+	// 		height: 2rem;
+	// 	}
+	// }
 </style>

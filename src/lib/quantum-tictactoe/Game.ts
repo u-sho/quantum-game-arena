@@ -25,13 +25,13 @@ export type StateType = {
 	 * `i`th element contains classical mark for `i`th square, `null` if it has none
 	 * (3x3 grid of squares is represented as 1D array of length 9).
 	 */
-	cSquares: ConstArray<null, 9> | ConstArray<TurnType, 9>;
+	cSquares: ConstArray<null | TurnType, 9>;
 
 	/**
 	 * `i`th element contains list of quantum marks contained in square `i`th square,
 	 * `null` if it has none.
 	 */
-	qSquares: ConstArray<null, 9> | ConstArray<TurnType[], 9>;
+	qSquares: ConstArray<null | TurnType[], 9>;
 
 	turnNum: TurnNumType;
 	subTurnNum: SubTurnNumType;
@@ -217,8 +217,8 @@ export default class Game {
 
 		this._handleCollapseHelper(mark, i, visited);
 
-		const scores = calculateScores(this.state.cSquares as ConstArray<TurnType, 9>);
-		if (!scores) {
+		const scores = calculateScores(this.state.cSquares);
+		if (scores === null) {
 			this.setState({
 				cycleSquares: null,
 				cycleMarks: null,
@@ -240,8 +240,8 @@ export default class Game {
 		this.setState({
 			status,
 			isGameOver: true,
-			xScore: this.state.xScore + scores['X'],
-			yScore: this.state.yScore + scores['Y'],
+			xScore: this.state.xScore + scores.X,
+			yScore: this.state.yScore + scores.Y,
 			cycleSquares: null,
 			cycleMarks: null,
 			collapseSquare: null
@@ -304,17 +304,17 @@ function getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 
 	if (scores.X + scores.Y === 1.5)
 		return (
-			`Both players got three in a row, but ${winner} got it first! (The mark placed in` +
+			`Both players got three-in-a-row, but ${winner} got it first! (The mark placed in` +
 			`${winner}'s three-in-a-row has a smaller subscript than ${loser} \n ${winner} gets 1 point` +
 			` \n ${loser} gets 0.5 points`
 		);
 
-	return '';
+	return 'No players get three-in-a-row...';
 }
 
 type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareNumType, 3>]>;
-function _calculateWinners(squares: Readonly<ConstArray<TurnType, 9>>): WinnersType {
-	const lines = [
+function _calculateWinners(squares: Readonly<ConstArray<TurnType | null, 9>>): WinnersType {
+	const lines: ConstArray<ConstArray<SquareNumType, 3>, 8> = [
 		[0, 1, 2],
 		[3, 4, 5],
 		[6, 7, 8],
@@ -323,38 +323,25 @@ function _calculateWinners(squares: Readonly<ConstArray<TurnType, 9>>): WinnersT
 		[2, 5, 8],
 		[0, 4, 8],
 		[2, 4, 6]
-	] as const;
+	];
 
 	const winners: WinnersType = [];
 
-	for (const [a, b, c] of lines) {
-		if (
-			squares[a] &&
-			squares[b] &&
-			squares[c] &&
-			squares[a][0] === squares[b][0] &&
-			squares[a][0] === squares[c][0]
-		) {
-			const subscripts = [squares[a][1], squares[b][1], squares[c][1]].map(Number) as ConstArray<
-				TurnNumType,
-				3
-			>;
-
-			winners.push([
-				Math.max(...subscripts) as TurnNumType,
-				squares[a][0] as PlayerType,
-				[a, b, c]
-			]);
+	for (const line of lines) {
+		const [s1, s2, s3] = [squares[line[0]], squares[line[1]], squares[line[2]]];
+		if (s1 && s2 && s3 && s1[0] === s2[0] && s1[0] === s3[0]) {
+			const subscripts = [s1[1], s2[1], s3[1]].map(Number) as ConstArray<TurnNumType, 3>;
+			winners.push([Math.max(...subscripts) as TurnNumType, s1[0] as PlayerType, line]);
 		}
 	}
 
 	return winners;
 }
 
-function calculateScores(squares: Readonly<ConstArray<TurnType, 9>>) {
+function calculateScores(squares: Readonly<ConstArray<TurnType | null, 9>>) {
 	const winners = _calculateWinners(squares);
 
-	if (winners.length === 0) return null;
+	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
 
 	winners.sort();
 	const scores = { X: 0, Y: 0 };

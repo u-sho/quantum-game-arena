@@ -65,6 +65,7 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+		color: #e0e0e0;
 	}
 
 	.selected {
