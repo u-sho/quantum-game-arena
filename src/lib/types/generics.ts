@@ -6,12 +6,9 @@ type PartialOmit<T, K extends number | string | symbol> = {
 	[P in Exclude<keyof T, K>]?: T[P];
 };
 
-// K is required, K\T is partial
-type PartialRequired<T, K extends keyof T> = RequiredPick<T, K> & PartialOmit<T, K>;
-
-// K? (default: keyof T) is the range that required at least one
+// K (default: keyof T) is the range that required at least one
 type RequiredAtLeastOne<T, K extends keyof T = keyof T> = K extends keyof T
-	? PartialRequired<T, K>
+	? RequiredPick<T, K> & PartialOmit<T, K>
 	: never;
 
-export type { RequiredPick, PartialOmit, PartialRequired, RequiredAtLeastOne };
+export type { RequiredPick, PartialOmit, RequiredAtLeastOne };
