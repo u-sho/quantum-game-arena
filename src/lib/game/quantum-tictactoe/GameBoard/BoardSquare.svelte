@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { StateType } from '$lib/quantum-tictactoe/Game';
+	import type { StateType } from '$lib/game/quantum-tictactoe/Game';
 
 	export let cMark: StateType['cSquares'][0];
 	export let qMarks: StateType['qSquares'][0];
@@ -26,7 +26,7 @@
 	</div>
 	<div class={marksClass}>
 		{#if cMark}
-			{cMark[0]}<sub>{cMark[1]}</sub>
+			<span>{cMark[0]}<sub>{cMark[1]}</sub></span>
 		{:else}
 			<QuantumMarks {isHighlighted} {isBeingCollapsed} {qMarks} {cycleMarks} />
 		{/if}
@@ -34,19 +34,9 @@
 </div>
 
 <style lang="scss">
-	.marks {
-		margin: 5px;
-		margin-top: 5px;
-	}
-
-	.adjustCenter {
-		margin-top: 20px;
-		margin-left: 30px;
-	}
-
 	.square {
-		background: #374046;
-		border: 2px solid #999;
+		background: var(--bg-color);
+		border: 2px solid var(--theme-color);
 		float: left;
 		font-size: 24px;
 		font-weight: bold;
@@ -55,7 +45,6 @@
 		width: 160px;
 		margin-right: -1px;
 		margin-top: -1px;
-		border-color: #00bbd3;
 		user-select: none;
 	}
 
@@ -65,17 +54,17 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		color: #e0e0e0;
+		color: var(--theme-color);
 	}
 
 	.selected {
-		color: #e74c3c;
+		color: var(--accent-color);
 	}
 
 	.rotating-dashed {
 		position: relative;
 		overflow: hidden;
-		color: #00bbd3;
+		color: var(--theme-color);
 
 		.dashing {
 			display: block;
@@ -97,12 +86,12 @@
 			}
 
 			i {
+				border-bottom: 5px dashed;
 				display: block;
 				position: absolute;
 				left: 0;
 				top: 0;
 				width: 200%;
-				border-bottom: 5px dashed;
 				animation: slideDash 2.5s infinite linear;
 			}
 		}
@@ -114,6 +103,21 @@
 		}
 		to {
 			transform: translateX(0%);
+		}
+	}
+
+	.marks {
+		margin: 0;
+		padding: 10px 16px;
+	}
+
+	.adjustCenter {
+		padding: 0;
+		span {
+			line-height: 1;
+			sub {
+				font-size: 30px;
+			}
 		}
 	}
 </style>

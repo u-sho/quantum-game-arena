@@ -1,35 +1,26 @@
 <script lang="ts">
-	import OfflineApp from '$lib/quantum-tictactoe/OfflineApp.svelte';
+	import OfflineApp from '$lib/game/quantum-tictactoe/OfflineApp.svelte';
+	import TheHeader from '$lib/TheHeader/index.svelte';
 </script>
 
 <svelte:head>
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 </svelte:head>
 
-<div class="container">
-	<!-- <ReactDipper styleParams={{ backgroundColor: 'none !important' }} /> -->
-
-	<div class="overlay">
-		<div class="withinOverlay">
-			<div class="board"><OfflineApp /></div>
-		</div>
-	</div>
-</div>
+<TheHeader />
+<main>
+	<!-- <SvelteDipper /> -->
+	<h1 class="title">Quantum Tic-Tac-Toe</h1>
+	<OfflineApp />
+</main>
 
 <style lang="scss">
-	.overlay {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-	}
-	.withinOverlay {
-		position: relative;
-		left: -50%;
-		margin-top: -25%;
-	}
-
-	.board {
-		position: relative;
-		margin-top: -40%;
+	main {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	}
 </style>

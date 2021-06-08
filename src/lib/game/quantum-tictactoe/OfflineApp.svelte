@@ -1,6 +1,6 @@
 <script lang="ts">
-	import GameBoard from '$lib/quantum-tictactoe/GameBoard/index.svelte';
-	import SideBar from '$lib/quantum-tictactoe/SideBar.svelte';
+	import GameBoard from '$lib/game/quantum-tictactoe/GameBoard/index.svelte';
+	import SideBar from '$lib/game/quantum-tictactoe/SideBar.svelte';
 	import type { TurnType, SquareNumType } from './Game';
 	import Game from './Game';
 
@@ -34,30 +34,23 @@
 	}
 </script>
 
-<div>
-	<h1 class="title">Quantum Tic-Tac-Toe</h1>
-	<div class="game">
-		<div class="game-board">
-			<GameBoard
-				cSquares={state.cSquares}
-				qSquares={state.qSquares}
-				cycleSquares={state.cycleSquares}
-				cycleMarks={state.cycleMarks}
-				collapseSquare={state.collapseSquare}
-				onSquareClick={handleSquareClick}
-			/>
-			<div class="xScore">X: {state.xScore}</div>
-			<div class="yScore">Y: {state.yScore}</div>
-		</div>
-		<SideBar {status} {choices} onChoiceClick={handleCollapse} />
+<div class="game">
+	<div class="game-board">
+		<GameBoard
+			cSquares={state.cSquares}
+			qSquares={state.qSquares}
+			cycleSquares={state.cycleSquares}
+			cycleMarks={state.cycleMarks}
+			collapseSquare={state.collapseSquare}
+			onSquareClick={handleSquareClick}
+		/>
+		<div class="xScore">X: {state.xScore}</div>
+		<div class="yScore">Y: {state.yScore}</div>
 	</div>
+	<SideBar {status} {choices} onChoiceClick={handleCollapse} />
 </div>
 
 <style lang="scss">
-	.title {
-		text-align: center;
-	}
-
 	.game {
 		display: flex;
 		flex-direction: row;

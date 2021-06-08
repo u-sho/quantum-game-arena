@@ -31,7 +31,7 @@
 		width: 50px;
 		height: 50px;
 		border: 2px;
-		border-color: #e74c3c;
+		border-color: var(--accent-color);
 		text-align: center;
 		cursor: default;
 		border-style: solid;
@@ -39,7 +39,7 @@
 		user-select: none;
 
 		&:hover {
-			background-color: #e74c3c;
+			background-color: var(--accent-color);
 		}
 	}
 
