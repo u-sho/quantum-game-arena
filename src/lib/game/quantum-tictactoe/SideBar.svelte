@@ -9,10 +9,12 @@
 
 	// Conveys player information about the state of the game
 	export let status: string;
+
+	export let scores: { X: number; Y: number };
 </script>
 
 <div class="game-info">
-	<div class="status">{status}</div>
+	<p class="status">{status}</p>
 	{#if choices}
 		{#each choices as choice (choice)}
 			<div class="collapseChoice" on:click|preventDefault={(_) => onChoiceClick(choice)}>
@@ -20,6 +22,10 @@
 			</div>
 		{/each}
 	{/if}
+	<div>
+		<span class="xScore">X: {scores.X}</span>
+		<span class="yScore">Y: {scores.Y}</span>
+	</div>
 </div>
 
 <style lang="scss">

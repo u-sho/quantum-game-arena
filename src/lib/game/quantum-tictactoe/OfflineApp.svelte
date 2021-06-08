@@ -44,10 +44,13 @@
 			collapseSquare={state.collapseSquare}
 			onSquareClick={handleSquareClick}
 		/>
-		<div class="xScore">X: {state.xScore}</div>
-		<div class="yScore">Y: {state.yScore}</div>
 	</div>
-	<SideBar {status} {choices} onChoiceClick={handleCollapse} />
+	<SideBar
+		{status}
+		{choices}
+		scores={{ X: state.xScore, Y: state.yScore }}
+		onChoiceClick={handleCollapse}
+	/>
 </div>
 
 <style lang="scss">
@@ -55,21 +58,11 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+		flex-wrap: wrap;
 		margin-top: 50px;
 	}
 
 	.game-board {
 		width: 500px;
-	}
-
-	.xScore {
-		margin-top: 10px;
-		font-size: 20px;
-		float: left;
-	}
-	.yScore {
-		margin-top: 10px;
-		font-size: 20px;
-		float: right;
 	}
 </style>
