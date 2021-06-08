@@ -45,15 +45,16 @@
 		width: 160px;
 		margin-right: -1px;
 		margin-top: -1px;
+		cursor: pointer;
 		user-select: none;
 	}
 
 	.classical {
 		font-size: 60px;
 		display: flex;
-		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+		cursor: default;
 		color: var(--theme-color);
 	}
 
