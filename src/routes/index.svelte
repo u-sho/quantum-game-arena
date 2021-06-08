@@ -2,10 +2,16 @@
 	export const prerender = true;
 </script>
 
+<script lang="ts">
+	import TheHeader from '$lib/TheHeader/index.svelte';
+	import TheFooter from '$lib/TheFooter/index.svelte';
+</script>
+
 <svelte:head>
 	<title>Quantum Game Arena</title>
 </svelte:head>
 
+<TheHeader />
 <article>
 	<header class="hero" id="top">
 		<h1>Quantum Game Arena</h1>
@@ -37,6 +43,7 @@
 		</nav>
 	</section>
 </article>
+<TheFooter />
 
 <style lang="scss">
 	.hero {
