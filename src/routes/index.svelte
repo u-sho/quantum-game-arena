@@ -3,15 +3,15 @@
 </script>
 
 <script lang="ts">
-	import AppHeader from '$lib/AppHeader/index.svelte';
-	import AppFooter from '$lib/AppFooter/index.svelte';
+	import TheHeader from '$lib/TheHeader/index.svelte';
+	import TheFooter from '$lib/TheFooter/index.svelte';
 </script>
 
 <svelte:head>
 	<title>Quantum Game Arena</title>
 </svelte:head>
 
-<AppHeader />
+<TheHeader />
 <article>
 	<header class="hero" id="top">
 		<h1>Quantum Game Arena</h1>
@@ -43,7 +43,7 @@
 		</nav>
 	</section>
 </article>
-<AppFooter />
+<TheFooter />
 
 <style lang="scss">
 	.hero {

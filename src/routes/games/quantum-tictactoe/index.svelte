@@ -3,15 +3,15 @@
 </script>
 
 <script lang="ts">
-	import AppHeader from '$lib/AppHeader/index.svelte';
-	import AppFooter from '$lib/AppFooter/index.svelte';
+	import TheHeader from '$lib/TheHeader/index.svelte';
+	import TheFooter from '$lib/TheFooter/index.svelte';
 </script>
 
 <svelte:head>
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 </svelte:head>
 
-<AppHeader />
+<TheHeader />
 <main class="main">
 	<h1 class="main--title">Quantum Tic-Tac-Toe</h1>
 	<ul class="nav">
@@ -34,14 +34,14 @@
 		<li class="comming-soon"><span class="btn">オンライン対局</span></li>
 	</ul>
 </main>
-<AppFooter>
+<TheFooter>
 	<!--TODO: <menu>
 	<li>seetings</li>
 	<li>license</li>
 	<li>share</li>
 	<li>help</li>
 </menu> -->
-</AppFooter>
+</TheFooter>
 
 <style lang="scss">
 	.main {
