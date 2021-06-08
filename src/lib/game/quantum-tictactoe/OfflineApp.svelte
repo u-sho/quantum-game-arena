@@ -4,8 +4,9 @@
 	import type { TurnType, SquareNumType } from './Game';
 	import Game from './Game';
 
-	const game = new Game();
+	let game = new Game();
 	game.setStatus("Player X's turn!");
+	let gameCount = 1;
 
 	let state = game.state;
 
@@ -17,7 +18,7 @@
 			: undefined;
 
 	function handleSquareClick(i: SquareNumType) {
-		console.table(game);
+		console.table(game.state);
 		const statuses = game.handleSquareClick(i);
 		const status = statuses[game.whoseTurn()] as string;
 
@@ -30,6 +31,23 @@
 		const status = statuses[game.whoseTurn()];
 
 		game.setStatus(status);
+		state = { ...game.state };
+	}
+
+	function handleNextGameClick() {
+		game = new Game();
+		game.setState({ xScore: state.xScore, yScore: state.yScore });
+		game.setStatus("Player X's turn!");
+		gameCount += 1;
+
+		state = { ...game.state };
+	}
+
+	function handleResetGameClick() {
+		game = new Game();
+		game.setStatus("Player X's turn!");
+		gameCount = 1;
+
 		state = { ...game.state };
 	}
 </script>
@@ -48,8 +66,11 @@
 	<SideBar
 		{status}
 		{choices}
+		isGameOver={state.isGameOver}
 		scores={{ X: state.xScore, Y: state.yScore }}
 		onChoiceClick={handleCollapse}
+		onNextGameClick={handleNextGameClick}
+		onResetGameClick={handleResetGameClick}
 	/>
 </div>
 

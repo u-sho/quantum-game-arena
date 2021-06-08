@@ -10,7 +10,14 @@
 	// Conveys player information about the state of the game
 	export let status: string;
 
+	export let isGameOver: boolean;
 	export let scores: { X: number; Y: number };
+
+	// Go to next game with scores
+	export let onNextGameClick: () => void;
+
+	// Reset scores & Go to new game
+	export let onResetGameClick: () => void;
 </script>
 
 <div class="game-info">
@@ -21,6 +28,10 @@
 				<span>{choice[0]}<sub>{choice[1]}</sub></span>
 			</div>
 		{/each}
+	{/if}
+	{#if isGameOver}
+		<div class="next-game-btn" on:click|preventDefault={onNextGameClick}>Next</div>
+		<div class="reset-game-btn" on:click|preventDefault={onResetGameClick}>Reset</div>
 	{/if}
 	<div>
 		<span class="xScore">X: {scores.X}</span>
@@ -60,5 +71,35 @@
 	.status {
 		margin-bottom: 10px;
 		width: 300px;
+	}
+
+	.next-game-btn,
+	.reset-game-btn {
+		width: 200px;
+		height: 50px;
+		font-family: inherit;
+		font-size: 20px;
+		border: 2px solid;
+		text-align: center;
+		cursor: pointer;
+		margin: 5px;
+	}
+	.next-game-btn {
+		background-color: var(--bg-color);
+		border-color: var(--accent-color);
+		color: var(--accent-color);
+		&:hover {
+			background-color: var(--accent-color);
+			color: var(--bg-color);
+		}
+	}
+	.reset-game-btn {
+		background-color: var(--bg-color);
+		border-color: var(--theme-color);
+		color: var(--theme-color);
+		&:hover {
+			color: var(--bg-color);
+			background-color: var(--theme-color);
+		}
 	}
 </style>
