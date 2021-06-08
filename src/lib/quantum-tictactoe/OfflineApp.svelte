@@ -1,8 +1,8 @@
 <script lang="ts">
 	import GameBoard from '$lib/quantum-tictactoe/GameBoard/index.svelte';
 	import SideBar from '$lib/quantum-tictactoe/SideBar.svelte';
-	import type { TurnType, SquareNumType } from '$lib/quantum-tictactoe/Game';
-	import Game from '$lib/quantum-tictactoe/Game';
+	import type { TurnType, SquareNumType } from './Game';
+	import Game from './Game';
 
 	const game = new Game();
 	game.setStatus("Player X's turn!");
