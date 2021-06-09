@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TurnType } from '$lib/games/quantum-tictactoe/Game';
+	import type { TurnType } from '$lib/games/quantum-tictactoe/QuantumTTT';
 
 	export let qMarks: TurnType[];
 	export let cycleMarks: TurnType[] | null;

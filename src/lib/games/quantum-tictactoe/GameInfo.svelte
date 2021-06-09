@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TurnType } from './Game';
+	import type { TurnType } from './QuantumTTT';
 
 	// Contains marks in selected square if collapse ongoing
 	export let choices: TurnType[] | undefined;

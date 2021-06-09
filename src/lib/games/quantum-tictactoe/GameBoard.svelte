@@ -1,6 +1,6 @@
 <script lang="ts">
 	import BoardSquare from './GameBoardSquare/index.svelte';
-	import type { SquareNumType, StateType } from './Game';
+	import type { SquareNumType, StateType } from './QuantumTTT';
 
 	export let cSquares: StateType['cSquares'];
 	export let qSquares: StateType['qSquares'];

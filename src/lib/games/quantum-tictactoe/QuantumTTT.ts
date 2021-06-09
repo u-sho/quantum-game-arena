@@ -12,7 +12,8 @@ type SubTurnNumType = 0 | 1 | 2 | 3;
 
 export type PlayerType = 'X' | 'Y';
 export type TurnNumType = 1 | 2 | 3 | 4 | 5 | 6;
-export type TurnType = `${PlayerType}${TurnNumType}`;
+export type MarkType = `${PlayerType}${TurnNumType}`;
+export type TurnType = MarkType;
 
 export type SquareNumType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -24,17 +25,17 @@ export type StateType = {
 	 * `i`th element contains classical mark for `i`th square, `null` if it has none
 	 * (3x3 grid of squares is represented as 1D array of length 9).
 	 */
-	cSquares: ConstArray<null | TurnType, 9>;
+	cSquares: ConstArray<null | MarkType, 9>;
 
 	/**
 	 * `i`th element contains list of quantum marks contained in square `i`th square,
 	 * `null` if it has none.
 	 */
-	qSquares: ConstArray<null | TurnType[], 9>;
+	qSquares: ConstArray<null | MarkType[], 9>;
 
 	turnNum: TurnNumType;
 	subTurnNum: SubTurnNumType;
-	lastMove?: SquareNumType;
+	lastMove: SquareNumType | null;
 
 	/**
 	 * Array of indexes of Squares involved in a cycle, `null` if none exists.
@@ -60,7 +61,7 @@ export type StateType = {
 	status?: StatusType; // display messages
 };
 
-export default class Game {
+export default class QuantumTTT {
 	g: Graph;
 	state: StateType;
 	X?: SocketIdType;
@@ -73,6 +74,7 @@ export default class Game {
 			qSquares: Array(9).fill(null) as ConstArray<null, 9>,
 			turnNum: 1,
 			subTurnNum: 0,
+			lastMove: null,
 			cycleSquares: null,
 			cycleMarks: null,
 			collapseSquare: null,

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import GameBoard from './GameBoard.svelte';
 	import GameInfo from './GameInfo.svelte';
-	import type { TurnType, SquareNumType } from './Game';
-	import Game from './Game';
+	import type { TurnType, SquareNumType } from './QuantumTTT';
+	import Game from './QuantumTTT';
 
 	let game = new Game();
 	game.setStatus("Player X's turn!");

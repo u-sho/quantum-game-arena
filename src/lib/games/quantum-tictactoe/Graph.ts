@@ -1,4 +1,4 @@
-import type { TurnType } from './Game';
+import type { TurnType } from './QuantumTTT';
 
 export type NodeIdType = number;
 export type EdgeKeyType = TurnType;
