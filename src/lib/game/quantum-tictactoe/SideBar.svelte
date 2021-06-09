@@ -30,12 +30,18 @@
 		{/each}
 	{/if}
 	{#if isGameOver}
-		<div class="next-game-btn" on:click|preventDefault={onNextGameClick}>Next</div>
-		<div class="reset-game-btn" on:click|preventDefault={onResetGameClick}>Reset</div>
+		<div class="btn-list">
+			<div class="btn next-game" on:click|preventDefault={onNextGameClick}>
+				<span class="btn-text">Next</span>
+			</div>
+			<div class="btn reset-game" on:click|preventDefault={onResetGameClick}>
+				<span class="btn-text">Reset</span>
+			</div>
+		</div>
 	{/if}
 	<div>
-		<span class="xScore">X: {scores.X}</span>
-		<span class="yScore">Y: {scores.Y}</span>
+		<span class="x-score">X: {scores.X}</span>
+		<span class="y-score">Y: {scores.Y}</span>
 	</div>
 </div>
 
@@ -66,34 +72,46 @@
 	.game-info {
 		margin-left: 20px;
 		top: 0px;
+		width: 480px;
 	}
 
-	.status {
-		margin-bottom: 10px;
-		width: 300px;
+	.btn-list {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
 	}
 
-	.next-game-btn,
-	.reset-game-btn {
-		width: 200px;
+	.btn {
+		box-sizing: border-box;
+		margin: 5px;
+		padding: 0;
+		width: 160px;
 		height: 50px;
-		font-family: inherit;
-		font-size: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		border: 2px solid;
 		text-align: center;
 		cursor: pointer;
-		margin: 5px;
+
+		.btn-text {
+			font-size: 24px;
+			line-height: 50px;
+		}
 	}
-	.next-game-btn {
+
+	.next-game {
 		background-color: var(--bg-color);
 		border-color: var(--accent-color);
 		color: var(--accent-color);
+		font-weight: bold;
 		&:hover {
 			background-color: var(--accent-color);
 			color: var(--bg-color);
 		}
 	}
-	.reset-game-btn {
+
+	.reset-game {
 		background-color: var(--bg-color);
 		border-color: var(--theme-color);
 		color: var(--theme-color);

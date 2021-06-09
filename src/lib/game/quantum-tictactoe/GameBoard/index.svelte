@@ -18,9 +18,9 @@
 		onSquareClick((row * 3 + column) as SquareNumType);
 </script>
 
-<div>
+<div class="game-board">
 	{#each rows as row}
-		<div>
+		<div class="game-board--row">
 			{#each columns as column}
 				<BoardSquare
 					cMark={cSquares[row * 3 + column]}
@@ -34,3 +34,21 @@
 		</div>
 	{/each}
 </div>
+
+<style lang="scss">
+	.game-board {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.game-board--row {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
