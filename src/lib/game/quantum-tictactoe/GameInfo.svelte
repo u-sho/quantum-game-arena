@@ -23,11 +23,13 @@
 <div class="game-info">
 	<p class="status">{status}</p>
 	{#if choices}
-		{#each choices as choice (choice)}
-			<div class="collapse-choice-btn" on:click|preventDefault={(_) => onChoiceClick(choice)}>
-				<span>{choice[0]}<sub>{choice[1]}</sub></span>
-			</div>
-		{/each}
+		<div class="btn-list">
+			{#each choices as choice (choice)}
+				<div class="btn collapse-choice" on:click|preventDefault={(_) => onChoiceClick(choice)}>
+					<span>{choice[0]}<sub>{choice[1]}</sub></span>
+				</div>
+			{/each}
+		</div>
 	{/if}
 	{#if isGameOver}
 		<div class="btn-list">
@@ -46,7 +48,7 @@
 </div>
 
 <style lang="scss">
-	.collapse-choice-btn {
+	.collapse-choice {
 		width: 50px;
 		height: 50px;
 		font-size: 24px;

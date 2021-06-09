@@ -16,7 +16,7 @@
 </script>
 
 <div class="quantum-marks">
-	{#each qMarks as m, i (m)}
+	{#each qMarks as m (m)}
 		<span class={getTextColor(m)}>{m[0]}<sub>{m[1]}</sub></span>
 	{/each}
 </div>

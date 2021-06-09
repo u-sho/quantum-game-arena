@@ -1,6 +1,6 @@
 <script lang="ts">
-	import GameBoard from '$lib/game/quantum-tictactoe/GameBoard/index.svelte';
-	import SideBar from '$lib/game/quantum-tictactoe/SideBar.svelte';
+	import GameBoard from './GameBoard.svelte';
+	import GameInfo from './GameInfo.svelte';
 	import type { TurnType, SquareNumType } from './Game';
 	import Game from './Game';
 
@@ -63,7 +63,7 @@
 			onSquareClick={handleSquareClick}
 		/>
 	</div>
-	<SideBar
+	<GameInfo
 		{status}
 		{choices}
 		isGameOver={state.isGameOver}

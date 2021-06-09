@@ -1,6 +1,6 @@
 <script lang="ts">
-	import BoardSquare from './BoardSquare.svelte';
-	import type { SquareNumType, StateType } from '$lib/game/quantum-tictactoe/Game';
+	import BoardSquare from './GameBoardSquare/index.svelte';
+	import type { SquareNumType, StateType } from './Game';
 
 	export let cSquares: StateType['cSquares'];
 	export let qSquares: StateType['qSquares'];
