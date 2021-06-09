@@ -1,6 +1,6 @@
 <script lang="ts">
-	import OfflineApp from '$lib/game/quantum-tictactoe/OfflineApp.svelte';
 	import TheHeader from '$lib/TheHeader/index.svelte';
+	import OfflineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 </script>
 
 <svelte:head>
