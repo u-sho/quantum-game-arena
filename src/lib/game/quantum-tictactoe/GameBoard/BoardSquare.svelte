@@ -1,4 +1,6 @@
 <script lang="ts">
+	import QuantumMarks from './QuantumMarks.svelte';
+	import ClassicalMark from './ClassicalMark.svelte';
 	import type { StateType } from '$lib/game/quantum-tictactoe/Game';
 
 	export let cMark: StateType['cSquares'][0];
@@ -8,66 +10,45 @@
 	export let isBeingCollapsed: boolean;
 	export let onClick: () => void;
 
-	import QuantumMarks from './QuantumMarks.svelte';
-
 	$: squareClass = cMark
-		? 'square classical'
-		: `square${isHighlighted ? ' rotating-dashed' : ''}${isBeingCollapsed ? ' selected' : ''}`;
-
-	$: marksClass = cMark ? 'marks adjustCenter' : 'marks';
+		? 'square'
+		: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
 </script>
 
 <div class={squareClass} on:click|preventDefault={(_) => onClick()}>
 	<div>
-		<span class="dashing"><i /></span>
-		<span class="dashing"><i /></span>
-		<span class="dashing"><i /></span>
-		<span class="dashing"><i /></span>
+		<span class="border-dashing"><i /></span>
+		<span class="border-dashing"><i /></span>
+		<span class="border-dashing"><i /></span>
+		<span class="border-dashing"><i /></span>
 	</div>
-	<div class={marksClass}>
-		{#if cMark}
-			<span>{cMark[0]}<sub>{cMark[1]}</sub></span>
-		{:else}
-			<QuantumMarks {isHighlighted} {isBeingCollapsed} {qMarks} {cycleMarks} />
-		{/if}
-	</div>
+	{#if cMark}
+		<ClassicalMark {cMark} />
+	{/if}
+	{#if qMarks}
+		<QuantumMarks {isHighlighted} {isBeingCollapsed} {qMarks} {cycleMarks} />
+	{/if}
 </div>
 
 <style lang="scss">
 	.square {
 		background: var(--bg-color);
 		border: 2px solid var(--theme-color);
-		float: left;
-		font-size: 24px;
-		font-weight: bold;
-		line-height: 34px;
 		height: 160px;
 		width: 160px;
-		margin-right: -1px;
-		margin-top: -1px;
-		cursor: pointer;
-		user-select: none;
-	}
-
-	.classical {
-		font-size: 60px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		cursor: default;
-		color: var(--theme-color);
+		margin: -1px;
 	}
 
 	.selected {
 		color: var(--accent-color);
 	}
 
-	.rotating-dashed {
+	.highlighted {
 		position: relative;
 		overflow: hidden;
 		color: var(--theme-color);
 
-		.dashing {
+		.border-dashing {
 			display: block;
 			width: 100%;
 			height: 100%;
@@ -87,7 +68,7 @@
 			}
 
 			i {
-				border-bottom: 5px dashed;
+				border-bottom: 5px dashed var(--theme-color);
 				display: block;
 				position: absolute;
 				left: 0;
@@ -104,21 +85,6 @@
 		}
 		to {
 			transform: translateX(0%);
-		}
-	}
-
-	.marks {
-		margin: 0;
-		padding: 10px 16px;
-	}
-
-	.adjustCenter {
-		padding: 0;
-		span {
-			line-height: 1;
-			sub {
-				font-size: 30px;
-			}
 		}
 	}
 </style>
