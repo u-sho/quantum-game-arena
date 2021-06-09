@@ -37,6 +37,7 @@
 
 <style lang="scss">
 	.game-board {
+		border: 2px solid var(--theme-color);
 		display: flex;
 		flex-wrap: nowrap;
 		flex-direction: column;

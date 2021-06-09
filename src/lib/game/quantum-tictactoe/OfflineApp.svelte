@@ -53,16 +53,14 @@
 </script>
 
 <div class="game">
-	<div class="game-board">
-		<GameBoard
-			cSquares={state.cSquares}
-			qSquares={state.qSquares}
-			cycleSquares={state.cycleSquares}
-			cycleMarks={state.cycleMarks}
-			collapseSquare={state.collapseSquare}
-			onSquareClick={handleSquareClick}
-		/>
-	</div>
+	<GameBoard
+		cSquares={state.cSquares}
+		qSquares={state.qSquares}
+		cycleSquares={state.cycleSquares}
+		cycleMarks={state.cycleMarks}
+		collapseSquare={state.collapseSquare}
+		onSquareClick={handleSquareClick}
+	/>
 	<GameInfo
 		{status}
 		{choices}
@@ -81,9 +79,5 @@
 		justify-content: center;
 		flex-wrap: wrap;
 		margin-top: 50px;
-	}
-
-	.game-board {
-		width: 500px;
 	}
 </style>

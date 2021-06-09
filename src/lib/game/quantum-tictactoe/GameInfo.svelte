@@ -41,9 +41,10 @@
 			</div>
 		</div>
 	{/if}
-	<div>
-		<span class="x-score">X: {scores.X}</span>
-		<span class="y-score">Y: {scores.Y}</span>
+	<div class="scores">
+		Current scores:
+		<span>X: {scores.X}</span>,
+		<span>Y: {scores.Y}</span>
 	</div>
 </div>
 
@@ -75,12 +76,23 @@
 		margin-left: 20px;
 		top: 0px;
 		width: 480px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: stretch;
+	}
+
+	.status {
+		box-sizing: border-box;
+		padding: 8px 0;
+		font-size: 24px;
 	}
 
 	.btn-list {
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+		margin: 12px 0;
 	}
 
 	.btn {
@@ -121,5 +133,17 @@
 			color: var(--bg-color);
 			background-color: var(--theme-color);
 		}
+	}
+
+	.scores {
+		box-sizing: border-box;
+		border-top: 2px solid var(--theme-color);
+		padding-top: 12px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 24px;
+		font-weight: bold;
 	}
 </style>
