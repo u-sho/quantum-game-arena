@@ -346,11 +346,11 @@ function calculateScores(squares: Readonly<ConstArray<TurnType | null, 9>>) {
 	const scores = { X: 0, Y: 0 };
 
 	if (winners.length >= 1) scores[winners[0][1]] = 1;
-	else if (winners.length >= 2) scores[winners[1][1]] += 0.5;
-	else if (winners.length === 3) scores[winners[2][1]] += 0.5;
+	if (winners.length >= 2) scores[winners[1][1]] += 0.5;
+	if (winners.length === 3) scores[winners[2][1]] += 0.5;
 
 	return scores as {
-		X: 0 | 1 | 0.5;
-		Y: 0 | 1 | 0.5;
+		X: 0 | 0.5 | 1 | 1.5 | 2;
+		Y: 0 | 0.5 | 1 | 1.5 | 2;
 	};
 }

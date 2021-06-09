@@ -4,7 +4,7 @@
 	:root {
 		--theme-color: #7a9de3;
 		--theme-light-color: #f0f7ff;
-		--accent-color: #8b0204;
+		--accent-color: #e45355;
 		--bg-color: #ffffff;
 	}
 

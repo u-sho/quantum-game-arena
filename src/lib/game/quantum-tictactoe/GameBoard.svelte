@@ -1,6 +1,6 @@
 <script lang="ts">
-	import BoardSquare from './BoardSquare.svelte';
-	import type { SquareNumType, StateType } from '$lib/quantum-tictactoe/Game';
+	import BoardSquare from './GameBoardSquare/index.svelte';
+	import type { SquareNumType, StateType } from './Game';
 
 	export let cSquares: StateType['cSquares'];
 	export let qSquares: StateType['qSquares'];
@@ -18,9 +18,9 @@
 		onSquareClick((row * 3 + column) as SquareNumType);
 </script>
 
-<div>
+<div class="game-board">
 	{#each rows as row}
-		<div class="board-row">
+		<div class="game-board--row">
 			{#each columns as column}
 				<BoardSquare
 					cMark={cSquares[row * 3 + column]}
@@ -36,9 +36,20 @@
 </div>
 
 <style lang="scss">
-	.board-row:after {
-		clear: both;
-		content: '';
-		display: table;
+	.game-board {
+		border: 2px solid var(--theme-color);
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.game-board--row {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
