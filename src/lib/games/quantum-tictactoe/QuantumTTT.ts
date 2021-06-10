@@ -29,8 +29,8 @@ export type StateType = {
 	 */
 	qSquares: ConstArray<null | MaxLengthArray<MarkType, 9>, 9>;
 
-	turnNum: TurnNumType;
-	subTurnNum: SubTurnNumType;
+	currentTurn: TurnNumType;
+	currentSubTurn: SubTurnNumType;
 	lastMove: SquareNumType | null;
 
 	/**
@@ -49,9 +49,7 @@ export type StateType = {
 	collapseSquare: SquareNumType | null;
 
 	/** in seconds */
-	xTimeLeft: number;
-	/** in seconds */
-	yTimeLeft: number;
+	leftTimes: Record<PlayerType, number>;
 
 	isOver: boolean;
 	scores: { X: number; Y: number };
@@ -69,15 +67,17 @@ export default class QuantumTTT {
 		this.state = {
 			cSquares: Array(9).fill(null) as ConstArray<null, 9>,
 			qSquares: Array(9).fill(null) as ConstArray<null, 9>,
-			turnNum: 1,
-			subTurnNum: 0,
+			currentTurn: 1,
+			currentSubTurn: 0,
 			lastMove: null,
 			cycleSquares: null,
 			cycleMarks: null,
 			collapseSquare: null,
 			isOver: false,
-			xTimeLeft: 60 * 5,
-			yTimeLeft: 60 * 5,
+			leftTimes: {
+				X: 60 * 5,
+				Y: 60 * 5
+			},
 			scores: { X: 0, Y: 0 },
 			status: "Player X's turn!"
 		};
@@ -86,40 +86,47 @@ export default class QuantumTTT {
 	setState(obj: Readonly<RequiredAtLeastOne<StateType>>): void {
 		Object.assign(this.state, obj);
 	}
+	setLeftTimes(obj: Readonly<RequiredAtLeastOne<StateType['leftTimes']>>): void {
+		Object.assign(this.state.leftTimes, obj);
+	}
 	setStatus(msg: Readonly<StatusType>): void {
 		this.setState({ status: msg });
 	}
 
 	whoseTurn(): PlayerType {
-		return this.state.subTurnNum < 2 ? 'X' : 'Y';
+		return this.state.currentSubTurn < 2 ? 'X' : 'Y';
 	}
 	notWhoseTurn(): PlayerType {
-		return this.state.subTurnNum < 2 ? 'Y' : 'X';
+		return this.state.currentSubTurn < 2 ? 'Y' : 'X';
 	}
 
 	timer(): void {
 		if (this.whoseTurn() === 'X') {
-			if (this.state.xTimeLeft <= 0) {
+			if (this.state.leftTimes.X <= 0) {
 				this.setState({
 					isOver: true,
 					status: 'Player X has run out of time.  Player Y wins!'
 				});
-			} else this.setState({ xTimeLeft: this.state.xTimeLeft - 1 });
+			} else {
+				this.setLeftTimes({ X: this.state.leftTimes.X - 1 });
+			}
 		}
 
 		if (this.whoseTurn() === 'Y') {
-			if (this.state.yTimeLeft <= 0) {
+			if (this.state.leftTimes.Y <= 0) {
 				this.setState({
 					isOver: true,
 					status: 'Player Y has run out of time.  Player X wins!'
 				});
-			} else this.setState({ yTimeLeft: this.state.yTimeLeft - 1 });
+			} else {
+				this.setLeftTimes({ Y: this.state.leftTimes.Y - 1 });
+			}
 		}
 	}
 
 	// dispatches click to appropriate handler based on state
 	handleSquareClick(i: SquareNumType): StatusType {
-		if (this.state.turnNum === 1 && this.state.subTurnNum === 0)
+		if (this.state.currentTurn === 1 && this.state.currentSubTurn === 0)
 			// initialize timer at game start
 			setInterval(this.timer, 1000);
 
@@ -142,7 +149,7 @@ export default class QuantumTTT {
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
 	handleNormalMove(i: SquareNumType): StatusType {
 		const qSquares = this.state.qSquares;
-		const marker = `${this.whoseTurn()}${this.state.turnNum}` as TurnType;
+		const marker = `${this.whoseTurn()}${this.state.currentTurn}` as TurnType;
 
 		if (qSquares[i]) (qSquares[i] as TurnType[]).push(marker);
 		else qSquares[i] = [marker];
@@ -156,8 +163,9 @@ export default class QuantumTTT {
 			qSquares,
 			cycleSquares: cycle?.[0] as MaxLengthArray<SquareNumType, 9> | undefined,
 			cycleMarks: cycle?.[1] as MaxLengthArray<MarkType, 9> | undefined,
-			turnNum: (this.state.turnNum + Number(this.state.subTurnNum === 3)) as TurnNumType,
-			subTurnNum: ((this.state.subTurnNum + 1) % 4) as SubTurnNumType,
+			currentTurn: (this.state.currentTurn +
+				Number(this.state.currentSubTurn === 3)) as TurnNumType,
+			currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnNumType,
 			lastMove: i
 		});
 
@@ -244,7 +252,7 @@ export default class QuantumTTT {
 	}
 
 	isSecondMove(): boolean {
-		return this.state.subTurnNum === 1 || this.state.subTurnNum === 3;
+		return this.state.currentSubTurn === 1 || this.state.currentSubTurn === 3;
 	}
 }
 
