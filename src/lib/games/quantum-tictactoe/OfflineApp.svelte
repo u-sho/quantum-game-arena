@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { MaxLengthArray } from '$lib/types/generics';
+
 	import GameBoard from './GameBoard.svelte';
 	import GameInfo from './GameInfo.svelte';
 	import type { TurnType, SquareNumType } from './QuantumTTT';
@@ -9,29 +11,28 @@
 	let gameCount = 1;
 
 	let state = game.state;
-
-	$: status = state.status as string;
+	let message = state.status;
 
 	$: choices =
 		state.collapseSquare !== null
-			? state.qSquares[state.collapseSquare]?.filter((choice) => state.cycleMarks?.includes(choice))
+			? (state.qSquares[state.collapseSquare]?.filter((choice) =>
+					state.cycleMarks?.includes(choice)
+			  ) as MaxLengthArray<TurnType, 3> | undefined)
 			: undefined;
 
 	function handleSquareClick(i: SquareNumType) {
+		const status = game.handleSquareClick(i);
 		console.table(game.state);
-		const statuses = game.handleSquareClick(i);
-		const status = statuses[game.whoseTurn()] as string;
 
-		game.setStatus(status);
 		state = { ...game.state };
+		message = status;
 	}
 
 	function handleCollapse(mark: TurnType) {
-		const statuses = game.handleCollapse(mark);
-		const status = statuses[game.whoseTurn()];
+		const status = game.handleCollapse(mark);
 
-		game.setStatus(status);
 		state = { ...game.state };
+		message = status;
 	}
 
 	function handleNextGameClick() {
@@ -41,6 +42,7 @@
 		gameCount += 1;
 
 		state = { ...game.state };
+		message = game.state.status;
 	}
 
 	function handleResetGameClick() {
@@ -49,6 +51,7 @@
 		gameCount = 1;
 
 		state = { ...game.state };
+		status = game.state.status;
 	}
 </script>
 
@@ -62,8 +65,8 @@
 		onSquareClick={handleSquareClick}
 	/>
 	<GameInfo
-		{status}
 		{choices}
+		status={message}
 		isGameOver={state.isGameOver}
 		scores={{ X: state.xScore, Y: state.yScore }}
 		onChoiceClick={handleCollapse}

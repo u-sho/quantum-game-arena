@@ -11,7 +11,7 @@ type RequiredAtLeastOne<T, K extends keyof T = keyof T> = K extends keyof T
 	? RequiredPick<T, K> & PartialOmit<T, K>
 	: never;
 
-type ConstArray<T, N> = N extends 0
+type ConstArray<T, N extends number> = N extends 0
 	? []
 	: N extends 3
 	? [T, T, T]
@@ -21,4 +21,6 @@ type ConstArray<T, N> = N extends 0
 	? [T, ...ConstArray<T, 8>]
 	: never;
 
-export type { RequiredPick, PartialOmit, RequiredAtLeastOne, ConstArray };
+type MaxLengthArray<T, N extends number> = Partial<ConstArray<T, N>>;
+
+export type { RequiredPick, PartialOmit, RequiredAtLeastOne, ConstArray, MaxLengthArray };

@@ -1,8 +1,5 @@
-import type { ConstArray, RequiredAtLeastOne } from '$lib/types/generics';
-import type { NodeIdType } from './Graph';
+import type { ConstArray, MaxLengthArray, RequiredAtLeastOne } from '$lib/types/generics';
 import Graph from './Graph';
-
-type SocketIdType = string;
 
 /**
  * has value 0-3 to represent all states within a turn
@@ -17,8 +14,7 @@ export type TurnType = MarkType;
 
 export type SquareNumType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-type PlayersMsg = RequiredAtLeastOne<{ [P in PlayerType]: string }>;
-type StatusType = PlayersMsg | string;
+type StatusType = string;
 
 export type StateType = {
 	/**
@@ -31,7 +27,7 @@ export type StateType = {
 	 * `i`th element contains list of quantum marks contained in square `i`th square,
 	 * `null` if it has none.
 	 */
-	qSquares: ConstArray<null | MarkType[], 9>;
+	qSquares: ConstArray<null | MaxLengthArray<MarkType, 9>, 9>;
 
 	turnNum: TurnNumType;
 	subTurnNum: SubTurnNumType;
@@ -40,32 +36,34 @@ export type StateType = {
 	/**
 	 * Array of indexes of Squares involved in a cycle, `null` if none exists.
 	 */
-	cycleSquares: NodeIdType[] | null;
+	cycleSquares: MaxLengthArray<SquareNumType, 9> | null;
 
 	/**
 	 * Array of marks (eg. 'X1', 'Y3') involved in a cycle, `null` if none exists.
 	 */
-	cycleMarks: TurnType[] | null;
+	cycleMarks: MaxLengthArray<MarkType, 9> | null;
 
 	/**
 	 * Square selected to be origin of collapse, if there is a cycle.
 	 */
 	collapseSquare: SquareNumType | null;
 
-	xTimeLeft: number; // in seconds
-	yTimeLeft: number; // in seconds
+	/** in seconds */
+	xTimeLeft: number;
+	/** in seconds */
+	yTimeLeft: number;
 
 	isGameOver: boolean;
 	xScore: number;
 	yScore: number;
-	status?: StatusType; // display messages
+
+	/** Status messages for players */
+	status: StatusType;
 };
 
 export default class QuantumTTT {
 	g: Graph;
 	state: StateType;
-	X?: SocketIdType;
-	Y?: SocketIdType;
 	constructor() {
 		this.g = new Graph();
 		this.timer = this.timer.bind(this);
@@ -82,7 +80,8 @@ export default class QuantumTTT {
 			xTimeLeft: 60 * 5,
 			yTimeLeft: 60 * 5,
 			xScore: 0,
-			yScore: 0
+			yScore: 0,
+			status: "Player X's turn!"
 		};
 	}
 
@@ -105,7 +104,7 @@ export default class QuantumTTT {
 			if (this.state.xTimeLeft <= 0) {
 				this.setState({
 					isGameOver: true,
-					status: 'Player X has run out of time. Player Y wins!'
+					status: 'Player X has run out of time.  Player Y wins!'
 				});
 			} else this.setState({ xTimeLeft: this.state.xTimeLeft - 1 });
 		}
@@ -114,43 +113,36 @@ export default class QuantumTTT {
 			if (this.state.yTimeLeft <= 0) {
 				this.setState({
 					isGameOver: true,
-					status: 'Player Y has run out of time. Player X wins!'
+					status: 'Player Y has run out of time.  Player X wins!'
 				});
 			} else this.setState({ yTimeLeft: this.state.yTimeLeft - 1 });
 		}
 	}
 
 	// dispatches click to appropriate handler based on state
-	handleSquareClick(i: SquareNumType): PlayersMsg {
+	handleSquareClick(i: SquareNumType): StatusType {
 		if (this.state.turnNum === 1 && this.state.subTurnNum === 0)
 			// initialize timer at game start
 			setInterval(this.timer, 1000);
 
-		if (this.state.isGameOver)
-			return {
-				X: 'This game is already over! Start a new game!!',
-				Y: 'This game is already over! Start a new game!!'
-			};
+		if (this.state.isGameOver) return 'This game is already over!  Start a new game!!';
 
 		if (this.state.cycleSquares) return this._handleCyclicEntanglement(i);
 
 		if (this.state.cSquares[i])
-			return {
-				[this.whoseTurn()]:
-					'This square already has a classical mark! No more quantum marks can go here >:('
-			} as PlayersMsg;
+			return 'This square already has a classical mark!  No more quantum marks can go here >:(';
 
 		if (this.isSecondMove() && this.state.lastMove === i)
-			return {
-				[this.whoseTurn()]:
-					"Can't move twice in the same square! \n What do you think this is... regular tic-tac-toe??"
-			} as PlayersMsg;
+			return (
+				"Can't move twice in the same square!\n" +
+				'What do you think this is... regular tic-tac-toe??'
+			);
 
 		return this.handleNormalMove(i);
 	}
 
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
-	handleNormalMove(i: SquareNumType): Required<PlayersMsg> {
+	handleNormalMove(i: SquareNumType): StatusType {
 		const qSquares = this.state.qSquares;
 		const marker = `${this.whoseTurn()}${this.state.turnNum}` as TurnType;
 
@@ -164,8 +156,8 @@ export default class QuantumTTT {
 		const cycle = this.g.getCycle(i);
 		this.setState({
 			qSquares,
-			cycleSquares: cycle?.[0],
-			cycleMarks: cycle?.[1],
+			cycleSquares: cycle?.[0] as MaxLengthArray<SquareNumType, 9> | undefined,
+			cycleMarks: cycle?.[1] as MaxLengthArray<MarkType, 9> | undefined,
 			turnNum: (this.state.turnNum + Number(this.state.subTurnNum === 3)) as TurnNumType,
 			subTurnNum: ((this.state.subTurnNum + 1) % 4) as SubTurnNumType,
 			lastMove: i
@@ -173,52 +165,39 @@ export default class QuantumTTT {
 
 		if (cycle) {
 			const msg =
-				`A loop of entanglement has occurred! Player ${this.notWhoseTurn()} will decide which of ` +
+				`A loop of entanglement has occurred!  Player ${this.notWhoseTurn()} will decide which of ` +
 				'the possible states the board will collapse into.';
-			return {
-				[this.notWhoseTurn()]: `${msg} Click one of the squares involved in the loop.`,
-				[this.whoseTurn()]: msg
-			} as Required<PlayersMsg>;
+			return `${msg}  Click one of the squares involved in the loop.`;
 		}
 
 		if (this.isSecondMove())
-			return {
-				[this.whoseTurn()]:
-					'Now put a second quantum move. This move is entangled with your previous move. When ' +
-					'there is a cycle of entanglement, a collapse will occur and only one of these quantum ' +
-					'marks will turn into a classical mark.',
-				[this.notWhoseTurn()]: `Player ${this.whoseTurn()}'s move.`
-			} as Required<PlayersMsg>;
+			return (
+				'Now put a second quantum move.  This move is entangled with your previous move.  When ' +
+				'there is a cycle of entanglement, a collapse will occur and only one of these quantum ' +
+				'marks will turn into a classical mark.'
+			);
 
-		return {
-			[this.whoseTurn()]: 'Your turn! Put down a quantum move (these are the small marks).',
-			[this.notWhoseTurn()]: `Now it's ${this.whoseTurn()}'s turn.`
-		} as Required<PlayersMsg>;
+		return `Player ${this.whoseTurn()}'s turn!  Put down a quantum move (these are the small marks).`;
 	}
 
 	// selects square to be collapse point
-	private _handleCyclicEntanglement(i: SquareNumType): PlayersMsg {
+	private _handleCyclicEntanglement(i: SquareNumType): StatusType {
 		if (!this.state.cycleSquares?.includes(i))
-			return {
-				[this.whoseTurn()]:
-					'Must pick square involved in cyclic entanglement! (is highlighted in blue)'
-			} as PlayersMsg;
+			return 'Must pick square involved in cyclic entanglement!  (is highlighted in blue)';
 
 		this.setState({ collapseSquare: i });
-		return {
-			[this.whoseTurn()]: 'Now, choose below which state you want to occupy the selected square.'
-		} as PlayersMsg;
+		return 'Now, choose below which state you want to occupy the selected square.';
 	}
 
 	// collapse square and propagates changes outward
-	handleCollapse(mark: TurnType): Required<PlayersMsg> {
+	handleCollapse(mark: TurnType): StatusType {
 		console.log(mark);
 		const i = this.state.collapseSquare as number;
 		const visited = new Set([mark]);
 
 		this._handleCollapseHelper(mark, i, visited);
 
-		const scores = calculateScores(this.state.cSquares);
+		const scores = _calculateScores(this.state.cSquares);
 		if (scores === null) {
 			this.setState({
 				cycleSquares: null,
@@ -226,17 +205,11 @@ export default class QuantumTTT {
 				collapseSquare: null
 			});
 
-			return {
-				X: `${this.whoseTurn()} next!`,
-				Y: `${this.whoseTurn()} next!`
-			};
+			return `${this.whoseTurn()} next!`;
 		}
 
-		// end of game
-		const status = {
-			X: getWinnerMsg(scores),
-			Y: getWinnerMsg(scores)
-		};
+		// end of the game
+		const status = _getWinnerMsg(scores);
 
 		this.setState({
 			status,
@@ -270,42 +243,28 @@ export default class QuantumTTT {
 		}
 	}
 
-	handleNotYourTurn(): [SocketIdType | undefined, "It's not your turn!"] {
-		return [this[this.notWhoseTurn()], "It's not your turn!"];
-	}
-
-	getPlayer(socketID: SocketIdType): PlayerType | void {
-		if (this.X === socketID) return 'X';
-		if (this.Y === socketID) return 'Y';
-	}
-
-	// utility functions
-	isTurn(id: SocketIdType): boolean {
-		return this[this.whoseTurn()] === id;
-	}
-
 	isSecondMove(): boolean {
 		return this.state.subTurnNum === 1 || this.state.subTurnNum === 3;
 	}
 }
 
 // pure functions to help with game logic in index.js
-function getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
+function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 	const winner = scores.X > scores.Y ? 'X' : 'Y';
 	const loser = winner === 'X' ? 'Y' : 'X';
 
 	if (scores.X + scores.Y === 1)
-		return `${winner} wins!!! \n ${winner} gets 1 point \n ${loser} gets 0 points`;
+		return `${winner} wins!!!\n ${winner} gets 1 point\n ${loser} gets 0 points`;
 
 	if (scores.X === 1.5 || scores.Y === 1.5)
 		return (
-			`${winner} wins with a double three-in-a-row!!! \n ${winner} gets 1.5 points \n ` +
+			`${winner} wins with a double three-in-a-row!!!\n ${winner} gets 1.5 points \n ` +
 			`${loser} gets 0 points`
 		);
 
 	if (scores.X + scores.Y === 1.5)
 		return (
-			`Both players got three-in-a-row, but ${winner} got it first! (The mark placed in` +
+			`Both players got three-in-a-row, but ${winner} got it first!  The mark placed in` +
 			`${winner}'s three-in-a-row has a smaller subscript than ${loser} \n ${winner} gets 1 point` +
 			` \n ${loser} gets 0.5 points`
 		);
@@ -339,7 +298,7 @@ function _calculateWinners(squares: Readonly<ConstArray<TurnType | null, 9>>): W
 	return winners;
 }
 
-function calculateScores(squares: Readonly<ConstArray<TurnType | null, 9>>) {
+function _calculateScores(squares: Readonly<ConstArray<TurnType | null, 9>>) {
 	const winners = _calculateWinners(squares);
 
 	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
@@ -352,7 +311,7 @@ function calculateScores(squares: Readonly<ConstArray<TurnType | null, 9>>) {
 	if (winners.length === 3) scores[winners[2][1]] += 0.5;
 
 	return scores as {
-		X: 0 | 0.5 | 1 | 1.5 | 2;
-		Y: 0 | 0.5 | 1 | 1.5 | 2;
+		X: 0 | 0.5 | 1 | 1.5;
+		Y: 0 | 0.5 | 1 | 1.5;
 	};
 }

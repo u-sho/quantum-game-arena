@@ -1,8 +1,10 @@
 <script lang="ts">
+	import type { MaxLengthArray } from '$lib/types/generics';
+
 	import type { TurnType } from './QuantumTTT';
 
 	// Contains marks in selected square if collapse ongoing
-	export let choices: TurnType[] | undefined;
+	export let choices: MaxLengthArray<TurnType, 3> | undefined;
 
 	// Passes selected choice of mark up to Game.handleCollapse
 	export let onChoiceClick: (choice: TurnType) => void;
