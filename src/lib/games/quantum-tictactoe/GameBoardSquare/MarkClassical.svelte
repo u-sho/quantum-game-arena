@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { TurnType } from '$lib/game/quantum-tictactoe/Game';
+	import type { MarkType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
 
-	export let cMark: TurnType;
+	export let cMark: MarkType;
 </script>
 
 <div class="classical-mark">

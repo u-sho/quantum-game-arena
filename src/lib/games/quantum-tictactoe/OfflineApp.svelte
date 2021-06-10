@@ -1,46 +1,48 @@
 <script lang="ts">
+	import type { MaxLengthArray } from '$lib/types/generics';
+	import { getOrdinal } from '$lib/utility/getNumeral';
+
 	import GameBoard from './GameBoard.svelte';
 	import GameInfo from './GameInfo.svelte';
-	import type { TurnType, SquareNumType } from './Game';
-	import Game from './Game';
+	import type { MarkType, SquareType } from './QuantumTTT.type';
+	import Game from './QuantumTTT';
 
 	let game = new Game();
 	game.setStatus("Player X's turn!");
 	let gameCount = 1;
 
 	let state = game.state;
-
-	$: status = state.status as string;
+	let message = state.status;
 
 	$: choices =
 		state.collapseSquare !== null
-			? state.qSquares[state.collapseSquare]?.filter((choice) => state.cycleMarks?.includes(choice))
+			? (state.qSquares[state.collapseSquare]?.filter((choice) =>
+					state.cycleMarks?.includes(choice)
+			  ) as MaxLengthArray<MarkType, 3> | undefined)
 			: undefined;
 
-	function handleSquareClick(i: SquareNumType) {
+	function handleSquareClick(i: SquareType) {
+		const status = game.handleSquareClick(i);
 		console.table(game.state);
-		const statuses = game.handleSquareClick(i);
-		const status = statuses[game.whoseTurn()] as string;
 
-		game.setStatus(status);
 		state = { ...game.state };
+		message = status;
 	}
 
-	function handleCollapse(mark: TurnType) {
-		const statuses = game.handleCollapse(mark);
-		const status = statuses[game.whoseTurn()];
+	function handleCollapse(mark: MarkType) {
+		const status = game.handleCollapse(mark);
 
-		game.setStatus(status);
 		state = { ...game.state };
+		message = status;
 	}
 
 	function handleNextGameClick() {
 		game = new Game();
-		game.setState({ xScore: state.xScore, yScore: state.yScore });
-		game.setStatus("Player X's turn!");
+		game.setState({ scores: { ...state.scores } });
 		gameCount += 1;
 
 		state = { ...game.state };
+		message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
 	}
 
 	function handleResetGameClick() {
@@ -49,6 +51,7 @@
 		gameCount = 1;
 
 		state = { ...game.state };
+		status = game.state.status;
 	}
 </script>
 
@@ -62,10 +65,10 @@
 		onSquareClick={handleSquareClick}
 	/>
 	<GameInfo
-		{status}
 		{choices}
-		isGameOver={state.isGameOver}
-		scores={{ X: state.xScore, Y: state.yScore }}
+		status={message}
+		isGameOver={state.isOver}
+		scores={state.scores}
 		onChoiceClick={handleCollapse}
 		onNextGameClick={handleNextGameClick}
 		onResetGameClick={handleResetGameClick}

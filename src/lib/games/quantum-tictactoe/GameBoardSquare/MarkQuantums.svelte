@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { TurnType } from '$lib/game/quantum-tictactoe/Game';
+	import type { MarkType, StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
 
-	export let qMarks: TurnType[];
-	export let cycleMarks: TurnType[] | null;
+	export let qMarks: StateType['qSquares'][0];
+	export let cycleMarks: StateType['cycleMarks'];
 	export let isHighlighted: boolean;
 	export let isBeingCollapsed: boolean;
 
-	function getTextColor(mark: TurnType) {
+	function getTextColor(mark: MarkType) {
 		if (cycleMarks?.includes(mark)) {
 			if (isBeingCollapsed) return 'red';
 			if (isHighlighted) return 'blue';
