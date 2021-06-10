@@ -1,0 +1,30 @@
+{
+	/* editor */
+	"editor.detectIndentation": true,
+	"editor.insertSpaces": false,
+	"editor.renderControlCharacters": true,
+	"editor.renderWhitespace": "boundary",
+	"editor.tabSize": 2,
+	"editor.trimAutoWhitespace": true,
+	"files.eol": "\n",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	/* format */
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"editor.formatOnType": false,
+	"eslint.format.enable": true,
+	"eslint.packageManager": "npm",
+	"eslint.probe": ["javascript", "typescript", "html", "svelte"],
+	"eslint.run": "onSave",
+	"prettier.enable": true,
+	/* Svelte */
+	"svelte.enable-ts-plugin": true,
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	}
+}

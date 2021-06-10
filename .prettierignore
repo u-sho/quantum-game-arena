@@ -1,0 +1,9 @@
+.svelte-kit/**
+static/**
+build/**
+node_modules/**
+package-lock.json
+.npmrc
+.*ignore
+LICENSE
+.vercel_build_output
