@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { MaxLengthArray } from '$lib/types/generics';
+	import { getOrdinal } from '$lib/utility/getNumeral';
 
 	import GameBoard from './GameBoard.svelte';
 	import GameInfo from './GameInfo.svelte';
@@ -37,12 +38,11 @@
 
 	function handleNextGameClick() {
 		game = new Game();
-		game.setState({ xScore: state.xScore, yScore: state.yScore });
-		game.setStatus("Player X's turn!");
+		game.setState({ scores: { ...state.scores } });
 		gameCount += 1;
 
 		state = { ...game.state };
-		message = game.state.status;
+		message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
 	}
 
 	function handleResetGameClick() {
@@ -67,8 +67,8 @@
 	<GameInfo
 		{choices}
 		status={message}
-		isGameOver={state.isGameOver}
-		scores={{ X: state.xScore, Y: state.yScore }}
+		isGameOver={state.isOver}
+		scores={state.scores}
 		onChoiceClick={handleCollapse}
 		onNextGameClick={handleNextGameClick}
 		onResetGameClick={handleResetGameClick}

@@ -53,9 +53,8 @@ export type StateType = {
 	/** in seconds */
 	yTimeLeft: number;
 
-	isGameOver: boolean;
-	xScore: number;
-	yScore: number;
+	isOver: boolean;
+	scores: { X: number; Y: number };
 
 	/** Status messages for players */
 	status: StatusType;
@@ -76,11 +75,10 @@ export default class QuantumTTT {
 			cycleSquares: null,
 			cycleMarks: null,
 			collapseSquare: null,
-			isGameOver: false,
+			isOver: false,
 			xTimeLeft: 60 * 5,
 			yTimeLeft: 60 * 5,
-			xScore: 0,
-			yScore: 0,
+			scores: { X: 0, Y: 0 },
 			status: "Player X's turn!"
 		};
 	}
@@ -103,7 +101,7 @@ export default class QuantumTTT {
 		if (this.whoseTurn() === 'X') {
 			if (this.state.xTimeLeft <= 0) {
 				this.setState({
-					isGameOver: true,
+					isOver: true,
 					status: 'Player X has run out of time.  Player Y wins!'
 				});
 			} else this.setState({ xTimeLeft: this.state.xTimeLeft - 1 });
@@ -112,7 +110,7 @@ export default class QuantumTTT {
 		if (this.whoseTurn() === 'Y') {
 			if (this.state.yTimeLeft <= 0) {
 				this.setState({
-					isGameOver: true,
+					isOver: true,
 					status: 'Player Y has run out of time.  Player X wins!'
 				});
 			} else this.setState({ yTimeLeft: this.state.yTimeLeft - 1 });
@@ -125,7 +123,7 @@ export default class QuantumTTT {
 			// initialize timer at game start
 			setInterval(this.timer, 1000);
 
-		if (this.state.isGameOver) return 'This game is already over!  Start a new game!!';
+		if (this.state.isOver) return 'This game is already over!  Start a new game!!';
 
 		if (this.state.cycleSquares) return this._handleCyclicEntanglement(i);
 
@@ -213,9 +211,11 @@ export default class QuantumTTT {
 
 		this.setState({
 			status,
-			isGameOver: true,
-			xScore: this.state.xScore + scores.X,
-			yScore: this.state.yScore + scores.Y,
+			isOver: true,
+			scores: {
+				X: this.state.scores.X + scores.X,
+				Y: this.state.scores.Y + scores.Y
+			},
 			cycleSquares: null,
 			cycleMarks: null,
 			collapseSquare: null
