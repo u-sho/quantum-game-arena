@@ -253,3 +253,4 @@ $RECYCLE.BIN/
 /.svelte-kit
 /build
 /functions
+/.vercel_build_output
