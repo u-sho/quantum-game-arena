@@ -1,6 +1,6 @@
 <script lang="ts">
 	import BoardSquare from './GameBoardSquare/index.svelte';
-	import type { SquareNumType, StateType } from './QuantumTTT';
+	import type { SquareType, StateType } from './QuantumTTT.type';
 
 	export let cSquares: StateType['cSquares'];
 	export let qSquares: StateType['qSquares'];
@@ -9,13 +9,15 @@
 	export let collapseSquare: StateType['collapseSquare'];
 
 	// Passes index of square that was clicked up to Game.handleSquareClick.
-	export let onSquareClick: (i: SquareNumType) => void;
+	export let onSquareClick: (i: SquareType) => void;
 
 	const rows = [0, 1, 2] as const;
 	const columns = [0, 1, 2] as const;
 
 	$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
-		onSquareClick((row * 3 + column) as SquareNumType);
+		onSquareClick((row * 3 + column) as SquareType);
+	$: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
+		!!cycleSquares?.includes((row * 3 + column) as SquareType);
 </script>
 
 <div class="game-board">
@@ -26,7 +28,7 @@
 					cMark={cSquares[row * 3 + column]}
 					qMarks={qSquares[row * 3 + column]}
 					{cycleMarks}
-					isHighlighted={!!cycleSquares?.includes(row * 3 + column)}
+					isHighlighted={isHighlighted(row, column)}
 					isBeingCollapsed={collapseSquare === row * 3 + column}
 					onClick={() => onClick(row, column)}
 				/>

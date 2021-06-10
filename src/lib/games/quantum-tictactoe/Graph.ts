@@ -1,7 +1,7 @@
-import type { TurnType } from './QuantumTTT';
+import type { MarkType } from './QuantumTTT.type';
 
 export type NodeIdType = number;
-export type EdgeKeyType = TurnType;
+export type EdgeKeyType = MarkType;
 
 type NodesType = {
 	[id in NodeIdType]: Node;

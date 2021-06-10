@@ -1,62 +1,14 @@
 import type { ConstArray, MaxLengthArray, RequiredAtLeastOne } from '$lib/types/generics';
+import type {
+	MarkType,
+	PlayerType,
+	SquareType,
+	StateType,
+	StatusType,
+	SubTurnType,
+	TurnNumType
+} from './QuantumTTT.type';
 import Graph from './Graph';
-
-/**
- * has value 0-3 to represent all states within a turn
- * (X move 1, X move 2, Y move 1, Y move 2)
- */
-type SubTurnNumType = 0 | 1 | 2 | 3;
-
-export type PlayerType = 'X' | 'Y';
-export type TurnNumType = 1 | 2 | 3 | 4 | 5 | 6;
-export type MarkType = `${PlayerType}${TurnNumType}`;
-export type TurnType = MarkType;
-
-export type SquareNumType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-
-type StatusType = string;
-
-export type StateType = {
-	/**
-	 * `i`th element contains classical mark for `i`th square, `null` if it has none
-	 * (3x3 grid of squares is represented as 1D array of length 9).
-	 */
-	cSquares: ConstArray<null | MarkType, 9>;
-
-	/**
-	 * `i`th element contains list of quantum marks contained in square `i`th square,
-	 * `null` if it has none.
-	 */
-	qSquares: ConstArray<null | MaxLengthArray<MarkType, 9>, 9>;
-
-	currentTurn: TurnNumType;
-	currentSubTurn: SubTurnNumType;
-	lastMove: SquareNumType | null;
-
-	/**
-	 * Array of indexes of Squares involved in a cycle, `null` if none exists.
-	 */
-	cycleSquares: MaxLengthArray<SquareNumType, 9> | null;
-
-	/**
-	 * Array of marks (eg. 'X1', 'Y3') involved in a cycle, `null` if none exists.
-	 */
-	cycleMarks: MaxLengthArray<MarkType, 9> | null;
-
-	/**
-	 * Square selected to be origin of collapse, if there is a cycle.
-	 */
-	collapseSquare: SquareNumType | null;
-
-	/** in seconds */
-	leftTimes: Record<PlayerType, number>;
-
-	isOver: boolean;
-	scores: { X: number; Y: number };
-
-	/** Status messages for players */
-	status: StatusType;
-};
 
 export default class QuantumTTT {
 	g: Graph;
@@ -66,7 +18,7 @@ export default class QuantumTTT {
 		this.timer = this.timer.bind(this);
 		this.state = {
 			cSquares: Array(9).fill(null) as ConstArray<null, 9>,
-			qSquares: Array(9).fill(null) as ConstArray<null, 9>,
+			qSquares: Array(9).fill([]) as ConstArray<[], 9>,
 			currentTurn: 1,
 			currentSubTurn: 0,
 			lastMove: null,
@@ -125,7 +77,7 @@ export default class QuantumTTT {
 	}
 
 	// dispatches click to appropriate handler based on state
-	handleSquareClick(i: SquareNumType): StatusType {
+	handleSquareClick(i: SquareType): StatusType {
 		if (this.state.currentTurn === 1 && this.state.currentSubTurn === 0)
 			// initialize timer at game start
 			setInterval(this.timer, 1000);
@@ -147,11 +99,11 @@ export default class QuantumTTT {
 	}
 
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
-	handleNormalMove(i: SquareNumType): StatusType {
-		const qSquares = this.state.qSquares;
-		const marker = `${this.whoseTurn()}${this.state.currentTurn}` as TurnType;
+	handleNormalMove(i: SquareType): StatusType {
+		const qSquares = [...this.state.qSquares];
+		const marker = `${this.whoseTurn()}${this.state.currentTurn}` as MarkType;
 
-		if (qSquares[i]) (qSquares[i] as TurnType[]).push(marker);
+		if (qSquares[i].length >= 1) qSquares[i].push(marker);
 		else qSquares[i] = [marker];
 
 		if (!this.g.hasNode(i)) this.g.addNode(i);
@@ -160,12 +112,12 @@ export default class QuantumTTT {
 		// if cycle is not null, there is a cyclic entanglement.
 		const cycle = this.g.getCycle(i);
 		this.setState({
-			qSquares,
-			cycleSquares: cycle?.[0] as MaxLengthArray<SquareNumType, 9> | undefined,
+			qSquares: qSquares as StateType['qSquares'],
+			cycleSquares: cycle?.[0] as MaxLengthArray<SquareType, 9> | undefined,
 			cycleMarks: cycle?.[1] as MaxLengthArray<MarkType, 9> | undefined,
 			currentTurn: (this.state.currentTurn +
 				Number(this.state.currentSubTurn === 3)) as TurnNumType,
-			currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnNumType,
+			currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType,
 			lastMove: i
 		});
 
@@ -187,7 +139,7 @@ export default class QuantumTTT {
 	}
 
 	// selects square to be collapse point
-	private _handleCyclicEntanglement(i: SquareNumType): StatusType {
+	private _handleCyclicEntanglement(i: SquareType): StatusType {
 		if (!this.state.cycleSquares?.includes(i))
 			return 'Must pick square involved in cyclic entanglement!  (is highlighted in blue)';
 
@@ -196,7 +148,7 @@ export default class QuantumTTT {
 	}
 
 	// collapse square and propagates changes outward
-	handleCollapse(mark: TurnType): StatusType {
+	handleCollapse(mark: MarkType): StatusType {
 		console.log(mark);
 		const i = this.state.collapseSquare as number;
 		const visited = new Set([mark]);
@@ -232,16 +184,13 @@ export default class QuantumTTT {
 		return status;
 	}
 
-	private _handleCollapseHelper(mark: TurnType, i: number, visited: Set<TurnType>) {
-		const cSquares = this.state.cSquares;
-		const qSquares = this.state.qSquares;
+	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>) {
+		const cSquares = [...this.state.cSquares] as StateType['cSquares'];
+		const qSquares = [...this.state.qSquares] as StateType['qSquares'];
 		cSquares[i] = mark;
-		qSquares[i] = null;
+		qSquares[i] = [];
 
-		this.setState({
-			cSquares,
-			qSquares
-		});
+		this.setState({ cSquares, qSquares });
 
 		for (const edge of this.g.getNode(i).edges) {
 			if (!visited.has(edge.key)) {
@@ -280,9 +229,9 @@ function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 	return 'No players get three-in-a-row...';
 }
 
-type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareNumType, 3>]>;
-function _calculateWinners(squares: Readonly<ConstArray<TurnType | null, 9>>): WinnersType {
-	const lines: ConstArray<ConstArray<SquareNumType, 3>, 8> = [
+type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareType, 3>]>;
+function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): WinnersType {
+	const lines: ConstArray<ConstArray<SquareType, 3>, 8> = [
 		[0, 1, 2],
 		[3, 4, 5],
 		[6, 7, 8],
@@ -306,7 +255,7 @@ function _calculateWinners(squares: Readonly<ConstArray<TurnType | null, 9>>): W
 	return winners;
 }
 
-function _calculateScores(squares: Readonly<ConstArray<TurnType | null, 9>>) {
+function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
 	const winners = _calculateWinners(squares);
 
 	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;

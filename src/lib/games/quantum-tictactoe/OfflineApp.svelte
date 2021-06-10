@@ -4,7 +4,7 @@
 
 	import GameBoard from './GameBoard.svelte';
 	import GameInfo from './GameInfo.svelte';
-	import type { TurnType, SquareNumType } from './QuantumTTT';
+	import type { MarkType, SquareType } from './QuantumTTT.type';
 	import Game from './QuantumTTT';
 
 	let game = new Game();
@@ -18,10 +18,10 @@
 		state.collapseSquare !== null
 			? (state.qSquares[state.collapseSquare]?.filter((choice) =>
 					state.cycleMarks?.includes(choice)
-			  ) as MaxLengthArray<TurnType, 3> | undefined)
+			  ) as MaxLengthArray<MarkType, 3> | undefined)
 			: undefined;
 
-	function handleSquareClick(i: SquareNumType) {
+	function handleSquareClick(i: SquareType) {
 		const status = game.handleSquareClick(i);
 		console.table(game.state);
 
@@ -29,7 +29,7 @@
 		message = status;
 	}
 
-	function handleCollapse(mark: TurnType) {
+	function handleCollapse(mark: MarkType) {
 		const status = game.handleCollapse(mark);
 
 		state = { ...game.state };
