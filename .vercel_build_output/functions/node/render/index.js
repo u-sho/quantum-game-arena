@@ -658,7 +658,7 @@ var INTERNALS$1 = Symbol("Response internals");
 var Response2 = class extends Body {
   constructor(body = null, options2 = {}) {
     super(body, options2);
-    const status = options2.status || 200;
+    const status2 = options2.status || 200;
     const headers = new Headers(options2.headers);
     if (body !== null && !headers.has("Content-Type")) {
       const contentType = extractContentType(body);
@@ -668,7 +668,7 @@ var Response2 = class extends Body {
     }
     this[INTERNALS$1] = {
       url: options2.url,
-      status,
+      status: status2,
       statusText: options2.statusText || "",
       headers,
       counter: options2.counter,
@@ -707,15 +707,15 @@ var Response2 = class extends Body {
       size: this.size
     });
   }
-  static redirect(url, status = 302) {
-    if (!isRedirect(status)) {
+  static redirect(url, status2 = 302) {
+    if (!isRedirect(status2)) {
       throw new RangeError('Failed to execute "redirect" on "response": Invalid status code');
     }
     return new Response2(null, {
       headers: {
         location: new URL(url).toString()
       },
-      status
+      status: status2
     });
   }
   get [Symbol.toStringTag]() {
@@ -1347,7 +1347,7 @@ async function render_response({
   options: options2,
   $session,
   page_config,
-  status,
+  status: status2,
   error: error2,
   branch,
   page
@@ -1430,7 +1430,7 @@ async function render_response({
 				spa: ${!page_config.ssr},
 				trailing_slash: ${s$1(options2.trailing_slash)},
 				hydrate: ${page_config.ssr && page_config.hydrate ? `{
-					status: ${status},
+					status: ${status2},
 					error: ${serialize_error(error2)},
 					nodes: [
 						${branch.map(({ node }) => `import(${s$1(node.entry)})`).join(",\n						")}
@@ -1467,7 +1467,7 @@ async function render_response({
     headers["permissions-policy"] = "interest-cohort=()";
   }
   return {
-    status,
+    status: status2,
     headers,
     body: options2.template({ head, body })
   };
@@ -1497,18 +1497,18 @@ function serialize_error(error2) {
 function normalize(loaded) {
   if (loaded.error) {
     const error2 = typeof loaded.error === "string" ? new Error(loaded.error) : loaded.error;
-    const status = loaded.status;
+    const status2 = loaded.status;
     if (!(error2 instanceof Error)) {
       return {
         status: 500,
         error: new Error(`"error" property returned from load() must be a string or instance of Error, received type "${typeof error2}"`)
       };
     }
-    if (!status || status < 400 || status > 599) {
+    if (!status2 || status2 < 400 || status2 > 599) {
       console.warn('"error" returned from load() without a valid status code \u2014 defaulting to 500');
       return { status: 500, error: error2 };
     }
-    return { status, error: error2 };
+    return { status: status2, error: error2 };
   }
   if (loaded.redirect) {
     if (!loaded.status || Math.floor(loaded.status / 100) !== 3) {
@@ -1553,7 +1553,7 @@ async function load_node({
   context,
   is_leaf,
   is_error,
-  status,
+  status: status2,
   error: error2
 }) {
   const { module: module2 } = node;
@@ -1685,7 +1685,7 @@ async function load_node({
       context: { ...context }
     };
     if (is_error) {
-      load_input.status = status;
+      load_input.status = status2;
       load_input.error = error2;
     }
     loaded = await module2.load.call(null, load_input);
@@ -1739,7 +1739,7 @@ function escape(str) {
   result += '"';
   return result;
 }
-async function respond_with_error({ request, options: options2, state, $session, status, error: error2 }) {
+async function respond_with_error({ request, options: options2, state, $session, status: status2, error: error2 }) {
   const default_layout = await options2.load_component(options2.manifest.layout);
   const default_error = await options2.load_component(options2.manifest.error);
   const page = {
@@ -1773,7 +1773,7 @@ async function respond_with_error({ request, options: options2, state, $session,
       context: loaded.context,
       is_leaf: false,
       is_error: true,
-      status,
+      status: status2,
       error: error2
     })
   ];
@@ -1786,7 +1786,7 @@ async function respond_with_error({ request, options: options2, state, $session,
         router: options2.router,
         ssr: options2.ssr
       },
-      status,
+      status: status2,
       error: error2,
       branch,
       page
@@ -1837,7 +1837,7 @@ async function respond$1({ request, options: options2, state, $session, route })
     };
   }
   let branch;
-  let status = 200;
+  let status2 = 200;
   let error2;
   ssr:
     if (page_config.ssr) {
@@ -1871,11 +1871,11 @@ async function respond$1({ request, options: options2, state, $session, route })
               };
             }
             if (loaded.loaded.error) {
-              ({ status, error: error2 } = loaded.loaded);
+              ({ status: status2, error: error2 } = loaded.loaded);
             }
           } catch (e) {
             options2.handle_error(e);
-            status = 500;
+            status2 = 500;
             error2 = e;
           }
           if (error2) {
@@ -1900,7 +1900,7 @@ async function respond$1({ request, options: options2, state, $session, route })
                     context: node_loaded.context,
                     is_leaf: false,
                     is_error: true,
-                    status,
+                    status: status2,
                     error: error2
                   });
                   if (error_loaded.loaded.error) {
@@ -1919,7 +1919,7 @@ async function respond$1({ request, options: options2, state, $session, route })
               options: options2,
               state,
               $session,
-              status,
+              status: status2,
               error: error2
             });
           }
@@ -1938,7 +1938,7 @@ async function respond$1({ request, options: options2, state, $session, route })
       options: options2,
       $session,
       page_config,
-      status,
+      status: status2,
       error: error2,
       branch: branch && branch.filter(Boolean),
       page
@@ -2018,7 +2018,7 @@ async function render_route(request, route) {
       if (typeof response !== "object") {
         return error(`Invalid response from route ${request.path}: expected an object, got ${typeof response}`);
       }
-      let { status = 200, body, headers = {} } = response;
+      let { status: status2 = 200, body, headers = {} } = response;
       headers = lowercase_keys(headers);
       const type = headers["content-type"];
       if (type === "application/octet-stream" && !(body instanceof Uint8Array)) {
@@ -2034,7 +2034,7 @@ async function render_route(request, route) {
       } else {
         normalized_body = body;
       }
-      return { status, body: normalized_body, headers };
+      return { status: status2, body: normalized_body, headers };
     }
   }
 }
@@ -2424,7 +2424,7 @@ if (typeof HTMLElement === "function") {
 }
 
 // .svelte-kit/output/server/app.js
-var css$b = {
+var css$c = {
   code: "#svelte-announcer.svelte-1j55zn5{position:absolute;left:0;top:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap;width:1px;height:1px}",
   map: `{"version":3,"file":"root.svelte","sources":["root.svelte"],"sourcesContent":["<!-- This file is generated by @sveltejs/kit \u2014 do not edit it! -->\\n<script>\\n\\timport { setContext, afterUpdate, onMount } from 'svelte';\\n\\n\\t// stores\\n\\texport let stores;\\n\\texport let page;\\n\\n\\texport let components;\\n\\texport let props_0 = null;\\n\\texport let props_1 = null;\\n\\texport let props_2 = null;\\n\\n\\tsetContext('__svelte__', stores);\\n\\n\\t$: stores.page.set(page);\\n\\tafterUpdate(stores.page.notify);\\n\\n\\tlet mounted = false;\\n\\tlet navigated = false;\\n\\tlet title = null;\\n\\n\\tonMount(() => {\\n\\t\\tconst unsubscribe = stores.page.subscribe(() => {\\n\\t\\t\\tif (mounted) {\\n\\t\\t\\t\\tnavigated = true;\\n\\t\\t\\t\\ttitle = document.title || 'untitled page';\\n\\t\\t\\t}\\n\\t\\t});\\n\\n\\t\\tmounted = true;\\n\\t\\treturn unsubscribe;\\n\\t});\\n<\/script>\\n\\n<svelte:component this={components[0]} {...(props_0 || {})}>\\n\\t{#if components[1]}\\n\\t\\t<svelte:component this={components[1]} {...(props_1 || {})}>\\n\\t\\t\\t{#if components[2]}\\n\\t\\t\\t\\t<svelte:component this={components[2]} {...(props_2 || {})}/>\\n\\t\\t\\t{/if}\\n\\t\\t</svelte:component>\\n\\t{/if}\\n</svelte:component>\\n\\n{#if mounted}\\n\\t<div id=\\"svelte-announcer\\" aria-live=\\"assertive\\" aria-atomic=\\"true\\">\\n\\t\\t{#if navigated}\\n\\t\\t\\t{title}\\n\\t\\t{/if}\\n\\t</div>\\n{/if}\\n\\n<style>\\n\\t#svelte-announcer {\\n\\t\\tposition: absolute;\\n\\t\\tleft: 0;\\n\\t\\ttop: 0;\\n\\t\\tclip: rect(0 0 0 0);\\n\\t\\tclip-path: inset(50%);\\n\\t\\toverflow: hidden;\\n\\t\\twhite-space: nowrap;\\n\\t\\twidth: 1px;\\n\\t\\theight: 1px;\\n\\t}\\n</style>"],"names":[],"mappings":"AAsDC,iBAAiB,eAAC,CAAC,AAClB,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,CAAC,CACP,GAAG,CAAE,CAAC,CACN,IAAI,CAAE,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CACnB,SAAS,CAAE,MAAM,GAAG,CAAC,CACrB,QAAQ,CAAE,MAAM,CAChB,WAAW,CAAE,MAAM,CACnB,KAAK,CAAE,GAAG,CACV,MAAM,CAAE,GAAG,AACZ,CAAC"}`
 };
@@ -2462,7 +2462,7 @@ var Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.props_1(props_1);
   if ($$props.props_2 === void 0 && $$bindings.props_2 && props_2 !== void 0)
     $$bindings.props_2(props_2);
-  $$result.css.add(css$b);
+  $$result.css.add(css$c);
   {
     stores.page.set(page);
   }
@@ -2494,9 +2494,9 @@ function init(settings) {
     amp: false,
     dev: false,
     entry: {
-      file: "/./_app/start-dfffde7e.js",
+      file: "/./_app/start-e5bcf56f.js",
       css: ["/./_app/assets/start-a8cd1609.css"],
-      js: ["/./_app/start-dfffde7e.js", "/./_app/chunks/vendor-d0243e53.js"]
+      js: ["/./_app/start-e5bcf56f.js", "/./_app/chunks/vendor-0b022714.js"]
     },
     fetched: void 0,
     floc: false,
@@ -2581,7 +2581,7 @@ var module_lookup = {
     return human;
   })
 };
-var metadata_lookup = { "src/routes/__layout.svelte": { "entry": "/./_app/pages/__layout.svelte-0890587c.js", "css": ["/./_app/assets/pages/__layout.svelte-0bca6a0e.css"], "js": ["/./_app/pages/__layout.svelte-0890587c.js", "/./_app/chunks/vendor-d0243e53.js"], "styles": null }, "src/routes/__error.svelte": { "entry": "/./_app/pages/__error.svelte-1b8e89ca.js", "css": [], "js": ["/./_app/pages/__error.svelte-1b8e89ca.js", "/./_app/chunks/vendor-d0243e53.js"], "styles": null }, "src/routes/index.svelte": { "entry": "/./_app/pages/index.svelte-2762bf6c.js", "css": ["/./_app/assets/pages/index.svelte-6b7bec64.css", "/./_app/assets/index-fb8d875f.css"], "js": ["/./_app/pages/index.svelte-2762bf6c.js", "/./_app/chunks/vendor-d0243e53.js", "/./_app/chunks/index-a8ada427.js"], "styles": null }, "src/routes/games/quantum-tictactoe/index.svelte": { "entry": "/./_app/pages/games/quantum-tictactoe/index.svelte-26cf78d7.js", "css": ["/./_app/assets/pages/games/quantum-tictactoe/index.svelte-5dc44e4d.css", "/./_app/assets/index-fb8d875f.css"], "js": ["/./_app/pages/games/quantum-tictactoe/index.svelte-26cf78d7.js", "/./_app/chunks/vendor-d0243e53.js", "/./_app/chunks/index-a8ada427.js"], "styles": null }, "src/routes/games/quantum-tictactoe/tutorial/index.svelte": { "entry": "/./_app/pages/games/quantum-tictactoe/tutorial/index.svelte-d18bb604.js", "css": [], "js": ["/./_app/pages/games/quantum-tictactoe/tutorial/index.svelte-d18bb604.js", "/./_app/chunks/vendor-d0243e53.js"], "styles": null }, "src/routes/games/quantum-tictactoe/play/human.svelte": { "entry": "/./_app/pages/games/quantum-tictactoe/play/human.svelte-34349db2.js", "css": ["/./_app/assets/pages/games/quantum-tictactoe/play/human.svelte-8c7a7dd6.css"], "js": ["/./_app/pages/games/quantum-tictactoe/play/human.svelte-34349db2.js", "/./_app/chunks/vendor-d0243e53.js"], "styles": null } };
+var metadata_lookup = { "src/routes/__layout.svelte": { "entry": "/./_app/pages/__layout.svelte-382b71ab.js", "css": ["/./_app/assets/pages/__layout.svelte-724a51fa.css"], "js": ["/./_app/pages/__layout.svelte-382b71ab.js", "/./_app/chunks/vendor-0b022714.js"], "styles": null }, "src/routes/__error.svelte": { "entry": "/./_app/pages/__error.svelte-2b9a438f.js", "css": [], "js": ["/./_app/pages/__error.svelte-2b9a438f.js", "/./_app/chunks/vendor-0b022714.js"], "styles": null }, "src/routes/index.svelte": { "entry": "/./_app/pages/index.svelte-207025a1.js", "css": ["/./_app/assets/pages/index.svelte-6b7bec64.css", "/./_app/assets/index-cdd5f9c4.css", "/./_app/assets/index-9edb500c.css"], "js": ["/./_app/pages/index.svelte-207025a1.js", "/./_app/chunks/vendor-0b022714.js", "/./_app/chunks/index-8eead769.js", "/./_app/chunks/index-06fcc693.js"], "styles": null }, "src/routes/games/quantum-tictactoe/index.svelte": { "entry": "/./_app/pages/games/quantum-tictactoe/index.svelte-9e3d8b13.js", "css": ["/./_app/assets/pages/games/quantum-tictactoe/index.svelte-5dc44e4d.css", "/./_app/assets/index-cdd5f9c4.css", "/./_app/assets/index-9edb500c.css"], "js": ["/./_app/pages/games/quantum-tictactoe/index.svelte-9e3d8b13.js", "/./_app/chunks/vendor-0b022714.js", "/./_app/chunks/index-8eead769.js", "/./_app/chunks/index-06fcc693.js"], "styles": null }, "src/routes/games/quantum-tictactoe/tutorial/index.svelte": { "entry": "/./_app/pages/games/quantum-tictactoe/tutorial/index.svelte-92e51968.js", "css": [], "js": ["/./_app/pages/games/quantum-tictactoe/tutorial/index.svelte-92e51968.js", "/./_app/chunks/vendor-0b022714.js"], "styles": null }, "src/routes/games/quantum-tictactoe/play/human.svelte": { "entry": "/./_app/pages/games/quantum-tictactoe/play/human.svelte-710d443c.js", "css": ["/./_app/assets/pages/games/quantum-tictactoe/play/human.svelte-9a07ac76.css", "/./_app/assets/index-cdd5f9c4.css"], "js": ["/./_app/pages/games/quantum-tictactoe/play/human.svelte-710d443c.js", "/./_app/chunks/vendor-0b022714.js", "/./_app/chunks/index-8eead769.js"], "styles": null } };
 async function load_component(file) {
   return {
     module: await module_lookup[file](),
@@ -2595,12 +2595,12 @@ function render(request, {
   const host = request.headers["host"];
   return respond({ ...request, host }, options, { prerender: prerender2 });
 }
-var css$a = {
-  code: ":root{--theme-color:#7a9de3;--theme-light-color:#f0f7ff;--accent-color:#8b0204;--bg-color:#ffffff}body{margin:0;padding:0}#svelte{min-height:100vh;width:100%;height:100%;box-sizing:border-box;position:relative;top:0}a{text-decoration:none}",
-  map: '{"version":3,"file":"__layout.svelte","sources":["__layout.svelte"],"sourcesContent":["<slot />\\n\\n<style lang=\\"scss\\">:root {\\n  --theme-color: #7a9de3;\\n  --theme-light-color: #f0f7ff;\\n  --accent-color: #8b0204;\\n  --bg-color: #ffffff;\\n}\\n\\n:global(body) {\\n  margin: 0;\\n  padding: 0;\\n}\\n\\n:global(#svelte) {\\n  min-height: 100vh;\\n  width: 100%;\\n  height: 100%;\\n  box-sizing: border-box;\\n  position: relative;\\n  top: 0;\\n}\\n\\n:global(a) {\\n  text-decoration: none;\\n}</style>\\n"],"names":[],"mappings":"AAEmB,KAAK,AAAC,CAAC,AACxB,aAAa,CAAE,OAAO,CACtB,mBAAmB,CAAE,OAAO,CAC5B,cAAc,CAAE,OAAO,CACvB,UAAU,CAAE,OAAO,AACrB,CAAC,AAEO,IAAI,AAAE,CAAC,AACb,MAAM,CAAE,CAAC,CACT,OAAO,CAAE,CAAC,AACZ,CAAC,AAEO,OAAO,AAAE,CAAC,AAChB,UAAU,CAAE,KAAK,CACjB,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,UAAU,CAAE,UAAU,CACtB,QAAQ,CAAE,QAAQ,CAClB,GAAG,CAAE,CAAC,AACR,CAAC,AAEO,CAAC,AAAE,CAAC,AACV,eAAe,CAAE,IAAI,AACvB,CAAC"}'
+var css$b = {
+  code: ":root{--theme-color:#7a9de3;--theme-light-color:#f0f7ff;--accent-color:#e45355;--bg-color:#ffffff}body{margin:0;padding:0}#svelte{min-height:100vh;width:100%;height:100%;box-sizing:border-box;position:relative;top:0}a{text-decoration:none}",
+  map: '{"version":3,"file":"__layout.svelte","sources":["__layout.svelte"],"sourcesContent":["<slot />\\n\\n<style lang=\\"scss\\">:root {\\n  --theme-color: #7a9de3;\\n  --theme-light-color: #f0f7ff;\\n  --accent-color: #e45355;\\n  --bg-color: #ffffff;\\n}\\n\\n:global(body) {\\n  margin: 0;\\n  padding: 0;\\n}\\n\\n:global(#svelte) {\\n  min-height: 100vh;\\n  width: 100%;\\n  height: 100%;\\n  box-sizing: border-box;\\n  position: relative;\\n  top: 0;\\n}\\n\\n:global(a) {\\n  text-decoration: none;\\n}</style>\\n"],"names":[],"mappings":"AAEmB,KAAK,AAAC,CAAC,AACxB,aAAa,CAAE,OAAO,CACtB,mBAAmB,CAAE,OAAO,CAC5B,cAAc,CAAE,OAAO,CACvB,UAAU,CAAE,OAAO,AACrB,CAAC,AAEO,IAAI,AAAE,CAAC,AACb,MAAM,CAAE,CAAC,CACT,OAAO,CAAE,CAAC,AACZ,CAAC,AAEO,OAAO,AAAE,CAAC,AAChB,UAAU,CAAE,KAAK,CACjB,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,UAAU,CAAE,UAAU,CACtB,QAAQ,CAAE,QAAQ,CAClB,GAAG,CAAE,CAAC,AACR,CAAC,AAEO,CAAC,AAAE,CAAC,AACV,eAAe,CAAE,IAAI,AACvB,CAAC"}'
 };
 var _layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  $$result.css.add(css$a);
+  $$result.css.add(css$b);
   return `${slots.default ? slots.default({}) : ``}`;
 });
 var __layout = /* @__PURE__ */ Object.freeze({
@@ -2608,9 +2608,9 @@ var __layout = /* @__PURE__ */ Object.freeze({
   [Symbol.toStringTag]: "Module",
   "default": _layout
 });
-function load({ error: error2, status }) {
+function load({ error: error2, status: status2 }) {
   return {
-    props: { title: `${status}: ${error2.message}` }
+    props: { title: `${status2}: ${error2.message}` }
   };
 }
 var _error = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -2625,12 +2625,12 @@ var __error = /* @__PURE__ */ Object.freeze({
   "default": _error,
   load
 });
-var css$9 = {
+var css$a = {
   code: 'header.svelte-dl3egc.svelte-dl3egc{display:flex;justify-content:space-between;height:3rem;background-color:var(--theme-light-color)}.logo.svelte-dl3egc.svelte-dl3egc{height:3rem}.logo.svelte-dl3egc a.svelte-dl3egc{display:flex;align-items:center;justify-content:center;width:100%;height:100%}.logo.svelte-dl3egc a img.svelte-dl3egc{height:2.5rem;width:2.5rem}.logo.svelte-dl3egc a h1.svelte-dl3egc{font-size:1.5rem;font-weight:bold;margin:0}nav.svelte-dl3egc.svelte-dl3egc{display:flex;justify-content:center}nav.svelte-dl3egc ul.svelte-dl3egc{position:relative;padding:0;margin:0;height:3rem;display:flex;justify-content:center;align-items:center;list-style:none;background-size:contain}nav.svelte-dl3egc ul li.svelte-dl3egc{position:relative;height:100%}nav.svelte-dl3egc ul li.svelte-dl3egc::before{--size:6px;content:"";width:0;height:0;position:absolute;top:0;left:calc(50% - var(--size));border:var(--size) solid transparent;border-top:var(--size) solid var(--accent-color)}nav.svelte-dl3egc ul li a.svelte-dl3egc{display:flex;height:100%;align-items:center;padding:0 1em;color:var(--heading-color);font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:10%;text-decoration:none;transition:color 0.2s linear}nav.svelte-dl3egc ul li a.svelte-dl3egc:hover{opacity:0.5}',
   map: '{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<header>\\n\\t<hgroup class=\\"logo\\">\\n\\t\\t<a sveltekit:prefetch href=\\"/\\">\\n\\t\\t\\t<img src=\\"/logo-144x144.png\\" alt=\\"QuantumGameArena\\" />\\n\\t\\t\\t<h1>Quantum Game Arena</h1>\\n\\t\\t</a>\\n\\t</hgroup>\\n\\n\\t<nav>\\n\\t\\t<ul>\\n\\t\\t\\t<li><a sveltekit:prefetch href=\\"/#about\\">About</a></li>\\n\\t\\t\\t<li><a sveltekit:prefetch sveltekit:noscroll href=\\"/#games\\">Games</a></li>\\n\\t\\t</ul>\\n\\t</nav>\\n</header>\\n\\n<style lang=\\"scss\\">header {\\n  display: flex;\\n  justify-content: space-between;\\n  height: 3rem;\\n  background-color: var(--theme-light-color);\\n}\\n\\n.logo {\\n  height: 3rem;\\n}\\n.logo a {\\n  display: flex;\\n  align-items: center;\\n  justify-content: center;\\n  width: 100%;\\n  height: 100%;\\n}\\n.logo a img {\\n  height: 2.5rem;\\n  width: 2.5rem;\\n}\\n.logo a h1 {\\n  font-size: 1.5rem;\\n  font-weight: bold;\\n  margin: 0;\\n}\\n\\nnav {\\n  display: flex;\\n  justify-content: center;\\n}\\nnav ul {\\n  position: relative;\\n  padding: 0;\\n  margin: 0;\\n  height: 3rem;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center;\\n  list-style: none;\\n  background-size: contain;\\n}\\nnav ul li {\\n  position: relative;\\n  height: 100%;\\n}\\nnav ul li::before {\\n  --size: 6px;\\n  content: \\"\\";\\n  width: 0;\\n  height: 0;\\n  position: absolute;\\n  top: 0;\\n  left: calc(50% - var(--size));\\n  border: var(--size) solid transparent;\\n  border-top: var(--size) solid var(--accent-color);\\n}\\nnav ul li a {\\n  display: flex;\\n  height: 100%;\\n  align-items: center;\\n  padding: 0 1em;\\n  color: var(--heading-color);\\n  font-weight: 700;\\n  font-size: 1rem;\\n  text-transform: uppercase;\\n  letter-spacing: 10%;\\n  text-decoration: none;\\n  transition: color 0.2s linear;\\n}\\nnav ul li a:hover {\\n  opacity: 0.5;\\n}</style>\\n"],"names":[],"mappings":"AAgBmB,MAAM,4BAAC,CAAC,AACzB,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,aAAa,CAC9B,MAAM,CAAE,IAAI,CACZ,gBAAgB,CAAE,IAAI,mBAAmB,CAAC,AAC5C,CAAC,AAED,KAAK,4BAAC,CAAC,AACL,MAAM,CAAE,IAAI,AACd,CAAC,AACD,mBAAK,CAAC,CAAC,cAAC,CAAC,AACP,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM,CACvB,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,AACd,CAAC,AACD,mBAAK,CAAC,CAAC,CAAC,GAAG,cAAC,CAAC,AACX,MAAM,CAAE,MAAM,CACd,KAAK,CAAE,MAAM,AACf,CAAC,AACD,mBAAK,CAAC,CAAC,CAAC,EAAE,cAAC,CAAC,AACV,SAAS,CAAE,MAAM,CACjB,WAAW,CAAE,IAAI,CACjB,MAAM,CAAE,CAAC,AACX,CAAC,AAED,GAAG,4BAAC,CAAC,AACH,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,AACzB,CAAC,AACD,iBAAG,CAAC,EAAE,cAAC,CAAC,AACN,QAAQ,CAAE,QAAQ,CAClB,OAAO,CAAE,CAAC,CACV,MAAM,CAAE,CAAC,CACT,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,CACnB,UAAU,CAAE,IAAI,CAChB,eAAe,CAAE,OAAO,AAC1B,CAAC,AACD,iBAAG,CAAC,EAAE,CAAC,EAAE,cAAC,CAAC,AACT,QAAQ,CAAE,QAAQ,CAClB,MAAM,CAAE,IAAI,AACd,CAAC,AACD,iBAAG,CAAC,EAAE,CAAC,gBAAE,QAAQ,AAAC,CAAC,AACjB,MAAM,CAAE,GAAG,CACX,OAAO,CAAE,EAAE,CACX,KAAK,CAAE,CAAC,CACR,MAAM,CAAE,CAAC,CACT,QAAQ,CAAE,QAAQ,CAClB,GAAG,CAAE,CAAC,CACN,IAAI,CAAE,KAAK,GAAG,CAAC,CAAC,CAAC,IAAI,MAAM,CAAC,CAAC,CAC7B,MAAM,CAAE,IAAI,MAAM,CAAC,CAAC,KAAK,CAAC,WAAW,CACrC,UAAU,CAAE,IAAI,MAAM,CAAC,CAAC,KAAK,CAAC,IAAI,cAAc,CAAC,AACnD,CAAC,AACD,iBAAG,CAAC,EAAE,CAAC,EAAE,CAAC,CAAC,cAAC,CAAC,AACX,OAAO,CAAE,IAAI,CACb,MAAM,CAAE,IAAI,CACZ,WAAW,CAAE,MAAM,CACnB,OAAO,CAAE,CAAC,CAAC,GAAG,CACd,KAAK,CAAE,IAAI,eAAe,CAAC,CAC3B,WAAW,CAAE,GAAG,CAChB,SAAS,CAAE,IAAI,CACf,cAAc,CAAE,SAAS,CACzB,cAAc,CAAE,GAAG,CACnB,eAAe,CAAE,IAAI,CACrB,UAAU,CAAE,KAAK,CAAC,IAAI,CAAC,MAAM,AAC/B,CAAC,AACD,iBAAG,CAAC,EAAE,CAAC,EAAE,CAAC,eAAC,MAAM,AAAC,CAAC,AACjB,OAAO,CAAE,GAAG,AACd,CAAC"}'
 };
 var TheHeader = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  $$result.css.add(css$9);
+  $$result.css.add(css$a);
   return `<header class="${"svelte-dl3egc"}"><hgroup class="${"logo svelte-dl3egc"}"><a sveltekit:prefetch href="${"/"}" class="${"svelte-dl3egc"}"><img src="${"/logo-144x144.png"}" alt="${"QuantumGameArena"}" class="${"svelte-dl3egc"}">
 			<h1 class="${"svelte-dl3egc"}">Quantum Game Arena</h1></a></hgroup>
 
@@ -2638,24 +2638,24 @@ var TheHeader = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 			<li class="${"svelte-dl3egc"}"><a sveltekit:prefetch sveltekit:noscroll href="${"/#games"}" class="${"svelte-dl3egc"}">Games</a></li></ul></nav>
 </header>`;
 });
-var css$8 = {
+var css$9 = {
   code: ".footer.svelte-ncccu2.svelte-ncccu2{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;background-color:var(--theme-color)}@media(min-width: 480px){.footer.svelte-ncccu2.svelte-ncccu2{padding:40px 0}}.footer__logo.svelte-ncccu2 a.svelte-ncccu2{font-weight:bold;display:flex;align-items:center;justify-content:center}.footer__logo.svelte-ncccu2 a img.svelte-ncccu2{height:2rem}",
   map: '{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<footer class=\\"footer\\">\\n\\t<div class=\\"footer__logo\\">\\n\\t\\t<a sveltekit:prefetch href=\\"/#top\\">\\n\\t\\t\\t<img src=\\"/logo-144x144.png\\" alt=\\"QuantumGameArena\\" />\\n\\t\\t\\t<h1 class=\\"footer__title\\">Quantum Game Arena</h1>\\n\\t\\t</a>\\n\\t</div>\\n\\ttwitter\\n</footer>\\n\\n<style lang=\\"scss\\">.footer {\\n  display: flex;\\n  flex-direction: column;\\n  justify-content: center;\\n  align-items: center;\\n  padding: 40px;\\n  background-color: var(--theme-color);\\n}\\n@media (min-width: 480px) {\\n  .footer {\\n    padding: 40px 0;\\n  }\\n}\\n\\n.footer__logo a {\\n  font-weight: bold;\\n  display: flex;\\n  align-items: center;\\n  justify-content: center;\\n}\\n.footer__logo a img {\\n  height: 2rem;\\n}</style>\\n"],"names":[],"mappings":"AAUmB,OAAO,4BAAC,CAAC,AAC1B,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,CACnB,OAAO,CAAE,IAAI,CACb,gBAAgB,CAAE,IAAI,aAAa,CAAC,AACtC,CAAC,AACD,MAAM,AAAC,YAAY,KAAK,CAAC,AAAC,CAAC,AACzB,OAAO,4BAAC,CAAC,AACP,OAAO,CAAE,IAAI,CAAC,CAAC,AACjB,CAAC,AACH,CAAC,AAED,2BAAa,CAAC,CAAC,cAAC,CAAC,AACf,WAAW,CAAE,IAAI,CACjB,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM,AACzB,CAAC,AACD,2BAAa,CAAC,CAAC,CAAC,GAAG,cAAC,CAAC,AACnB,MAAM,CAAE,IAAI,AACd,CAAC"}'
 };
 var TheFooter = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  $$result.css.add(css$8);
+  $$result.css.add(css$9);
   return `<footer class="${"footer svelte-ncccu2"}"><div class="${"footer__logo svelte-ncccu2"}"><a sveltekit:prefetch href="${"/#top"}" class="${"svelte-ncccu2"}"><img src="${"/logo-144x144.png"}" alt="${"QuantumGameArena"}" class="${"svelte-ncccu2"}">
 			<h1 class="${"footer__title"}">Quantum Game Arena</h1></a></div>
 	twitter
 </footer>`;
 });
-var css$7 = {
+var css$8 = {
   code: ".hero.svelte-qaq6qt.svelte-qaq6qt{display:flex;align-items:center;justify-content:center;height:10rem;width:100%;background:var(--theme-color)}.hero.svelte-qaq6qt h1.svelte-qaq6qt{color:var(--bg-color);font-size:2.5rem}section.svelte-qaq6qt.svelte-qaq6qt{display:flex;align-items:center;justify-content:center;width:100%;flex-direction:column}section.svelte-qaq6qt.svelte-qaq6qt:nth-child(even){background-color:var(--theme-light-color)}section.svelte-qaq6qt h1.svelte-qaq6qt{font-weight:bold;font-size:2rem;border-bottom:2px solid var(--theme-color)}section.svelte-qaq6qt p.svelte-qaq6qt{max-width:512px}.game-list.svelte-qaq6qt.svelte-qaq6qt{display:flex;align-items:center;justify-content:center}.game-list.svelte-qaq6qt li.svelte-qaq6qt{list-style-type:none;margin:1rem;box-sizing:border-box;display:flex;align-items:center;justify-content:center;height:125px;width:100px;border:2px solid var(--accent-color)}.game-list.svelte-qaq6qt li a.svelte-qaq6qt{font-weight:bold}.game-list.svelte-qaq6qt .comming-soon.svelte-qaq6qt{background:#aaaaaaaa}.game-list.svelte-qaq6qt .comming-soon a.svelte-qaq6qt{opacity:0.5}",
   map: `{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<script context=\\"module\\" lang=\\"ts\\">export const prerender = true;\\n<\/script>\\n\\n<script lang=\\"ts\\">import TheHeader from '$lib/TheHeader/index.svelte';\\nimport TheFooter from '$lib/TheFooter/index.svelte';\\n<\/script>\\n\\n<svelte:head>\\n\\t<title>Quantum Game Arena</title>\\n</svelte:head>\\n\\n<TheHeader />\\n<article>\\n\\t<header class=\\"hero\\" id=\\"top\\">\\n\\t\\t<h1>Quantum Game Arena</h1>\\n\\t</header>\\n\\t<section id=\\"about\\">\\n\\t\\t<h1>About</h1>\\n\\t\\t<p>\\n\\t\\t\\tQuantum Game Arena\\n\\t\\t\\t\u306F\uFF0C\u30B2\u30FC\u30E0\u3092\u901A\u3058\u3066\u91CF\u5B50\u529B\u5B66\u7684\u4E16\u754C\u89B3\u3092\u990A\u3046\u3053\u3068\u3092\u76EE\u7684\u3068\u3057\u305F\u91CF\u5B50\u30B2\u30FC\u30E0\u306E\u904A\u3073\u5834\u3067\u3059\uFF0E\\n\\t\\t</p>\\n\\t</section>\\n\\t<section id=\\"games\\">\\n\\t\\t<h1>Games</h1>\\n\\t\\t<nav>\\n\\t\\t\\t<ul class=\\"game-list\\">\\n\\t\\t\\t\\t<li>\\n\\t\\t\\t\\t\\t<a sveltekit:prefetch href=\\"/games/quantum-tictactoe\\" type=\\"text/html\\">\u91CF\u5B50\u4E09\u76EE\u4E26\u3079</a>\\n\\t\\t\\t\\t</li>\\n\\t\\t\\t\\t<li class=\\"comming-soon\\">\\n\\t\\t\\t\\t\\t<span>\u91CF\u5B50\u56F2\u7881</span>\\n\\t\\t\\t\\t</li>\\n\\t\\t\\t\\t<li class=\\"comming-soon\\">\\n\\t\\t\\t\\t\\t<span>\u91CF\u5B50\u5C06\u68CB</span>\\n\\t\\t\\t\\t</li>\\n\\t\\t\\t\\t<li class=\\"comming-soon\\">\\n\\t\\t\\t\\t\\t<span>\u91CF\u5B50\u4EBA\u72FC</span>\\n\\t\\t\\t\\t</li>\\n\\t\\t\\t</ul>\\n\\t\\t</nav>\\n\\t</section>\\n</article>\\n<TheFooter />\\n\\n<style lang=\\"scss\\">.hero {\\n  display: flex;\\n  align-items: center;\\n  justify-content: center;\\n  height: 10rem;\\n  width: 100%;\\n  background: var(--theme-color);\\n}\\n.hero h1 {\\n  color: var(--bg-color);\\n  font-size: 2.5rem;\\n}\\n\\nsection {\\n  display: flex;\\n  align-items: center;\\n  justify-content: center;\\n  width: 100%;\\n  flex-direction: column;\\n}\\nsection:nth-child(even) {\\n  background-color: var(--theme-light-color);\\n}\\nsection h1 {\\n  font-weight: bold;\\n  font-size: 2rem;\\n  border-bottom: 2px solid var(--theme-color);\\n}\\nsection p {\\n  max-width: 512px;\\n}\\n\\n.game-list {\\n  display: flex;\\n  align-items: center;\\n  justify-content: center;\\n}\\n.game-list li {\\n  list-style-type: none;\\n  margin: 1rem;\\n  box-sizing: border-box;\\n  display: flex;\\n  align-items: center;\\n  justify-content: center;\\n  height: 125px;\\n  width: 100px;\\n  border: 2px solid var(--accent-color);\\n}\\n.game-list li a {\\n  font-weight: bold;\\n}\\n.game-list .comming-soon {\\n  background: #aaaaaaaa;\\n}\\n.game-list .comming-soon a {\\n  opacity: 0.5;\\n}</style>\\n"],"names":[],"mappings":"AA6CmB,KAAK,4BAAC,CAAC,AACxB,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM,CACvB,MAAM,CAAE,KAAK,CACb,KAAK,CAAE,IAAI,CACX,UAAU,CAAE,IAAI,aAAa,CAAC,AAChC,CAAC,AACD,mBAAK,CAAC,EAAE,cAAC,CAAC,AACR,KAAK,CAAE,IAAI,UAAU,CAAC,CACtB,SAAS,CAAE,MAAM,AACnB,CAAC,AAED,OAAO,4BAAC,CAAC,AACP,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM,CACvB,KAAK,CAAE,IAAI,CACX,cAAc,CAAE,MAAM,AACxB,CAAC,AACD,mCAAO,WAAW,IAAI,CAAC,AAAC,CAAC,AACvB,gBAAgB,CAAE,IAAI,mBAAmB,CAAC,AAC5C,CAAC,AACD,qBAAO,CAAC,EAAE,cAAC,CAAC,AACV,WAAW,CAAE,IAAI,CACjB,SAAS,CAAE,IAAI,CACf,aAAa,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,aAAa,CAAC,AAC7C,CAAC,AACD,qBAAO,CAAC,CAAC,cAAC,CAAC,AACT,SAAS,CAAE,KAAK,AAClB,CAAC,AAED,UAAU,4BAAC,CAAC,AACV,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM,AACzB,CAAC,AACD,wBAAU,CAAC,EAAE,cAAC,CAAC,AACb,eAAe,CAAE,IAAI,CACrB,MAAM,CAAE,IAAI,CACZ,UAAU,CAAE,UAAU,CACtB,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM,CACvB,MAAM,CAAE,KAAK,CACb,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,cAAc,CAAC,AACvC,CAAC,AACD,wBAAU,CAAC,EAAE,CAAC,CAAC,cAAC,CAAC,AACf,WAAW,CAAE,IAAI,AACnB,CAAC,AACD,wBAAU,CAAC,aAAa,cAAC,CAAC,AACxB,UAAU,CAAE,SAAS,AACvB,CAAC,AACD,wBAAU,CAAC,aAAa,CAAC,CAAC,cAAC,CAAC,AAC1B,OAAO,CAAE,GAAG,AACd,CAAC"}`
 };
 var prerender$2 = true;
 var Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  $$result.css.add(css$7);
+  $$result.css.add(css$8);
   return `${$$result.head += `${$$result.title = `<title>Quantum Game Arena</title>`, ""}`, ""}
 
 ${validate_component(TheHeader, "TheHeader").$$render($$result, {}, {}, {})}
@@ -2677,13 +2677,13 @@ var index$2 = /* @__PURE__ */ Object.freeze({
   "default": Routes,
   prerender: prerender$2
 });
-var css$6 = {
+var css$7 = {
   code: ".main.svelte-1a96xjj.svelte-1a96xjj{display:flex;flex-direction:column;padding:0;margin:0;width:100%;box-sizing:border-box}.main--title.svelte-1a96xjj.svelte-1a96xjj{text-align:center}.nav.svelte-1a96xjj.svelte-1a96xjj{text-align:center}.nav.svelte-1a96xjj li.svelte-1a96xjj{list-style-type:none;box-sizing:border-box;margin:1.5rem;padding:auto}.nav.svelte-1a96xjj li .btn.svelte-1a96xjj{display:inline-block;box-sizing:border-box;border-radius:1.2rem;width:10rem;height:2.5rem;line-height:1.5;font-size:1.25rem;background-color:var(--theme-color);color:var(--bg-color)}.nav.svelte-1a96xjj .comming-soon.svelte-1a96xjj{opacity:0.5}",
   map: `{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<script context=\\"module\\" lang=\\"ts\\">export const prerender = true;\\n<\/script>\\n\\n<script lang=\\"ts\\">import TheHeader from '$lib/TheHeader/index.svelte';\\nimport TheFooter from '$lib/TheFooter/index.svelte';\\n<\/script>\\n\\n<svelte:head>\\n\\t<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>\\n</svelte:head>\\n\\n<TheHeader />\\n<main class=\\"main\\">\\n\\t<h1 class=\\"main--title\\">Quantum Tic-Tac-Toe</h1>\\n\\t<ul class=\\"nav\\">\\n\\t\\t<li>\\n\\t\\t\\t<a\\n\\t\\t\\t\\tclass=\\"btn\\"\\n\\t\\t\\t\\tsveltekit:prefetch\\n\\t\\t\\t\\thref=\\"/games/quantum-tictactoe/tutorial\\"\\n\\t\\t\\t\\ttype=\\"text/html;charset=utf-8\\">\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB</a\\n\\t\\t\\t>\\n\\t\\t</li>\\n\\t\\t<li>\\n\\t\\t\\t<a\\n\\t\\t\\t\\tclass=\\"btn\\"\\n\\t\\t\\t\\tsveltekit:prefetch\\n\\t\\t\\t\\thref=\\"/games/quantum-tictactoe/play/human\\"\\n\\t\\t\\t\\ttype=\\"application/ecmascript\\">\u30AA\u30D5\u30E9\u30A4\u30F3\u5BFE\u5C40</a\\n\\t\\t\\t>\\n\\t\\t</li>\\n\\t\\t<li class=\\"comming-soon\\"><span class=\\"btn\\">\u30AA\u30F3\u30E9\u30A4\u30F3\u5BFE\u5C40</span></li>\\n\\t</ul>\\n</main>\\n<TheFooter>\\n\\t<!--TODO: <menu>\\n\\t<li>seetings</li>\\n\\t<li>license</li>\\n\\t<li>share</li>\\n\\t<li>help</li>\\n</menu> -->\\n</TheFooter>\\n\\n<style lang=\\"scss\\">.main {\\n  display: flex;\\n  flex-direction: column;\\n  padding: 0;\\n  margin: 0;\\n  width: 100%;\\n  box-sizing: border-box;\\n}\\n\\n.main--title {\\n  text-align: center;\\n}\\n\\n.nav {\\n  text-align: center;\\n}\\n.nav li {\\n  list-style-type: none;\\n  box-sizing: border-box;\\n  margin: 1.5rem;\\n  padding: auto;\\n}\\n.nav li .btn {\\n  display: inline-block;\\n  box-sizing: border-box;\\n  border-radius: 1.2rem;\\n  width: 10rem;\\n  height: 2.5rem;\\n  line-height: 1.5;\\n  font-size: 1.25rem;\\n  background-color: var(--theme-color);\\n  color: var(--bg-color);\\n}\\n.nav .comming-soon {\\n  opacity: 0.5;\\n}</style>\\n"],"names":[],"mappings":"AA2CmB,KAAK,8BAAC,CAAC,AACxB,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,OAAO,CAAE,CAAC,CACV,MAAM,CAAE,CAAC,CACT,KAAK,CAAE,IAAI,CACX,UAAU,CAAE,UAAU,AACxB,CAAC,AAED,YAAY,8BAAC,CAAC,AACZ,UAAU,CAAE,MAAM,AACpB,CAAC,AAED,IAAI,8BAAC,CAAC,AACJ,UAAU,CAAE,MAAM,AACpB,CAAC,AACD,mBAAI,CAAC,EAAE,eAAC,CAAC,AACP,eAAe,CAAE,IAAI,CACrB,UAAU,CAAE,UAAU,CACtB,MAAM,CAAE,MAAM,CACd,OAAO,CAAE,IAAI,AACf,CAAC,AACD,mBAAI,CAAC,EAAE,CAAC,IAAI,eAAC,CAAC,AACZ,OAAO,CAAE,YAAY,CACrB,UAAU,CAAE,UAAU,CACtB,aAAa,CAAE,MAAM,CACrB,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,MAAM,CACd,WAAW,CAAE,GAAG,CAChB,SAAS,CAAE,OAAO,CAClB,gBAAgB,CAAE,IAAI,aAAa,CAAC,CACpC,KAAK,CAAE,IAAI,UAAU,CAAC,AACxB,CAAC,AACD,mBAAI,CAAC,aAAa,eAAC,CAAC,AAClB,OAAO,CAAE,GAAG,AACd,CAAC"}`
 };
 var prerender$1 = true;
 var Quantum_tictactoe = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  $$result.css.add(css$6);
+  $$result.css.add(css$7);
   return `${$$result.head += `${$$result.title = `<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>`, ""}`, ""}
 
 ${validate_component(TheHeader, "TheHeader").$$render($$result, {}, {}, {})}
@@ -2712,17 +2712,43 @@ var index = /* @__PURE__ */ Object.freeze({
   "default": Tutorial,
   prerender
 });
-var css$5 = {
-  code: ".white.svelte-j9qzjh{color:#e0e0e0}.blue.svelte-j9qzjh{color:#00bbd3}.red.svelte-j9qzjh{color:#e74c3c}",
-  map: `{"version":3,"file":"QuantumMarks.svelte","sources":["QuantumMarks.svelte"],"sourcesContent":["<script lang=\\"ts\\">;\\nexport let qMarks;\\nexport let cycleMarks;\\nexport let isHighlighted;\\nexport let isBeingCollapsed;\\n$: marks = (qMarks === null || qMarks === void 0 ? void 0 : qMarks.filter((x) => x)) || [];\\nfunction spanClass(mark) {\\n    if (cycleMarks === null || cycleMarks === void 0 ? void 0 : cycleMarks.includes(mark)) {\\n        if (isBeingCollapsed)\\n            return 'red';\\n        if (isHighlighted)\\n            return 'blue';\\n    }\\n    return 'white';\\n}\\n<\/script>\\n\\n<div>\\n\\t{#each marks as m, i (m)}\\n\\t\\t<span class={spanClass(m)}>{m[0]}<sub>{m[1]}</sub>{i === marks.length - 1 ? '' : ', '}</span>\\n\\t{/each}\\n</div>\\n\\n<style lang=\\"scss\\">.white {\\n  color: #e0e0e0;\\n}\\n\\n.blue {\\n  color: #00bbd3;\\n}\\n\\n.red {\\n  color: #e74c3c;\\n}</style>\\n"],"names":[],"mappings":"AAuBmB,MAAM,cAAC,CAAC,AACzB,KAAK,CAAE,OAAO,AAChB,CAAC,AAED,KAAK,cAAC,CAAC,AACL,KAAK,CAAE,OAAO,AAChB,CAAC,AAED,IAAI,cAAC,CAAC,AACJ,KAAK,CAAE,OAAO,AAChB,CAAC"}`
+function getOrdinal(n) {
+  if (n === 1)
+    return "first";
+  if (n === 2)
+    return "second";
+  if (n === 3)
+    return "third";
+  if (n === 4)
+    return "fourth";
+  if (n === 5)
+    return "fifth";
+  if (n === 6)
+    return "sixth";
+  if (n === 7)
+    return "seventh";
+  if (n === 8)
+    return "eighth";
+  if (n === 9)
+    return "ninth";
+  if (n % 10 === 1)
+    return `${n}st`;
+  if (n % 10 === 2)
+    return `${n}nd`;
+  if (n % 10 === 3)
+    return `${n}rd`;
+  return `${n}th`;
+}
+var css$6 = {
+  code: ".quantum-marks.svelte-1q8q4d7{box-sizing:border-box;margin:0;padding:8px;width:100%;height:100%;display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:flex-start;cursor:pointer;user-select:none;-moz-user-select:none;-webkit-user-select:none}.white.svelte-1q8q4d7,.blue.svelte-1q8q4d7,.red.svelte-1q8q4d7{margin:4px 8px;font-size:24px;font-weight:bold;line-height:32px}.white.svelte-1q8q4d7{color:var(--theme-light-color);text-shadow:0.125px 1px var(--theme-color)}.blue.svelte-1q8q4d7{color:var(--theme-color)}.red.svelte-1q8q4d7{color:var(--accent-color)}",
+  map: `{"version":3,"file":"MarkQuantums.svelte","sources":["MarkQuantums.svelte"],"sourcesContent":["<!--\\n\\tQuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.\\n\\t\\tCopyright (C) 2021  Shouhei Uechi\\n\\t\\tCopyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>\\n\\n\\tThis file is part of QuantumTicTacToe.\\n\\n\\tQuantumTicTacToe is free software: you can redistribute it and/or modify\\n\\tit under the terms of the GNU General Public License as published by\\n\\tthe Free Software Foundation, either version 3 of the License, or\\n\\t(at your option) any later version.\\n\\n\\tQuantumTicTacToe is distributed in the hope that it will be useful,\\n\\tbut WITHOUT ANY WARRANTY; without even the implied warranty of\\n\\tMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\\n\\tGNU General Public License for more details.\\n\\n\\tYou should have received a copy of the GNU General Public License\\n\\talong with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.\\n-->\\n<script lang=\\"ts\\">;\\nexport let qMarks;\\nexport let cycleMarks;\\nexport let isHighlighted;\\nexport let isBeingCollapsed;\\nfunction getTextColor(mark) {\\n    if (cycleMarks === null || cycleMarks === void 0 ? void 0 : cycleMarks.includes(mark)) {\\n        if (isBeingCollapsed)\\n            return 'red';\\n        if (isHighlighted)\\n            return 'blue';\\n    }\\n    return 'white';\\n}\\n<\/script>\\n\\n<div class=\\"quantum-marks\\">\\n\\t{#each qMarks as m (m)}\\n\\t\\t<span class={getTextColor(m)}>{m[0]}<sub>{m[1]}</sub></span>\\n\\t{/each}\\n</div>\\n\\n<style lang=\\"scss\\">.quantum-marks {\\n  box-sizing: border-box;\\n  margin: 0;\\n  padding: 8px;\\n  width: 100%;\\n  height: 100%;\\n  display: flex;\\n  flex-wrap: wrap;\\n  justify-content: flex-start;\\n  align-items: flex-start;\\n  cursor: pointer;\\n  user-select: none;\\n  -moz-user-select: none;\\n  -webkit-user-select: none;\\n}\\n\\n.white,\\n.blue,\\n.red {\\n  margin: 4px 8px;\\n  font-size: 24px;\\n  font-weight: bold;\\n  line-height: 32px;\\n}\\n\\n.white {\\n  color: var(--theme-light-color);\\n  text-shadow: 0.125px 1px var(--theme-color);\\n}\\n\\n.blue {\\n  color: var(--theme-color);\\n}\\n\\n.red {\\n  color: var(--accent-color);\\n}</style>\\n"],"names":[],"mappings":"AA0CmB,cAAc,eAAC,CAAC,AACjC,UAAU,CAAE,UAAU,CACtB,MAAM,CAAE,CAAC,CACT,OAAO,CAAE,GAAG,CACZ,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,IAAI,CACb,SAAS,CAAE,IAAI,CACf,eAAe,CAAE,UAAU,CAC3B,WAAW,CAAE,UAAU,CACvB,MAAM,CAAE,OAAO,CACf,WAAW,CAAE,IAAI,CACjB,gBAAgB,CAAE,IAAI,CACtB,mBAAmB,CAAE,IAAI,AAC3B,CAAC,AAED,qBAAM,CACN,oBAAK,CACL,IAAI,eAAC,CAAC,AACJ,MAAM,CAAE,GAAG,CAAC,GAAG,CACf,SAAS,CAAE,IAAI,CACf,WAAW,CAAE,IAAI,CACjB,WAAW,CAAE,IAAI,AACnB,CAAC,AAED,MAAM,eAAC,CAAC,AACN,KAAK,CAAE,IAAI,mBAAmB,CAAC,CAC/B,WAAW,CAAE,OAAO,CAAC,GAAG,CAAC,IAAI,aAAa,CAAC,AAC7C,CAAC,AAED,KAAK,eAAC,CAAC,AACL,KAAK,CAAE,IAAI,aAAa,CAAC,AAC3B,CAAC,AAED,IAAI,eAAC,CAAC,AACJ,KAAK,CAAE,IAAI,cAAc,CAAC,AAC5B,CAAC"}`
 };
-var QuantumMarks = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let marks;
+var MarkQuantums = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { qMarks } = $$props;
   let { cycleMarks } = $$props;
   let { isHighlighted } = $$props;
   let { isBeingCollapsed } = $$props;
-  function spanClass(mark) {
+  function getTextColor(mark) {
     if (cycleMarks === null || cycleMarks === void 0 ? void 0 : cycleMarks.includes(mark)) {
       if (isBeingCollapsed)
         return "red";
@@ -2739,18 +2765,34 @@ var QuantumMarks = create_ssr_component(($$result, $$props, $$bindings, slots) =
     $$bindings.isHighlighted(isHighlighted);
   if ($$props.isBeingCollapsed === void 0 && $$bindings.isBeingCollapsed && isBeingCollapsed !== void 0)
     $$bindings.isBeingCollapsed(isBeingCollapsed);
+  $$result.css.add(css$6);
+  return `
+
+
+<div class="${"quantum-marks svelte-1q8q4d7"}">${each(qMarks, (m) => `<span class="${escape2(null_to_empty(getTextColor(m))) + " svelte-1q8q4d7"}">${escape2(m[0])}<sub>${escape2(m[1])}</sub></span>`)}
+</div>`;
+});
+var css$5 = {
+  code: ".classical-mark.svelte-12m3ax2.svelte-12m3ax2{box-sizing:border-box;margin:0;padding:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;cursor:default;user-select:none;-moz-user-select:none;-webkit-user-select:none}span.svelte-12m3ax2.svelte-12m3ax2{display:block;font-size:60px;color:var(--theme-color);font-weight:bold;line-height:1}span.svelte-12m3ax2 sub.svelte-12m3ax2{font-size:30px}",
+  map: '{"version":3,"file":"MarkClassical.svelte","sources":["MarkClassical.svelte"],"sourcesContent":["<!--\\n\\tQuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.\\n\\t\\tCopyright (C) 2021  Shouhei Uechi\\n\\t\\tCopyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>\\n\\n\\tThis file is part of QuantumTicTacToe.\\n\\n\\tQuantumTicTacToe is free software: you can redistribute it and/or modify\\n\\tit under the terms of the GNU General Public License as published by\\n\\tthe Free Software Foundation, either version 3 of the License, or\\n\\t(at your option) any later version.\\n\\n\\tQuantumTicTacToe is distributed in the hope that it will be useful,\\n\\tbut WITHOUT ANY WARRANTY; without even the implied warranty of\\n\\tMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\\n\\tGNU General Public License for more details.\\n\\n\\tYou should have received a copy of the GNU General Public License\\n\\talong with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.\\n-->\\n<script lang=\\"ts\\">;\\nexport let cMark;\\n<\/script>\\n\\n<div class=\\"classical-mark\\">\\n\\t<span>{cMark[0]}<sub>{cMark[1]}</sub></span>\\n</div>\\n\\n<style lang=\\"scss\\">.classical-mark {\\n  box-sizing: border-box;\\n  margin: 0;\\n  padding: 0;\\n  width: 100%;\\n  height: 100%;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center;\\n  cursor: default;\\n  user-select: none;\\n  -moz-user-select: none;\\n  -webkit-user-select: none;\\n}\\n\\nspan {\\n  display: block;\\n  font-size: 60px;\\n  color: var(--theme-color);\\n  font-weight: bold;\\n  line-height: 1;\\n}\\nspan sub {\\n  font-size: 30px;\\n}</style>\\n"],"names":[],"mappings":"AA4BmB,eAAe,8BAAC,CAAC,AAClC,UAAU,CAAE,UAAU,CACtB,MAAM,CAAE,CAAC,CACT,OAAO,CAAE,CAAC,CACV,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,CACnB,MAAM,CAAE,OAAO,CACf,WAAW,CAAE,IAAI,CACjB,gBAAgB,CAAE,IAAI,CACtB,mBAAmB,CAAE,IAAI,AAC3B,CAAC,AAED,IAAI,8BAAC,CAAC,AACJ,OAAO,CAAE,KAAK,CACd,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,IAAI,aAAa,CAAC,CACzB,WAAW,CAAE,IAAI,CACjB,WAAW,CAAE,CAAC,AAChB,CAAC,AACD,mBAAI,CAAC,GAAG,eAAC,CAAC,AACR,SAAS,CAAE,IAAI,AACjB,CAAC"}'
+};
+var MarkClassical = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let { cMark } = $$props;
+  if ($$props.cMark === void 0 && $$bindings.cMark && cMark !== void 0)
+    $$bindings.cMark(cMark);
   $$result.css.add(css$5);
-  marks = (qMarks === null || qMarks === void 0 ? void 0 : qMarks.filter((x) => x)) || [];
-  return `<div>${each(marks, (m, i) => `<span class="${escape2(null_to_empty(spanClass(m))) + " svelte-j9qzjh"}">${escape2(m[0])}<sub>${escape2(m[1])}</sub>${escape2(i === marks.length - 1 ? "" : ", ")}</span>`)}
+  return `
+
+
+<div class="${"classical-mark svelte-12m3ax2"}"><span class="${"svelte-12m3ax2"}">${escape2(cMark[0])}<sub class="${"svelte-12m3ax2"}">${escape2(cMark[1])}</sub></span>
 </div>`;
 });
 var css$4 = {
-  code: ".marks.svelte-1xoo0gw.svelte-1xoo0gw{margin:5px;margin-top:5px}.adjustCenter.svelte-1xoo0gw.svelte-1xoo0gw{margin-top:20px;margin-left:30px}.square.svelte-1xoo0gw.svelte-1xoo0gw{background:#374046;border:2px solid #999;float:left;font-size:24px;font-weight:bold;line-height:34px;height:160px;width:160px;margin-right:-1px;margin-top:-1px;border-color:#00bbd3;user-select:none}.classical.svelte-1xoo0gw.svelte-1xoo0gw{font-size:60px;display:flex;flex-direction:row;justify-content:center;align-items:center;color:#e0e0e0}.selected.svelte-1xoo0gw.svelte-1xoo0gw{color:#e74c3c}.rotating-dashed.svelte-1xoo0gw.svelte-1xoo0gw{position:relative;overflow:hidden;color:#00bbd3}.rotating-dashed.svelte-1xoo0gw .dashing.svelte-1xoo0gw{display:block;width:100%;height:100%;position:absolute}.rotating-dashed.svelte-1xoo0gw .dashing.svelte-1xoo0gw:nth-of-type(1){transform:rotate(0deg)}.rotating-dashed.svelte-1xoo0gw .dashing.svelte-1xoo0gw:nth-of-type(2){transform:rotate(90deg)}.rotating-dashed.svelte-1xoo0gw .dashing.svelte-1xoo0gw:nth-of-type(3){transform:rotate(180deg)}.rotating-dashed.svelte-1xoo0gw .dashing.svelte-1xoo0gw:nth-of-type(4){transform:rotate(270deg)}.rotating-dashed.svelte-1xoo0gw .dashing i.svelte-1xoo0gw{display:block;position:absolute;left:0;top:0;width:200%;border-bottom:5px dashed;animation:svelte-1xoo0gw-slideDash 2.5s infinite linear}@keyframes svelte-1xoo0gw-slideDash{from{transform:translateX(-50%)}to{transform:translateX(0%)}}",
-  map: `{"version":3,"file":"BoardSquare.svelte","sources":["BoardSquare.svelte"],"sourcesContent":["<script lang=\\"ts\\">;\\nexport let cMark;\\nexport let qMarks;\\nexport let cycleMarks;\\nexport let isHighlighted;\\nexport let isBeingCollapsed;\\nexport let onClick;\\nimport QuantumMarks from './QuantumMarks.svelte';\\n$: squareClass = cMark\\n    ? 'square classical'\\n    : \`square\${isHighlighted ? ' rotating-dashed' : ''}\${isBeingCollapsed ? ' selected' : ''}\`;\\n$: marksClass = cMark ? 'marks adjustCenter' : 'marks';\\n<\/script>\\n\\n<div class={squareClass} on:click|preventDefault={(_) => onClick()}>\\n\\t<div>\\n\\t\\t<span class=\\"dashing\\"><i /></span>\\n\\t\\t<span class=\\"dashing\\"><i /></span>\\n\\t\\t<span class=\\"dashing\\"><i /></span>\\n\\t\\t<span class=\\"dashing\\"><i /></span>\\n\\t</div>\\n\\t<div class={marksClass}>\\n\\t\\t{#if cMark}\\n\\t\\t\\t{cMark[0]}<sub>{cMark[1]}</sub>\\n\\t\\t{:else}\\n\\t\\t\\t<QuantumMarks {isHighlighted} {isBeingCollapsed} {qMarks} {cycleMarks} />\\n\\t\\t{/if}\\n\\t</div>\\n</div>\\n\\n<style lang=\\"scss\\">.marks {\\n  margin: 5px;\\n  margin-top: 5px;\\n}\\n\\n.adjustCenter {\\n  margin-top: 20px;\\n  margin-left: 30px;\\n}\\n\\n.square {\\n  background: #374046;\\n  border: 2px solid #999;\\n  float: left;\\n  font-size: 24px;\\n  font-weight: bold;\\n  line-height: 34px;\\n  height: 160px;\\n  width: 160px;\\n  margin-right: -1px;\\n  margin-top: -1px;\\n  border-color: #00bbd3;\\n  user-select: none;\\n}\\n\\n.classical {\\n  font-size: 60px;\\n  display: flex;\\n  flex-direction: row;\\n  justify-content: center;\\n  align-items: center;\\n  color: #e0e0e0;\\n}\\n\\n.selected {\\n  color: #e74c3c;\\n}\\n\\n.rotating-dashed {\\n  position: relative;\\n  overflow: hidden;\\n  color: #00bbd3;\\n}\\n.rotating-dashed .dashing {\\n  display: block;\\n  width: 100%;\\n  height: 100%;\\n  position: absolute;\\n}\\n.rotating-dashed .dashing:nth-of-type(1) {\\n  transform: rotate(0deg);\\n}\\n.rotating-dashed .dashing:nth-of-type(2) {\\n  transform: rotate(90deg);\\n}\\n.rotating-dashed .dashing:nth-of-type(3) {\\n  transform: rotate(180deg);\\n}\\n.rotating-dashed .dashing:nth-of-type(4) {\\n  transform: rotate(270deg);\\n}\\n.rotating-dashed .dashing i {\\n  display: block;\\n  position: absolute;\\n  left: 0;\\n  top: 0;\\n  width: 200%;\\n  border-bottom: 5px dashed;\\n  animation: slideDash 2.5s infinite linear;\\n}\\n\\n@keyframes slideDash {\\n  from {\\n    transform: translateX(-50%);\\n  }\\n  to {\\n    transform: translateX(0%);\\n  }\\n}</style>\\n"],"names":[],"mappings":"AA8BmB,MAAM,8BAAC,CAAC,AACzB,MAAM,CAAE,GAAG,CACX,UAAU,CAAE,GAAG,AACjB,CAAC,AAED,aAAa,8BAAC,CAAC,AACb,UAAU,CAAE,IAAI,CAChB,WAAW,CAAE,IAAI,AACnB,CAAC,AAED,OAAO,8BAAC,CAAC,AACP,UAAU,CAAE,OAAO,CACnB,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,CACtB,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,IAAI,CACf,WAAW,CAAE,IAAI,CACjB,WAAW,CAAE,IAAI,CACjB,MAAM,CAAE,KAAK,CACb,KAAK,CAAE,KAAK,CACZ,YAAY,CAAE,IAAI,CAClB,UAAU,CAAE,IAAI,CAChB,YAAY,CAAE,OAAO,CACrB,WAAW,CAAE,IAAI,AACnB,CAAC,AAED,UAAU,8BAAC,CAAC,AACV,SAAS,CAAE,IAAI,CACf,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,GAAG,CACnB,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,CACnB,KAAK,CAAE,OAAO,AAChB,CAAC,AAED,SAAS,8BAAC,CAAC,AACT,KAAK,CAAE,OAAO,AAChB,CAAC,AAED,gBAAgB,8BAAC,CAAC,AAChB,QAAQ,CAAE,QAAQ,CAClB,QAAQ,CAAE,MAAM,CAChB,KAAK,CAAE,OAAO,AAChB,CAAC,AACD,+BAAgB,CAAC,QAAQ,eAAC,CAAC,AACzB,OAAO,CAAE,KAAK,CACd,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,QAAQ,CAAE,QAAQ,AACpB,CAAC,AACD,+BAAgB,CAAC,uBAAQ,aAAa,CAAC,CAAC,AAAC,CAAC,AACxC,SAAS,CAAE,OAAO,IAAI,CAAC,AACzB,CAAC,AACD,+BAAgB,CAAC,uBAAQ,aAAa,CAAC,CAAC,AAAC,CAAC,AACxC,SAAS,CAAE,OAAO,KAAK,CAAC,AAC1B,CAAC,AACD,+BAAgB,CAAC,uBAAQ,aAAa,CAAC,CAAC,AAAC,CAAC,AACxC,SAAS,CAAE,OAAO,MAAM,CAAC,AAC3B,CAAC,AACD,+BAAgB,CAAC,uBAAQ,aAAa,CAAC,CAAC,AAAC,CAAC,AACxC,SAAS,CAAE,OAAO,MAAM,CAAC,AAC3B,CAAC,AACD,+BAAgB,CAAC,QAAQ,CAAC,CAAC,eAAC,CAAC,AAC3B,OAAO,CAAE,KAAK,CACd,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,CAAC,CACP,GAAG,CAAE,CAAC,CACN,KAAK,CAAE,IAAI,CACX,aAAa,CAAE,GAAG,CAAC,MAAM,CACzB,SAAS,CAAE,wBAAS,CAAC,IAAI,CAAC,QAAQ,CAAC,MAAM,AAC3C,CAAC,AAED,WAAW,wBAAU,CAAC,AACpB,IAAI,AAAC,CAAC,AACJ,SAAS,CAAE,WAAW,IAAI,CAAC,AAC7B,CAAC,AACD,EAAE,AAAC,CAAC,AACF,SAAS,CAAE,WAAW,EAAE,CAAC,AAC3B,CAAC,AACH,CAAC"}`
+  code: ".square.svelte-197gjhg.svelte-197gjhg{background:var(--bg-color);border:2px solid var(--theme-color);height:160px;width:160px;margin:-1px}.selected.svelte-197gjhg.svelte-197gjhg{color:var(--accent-color)}.highlighted.svelte-197gjhg.svelte-197gjhg{position:relative;overflow:hidden;color:var(--theme-color)}.highlighted.svelte-197gjhg .border-dashing.svelte-197gjhg{display:block;width:100%;height:100%;position:absolute}.highlighted.svelte-197gjhg .border-dashing.svelte-197gjhg:nth-of-type(1){transform:rotate(0deg)}.highlighted.svelte-197gjhg .border-dashing.svelte-197gjhg:nth-of-type(2){transform:rotate(90deg)}.highlighted.svelte-197gjhg .border-dashing.svelte-197gjhg:nth-of-type(3){transform:rotate(180deg)}.highlighted.svelte-197gjhg .border-dashing.svelte-197gjhg:nth-of-type(4){transform:rotate(270deg)}.highlighted.svelte-197gjhg .border-dashing i.svelte-197gjhg{border-bottom:5px dashed var(--theme-color);display:block;position:absolute;left:0;top:0;width:200%;animation:svelte-197gjhg-slideDash 2.5s infinite linear}@keyframes svelte-197gjhg-slideDash{from{transform:translateX(-50%)}to{transform:translateX(0%)}}",
+  map: `{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<!--\\n\\tQuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.\\n\\t\\tCopyright (C) 2021  Shouhei Uechi\\n\\t\\tCopyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>\\n\\n\\tThis file is part of QuantumTicTacToe.\\n\\n\\tQuantumTicTacToe is free software: you can redistribute it and/or modify\\n\\tit under the terms of the GNU General Public License as published by\\n\\tthe Free Software Foundation, either version 3 of the License, or\\n\\t(at your option) any later version.\\n\\n\\tQuantumTicTacToe is distributed in the hope that it will be useful,\\n\\tbut WITHOUT ANY WARRANTY; without even the implied warranty of\\n\\tMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\\n\\tGNU General Public License for more details.\\n\\n\\tYou should have received a copy of the GNU General Public License\\n\\talong with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.\\n-->\\n<script lang=\\"ts\\">import QuantumMarks from './MarkQuantums.svelte';\\nimport ClassicalMark from './MarkClassical.svelte';\\n;\\nexport let cMark;\\nexport let qMarks;\\nexport let cycleMarks;\\nexport let isHighlighted;\\nexport let isBeingCollapsed;\\nexport let onClick;\\n$: squareClass = cMark\\n    ? 'square'\\n    : \`square\${isHighlighted ? ' highlighted' : ''}\${isBeingCollapsed ? ' selected' : ''}\`;\\n<\/script>\\n\\n<div class={squareClass} on:click|preventDefault={(_) => onClick()}>\\n\\t<div>\\n\\t\\t<span class=\\"border-dashing\\"><i /></span>\\n\\t\\t<span class=\\"border-dashing\\"><i /></span>\\n\\t\\t<span class=\\"border-dashing\\"><i /></span>\\n\\t\\t<span class=\\"border-dashing\\"><i /></span>\\n\\t</div>\\n\\t{#if cMark}\\n\\t\\t<ClassicalMark {cMark} />\\n\\t{/if}\\n\\t{#if qMarks}\\n\\t\\t<QuantumMarks {isHighlighted} {isBeingCollapsed} {qMarks} {cycleMarks} />\\n\\t{/if}\\n</div>\\n\\n<style lang=\\"scss\\">.square {\\n  background: var(--bg-color);\\n  border: 2px solid var(--theme-color);\\n  height: 160px;\\n  width: 160px;\\n  margin: -1px;\\n}\\n\\n.selected {\\n  color: var(--accent-color);\\n}\\n\\n.highlighted {\\n  position: relative;\\n  overflow: hidden;\\n  color: var(--theme-color);\\n}\\n.highlighted .border-dashing {\\n  display: block;\\n  width: 100%;\\n  height: 100%;\\n  position: absolute;\\n}\\n.highlighted .border-dashing:nth-of-type(1) {\\n  transform: rotate(0deg);\\n}\\n.highlighted .border-dashing:nth-of-type(2) {\\n  transform: rotate(90deg);\\n}\\n.highlighted .border-dashing:nth-of-type(3) {\\n  transform: rotate(180deg);\\n}\\n.highlighted .border-dashing:nth-of-type(4) {\\n  transform: rotate(270deg);\\n}\\n.highlighted .border-dashing i {\\n  border-bottom: 5px dashed var(--theme-color);\\n  display: block;\\n  position: absolute;\\n  left: 0;\\n  top: 0;\\n  width: 200%;\\n  animation: slideDash 2.5s infinite linear;\\n}\\n\\n@keyframes slideDash {\\n  from {\\n    transform: translateX(-50%);\\n  }\\n  to {\\n    transform: translateX(0%);\\n  }\\n}</style>\\n"],"names":[],"mappings":"AAiDmB,OAAO,8BAAC,CAAC,AAC1B,UAAU,CAAE,IAAI,UAAU,CAAC,CAC3B,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,aAAa,CAAC,CACpC,MAAM,CAAE,KAAK,CACb,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,IAAI,AACd,CAAC,AAED,SAAS,8BAAC,CAAC,AACT,KAAK,CAAE,IAAI,cAAc,CAAC,AAC5B,CAAC,AAED,YAAY,8BAAC,CAAC,AACZ,QAAQ,CAAE,QAAQ,CAClB,QAAQ,CAAE,MAAM,CAChB,KAAK,CAAE,IAAI,aAAa,CAAC,AAC3B,CAAC,AACD,2BAAY,CAAC,eAAe,eAAC,CAAC,AAC5B,OAAO,CAAE,KAAK,CACd,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,QAAQ,CAAE,QAAQ,AACpB,CAAC,AACD,2BAAY,CAAC,8BAAe,aAAa,CAAC,CAAC,AAAC,CAAC,AAC3C,SAAS,CAAE,OAAO,IAAI,CAAC,AACzB,CAAC,AACD,2BAAY,CAAC,8BAAe,aAAa,CAAC,CAAC,AAAC,CAAC,AAC3C,SAAS,CAAE,OAAO,KAAK,CAAC,AAC1B,CAAC,AACD,2BAAY,CAAC,8BAAe,aAAa,CAAC,CAAC,AAAC,CAAC,AAC3C,SAAS,CAAE,OAAO,MAAM,CAAC,AAC3B,CAAC,AACD,2BAAY,CAAC,8BAAe,aAAa,CAAC,CAAC,AAAC,CAAC,AAC3C,SAAS,CAAE,OAAO,MAAM,CAAC,AAC3B,CAAC,AACD,2BAAY,CAAC,eAAe,CAAC,CAAC,eAAC,CAAC,AAC9B,aAAa,CAAE,GAAG,CAAC,MAAM,CAAC,IAAI,aAAa,CAAC,CAC5C,OAAO,CAAE,KAAK,CACd,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,CAAC,CACP,GAAG,CAAE,CAAC,CACN,KAAK,CAAE,IAAI,CACX,SAAS,CAAE,wBAAS,CAAC,IAAI,CAAC,QAAQ,CAAC,MAAM,AAC3C,CAAC,AAED,WAAW,wBAAU,CAAC,AACpB,IAAI,AAAC,CAAC,AACJ,SAAS,CAAE,WAAW,IAAI,CAAC,AAC7B,CAAC,AACD,EAAE,AAAC,CAAC,AACF,SAAS,CAAE,WAAW,EAAE,CAAC,AAC3B,CAAC,AACH,CAAC"}`
 };
-var BoardSquare = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+var GameBoardSquare = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let squareClass;
-  let marksClass;
   let { cMark } = $$props;
   let { qMarks } = $$props;
   let { cycleMarks } = $$props;
@@ -2770,26 +2812,30 @@ var BoardSquare = create_ssr_component(($$result, $$props, $$bindings, slots) =>
   if ($$props.onClick === void 0 && $$bindings.onClick && onClick !== void 0)
     $$bindings.onClick(onClick);
   $$result.css.add(css$4);
-  squareClass = cMark ? "square classical" : `square${isHighlighted ? " rotating-dashed" : ""}${isBeingCollapsed ? " selected" : ""}`;
-  marksClass = cMark ? "marks adjustCenter" : "marks";
-  return `<div class="${escape2(null_to_empty(squareClass)) + " svelte-1xoo0gw"}"><div><span class="${"dashing svelte-1xoo0gw"}"><i class="${"svelte-1xoo0gw"}"></i></span>
-		<span class="${"dashing svelte-1xoo0gw"}"><i class="${"svelte-1xoo0gw"}"></i></span>
-		<span class="${"dashing svelte-1xoo0gw"}"><i class="${"svelte-1xoo0gw"}"></i></span>
-		<span class="${"dashing svelte-1xoo0gw"}"><i class="${"svelte-1xoo0gw"}"></i></span></div>
-	<div class="${escape2(null_to_empty(marksClass)) + " svelte-1xoo0gw"}">${cMark ? `${escape2(cMark[0])}<sub>${escape2(cMark[1])}</sub>` : `${validate_component(QuantumMarks, "QuantumMarks").$$render($$result, {
+  squareClass = cMark ? "square" : `square${isHighlighted ? " highlighted" : ""}${isBeingCollapsed ? " selected" : ""}`;
+  return `
+
+
+<div class="${escape2(null_to_empty(squareClass)) + " svelte-197gjhg"}"><div><span class="${"border-dashing svelte-197gjhg"}"><i class="${"svelte-197gjhg"}"></i></span>
+		<span class="${"border-dashing svelte-197gjhg"}"><i class="${"svelte-197gjhg"}"></i></span>
+		<span class="${"border-dashing svelte-197gjhg"}"><i class="${"svelte-197gjhg"}"></i></span>
+		<span class="${"border-dashing svelte-197gjhg"}"><i class="${"svelte-197gjhg"}"></i></span></div>
+	${cMark ? `${validate_component(MarkClassical, "ClassicalMark").$$render($$result, { cMark }, {}, {})}` : ``}
+	${qMarks ? `${validate_component(MarkQuantums, "QuantumMarks").$$render($$result, {
     isHighlighted,
     isBeingCollapsed,
     qMarks,
     cycleMarks
-  }, {}, {})}`}</div>
+  }, {}, {})}` : ``}
 </div>`;
 });
 var css$3 = {
-  code: '.board-row.svelte-zounfu:after{clear:both;content:"";display:table}',
-  map: `{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<script lang=\\"ts\\">import BoardSquare from './BoardSquare.svelte';\\n;\\nexport let cSquares;\\nexport let qSquares;\\nexport let cycleSquares;\\nexport let cycleMarks;\\nexport let collapseSquare;\\n// Passes index of square that was clicked up to Game.handleSquareClick.\\nexport let onSquareClick;\\nconst rows = [0, 1, 2];\\nconst columns = [0, 1, 2];\\n$: onClick = (row, column) => onSquareClick((row * 3 + column));\\n<\/script>\\n\\n<div>\\n\\t{#each rows as row}\\n\\t\\t<div class=\\"board-row\\">\\n\\t\\t\\t{#each columns as column}\\n\\t\\t\\t\\t<BoardSquare\\n\\t\\t\\t\\t\\tcMark={cSquares[row * 3 + column]}\\n\\t\\t\\t\\t\\tqMarks={qSquares[row * 3 + column]}\\n\\t\\t\\t\\t\\t{cycleMarks}\\n\\t\\t\\t\\t\\tisHighlighted={!!cycleSquares?.includes(row * 3 + column)}\\n\\t\\t\\t\\t\\tisBeingCollapsed={collapseSquare === row * 3 + column}\\n\\t\\t\\t\\t\\tonClick={() => onClick(row, column)}\\n\\t\\t\\t\\t/>\\n\\t\\t\\t{/each}\\n\\t\\t</div>\\n\\t{/each}\\n</div>\\n\\n<style lang=\\"scss\\">.board-row:after {\\n  clear: both;\\n  content: \\"\\";\\n  display: table;\\n}</style>\\n"],"names":[],"mappings":"AA+BmB,wBAAU,MAAM,AAAC,CAAC,AACnC,KAAK,CAAE,IAAI,CACX,OAAO,CAAE,EAAE,CACX,OAAO,CAAE,KAAK,AAChB,CAAC"}`
+  code: ".game-board.svelte-1ctwfcy{border:2px solid var(--theme-color);display:flex;flex-wrap:nowrap;flex-direction:column;justify-content:center;align-items:center}.game-board--row.svelte-1ctwfcy{display:flex;flex-wrap:nowrap;flex-direction:row;justify-content:center;align-items:center}",
+  map: `{"version":3,"file":"GameBoard.svelte","sources":["GameBoard.svelte"],"sourcesContent":["<!--\\n\\tQuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.\\n\\t\\tCopyright (C) 2021  Shouhei Uechi\\n\\t\\tCopyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>\\n\\n\\tThis file is part of QuantumTicTacToe.\\n\\n\\tQuantumTicTacToe is free software: you can redistribute it and/or modify\\n\\tit under the terms of the GNU General Public License as published by\\n\\tthe Free Software Foundation, either version 3 of the License, or\\n\\t(at your option) any later version.\\n\\n\\tQuantumTicTacToe is distributed in the hope that it will be useful,\\n\\tbut WITHOUT ANY WARRANTY; without even the implied warranty of\\n\\tMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\\n\\tGNU General Public License for more details.\\n\\n\\tYou should have received a copy of the GNU General Public License\\n\\talong with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.\\n-->\\n<script lang=\\"ts\\">import BoardSquare from './GameBoardSquare/index.svelte';\\n;\\nexport let cSquares;\\nexport let qSquares;\\nexport let cycleSquares;\\nexport let cycleMarks;\\nexport let collapseSquare;\\n// Passes index of square that was clicked up to Game.handleSquareClick.\\nexport let onSquareClick;\\nconst rows = [0, 1, 2];\\nconst columns = [0, 1, 2];\\n$: onClick = (row, column) => onSquareClick((row * 3 + column));\\n$: isHighlighted = (row, column) => !!(cycleSquares === null || cycleSquares === void 0 ? void 0 : cycleSquares.includes((row * 3 + column)));\\n<\/script>\\n\\n<div class=\\"game-board\\">\\n\\t{#each rows as row}\\n\\t\\t<div class=\\"game-board--row\\">\\n\\t\\t\\t{#each columns as column}\\n\\t\\t\\t\\t<BoardSquare\\n\\t\\t\\t\\t\\tcMark={cSquares[row * 3 + column]}\\n\\t\\t\\t\\t\\tqMarks={qSquares[row * 3 + column]}\\n\\t\\t\\t\\t\\t{cycleMarks}\\n\\t\\t\\t\\t\\tisHighlighted={isHighlighted(row, column)}\\n\\t\\t\\t\\t\\tisBeingCollapsed={collapseSquare === row * 3 + column}\\n\\t\\t\\t\\t\\tonClick={() => onClick(row, column)}\\n\\t\\t\\t\\t/>\\n\\t\\t\\t{/each}\\n\\t\\t</div>\\n\\t{/each}\\n</div>\\n\\n<style lang=\\"scss\\">.game-board {\\n  border: 2px solid var(--theme-color);\\n  display: flex;\\n  flex-wrap: nowrap;\\n  flex-direction: column;\\n  justify-content: center;\\n  align-items: center;\\n}\\n\\n.game-board--row {\\n  display: flex;\\n  flex-wrap: nowrap;\\n  flex-direction: row;\\n  justify-content: center;\\n  align-items: center;\\n}</style>\\n"],"names":[],"mappings":"AAoDmB,WAAW,eAAC,CAAC,AAC9B,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,aAAa,CAAC,CACpC,OAAO,CAAE,IAAI,CACb,SAAS,CAAE,MAAM,CACjB,cAAc,CAAE,MAAM,CACtB,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,AACrB,CAAC,AAED,gBAAgB,eAAC,CAAC,AAChB,OAAO,CAAE,IAAI,CACb,SAAS,CAAE,MAAM,CACjB,cAAc,CAAE,GAAG,CACnB,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,AACrB,CAAC"}`
 };
 var GameBoard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let onClick;
+  let isHighlighted;
   let { cSquares } = $$props;
   let { qSquares } = $$props;
   let { cycleSquares } = $$props;
@@ -2812,11 +2858,15 @@ var GameBoard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.onSquareClick(onSquareClick);
   $$result.css.add(css$3);
   onClick = (row, column) => onSquareClick(row * 3 + column);
-  return `<div>${each(rows, (row) => `<div class="${"board-row svelte-zounfu"}">${each(columns, (column) => `${validate_component(BoardSquare, "BoardSquare").$$render($$result, {
+  isHighlighted = (row, column) => !!(cycleSquares === null || cycleSquares === void 0 ? void 0 : cycleSquares.includes(row * 3 + column));
+  return `
+
+
+<div class="${"game-board svelte-1ctwfcy"}">${each(rows, (row) => `<div class="${"game-board--row svelte-1ctwfcy"}">${each(columns, (column) => `${validate_component(GameBoardSquare, "BoardSquare").$$render($$result, {
     cMark: cSquares[row * 3 + column],
     qMarks: qSquares[row * 3 + column],
     cycleMarks,
-    isHighlighted: !!(cycleSquares == null ? void 0 : cycleSquares.includes(row * 3 + column)),
+    isHighlighted: isHighlighted(row, column),
     isBeingCollapsed: collapseSquare === row * 3 + column,
     onClick: () => onClick(row, column)
   }, {}, {})}`)}
@@ -2824,23 +2874,43 @@ var GameBoard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 </div>`;
 });
 var css$2 = {
-  code: ".collapseChoice.svelte-17iue0h{display:flex;flex-direction:row;justify-content:center;align-items:center;width:50px;height:50px;border:2px;border-color:#e74c3c;text-align:center;cursor:default;border-style:solid;margin:5px;user-select:none}.collapseChoice.svelte-17iue0h:hover{background-color:#e74c3c}.game-info.svelte-17iue0h{margin-left:20px;top:0px}.status.svelte-17iue0h{margin-bottom:10px;width:300px}",
-  map: '{"version":3,"file":"SideBar.svelte","sources":["SideBar.svelte"],"sourcesContent":["<script lang=\\"ts\\">;\\n// Contains marks in selected square if collapse ongoing\\nexport let choices;\\n// Passes selected choice of mark up to Game.handleCollapse\\nexport let onChoiceClick;\\n// Conveys player information about the state of the game\\nexport let status;\\n<\/script>\\n\\n<div class=\\"game-info\\">\\n\\t<div class=\\"status\\">{status}</div>\\n\\t{#if choices}\\n\\t\\t{#each choices as choice (choice)}\\n\\t\\t\\t<div class=\\"collapseChoice\\" on:click|preventDefault={(_) => onChoiceClick(choice)}>\\n\\t\\t\\t\\t{choice}\\n\\t\\t\\t</div>\\n\\t\\t{/each}\\n\\t{/if}\\n</div>\\n\\n<style lang=\\"scss\\">.collapseChoice {\\n  display: flex;\\n  flex-direction: row;\\n  justify-content: center;\\n  align-items: center;\\n  width: 50px;\\n  height: 50px;\\n  border: 2px;\\n  border-color: #e74c3c;\\n  text-align: center;\\n  cursor: default;\\n  border-style: solid;\\n  margin: 5px;\\n  user-select: none;\\n}\\n.collapseChoice:hover {\\n  background-color: #e74c3c;\\n}\\n\\n.game-info {\\n  margin-left: 20px;\\n  top: 0px;\\n}\\n\\n.status {\\n  margin-bottom: 10px;\\n  width: 300px;\\n}</style>\\n"],"names":[],"mappings":"AAoBmB,eAAe,eAAC,CAAC,AAClC,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,GAAG,CACnB,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,CACnB,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,MAAM,CAAE,GAAG,CACX,YAAY,CAAE,OAAO,CACrB,UAAU,CAAE,MAAM,CAClB,MAAM,CAAE,OAAO,CACf,YAAY,CAAE,KAAK,CACnB,MAAM,CAAE,GAAG,CACX,WAAW,CAAE,IAAI,AACnB,CAAC,AACD,8BAAe,MAAM,AAAC,CAAC,AACrB,gBAAgB,CAAE,OAAO,AAC3B,CAAC,AAED,UAAU,eAAC,CAAC,AACV,WAAW,CAAE,IAAI,CACjB,GAAG,CAAE,GAAG,AACV,CAAC,AAED,OAAO,eAAC,CAAC,AACP,aAAa,CAAE,IAAI,CACnB,KAAK,CAAE,KAAK,AACd,CAAC"}'
+  code: ".collapse-choice.svelte-1anfbwf.svelte-1anfbwf{width:50px;height:50px;font-size:24px;font-family:inherit;border:2px solid var(--accent-color);color:var(--accent-color);text-align:center;cursor:pointer;margin:5px;background-color:var(--bg-color);user-select:none}.collapse-choice.svelte-1anfbwf.svelte-1anfbwf:hover{background-color:var(--accent-color);color:var(--bg-color)}.collapse-choice.svelte-1anfbwf sub.svelte-1anfbwf{font-size:16px}.game-info.svelte-1anfbwf.svelte-1anfbwf{margin-left:20px;top:0px;width:480px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch}.status.svelte-1anfbwf.svelte-1anfbwf{box-sizing:border-box;padding:8px 0;font-size:24px}.btn-list.svelte-1anfbwf.svelte-1anfbwf{display:flex;justify-content:space-around;align-items:center;margin:12px 0}.btn.svelte-1anfbwf.svelte-1anfbwf{box-sizing:border-box;margin:5px;padding:0;width:160px;height:50px;display:flex;justify-content:center;align-items:center;border:2px solid;text-align:center;cursor:pointer}.btn.svelte-1anfbwf .btn-text.svelte-1anfbwf{font-size:24px;line-height:50px}.next-game.svelte-1anfbwf.svelte-1anfbwf{background-color:var(--bg-color);border-color:var(--accent-color);color:var(--accent-color);font-weight:bold}.next-game.svelte-1anfbwf.svelte-1anfbwf:hover{background-color:var(--accent-color);color:var(--bg-color)}.reset-game.svelte-1anfbwf.svelte-1anfbwf{background-color:var(--bg-color);border-color:var(--theme-color);color:var(--theme-color)}.reset-game.svelte-1anfbwf.svelte-1anfbwf:hover{color:var(--bg-color);background-color:var(--theme-color)}.scores.svelte-1anfbwf.svelte-1anfbwf{box-sizing:border-box;border-top:2px solid var(--theme-color);padding-top:12px;width:100%;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:bold}",
+  map: '{"version":3,"file":"GameInfo.svelte","sources":["GameInfo.svelte"],"sourcesContent":["<!--\\n\\tQuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.\\n\\t\\tCopyright (C) 2021  Shouhei Uechi\\n\\t\\tCopyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>\\n\\n\\tThis file is part of QuantumTicTacToe.\\n\\n\\tQuantumTicTacToe is free software: you can redistribute it and/or modify\\n\\tit under the terms of the GNU General Public License as published by\\n\\tthe Free Software Foundation, either version 3 of the License, or\\n\\t(at your option) any later version.\\n\\n\\tQuantumTicTacToe is distributed in the hope that it will be useful,\\n\\tbut WITHOUT ANY WARRANTY; without even the implied warranty of\\n\\tMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\\n\\tGNU General Public License for more details.\\n\\n\\tYou should have received a copy of the GNU General Public License\\n\\talong with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.\\n-->\\n<script lang=\\"ts\\">;\\n;\\n// Contains marks in selected square if collapse ongoing\\nexport let choices;\\n// Passes selected choice of mark up to Game.handleCollapse\\nexport let onChoiceClick;\\n// Conveys player information about the state of the game\\nexport let status;\\nexport let isGameOver;\\nexport let scores;\\n// Go to next game with scores\\nexport let onNextGameClick;\\n// Reset scores & Go to new game\\nexport let onResetGameClick;\\n<\/script>\\n\\n<div class=\\"game-info\\">\\n\\t<p class=\\"status\\">{status}</p>\\n\\t{#if choices}\\n\\t\\t<div class=\\"btn-list\\">\\n\\t\\t\\t{#each choices as choice (choice)}\\n\\t\\t\\t\\t<div class=\\"btn collapse-choice\\" on:click|preventDefault={(_) => onChoiceClick(choice)}>\\n\\t\\t\\t\\t\\t<span>{choice[0]}<sub>{choice[1]}</sub></span>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t{/each}\\n\\t\\t</div>\\n\\t{/if}\\n\\t{#if isGameOver}\\n\\t\\t<div class=\\"btn-list\\">\\n\\t\\t\\t<div class=\\"btn next-game\\" on:click|preventDefault={onNextGameClick}>\\n\\t\\t\\t\\t<span class=\\"btn-text\\">Next</span>\\n\\t\\t\\t</div>\\n\\t\\t\\t<div class=\\"btn reset-game\\" on:click|preventDefault={onResetGameClick}>\\n\\t\\t\\t\\t<span class=\\"btn-text\\">Reset</span>\\n\\t\\t\\t</div>\\n\\t\\t</div>\\n\\t{/if}\\n\\t<div class=\\"scores\\">\\n\\t\\tCurrent scores:\\n\\t\\t<span>X: {scores.X}</span>,\\n\\t\\t<span>Y: {scores.Y}</span>\\n\\t</div>\\n</div>\\n\\n<style lang=\\"scss\\">.collapse-choice {\\n  width: 50px;\\n  height: 50px;\\n  font-size: 24px;\\n  font-family: inherit;\\n  border: 2px solid var(--accent-color);\\n  color: var(--accent-color);\\n  text-align: center;\\n  cursor: pointer;\\n  margin: 5px;\\n  background-color: var(--bg-color);\\n  user-select: none;\\n}\\n.collapse-choice:hover {\\n  background-color: var(--accent-color);\\n  color: var(--bg-color);\\n}\\n.collapse-choice sub {\\n  font-size: 16px;\\n}\\n\\n.game-info {\\n  margin-left: 20px;\\n  top: 0px;\\n  width: 480px;\\n  display: flex;\\n  flex-direction: column;\\n  justify-content: space-between;\\n  align-items: stretch;\\n}\\n\\n.status {\\n  box-sizing: border-box;\\n  padding: 8px 0;\\n  font-size: 24px;\\n}\\n\\n.btn-list {\\n  display: flex;\\n  justify-content: space-around;\\n  align-items: center;\\n  margin: 12px 0;\\n}\\n\\n.btn {\\n  box-sizing: border-box;\\n  margin: 5px;\\n  padding: 0;\\n  width: 160px;\\n  height: 50px;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center;\\n  border: 2px solid;\\n  text-align: center;\\n  cursor: pointer;\\n}\\n.btn .btn-text {\\n  font-size: 24px;\\n  line-height: 50px;\\n}\\n\\n.next-game {\\n  background-color: var(--bg-color);\\n  border-color: var(--accent-color);\\n  color: var(--accent-color);\\n  font-weight: bold;\\n}\\n.next-game:hover {\\n  background-color: var(--accent-color);\\n  color: var(--bg-color);\\n}\\n\\n.reset-game {\\n  background-color: var(--bg-color);\\n  border-color: var(--theme-color);\\n  color: var(--theme-color);\\n}\\n.reset-game:hover {\\n  color: var(--bg-color);\\n  background-color: var(--theme-color);\\n}\\n\\n.scores {\\n  box-sizing: border-box;\\n  border-top: 2px solid var(--theme-color);\\n  padding-top: 12px;\\n  width: 100%;\\n  display: flex;\\n  justify-content: space-between;\\n  align-items: center;\\n  font-size: 24px;\\n  font-weight: bold;\\n}</style>\\n"],"names":[],"mappings":"AAgEmB,gBAAgB,8BAAC,CAAC,AACnC,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,SAAS,CAAE,IAAI,CACf,WAAW,CAAE,OAAO,CACpB,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,cAAc,CAAC,CACrC,KAAK,CAAE,IAAI,cAAc,CAAC,CAC1B,UAAU,CAAE,MAAM,CAClB,MAAM,CAAE,OAAO,CACf,MAAM,CAAE,GAAG,CACX,gBAAgB,CAAE,IAAI,UAAU,CAAC,CACjC,WAAW,CAAE,IAAI,AACnB,CAAC,AACD,8CAAgB,MAAM,AAAC,CAAC,AACtB,gBAAgB,CAAE,IAAI,cAAc,CAAC,CACrC,KAAK,CAAE,IAAI,UAAU,CAAC,AACxB,CAAC,AACD,+BAAgB,CAAC,GAAG,eAAC,CAAC,AACpB,SAAS,CAAE,IAAI,AACjB,CAAC,AAED,UAAU,8BAAC,CAAC,AACV,WAAW,CAAE,IAAI,CACjB,GAAG,CAAE,GAAG,CACR,KAAK,CAAE,KAAK,CACZ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,eAAe,CAAE,aAAa,CAC9B,WAAW,CAAE,OAAO,AACtB,CAAC,AAED,OAAO,8BAAC,CAAC,AACP,UAAU,CAAE,UAAU,CACtB,OAAO,CAAE,GAAG,CAAC,CAAC,CACd,SAAS,CAAE,IAAI,AACjB,CAAC,AAED,SAAS,8BAAC,CAAC,AACT,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,YAAY,CAC7B,WAAW,CAAE,MAAM,CACnB,MAAM,CAAE,IAAI,CAAC,CAAC,AAChB,CAAC,AAED,IAAI,8BAAC,CAAC,AACJ,UAAU,CAAE,UAAU,CACtB,MAAM,CAAE,GAAG,CACX,OAAO,CAAE,CAAC,CACV,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,CACvB,WAAW,CAAE,MAAM,CACnB,MAAM,CAAE,GAAG,CAAC,KAAK,CACjB,UAAU,CAAE,MAAM,CAClB,MAAM,CAAE,OAAO,AACjB,CAAC,AACD,mBAAI,CAAC,SAAS,eAAC,CAAC,AACd,SAAS,CAAE,IAAI,CACf,WAAW,CAAE,IAAI,AACnB,CAAC,AAED,UAAU,8BAAC,CAAC,AACV,gBAAgB,CAAE,IAAI,UAAU,CAAC,CACjC,YAAY,CAAE,IAAI,cAAc,CAAC,CACjC,KAAK,CAAE,IAAI,cAAc,CAAC,CAC1B,WAAW,CAAE,IAAI,AACnB,CAAC,AACD,wCAAU,MAAM,AAAC,CAAC,AAChB,gBAAgB,CAAE,IAAI,cAAc,CAAC,CACrC,KAAK,CAAE,IAAI,UAAU,CAAC,AACxB,CAAC,AAED,WAAW,8BAAC,CAAC,AACX,gBAAgB,CAAE,IAAI,UAAU,CAAC,CACjC,YAAY,CAAE,IAAI,aAAa,CAAC,CAChC,KAAK,CAAE,IAAI,aAAa,CAAC,AAC3B,CAAC,AACD,yCAAW,MAAM,AAAC,CAAC,AACjB,KAAK,CAAE,IAAI,UAAU,CAAC,CACtB,gBAAgB,CAAE,IAAI,aAAa,CAAC,AACtC,CAAC,AAED,OAAO,8BAAC,CAAC,AACP,UAAU,CAAE,UAAU,CACtB,UAAU,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,aAAa,CAAC,CACxC,WAAW,CAAE,IAAI,CACjB,KAAK,CAAE,IAAI,CACX,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,aAAa,CAC9B,WAAW,CAAE,MAAM,CACnB,SAAS,CAAE,IAAI,CACf,WAAW,CAAE,IAAI,AACnB,CAAC"}'
 };
-var SideBar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+var GameInfo = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { choices } = $$props;
   let { onChoiceClick } = $$props;
-  let { status } = $$props;
+  let { status: status2 } = $$props;
+  let { isGameOver } = $$props;
+  let { scores } = $$props;
+  let { onNextGameClick } = $$props;
+  let { onResetGameClick } = $$props;
   if ($$props.choices === void 0 && $$bindings.choices && choices !== void 0)
     $$bindings.choices(choices);
   if ($$props.onChoiceClick === void 0 && $$bindings.onChoiceClick && onChoiceClick !== void 0)
     $$bindings.onChoiceClick(onChoiceClick);
-  if ($$props.status === void 0 && $$bindings.status && status !== void 0)
-    $$bindings.status(status);
+  if ($$props.status === void 0 && $$bindings.status && status2 !== void 0)
+    $$bindings.status(status2);
+  if ($$props.isGameOver === void 0 && $$bindings.isGameOver && isGameOver !== void 0)
+    $$bindings.isGameOver(isGameOver);
+  if ($$props.scores === void 0 && $$bindings.scores && scores !== void 0)
+    $$bindings.scores(scores);
+  if ($$props.onNextGameClick === void 0 && $$bindings.onNextGameClick && onNextGameClick !== void 0)
+    $$bindings.onNextGameClick(onNextGameClick);
+  if ($$props.onResetGameClick === void 0 && $$bindings.onResetGameClick && onResetGameClick !== void 0)
+    $$bindings.onResetGameClick(onResetGameClick);
   $$result.css.add(css$2);
-  return `<div class="${"game-info svelte-17iue0h"}"><div class="${"status svelte-17iue0h"}">${escape2(status)}</div>
-	${choices ? `${each(choices, (choice) => `<div class="${"collapseChoice svelte-17iue0h"}">${escape2(choice)}
-			</div>`)}` : ``}
+  return `
+
+
+<div class="${"game-info svelte-1anfbwf"}"><p class="${"status svelte-1anfbwf"}">${escape2(status2)}</p>
+	${choices ? `<div class="${"btn-list svelte-1anfbwf"}">${each(choices, (choice) => `<div class="${"btn collapse-choice svelte-1anfbwf"}"><span>${escape2(choice[0])}<sub class="${"svelte-1anfbwf"}">${escape2(choice[1])}</sub></span>
+				</div>`)}</div>` : ``}
+	${isGameOver ? `<div class="${"btn-list svelte-1anfbwf"}"><div class="${"btn next-game svelte-1anfbwf"}"><span class="${"btn-text svelte-1anfbwf"}">Next</span></div>
+			<div class="${"btn reset-game svelte-1anfbwf"}"><span class="${"btn-text svelte-1anfbwf"}">Reset</span></div></div>` : ``}
+	<div class="${"scores svelte-1anfbwf"}">Current scores:
+		<span>X: ${escape2(scores.X)}</span>,
+		<span>Y: ${escape2(scores.Y)}</span></div>
 </div>`;
 });
 var Node = class {
@@ -2944,81 +3014,82 @@ var Graph = class {
     return [cycleNodeIds, cycleEdgeKeys];
   }
 };
-var Game = class {
+var QuantumTTT = class {
   constructor() {
     this.g = new Graph();
     this.timer = this.timer.bind(this);
     this.state = {
       cSquares: Array(9).fill(null),
-      qSquares: Array(9).fill(null),
-      turnNum: 1,
-      subTurnNum: 0,
+      qSquares: Array(9).fill([]),
+      currentTurn: 1,
+      currentSubTurn: 0,
+      lastMove: null,
       cycleSquares: null,
       cycleMarks: null,
       collapseSquare: null,
-      isGameOver: false,
-      xTimeLeft: 60 * 5,
-      yTimeLeft: 60 * 5,
-      xScore: 0,
-      yScore: 0
+      isOver: false,
+      leftTimes: {
+        X: 60 * 5,
+        Y: 60 * 5
+      },
+      scores: { X: 0, Y: 0 },
+      status: "Player X's turn!"
     };
   }
   setState(obj) {
     Object.assign(this.state, obj);
   }
+  setLeftTimes(obj) {
+    Object.assign(this.state.leftTimes, obj);
+  }
   setStatus(msg) {
     this.setState({ status: msg });
   }
   whoseTurn() {
-    return this.state.subTurnNum < 2 ? "X" : "Y";
+    return this.state.currentSubTurn < 2 ? "X" : "Y";
   }
   notWhoseTurn() {
-    return this.state.subTurnNum < 2 ? "Y" : "X";
+    return this.state.currentSubTurn < 2 ? "Y" : "X";
   }
   timer() {
     if (this.whoseTurn() === "X") {
-      if (this.state.xTimeLeft <= 0) {
+      if (this.state.leftTimes.X <= 0) {
         this.setState({
-          isGameOver: true,
-          status: "Player X has run out of time. Player Y wins!"
+          isOver: true,
+          status: "Player X has run out of time.  Player Y wins!"
         });
-      } else
-        this.setState({ xTimeLeft: this.state.xTimeLeft - 1 });
+      } else {
+        this.setLeftTimes({ X: this.state.leftTimes.X - 1 });
+      }
     }
     if (this.whoseTurn() === "Y") {
-      if (this.state.yTimeLeft <= 0) {
+      if (this.state.leftTimes.Y <= 0) {
         this.setState({
-          isGameOver: true,
-          status: "Player Y has run out of time. Player X wins!"
+          isOver: true,
+          status: "Player Y has run out of time.  Player X wins!"
         });
-      } else
-        this.setState({ yTimeLeft: this.state.yTimeLeft - 1 });
+      } else {
+        this.setLeftTimes({ Y: this.state.leftTimes.Y - 1 });
+      }
     }
   }
   handleSquareClick(i) {
-    if (this.state.turnNum === 1 && this.state.subTurnNum === 0)
+    if (this.state.currentTurn === 1 && this.state.currentSubTurn === 0)
       setInterval(this.timer, 1e3);
-    if (this.state.isGameOver)
-      return {
-        X: "This game is already over! Start a new game!!",
-        Y: "This game is already over! Start a new game!!"
-      };
+    if (this.state.isOver)
+      return "This game is already over!  Start a new game!!";
     if (this.state.cycleSquares)
       return this._handleCyclicEntanglement(i);
     if (this.state.cSquares[i])
-      return {
-        [this.whoseTurn()]: "This square already has a classical mark! No more quantum marks can go here >:("
-      };
+      return "This square already has a classical mark!  No more quantum marks can go here >:(";
     if (this.isSecondMove() && this.state.lastMove === i)
-      return {
-        [this.whoseTurn()]: "Can't move twice in the same square! \n What do you think this is... regular tic-tac-toe??"
-      };
+      return "Can't move twice in the same square!\nWhat do you think this is... regular tic-tac-toe??";
     return this.handleNormalMove(i);
   }
   handleNormalMove(i) {
-    const qSquares = this.state.qSquares;
-    const marker = `${this.whoseTurn()}${this.state.turnNum}`;
-    if (qSquares[i])
+    const qSquares = [...this.state.qSquares];
+    const marker = `${this.whoseTurn()}${this.state.currentTurn}`;
+    if (qSquares[i].length >= 1)
       qSquares[i].push(marker);
     else
       qSquares[i] = [marker];
@@ -3031,79 +3102,59 @@ var Game = class {
       qSquares,
       cycleSquares: cycle == null ? void 0 : cycle[0],
       cycleMarks: cycle == null ? void 0 : cycle[1],
-      turnNum: this.state.turnNum + Number(this.state.subTurnNum === 3),
-      subTurnNum: (this.state.subTurnNum + 1) % 4,
+      currentTurn: this.state.currentTurn + Number(this.state.currentSubTurn === 3),
+      currentSubTurn: (this.state.currentSubTurn + 1) % 4,
       lastMove: i
     });
     if (cycle) {
-      const msg = `A loop of entanglement has occurred! Player ${this.notWhoseTurn()} will decide which of the possible states the board will collapse into.`;
-      return {
-        [this.notWhoseTurn()]: `${msg} Click one of the squares involved in the loop.`,
-        [this.whoseTurn()]: msg
-      };
+      const msg = `A loop of entanglement has occurred!  Player ${this.notWhoseTurn()} will decide which of the possible states the board will collapse into.`;
+      return `${msg}  Click one of the squares involved in the loop.`;
     }
     if (this.isSecondMove())
-      return {
-        [this.whoseTurn()]: "Now put a second quantum move. This move is entangled with your previous move. When there is a cycle of entanglement, a collapse will occur and only one of these quantum marks will turn into a classical mark.",
-        [this.notWhoseTurn()]: `Player ${this.whoseTurn()}'s move.`
-      };
-    return {
-      [this.whoseTurn()]: "Your turn! Put down a quantum move (these are the small marks).",
-      [this.notWhoseTurn()]: `Now it's ${this.whoseTurn()}'s turn.`
-    };
+      return "Now put a second quantum move.  This move is entangled with your previous move.  When there is a cycle of entanglement, a collapse will occur and only one of these quantum marks will turn into a classical mark.";
+    return `Player ${this.whoseTurn()}'s turn!  Put down a quantum move (these are the small marks).`;
   }
   _handleCyclicEntanglement(i) {
     var _a;
     if (!((_a = this.state.cycleSquares) == null ? void 0 : _a.includes(i)))
-      return {
-        [this.whoseTurn()]: "Must pick square involved in cyclic entanglement! (is highlighted in blue)"
-      };
+      return "Must pick square involved in cyclic entanglement!  (is highlighted in blue)";
     this.setState({ collapseSquare: i });
-    return {
-      [this.whoseTurn()]: "Now, choose below which state you want to occupy the selected square."
-    };
+    return "Now, choose below which state you want to occupy the selected square.";
   }
   handleCollapse(mark) {
     console.log(mark);
     const i = this.state.collapseSquare;
     const visited = new Set([mark]);
     this._handleCollapseHelper(mark, i, visited);
-    const scores = calculateScores(this.state.cSquares);
+    const scores = _calculateScores(this.state.cSquares);
     if (scores === null) {
       this.setState({
         cycleSquares: null,
         cycleMarks: null,
         collapseSquare: null
       });
-      return {
-        X: `${this.whoseTurn()} next!`,
-        Y: `${this.whoseTurn()} next!`
-      };
+      return `${this.whoseTurn()} next!`;
     }
-    const status = {
-      X: getWinnerMsg(scores),
-      Y: getWinnerMsg(scores)
-    };
+    const status2 = _getWinnerMsg(scores);
     this.setState({
-      status,
-      isGameOver: true,
-      xScore: this.state.xScore + scores.X,
-      yScore: this.state.yScore + scores.Y,
+      status: status2,
+      isOver: true,
+      scores: {
+        X: this.state.scores.X + scores.X,
+        Y: this.state.scores.Y + scores.Y
+      },
       cycleSquares: null,
       cycleMarks: null,
       collapseSquare: null
     });
-    return status;
+    return status2;
   }
   _handleCollapseHelper(mark, i, visited) {
-    const cSquares = this.state.cSquares;
-    const qSquares = this.state.qSquares;
+    const cSquares = [...this.state.cSquares];
+    const qSquares = [...this.state.qSquares];
     cSquares[i] = mark;
-    qSquares[i] = null;
-    this.setState({
-      cSquares,
-      qSquares
-    });
+    qSquares[i] = [];
+    this.setState({ cSquares, qSquares });
     for (const edge of this.g.getNode(i).edges) {
       if (!visited.has(edge.key)) {
         visited.add(edge.key);
@@ -3111,35 +3162,23 @@ var Game = class {
       }
     }
   }
-  handleNotYourTurn() {
-    return [this[this.notWhoseTurn()], "It's not your turn!"];
-  }
-  getPlayer(socketID) {
-    if (this.X === socketID)
-      return "X";
-    if (this.Y === socketID)
-      return "Y";
-  }
-  isTurn(id) {
-    return this[this.whoseTurn()] === id;
-  }
   isSecondMove() {
-    return this.state.subTurnNum === 1 || this.state.subTurnNum === 3;
+    return this.state.currentSubTurn === 1 || this.state.currentSubTurn === 3;
   }
 };
-function getWinnerMsg(scores) {
+function _getWinnerMsg(scores) {
   const winner = scores.X > scores.Y ? "X" : "Y";
   const loser = winner === "X" ? "Y" : "X";
   if (scores.X + scores.Y === 1)
-    return `${winner} wins!!! 
- ${winner} gets 1 point 
+    return `${winner} wins!!!
+ ${winner} gets 1 point
  ${loser} gets 0 points`;
   if (scores.X === 1.5 || scores.Y === 1.5)
-    return `${winner} wins with a double three-in-a-row!!! 
+    return `${winner} wins with a double three-in-a-row!!!
  ${winner} gets 1.5 points 
  ${loser} gets 0 points`;
   if (scores.X + scores.Y === 1.5)
-    return `Both players got three-in-a-row, but ${winner} got it first! (The mark placed in${winner}'s three-in-a-row has a smaller subscript than ${loser} 
+    return `Both players got three-in-a-row, but ${winner} got it first!  The mark placed in${winner}'s three-in-a-row has a smaller subscript than ${loser} 
  ${winner} gets 1 point 
  ${loser} gets 0.5 points`;
   return "No players get three-in-a-row...";
@@ -3165,7 +3204,7 @@ function _calculateWinners(squares) {
   }
   return winners;
 }
-function calculateScores(squares) {
+function _calculateScores(squares) {
   const winners = _calculateWinners(squares);
   if (winners.length === 0 && squares.filter((x) => !x).length > 1)
     return null;
@@ -3173,44 +3212,59 @@ function calculateScores(squares) {
   const scores = { X: 0, Y: 0 };
   if (winners.length >= 1)
     scores[winners[0][1]] = 1;
-  else if (winners.length >= 2)
+  if (winners.length >= 2)
     scores[winners[1][1]] += 0.5;
-  else if (winners.length === 3)
+  if (winners.length === 3)
     scores[winners[2][1]] += 0.5;
   return scores;
 }
 var css$1 = {
-  code: ".title.svelte-1hu7fe7{text-align:center}.game.svelte-1hu7fe7{display:flex;flex-direction:row;justify-content:center;margin-top:50px}.game-board.svelte-1hu7fe7{width:500px}.xScore.svelte-1hu7fe7{margin-top:10px;font-size:20px;float:left}.yScore.svelte-1hu7fe7{margin-top:10px;font-size:20px;float:right}",
-  map: `{"version":3,"file":"OfflineApp.svelte","sources":["OfflineApp.svelte"],"sourcesContent":["<script lang=\\"ts\\">var _a;\\nimport GameBoard from '$lib/quantum-tictactoe/GameBoard/index.svelte';\\nimport SideBar from '$lib/quantum-tictactoe/SideBar.svelte';\\n;\\nimport Game from './Game';\\nconst game = new Game();\\ngame.setStatus(\\"Player X's turn!\\");\\nlet state = game.state;\\n$: status = state.status;\\n$: choices =\\n    state.collapseSquare !== null\\n        ? (_a = state.qSquares[state.collapseSquare]) === null || _a === void 0 ? void 0 : _a.filter((choice) => { var _a; return (_a = state.cycleMarks) === null || _a === void 0 ? void 0 : _a.includes(choice); })\\n        : undefined;\\nfunction handleSquareClick(i) {\\n    console.table(game);\\n    const statuses = game.handleSquareClick(i);\\n    const status = statuses[game.whoseTurn()];\\n    game.setStatus(status);\\n    state = Object.assign({}, game.state);\\n}\\nfunction handleCollapse(mark) {\\n    const statuses = game.handleCollapse(mark);\\n    const status = statuses[game.whoseTurn()];\\n    game.setStatus(status);\\n    state = Object.assign({}, game.state);\\n}\\n<\/script>\\n\\n<div>\\n\\t<h1 class=\\"title\\">Quantum Tic-Tac-Toe</h1>\\n\\t<div class=\\"game\\">\\n\\t\\t<div class=\\"game-board\\">\\n\\t\\t\\t<GameBoard\\n\\t\\t\\t\\tcSquares={state.cSquares}\\n\\t\\t\\t\\tqSquares={state.qSquares}\\n\\t\\t\\t\\tcycleSquares={state.cycleSquares}\\n\\t\\t\\t\\tcycleMarks={state.cycleMarks}\\n\\t\\t\\t\\tcollapseSquare={state.collapseSquare}\\n\\t\\t\\t\\tonSquareClick={handleSquareClick}\\n\\t\\t\\t/>\\n\\t\\t\\t<div class=\\"xScore\\">X: {state.xScore}</div>\\n\\t\\t\\t<div class=\\"yScore\\">Y: {state.yScore}</div>\\n\\t\\t</div>\\n\\t\\t<SideBar {status} {choices} onChoiceClick={handleCollapse} />\\n\\t</div>\\n</div>\\n\\n<style lang=\\"scss\\">.title {\\n  text-align: center;\\n}\\n\\n.game {\\n  display: flex;\\n  flex-direction: row;\\n  justify-content: center;\\n  margin-top: 50px;\\n}\\n\\n.game-board {\\n  width: 500px;\\n}\\n\\n.xScore {\\n  margin-top: 10px;\\n  font-size: 20px;\\n  float: left;\\n}\\n\\n.yScore {\\n  margin-top: 10px;\\n  font-size: 20px;\\n  float: right;\\n}</style>\\n"],"names":[],"mappings":"AA+CmB,MAAM,eAAC,CAAC,AACzB,UAAU,CAAE,MAAM,AACpB,CAAC,AAED,KAAK,eAAC,CAAC,AACL,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,GAAG,CACnB,eAAe,CAAE,MAAM,CACvB,UAAU,CAAE,IAAI,AAClB,CAAC,AAED,WAAW,eAAC,CAAC,AACX,KAAK,CAAE,KAAK,AACd,CAAC,AAED,OAAO,eAAC,CAAC,AACP,UAAU,CAAE,IAAI,CAChB,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,IAAI,AACb,CAAC,AAED,OAAO,eAAC,CAAC,AACP,UAAU,CAAE,IAAI,CAChB,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,KAAK,AACd,CAAC"}`
+  code: ".game.svelte-1yal20u{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;margin-top:50px}.game-footer.svelte-1yal20u{width:100%;margin-top:50px;text-align:center;background-color:var(--theme-color)}",
+  map: `{"version":3,"file":"OfflineApp.svelte","sources":["OfflineApp.svelte"],"sourcesContent":["<!--\\n\\tQuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.\\n\\t  Copyright (C) 2021  Shouhei Uechi\\n\\t  Copyright (C) 2017  Rohan Pandit, available at <https://github.com/rohanp/QuantumTicTacToe/tree/master/>\\n\\n\\tThis file is part of QuantumTicTacToe.\\n\\n\\tQuantumTicTacToe is free software: you can redistribute it and/or modify\\n\\tit under the terms of the GNU General Public License as published by\\n\\tthe Free Software Foundation, either version 3 of the License, or\\n\\t(at your option) any later version.\\n\\n\\tQuantumTicTacToe is distributed in the hope that it will be useful,\\n\\tbut WITHOUT ANY WARRANTY; without even the implied warranty of\\n\\tMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\\n\\tGNU General Public License for more details.\\n\\n\\tYou should have received a copy of the GNU General Public License\\n\\talong with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.\\n-->\\n<script lang=\\"ts\\">var _a;\\n;\\nimport { getOrdinal } from '$lib/utility/getNumeral';\\nimport GameBoard from './GameBoard.svelte';\\nimport GameInfo from './GameInfo.svelte';\\n;\\nimport Game from './QuantumTTT';\\nlet game = new Game();\\ngame.setStatus(\\"Player X's turn!\\");\\nlet gameCount = 1;\\nlet state = game.state;\\nlet message = state.status;\\n$: choices =\\n    state.collapseSquare !== null\\n        ? (_a = state.qSquares[state.collapseSquare]) === null || _a === void 0 ? void 0 : _a.filter((choice) => { var _a; return (_a = state.cycleMarks) === null || _a === void 0 ? void 0 : _a.includes(choice); })\\n        : undefined;\\nfunction handleSquareClick(i) {\\n    const status = game.handleSquareClick(i);\\n    console.table(game.state);\\n    state = Object.assign({}, game.state);\\n    message = status;\\n}\\nfunction handleCollapse(mark) {\\n    const status = game.handleCollapse(mark);\\n    state = Object.assign({}, game.state);\\n    message = status;\\n}\\nfunction handleNextGameClick() {\\n    game = new Game();\\n    game.setState({ scores: Object.assign({}, state.scores) });\\n    gameCount += 1;\\n    state = Object.assign({}, game.state);\\n    message = \`The \${getOrdinal(gameCount)} game!\\\\n\${game.state.status}\`;\\n}\\nfunction handleResetGameClick() {\\n    game = new Game();\\n    game.setStatus(\\"Player X's turn!\\");\\n    gameCount = 1;\\n    state = Object.assign({}, game.state);\\n    status = game.state.status;\\n}\\n<\/script>\\n\\n<div class=\\"game\\">\\n\\t<GameBoard\\n\\t\\tcSquares={state.cSquares}\\n\\t\\tqSquares={state.qSquares}\\n\\t\\tcycleSquares={state.cycleSquares}\\n\\t\\tcycleMarks={state.cycleMarks}\\n\\t\\tcollapseSquare={state.collapseSquare}\\n\\t\\tonSquareClick={handleSquareClick}\\n\\t/>\\n\\t<GameInfo\\n\\t\\t{choices}\\n\\t\\tstatus={message}\\n\\t\\tisGameOver={state.isOver}\\n\\t\\tscores={state.scores}\\n\\t\\tonChoiceClick={handleCollapse}\\n\\t\\tonNextGameClick={handleNextGameClick}\\n\\t\\tonResetGameClick={handleResetGameClick}\\n\\t/>\\n</div>\\n<div class=\\"game-footer\\">\\n\\t<p>\\n\\t\\t<small>\\n\\t\\t\\t<a rel=\\"license\\" href=\\"https://www.gnu.org/licenses/\\">GNU Pablic Licensed</a>\\n\\t\\t</small>\\n\\t</p>\\n\\t<p>\\n\\t\\t<small>\\n\\t\\t\\tQuantumTicTacToe is written by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.\\n\\t\\t</small>\\n\\t\\t<br />\\n\\t\\t<small>\\n\\t\\t\\tCopyright &copy; 2021\\n\\t\\t\\t<a rel=\\"author\\" href=\\"https://github.com/u-sho\\">Shouhei Uechi</a>. Rights reserved.\\n\\t\\t</small>\\n\\t\\t<br />\\n\\t\\t<small>\\n\\t\\t\\tCopyright &copy; 2017 Rohan Pandit, available at\\n\\t\\t\\t<a href=\\"https://github.com/rohanp/QuantumTicTacToe/tree/master/\\">his GitHub repository</a>.\\n\\t\\t</small>\\n\\t</p>\\n</div>\\n\\n<style lang=\\"scss\\">.game {\\n  display: flex;\\n  flex-direction: row;\\n  justify-content: center;\\n  flex-wrap: wrap;\\n  margin-top: 50px;\\n}\\n\\n.game-footer {\\n  width: 100%;\\n  margin-top: 50px;\\n  text-align: center;\\n  background-color: var(--theme-color);\\n}</style>\\n"],"names":[],"mappings":"AAyGmB,KAAK,eAAC,CAAC,AACxB,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,GAAG,CACnB,eAAe,CAAE,MAAM,CACvB,SAAS,CAAE,IAAI,CACf,UAAU,CAAE,IAAI,AAClB,CAAC,AAED,YAAY,eAAC,CAAC,AACZ,KAAK,CAAE,IAAI,CACX,UAAU,CAAE,IAAI,CAChB,UAAU,CAAE,MAAM,CAClB,gBAAgB,CAAE,IAAI,aAAa,CAAC,AACtC,CAAC"}`
 };
 var OfflineApp = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let status;
   let choices;
   var _a;
-  const game = new Game();
+  let game = new QuantumTTT();
   game.setStatus("Player X's turn!");
+  let gameCount = 1;
   let state = game.state;
+  let message = state.status;
   function handleSquareClick(i) {
-    console.table(game);
-    const statuses = game.handleSquareClick(i);
-    const status2 = statuses[game.whoseTurn()];
-    game.setStatus(status2);
+    const status2 = game.handleSquareClick(i);
+    console.table(game.state);
     state = Object.assign({}, game.state);
+    message = status2;
   }
   function handleCollapse(mark) {
-    const statuses = game.handleCollapse(mark);
-    const status2 = statuses[game.whoseTurn()];
-    game.setStatus(status2);
+    const status2 = game.handleCollapse(mark);
     state = Object.assign({}, game.state);
+    message = status2;
+  }
+  function handleNextGameClick() {
+    game = new QuantumTTT();
+    game.setState({ scores: Object.assign({}, state.scores) });
+    gameCount += 1;
+    state = Object.assign({}, game.state);
+    message = `The ${getOrdinal(gameCount)} game!
+${game.state.status}`;
+  }
+  function handleResetGameClick() {
+    game = new QuantumTTT();
+    game.setStatus("Player X's turn!");
+    gameCount = 1;
+    state = Object.assign({}, game.state);
+    status = game.state.status;
   }
   $$result.css.add(css$1);
-  status = state.status;
   choices = state.collapseSquare !== null ? (_a = state.qSquares[state.collapseSquare]) === null || _a === void 0 ? void 0 : _a.filter((choice) => {
     var _a2;
     return (_a2 = state.cycleMarks) === null || _a2 === void 0 ? void 0 : _a2.includes(choice);
   }) : void 0;
-  return `<div><h1 class="${"title svelte-1hu7fe7"}">Quantum Tic-Tac-Toe</h1>
-	<div class="${"game svelte-1hu7fe7"}"><div class="${"game-board svelte-1hu7fe7"}">${validate_component(GameBoard, "GameBoard").$$render($$result, {
+  return `
+
+
+<div class="${"game svelte-1yal20u"}">${validate_component(GameBoard, "GameBoard").$$render($$result, {
     cSquares: state.cSquares,
     qSquares: state.qSquares,
     cycleSquares: state.cycleSquares,
@@ -3218,27 +3272,41 @@ var OfflineApp = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     collapseSquare: state.collapseSquare,
     onSquareClick: handleSquareClick
   }, {}, {})}
-			<div class="${"xScore svelte-1hu7fe7"}">X: ${escape2(state.xScore)}</div>
-			<div class="${"yScore svelte-1hu7fe7"}">Y: ${escape2(state.yScore)}</div></div>
-		${validate_component(SideBar, "SideBar").$$render($$result, {
-    status,
+	${validate_component(GameInfo, "GameInfo").$$render($$result, {
     choices,
-    onChoiceClick: handleCollapse
+    status: message,
+    isGameOver: state.isOver,
+    scores: state.scores,
+    onChoiceClick: handleCollapse,
+    onNextGameClick: handleNextGameClick,
+    onResetGameClick: handleResetGameClick
   }, {}, {})}</div>
+<div class="${"game-footer svelte-1yal20u"}"><p><small><a rel="${"license"}" href="${"https://www.gnu.org/licenses/"}">GNU Pablic Licensed</a></small></p>
+	<p><small>QuantumTicTacToe is written by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
+		</small>
+		<br>
+		<small>Copyright \xA9 2021
+			<a rel="${"author"}" href="${"https://github.com/u-sho"}">Shouhei Uechi</a>. Rights reserved.
+		</small>
+		<br>
+		<small>Copyright \xA9 2017 Rohan Pandit, available at
+			<a href="${"https://github.com/rohanp/QuantumTicTacToe/tree/master/"}">his GitHub repository</a>.
+		</small></p>
 </div>`;
 });
 var css = {
-  code: ".overlay.svelte-nqqnsd{position:absolute;left:50%;top:50%}.withinOverlay.svelte-nqqnsd{position:relative;left:-50%;margin-top:-25%}.board.svelte-nqqnsd{position:relative;margin-top:-40%}",
-  map: `{"version":3,"file":"human.svelte","sources":["human.svelte"],"sourcesContent":["<script lang=\\"ts\\">import OfflineApp from '$lib/quantum-tictactoe/OfflineApp.svelte';\\n<\/script>\\n\\n<svelte:head>\\n\\t<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>\\n</svelte:head>\\n\\n<div class=\\"container\\">\\n\\t<!-- <ReactDipper styleParams={{ backgroundColor: 'none !important' }} /> -->\\n\\n\\t<div class=\\"overlay\\">\\n\\t\\t<div class=\\"withinOverlay\\">\\n\\t\\t\\t<div class=\\"board\\"><OfflineApp /></div>\\n\\t\\t</div>\\n\\t</div>\\n</div>\\n\\n<style lang=\\"scss\\">.overlay {\\n  position: absolute;\\n  left: 50%;\\n  top: 50%;\\n}\\n\\n.withinOverlay {\\n  position: relative;\\n  left: -50%;\\n  margin-top: -25%;\\n}\\n\\n.board {\\n  position: relative;\\n  margin-top: -40%;\\n}</style>\\n"],"names":[],"mappings":"AAiBmB,QAAQ,cAAC,CAAC,AAC3B,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,GAAG,CACT,GAAG,CAAE,GAAG,AACV,CAAC,AAED,cAAc,cAAC,CAAC,AACd,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAE,IAAI,CACV,UAAU,CAAE,IAAI,AAClB,CAAC,AAED,MAAM,cAAC,CAAC,AACN,QAAQ,CAAE,QAAQ,CAClB,UAAU,CAAE,IAAI,AAClB,CAAC"}`
+  code: "main.svelte-jkku05{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between}",
+  map: `{"version":3,"file":"human.svelte","sources":["human.svelte"],"sourcesContent":["<script lang=\\"ts\\">import TheHeader from '$lib/TheHeader/index.svelte';\\nimport OfflineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';\\n<\/script>\\n\\n<svelte:head>\\n\\t<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>\\n</svelte:head>\\n\\n<TheHeader />\\n<main>\\n\\t<!-- <SvelteDipper /> -->\\n\\t<h1 class=\\"title\\">Quantum Tic-Tac-Toe</h1>\\n\\t<OfflineApp />\\n</main>\\n\\n<style lang=\\"scss\\">main {\\n  width: 100%;\\n  height: 100%;\\n  display: flex;\\n  flex-direction: column;\\n  align-items: center;\\n  justify-content: space-between;\\n}</style>\\n"],"names":[],"mappings":"AAemB,IAAI,cAAC,CAAC,AACvB,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,aAAa,AAChC,CAAC"}`
 };
 var Human = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
   return `${$$result.head += `${$$result.title = `<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>`, ""}`, ""}
 
-<div class="${"container"}">
-
-	<div class="${"overlay svelte-nqqnsd"}"><div class="${"withinOverlay svelte-nqqnsd"}"><div class="${"board svelte-nqqnsd"}">${validate_component(OfflineApp, "OfflineApp").$$render($$result, {}, {}, {})}</div></div></div>
-</div>`;
+${validate_component(TheHeader, "TheHeader").$$render($$result, {}, {}, {})}
+<main class="${"svelte-jkku05"}">
+	<h1 class="${"title"}">Quantum Tic-Tac-Toe</h1>
+	${validate_component(OfflineApp, "OfflineApp").$$render($$result, {}, {}, {})}
+</main>`;
 });
 var human = /* @__PURE__ */ Object.freeze({
   __proto__: null,
@@ -3264,8 +3332,8 @@ var entry_default = async (req, res) => {
     rawBody: body
   });
   if (rendered) {
-    const { status, headers, body: body2 } = rendered;
-    return res.writeHead(status, headers).end(body2);
+    const { status: status2, headers, body: body2 } = rendered;
+    return res.writeHead(status2, headers).end(body2);
   }
   return res.writeHead(404).end();
 };
