@@ -94,6 +94,28 @@
 		onResetGameClick={handleResetGameClick}
 	/>
 </div>
+<div class="game-footer">
+	<p>
+		<small>
+			<a rel="license" href="https://www.gnu.org/licenses/">GNU Pablic Licensed</a>
+		</small>
+	</p>
+	<p>
+		<small>
+			QuantumTicTacToe is written by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
+		</small>
+		<br />
+		<small>
+			Copyright &copy; 2021
+			<a rel="author" href="https://github.com/u-sho">Shouhei Uechi</a>. Rights reserved.
+		</small>
+		<br />
+		<small>
+			Copyright &copy; 2017 Rohan Pandit, available at
+			<a href="https://github.com/rohanp/QuantumTicTacToe/tree/master/">his GitHub repository</a>.
+		</small>
+	</p>
+</div>
 
 <style lang="scss">
 	.game {
@@ -102,5 +124,12 @@
 		justify-content: center;
 		flex-wrap: wrap;
 		margin-top: 50px;
+	}
+
+	.game-footer {
+		width: 100%;
+		margin-top: 50px;
+		text-align: center;
+		background-color: var(--theme-color);
 	}
 </style>
