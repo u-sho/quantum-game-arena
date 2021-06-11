@@ -122,7 +122,7 @@ export default class QuantumTTT {
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
 	handleNormalMove(i: SquareType): StatusType {
 		const qSquares = [...this.state.qSquares];
-		const marker = `${this.whoseTurn()}${this.state.currentTurn}` as MarkType;
+		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
 		if (qSquares[i].length >= 1) qSquares[i].push(marker);
 		else qSquares[i] = [marker];
