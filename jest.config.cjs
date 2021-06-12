@@ -3,13 +3,13 @@
  * https://jestjs.io/docs/configuration
  */
 
-import pkg from 'ts-jest/presets';
-const { jsWithTsESM: tsjPreset } = pkg;
+const tsjPreset = require('ts-jest/presets').jsWithTsESM;
 
-/**
- * @type {import('ts-jest/dist/types').InitialOptionsTsJest}
- */
-export default {
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig.json');
+
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+module.exports = {
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
 
@@ -73,9 +73,7 @@ export default {
 
 	// A set of global variables that need to be available in all test environments
 	globals: {
-		'ts-jest': {
-			useESM: true
-		}
+		'ts-jest': { useESM: true }
 	},
 
 	// The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
@@ -90,7 +88,7 @@ export default {
 	moduleFileExtensions: ['js', 'ts'],
 
 	// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-	moduleNameMapper: { '^$lib/(.*)$': '<rootDir>/src/lib/$1' },
+	moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 
 	// An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
 	// modulePathIgnorePatterns: [],
@@ -146,7 +144,7 @@ export default {
 	// snapshotSerializers: [],
 
 	// The test environment that will be used for testing
-	// testEnvironment: "jest-environment-node",
+	testEnvironment: 'node',
 
 	// Options that will be passed to the testEnvironment
 	// testEnvironmentOptions: {},

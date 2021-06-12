@@ -23,10 +23,10 @@ function getOrdinal(n: number): OrdinalNumeral {
 	if (n === 7) return 'seventh';
 	if (n === 8) return 'eighth';
 	if (n === 9) return 'ninth';
-	if (n % 10 === 1) return `${n}st` as `${number}1st`;
-	if (n % 10 === 2) return `${n}nd` as `${number}2nd`;
-	if (n % 10 === 3) return `${n}rd` as `${number}3rd`;
-	return `${n}th` as `${number}th`;
+	if (n % 10 === 1) return `${n}st` as unknown as `${number}1st`;
+	if (n % 10 === 2) return `${n}nd` as unknown as `${number}2nd`;
+	if (n % 10 === 3) return `${n}rd` as unknown as `${number}3rd`;
+	return `${n}th`;
 }
 
 export { getOrdinal };
