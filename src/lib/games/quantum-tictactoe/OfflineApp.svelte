@@ -20,7 +20,7 @@
 -->
 <script lang="ts">
 	import type { MaxLengthArray } from '$lib/types/generics';
-	import { getOrdinal } from '$lib/utility/getNumeral';
+	import { getOrdinal } from '$lib/utils/getNumeral';
 
 	import GameBoard from './GameBoard.svelte';
 	import GameInfo from './GameInfo.svelte';
