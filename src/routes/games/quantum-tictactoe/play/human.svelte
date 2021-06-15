@@ -4,6 +4,10 @@
 </script>
 
 <svelte:head>
+	<link
+		rel="canonical"
+		href="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/play/human"
+	/>
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 </svelte:head>
 

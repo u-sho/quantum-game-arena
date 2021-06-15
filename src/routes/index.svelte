@@ -8,6 +8,7 @@
 </script>
 
 <svelte:head>
+	<link rel="canonical" href="https://quantum-game-arena.vercel.app/" />
 	<title>Quantum Game Arena</title>
 </svelte:head>
 

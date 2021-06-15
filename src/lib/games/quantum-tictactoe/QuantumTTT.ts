@@ -281,7 +281,12 @@ function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
 
 	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
 
-	winners.sort();
+	winners.sort((line1, line2) => {
+		if (line1[0] < line2[0]) return 1;
+		if (line1[0] > line2[0]) return -1;
+		if (line1[1] === 'X') return -1;
+		return 0;
+	});
 	const scores = { X: 0, Y: 0 };
 
 	if (winners.length >= 1) scores[winners[0][1]] = 1;
