@@ -81,6 +81,20 @@
 <TheFooter />
 
 <style lang="scss">
+	.main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0;
+		margin: var(--header-height) 0 0;
+		width: 100%;
+		box-sizing: border-box;
+
+		section {
+			max-width: var(--contents-width);
+		}
+	}
+
 	.title {
 		font-size: large;
 		font-weight: bold;

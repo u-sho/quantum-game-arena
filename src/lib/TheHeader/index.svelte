@@ -19,12 +19,16 @@
 </header>
 
 <style lang="scss">
-	header {
+	.header {
+		position: fixed;
+		top: 0;
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
 		height: 56px;
 		background-color: var(--theme-light-color);
+		border-top: 4px solid var(--accent-color);
+		border-bottom: 4px solid var(--accent-color);
 	}
 
 	.logo {

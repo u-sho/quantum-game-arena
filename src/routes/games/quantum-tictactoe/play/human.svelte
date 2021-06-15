@@ -12,16 +12,17 @@
 </svelte:head>
 
 <TheHeader />
-<main>
+<main class="main">
 	<!-- <SvelteDipper /> -->
 	<h1 class="title">Quantum Tic-Tac-Toe</h1>
 	<OfflineApp />
 </main>
 
 <style lang="scss">
-	main {
+	.main {
 		width: 100%;
 		height: 100%;
+		margin-top: var(--header-height);
 		display: flex;
 		flex-direction: column;
 		align-items: center;

@@ -47,6 +47,10 @@
 <TheFooter />
 
 <style lang="scss">
+	article {
+		margin-top: var(--header-height);
+	}
+
 	.hero {
 		display: flex;
 		align-items: center;
@@ -83,10 +87,16 @@
 	.game-list {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		max-width: var(--contents-width);
+		list-style: none;
+		padding: 0;
+		margin: 0;
 		li {
 			list-style-type: none;
-			margin: 1rem;
+			margin: 16px;
+
 			box-sizing: border-box;
 			display: flex;
 			align-items: center;
