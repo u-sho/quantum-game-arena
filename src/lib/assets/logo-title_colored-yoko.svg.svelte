@@ -3,7 +3,7 @@
 </script>
 
 <svg
-	id="ttl-logo-row"
+	id="ttl-logo-row--colored"
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	viewBox="0 0 940 230.13"
