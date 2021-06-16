@@ -6,6 +6,9 @@
 		--theme-light-color: #f0f7ff;
 		--accent-color: #e45355;
 		--bg-color: #ffffff;
+
+		--header-height: 64px;
+		--contents-width: 712px;
 	}
 
 	:global(body) {

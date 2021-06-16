@@ -122,7 +122,7 @@ export default class QuantumTTT {
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
 	handleNormalMove(i: SquareType): StatusType {
 		const qSquares = [...this.state.qSquares];
-		const marker = `${this.whoseTurn()}${this.state.currentTurn}` as MarkType;
+		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
 		if (qSquares[i].length >= 1) qSquares[i].push(marker);
 		else qSquares[i] = [marker];
@@ -281,7 +281,12 @@ function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
 
 	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
 
-	winners.sort();
+	winners.sort((line1, line2) => {
+		if (line1[0] < line2[0]) return 1;
+		if (line1[0] > line2[0]) return -1;
+		if (line1[1] === 'X') return -1;
+		return 0;
+	});
 	const scores = { X: 0, Y: 0 };
 
 	if (winners.length >= 1) scores[winners[0][1]] = 1;

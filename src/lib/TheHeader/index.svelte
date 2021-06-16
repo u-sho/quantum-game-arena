@@ -1,7 +1,11 @@
-<header>
+<script lang="ts">
+	import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
+</script>
+
+<header class="header">
 	<hgroup class="logo">
 		<a sveltekit:prefetch href="/">
-			<img src="/logo-144x144.png" alt="QuantumGameArena" />
+			<TitleLogo styles="height: 44px; margin: 6px 12px" />
 			<h1>Quantum Game Arena</h1>
 		</a>
 	</hgroup>
@@ -15,29 +19,26 @@
 </header>
 
 <style lang="scss">
-	header {
+	.header {
+		position: fixed;
+		top: 0;
 		display: flex;
 		justify-content: space-between;
-		height: 3rem;
+		width: 100%;
+		height: 56px;
 		background-color: var(--theme-light-color);
+		border-top: 4px solid var(--accent-color);
+		border-bottom: 4px solid var(--accent-color);
 	}
 
 	.logo {
-		height: 3rem;
+		box-sizing: border-box;
 		a {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100%;
-			height: 100%;
-
-			img {
-				height: 2.5rem;
-				width: 2.5rem;
-			}
+			box-sizing: border-box;
 			h1 {
-				font-size: 1.5rem;
-				font-weight: bold;
+				height: 0;
+				width: 0;
+				overflow: hidden;
 				margin: 0;
 			}
 		}
@@ -51,7 +52,7 @@
 			position: relative;
 			padding: 0;
 			margin: 0;
-			height: 3rem;
+			height: 54px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
