@@ -6,7 +6,7 @@
 <footer class="footer">
 	<div class="footer__logo">
 		<a sveltekit:prefetch href="/#top">
-			<LogoWhite styles="height: 32px" />
+			<LogoWhite styles="height: 100%; max-height: 112px;" />
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
@@ -22,6 +22,10 @@
 
 <style lang="scss">
 	.footer {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -35,7 +39,9 @@
 	}
 
 	.footer__logo {
-		margin: 16px 0;
+		margin: 0;
+		padding: 0;
+		display: inline-flex;
 		a {
 			display: flex;
 			align-items: center;

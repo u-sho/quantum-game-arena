@@ -68,7 +68,7 @@
 	}
 
 	.white {
-		color: var(--theme-light-color);
+		color: var(--bg-light-color);
 		text-shadow: 0.125px 1px var(--theme-color);
 	}
 
