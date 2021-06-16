@@ -10,6 +10,8 @@
 <svelte:head>
 	<link rel="canonical" href="https://quantum-game-arena.vercel.app/" />
 	<title>Quantum Game Arena</title>
+	<meta property="og:url" content="https://quantum-game-arena.vercel.app/" />
+	<meta property="og:title" content="Quantum Game Arena" />
 </svelte:head>
 
 <TheHeader />

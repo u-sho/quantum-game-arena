@@ -9,6 +9,11 @@
 		href="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/play/human"
 	/>
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
+	<meta
+		property="og:url"
+		content="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/play/human"
+	/>
+	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
 <TheHeader />

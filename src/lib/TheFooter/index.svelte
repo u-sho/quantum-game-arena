@@ -1,15 +1,23 @@
 <script lang="ts">
-	import Logo from '$lib/assets/logo_white.svg.svelte';
+	import LogoWhite from '$lib/assets/logo_white.svg.svelte';
+	import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
 </script>
 
 <footer class="footer">
 	<div class="footer__logo">
 		<a sveltekit:prefetch href="/#top">
-			<Logo styles="height: 32px" />
+			<LogoWhite styles="height: 32px" />
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
-	twitter
+	<a
+		href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+		class="twitter-share-button"
+		data-show-count="false"
+	>
+		<TwitterLogoWhite styles="width: 24px" />
+		<span>Tweet</span>
+	</a>
 </footer>
 
 <style lang="scss">
@@ -41,5 +49,10 @@
 		margin: 0 0 0 16px;
 		padding: 0;
 		font-weight: bold;
+	}
+
+	a.twitter-share-button {
+		color: #ffffff;
+		font-size: 20px;
 	}
 </style>
