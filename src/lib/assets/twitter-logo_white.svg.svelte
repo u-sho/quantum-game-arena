@@ -1,10 +1,10 @@
-<!-- Generator: Adobe Illustrator 24.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- 
+	Generator: Adobe Illustrator 24.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)
+	available at https://about.twitter.com/en/who-we-are/brand-toolkit
+-->
 <script lang="ts">
 	export let styles: string;
 </script>
-
-<!-- available at https://about.twitter.com/en/who-we-are/brand-toolkit -->
-
 
 <svg
 	id="TwitterLogo"
