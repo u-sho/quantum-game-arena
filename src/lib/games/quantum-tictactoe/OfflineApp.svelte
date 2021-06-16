@@ -131,5 +131,10 @@
 		margin-top: 50px;
 		text-align: center;
 		background-color: var(--theme-color);
+		color: var(--bg-color);
+		a {
+			color: var(--bg-light-color);
+			text-decoration-line: underline;
+		}
 	}
 </style>

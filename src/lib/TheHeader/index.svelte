@@ -5,15 +5,15 @@
 <header class="header">
 	<hgroup class="logo">
 		<a sveltekit:prefetch href="/">
-			<TitleLogo styles="height: 44px; margin: 6px 12px" />
+			<TitleLogo styles="height: 44px; margin: 6px 12px;" />
 			<h1>Quantum Game Arena</h1>
 		</a>
 	</hgroup>
 
 	<nav>
 		<ul>
-			<li><a sveltekit:prefetch href="/#about">About</a></li>
-			<li><a sveltekit:prefetch sveltekit:noscroll href="/#games">Games</a></li>
+			<!-- <li><a sveltekit:prefetch href="/#about">About</a></li> -->
+			<li><a sveltekit:prefetch href="/games/quantum-tictactoe">Game</a></li>
 		</ul>
 	</nav>
 </header>
@@ -26,8 +26,9 @@
 		justify-content: space-between;
 		width: 100%;
 		height: 56px;
-		background-color: #fffffff0;
-		border-top: 4px solid var(--accent-color);
+		background-color: #f0f7fff0;
+		border-top: 4px solid var(--theme-color);
+		border-bottom: 4px solid var(--theme-color);
 		z-index: 100;
 	}
 
@@ -79,9 +80,9 @@
 					height: 100%;
 					align-items: center;
 					padding: 0 1em;
-					color: var(--heading-color);
-					font-weight: 700;
-					font-size: 1rem;
+					color: var(--theme-color);
+					font-weight: bold;
+					font-size: 16px;
 					text-transform: uppercase;
 					letter-spacing: 10%;
 					text-decoration: none;

@@ -24,11 +24,11 @@
 <article>
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" height="500px" />
-		<LogoTitleRowWhite styles="max-width:var(--contents-width-text); z-index: 1;" />
+		<LogoTitleRowWhite styles="max-width: var(--contents-width-text); margin:16px; z-index: 1;" />
 		<h1>Quantum Game Arena</h1>
 	</header>
 	<section id="about">
-		<h1>About</h1>
+		<h1 class="section-title">About</h1>
 		<p>
 			Quantum Game Arena
 			は、「量子ゲーム」をアカウント登録なしで遊ぶことができるオンライン遊技場です。
@@ -37,7 +37,7 @@
 		</p>
 	</section>
 	<section id="howtoplay">
-		<h1>How to Play</h1>
+		<h1 class="section-title">How to Play</h1>
 		<ul class="playflow">
 			<li>
 				<p>Step1</p>
@@ -55,7 +55,7 @@
 		</ul>
 	</section>
 	<section id="games">
-		<h1>Games</h1>
+		<h1 class="section-title">Games</h1>
 		<nav>
 			<ul class="game-list">
 				<li>
@@ -80,8 +80,8 @@
 		</nav>
 	</section>
 	<section id="play">
-		<h2>さあ量子の世界へ...</h2>
-		<a sveltekit:prefetch href="/games/quantum-tictactoe" class="play-button">
+		<h1 class="play--title">さあ量子の世界へ...</h1>
+		<a sveltekit:prefetch href="/games/quantum-tictactoe" class="play--button">
 			<span>Play</span>
 		</a>
 	</section>
@@ -107,7 +107,7 @@
 		img {
 			position: absolute;
 			overflow: hidden;
-			width: 100%;
+			height: 100%;
 			z-index: 0;
 		}
 
@@ -130,28 +130,29 @@
 			background-color: var(--bg-light-color);
 		}
 
-		h1 {
-			margin-top: 0;
-			font-weight: bold;
-			font-size: 2rem;
-			position: relative;
-			color: var(--theme-color);
-
-			&::after {
-				content: '';
-				display: block;
-				position: absolute;
-				left: 50%;
-				transform: translate(-50%);
-				bottom: -10px;
-				width: 30px;
-				height: 5px;
-				background-color: var(--theme-color);
-			}
-		}
-
 		p {
 			max-width: var(--contents-width-text);
+			margin: 16px;
+		}
+	}
+
+	.section-title {
+		margin-top: 0;
+		font-weight: bold;
+		font-size: 32px;
+		position: relative;
+		color: var(--theme-color);
+
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%);
+			bottom: -10px;
+			width: 30px;
+			height: 5px;
+			background-color: var(--theme-color);
 		}
 	}
 
@@ -212,7 +213,15 @@
 		}
 	}
 
-	.play-button {
+	.play--title {
+		margin-top: 16px;
+		font-size: 24px;
+		color: inherit;
+		&::after {
+			display: none;
+		}
+	}
+	.play--button {
 		box-sizing: border-box;
 		margin: 16px;
 		height: 45px;
