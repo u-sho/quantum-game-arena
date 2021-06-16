@@ -52,7 +52,7 @@ export default class QuantumTTT {
 				Y: 60 * 5
 			},
 			scores: { X: 0, Y: 0 },
-			status: "プレイヤーXの番です！"
+			status: 'プレイヤーXの番です！'
 		};
 	}
 
@@ -111,9 +111,7 @@ export default class QuantumTTT {
 			return 'このマスのマークが既に確定しています！ このマスには量子マークを置けません。';
 
 		if (this.isSecondMove() && this.state.lastMove === i)
-			return (
-				"同じマスには同じターンに置けません。"
-			);
+			return '同じマスには同じターンに置けません。';
 
 		return this.handleNormalMove(i);
 	}
@@ -143,16 +141,13 @@ export default class QuantumTTT {
 
 		if (cycle) {
 			const msg =
-				`循環もつれが発生しました！ プレイヤー${this.notWhoseTurn()}はマークを確定させる` + 
+				`循環もつれが発生しました！ プレイヤー${this.notWhoseTurn()}はマークを確定させる` +
 				'マスを選択してください。';
 			return `${msg}`;
 		}
-		
 
 		if (this.isSecondMove())
-			return (
-				'2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。'
-			);
+			return '2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。';
 
 		return `プレイヤー${this.whoseTurn()}のターンです! 量子マークをおいてください。`;
 	}
