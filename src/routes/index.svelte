@@ -7,10 +7,10 @@
 	import TheFooter from '$lib/TheFooter/index.svelte';
 
 	import LogoTitleRowWhite from '$lib/assets/logo-title_row-white.svg.svelte';
-
-	const img_tictactoe = 'tic-tac-toe.png';
-	const img_shogi = 'shogi.png';
-	const img_igo = 'igo.png';
+	import heroImage from '$lib/assets/hero.png';
+	import goGameImage from '$lib/assets/gogame.png';
+	import shogiImage from '$lib/assets/shogi.png';
+	import tictactoeImage from '$lib/assets/tic-tac-toe.png';
 </script>
 
 <svelte:head>
@@ -23,16 +23,17 @@
 <TheHeader />
 <article>
 	<header class="hero" id="top">
-		<img src="hero.png" alt="" height="500px" />
+		<img src={heroImage} alt="" height="500px" />
 		<LogoTitleRowWhite styles="max-width:var(--contents-width-text); z-index: 1;" />
 		<h1>Quantum Game Arena</h1>
 	</header>
 	<section id="about">
 		<h1>About</h1>
 		<p>
-			量子力学の基本的な概念を取り入れた「量子ゲーム」では，その複雑ゆえに遊びごたえのあるプレイ感を楽しめます。
+			Quantum Game Arena
+			は、「量子ゲーム」をアカウント登録なしで遊ぶことができるオンライン遊技場です。
 			<br />
-			Quantum Game Arena は、「量子ゲーム」を登録不要で遊ぶことができるオンライン遊技場です。
+			量子力学の基本的な概念を取り入れた「量子ゲーム」では，その複雑ゆえに遊びごたえのあるプレイ感を楽しめます。
 		</p>
 	</section>
 	<section id="howtoplay">
@@ -59,19 +60,19 @@
 			<ul class="game-list">
 				<li>
 					<a sveltekit:prefetch href="/games/quantum-tictactoe" type="text/html">
-						<img src={img_tictactoe} alt="tic-tac-toe" width="130px" />
+						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" />
 						<span>量子三目並べ</span>
 					</a>
 				</li>
 				<li>
 					<div class="comming-soon">
-						<img src={img_shogi} alt="shogi" width="130px" />
+						<img src={shogiImage} alt="shogi" width="130px" />
 						<span>量子将棋</span>
 					</div>
 				</li>
 				<li>
 					<div class="comming-soon">
-						<img src={img_igo} alt="igo" width="130px" />
+						<img src={goGameImage} alt="igo" width="130px" />
 						<span>量子囲碁</span>
 					</div>
 				</li>
