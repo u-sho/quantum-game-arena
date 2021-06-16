@@ -2,7 +2,7 @@
 
 <style lang="scss">
 	:root {
-		--theme-color: #7a9de3;
+		--theme-color: #1a5086;
 		--theme-light-color: #f0f7ff;
 		--accent-color: #e45355;
 		--bg-color: #ffffff;
