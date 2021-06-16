@@ -1,11 +1,11 @@
 <script lang="ts">
-	import LogoYoko from '$lib/assets/logo-title_colored-yoko.svg.svelte';
+	import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 </script>
 
 <header class="header">
 	<hgroup class="logo">
 		<a sveltekit:prefetch href="/">
-			<LogoYoko styles="height: 44px; margin: 6px 12px" />
+			<TitleLogo styles="height: 44px; margin: 6px 12px" />
 			<h1>Quantum Game Arena</h1>
 		</a>
 	</hgroup>
