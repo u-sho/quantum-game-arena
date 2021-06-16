@@ -78,7 +78,7 @@ export default class QuantumTTT {
 			if (this.state.leftTimes.X <= 0) {
 				this.setState({
 					isOver: true,
-					status: 'プレイヤーX の時間切れです。プレイヤーYの勝利です！'
+					status: 'プレイヤーXの時間切れです。プレイヤーYの勝利です！'
 				});
 			} else {
 				this.setLeftTimes({ X: this.state.leftTimes.X - 1 });
@@ -89,7 +89,7 @@ export default class QuantumTTT {
 			if (this.state.leftTimes.Y <= 0) {
 				this.setState({
 					isOver: true,
-					status: 'プレイヤーY の時間切れです。プレイヤーXの勝利です！'
+					status: 'プレイヤーYの時間切れです。プレイヤーXの勝利です！'
 				});
 			} else {
 				this.setLeftTimes({ Y: this.state.leftTimes.Y - 1 });
@@ -141,8 +141,8 @@ export default class QuantumTTT {
 
 		if (cycle) {
 			const msg =
-				`循環もつれが発生しました！ プレイヤー${this.notWhoseTurn()}はマークを確定させる` +
-				'マスを選択してください。';
+				'循環もつれが発生しました！' +
+				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
 			return `${msg}`;
 		}
 
@@ -229,15 +229,15 @@ function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 
 	if (scores.X === 1.5 || scores.Y === 1.5)
 		return (
-			`${winner} 同時に2つの列を完成させました！！\n ${winner}は1.5ポイント \n ` +
-			`${loser} は0ポイント`
+			`${winner} 同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント \n ` +
+			`${loser} は   0ポイント`
 		);
 
 	if (scores.X + scores.Y === 1.5)
 		return (
-			`両プレイヤーが同時に1列を完成させました。 しかし、${winner} が先に並べました!  The mark placed in` +
-			`${winner}は1.0ポイント` +
-			` \n ${loser}は0.5ポイント`
+			`両プレイヤーが同時に1列を完成させました。しかし、${winner} が先に並べました！` +
+			` ${winner}は 1.0ポイント` +
+			`\n ${loser}は 0.5ポイント`
 		);
 
 	return 'どのプレイヤーも列を完成できていません';
