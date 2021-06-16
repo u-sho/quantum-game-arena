@@ -52,7 +52,7 @@ export default class QuantumTTT {
 				Y: 60 * 5
 			},
 			scores: { X: 0, Y: 0 },
-			status: 'プレイヤーXの番です！'
+			status: 'プレイヤーXのターンです！'
 		};
 	}
 
@@ -177,7 +177,7 @@ export default class QuantumTTT {
 				collapseSquare: null
 			});
 
-			return `${this.whoseTurn()} の番です。`;
+			return `プレイヤー${this.whoseTurn()}のターンです。`;
 		}
 
 		// end of the game
