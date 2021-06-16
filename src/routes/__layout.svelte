@@ -3,12 +3,14 @@
 <style lang="scss">
 	:root {
 		--theme-color: #1a5086;
-		--theme-light-color: #f0f7ff;
+		--theme-light-color: #7a9de3;
 		--accent-color: #e45355;
+		--bg-light-color: #f0f7ff;
 		--bg-color: #ffffff;
 
 		--header-height: 64px;
 		--contents-width: 712px;
+		--contents-width-text: 512px;
 	}
 
 	:global(body) {

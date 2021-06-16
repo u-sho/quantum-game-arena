@@ -6,9 +6,11 @@
 	import TheHeader from '$lib/TheHeader/index.svelte';
 	import TheFooter from '$lib/TheFooter/index.svelte';
 
-	let img_tictactoe = 'tic-tac-toe.png';
-	let img_shogi = 'shogi.png';
-	let img_igo = 'igo.png';
+	import LogoTitleRowWhite from '$lib/assets/logo-title_row-white.svg.svelte';
+
+	const img_tictactoe = 'tic-tac-toe.png';
+	const img_shogi = 'shogi.png';
+	const img_igo = 'igo.png';
 </script>
 
 <svelte:head>
@@ -20,12 +22,17 @@
 
 <TheHeader />
 <article>
-	<header class="hero" id="top" />
+	<header class="hero" id="top">
+		<img src="hero.png" alt="" height="500px" />
+		<LogoTitleRowWhite styles="max-width:var(--contents-width-text); z-index: 1;" />
+		<h1>Quantum Game Arena</h1>
+	</header>
 	<section id="about">
 		<h1>About</h1>
 		<p>
-			量子の基本的な概念を取り入れた量子ゲームを登録不要で遊ぶことができるオンライン遊技場です。
-			複雑がゆえに、遊びごたえのあるプレイ感を楽しむことができます。
+			量子力学の基本的な概念を取り入れた「量子ゲーム」では，その複雑ゆえに遊びごたえのあるプレイ感を楽しめます。
+			<br />
+			Quantum Game Arena は、「量子ゲーム」を登録不要で遊ぶことができるオンライン遊技場です。
 		</p>
 	</section>
 	<section id="howtoplay">
@@ -50,30 +57,32 @@
 		<h1>Games</h1>
 		<nav>
 			<ul class="game-list">
-				<a sveltekit:prefetch href="/games/quantum-tictactoe" type="text/html">
-					<li>
+				<li>
+					<a sveltekit:prefetch href="/games/quantum-tictactoe" type="text/html">
 						<img src={img_tictactoe} alt="tic-tac-toe" width="130px" />
-						<p>量子三目並べ</p>
-					</li>
-				</a>
-				<a sveltekit:prefetch href="/games/shogi" type="text/html" class="disabled">
-					<li class="comming-soon">
+						<span>量子三目並べ</span>
+					</a>
+				</li>
+				<li>
+					<div class="comming-soon">
 						<img src={img_shogi} alt="shogi" width="130px" />
-						<p>量子将棋</p>
-					</li>
-				</a>
-				<a sveltekit:prefetch href="/games/igo" type="text/html" class="disabled">
-					<li class="comming-soon">
+						<span>量子将棋</span>
+					</div>
+				</li>
+				<li>
+					<div class="comming-soon">
 						<img src={img_igo} alt="igo" width="130px" />
-						<p>量子囲碁</p>
-					</li>
-				</a>
+						<span>量子囲碁</span>
+					</div>
+				</li>
 			</ul>
 		</nav>
 	</section>
 	<section id="play">
 		<h2>さあ量子の世界へ...</h2>
-		<a sveltekit:prefetch href="/games/quantum-tictactoe" class="play-button"> Play </a>
+		<a sveltekit:prefetch href="/games/quantum-tictactoe" class="play-button">
+			<span>Play</span>
+		</a>
 	</section>
 </article>
 <TheFooter />
@@ -84,17 +93,27 @@
 	}
 
 	.hero {
+		position: relative;
+		box-sizing: border-box;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		height: 500px;
-		width: 100%;
-		background: var(--theme-color);
-		background-image: url(top-screen.png);
+		width: 100vw;
+		background-color: var(--theme-color);
+		overflow: hidden;
+
+		img {
+			position: absolute;
+			overflow: hidden;
+			width: 100%;
+			z-index: 0;
+		}
 
 		h1 {
-			color: var(--bg-color);
-			font-size: 2.5rem;
+			width: 0;
+			height: 0;
+			overflow: hidden;
 		}
 	}
 
@@ -102,112 +121,109 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
 		flex-direction: column;
+		width: 100%;
+		padding: 28px 0;
+
 		&:nth-child(even) {
-			background-color: var(--theme-light-color);
+			background-color: var(--bg-light-color);
 		}
 
 		h1 {
+			margin-top: 0;
 			font-weight: bold;
 			font-size: 2rem;
 			position: relative;
 			color: var(--theme-color);
-		}
 
-		h1::after {
-			content: '';
-			display: block;
-			position: absolute;
-			left: 50%;
-			transform: translate(-50%);
-			bottom: -10px;
-			width: 30px;
-			height: 5px;
-			background-color: var(--theme-color);
+			&::after {
+				content: '';
+				display: block;
+				position: absolute;
+				left: 50%;
+				transform: translate(-50%);
+				bottom: -10px;
+				width: 30px;
+				height: 5px;
+				background-color: var(--theme-color);
+			}
 		}
 
 		p {
-			max-width: 512px;
-		}
-	}
-
-	#about {
-		height: 460px;
-	}
-
-	#howtoplay {
-		height: 700px;
-	}
-
-	#games {
-		height: 450px;
-	}
-
-	#play {
-		height: 300px;
-
-		a {
-			list-style-type: none;
-			margin: 16px;
-
-			box-sizing: border-box;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 45px;
-			width: 120px;
-			background-color: #7a9de3;
-			border-radius: 5px;
-			font-weight: bold;
-			font-size: 1.25rem;
-			color: #ffffff;
-		}
-	}
-
-	.playflow {
-		li {
+			max-width: var(--contents-width-text);
 		}
 	}
 
 	.game-list {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		padding-left: 0px;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		max-width: var(--contents-width);
+		list-style: none;
+		padding: 0;
+		margin: 0;
 
-		a {
-			li {
-				list-style-type: none;
-				margin: 1rem;
-				box-sizing: border-box;
+		li {
+			list-style-type: none;
+			margin: 16px;
+			box-sizing: border-box;
+
+			a,
+			.comming-soon {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				justify-content: center;
-				height: 250px;
+				justify-content: space-around;
 				width: 180px;
-				background: #f4f0f0;
+				height: 250px;
 
 				img {
-					margin: 1rem;
+					margin: 16px 16px 0;
 				}
-
-				p {
+				span {
+					margin: 0 0 16px;
 					font-weight: bold;
-					color: var(--theme-color);
 				}
 			}
-		}
 
-		.comming-soon {
 			a {
-				opacity: 0.5;
+				background-color: #f4f0f0;
+				color: var(--theme-color);
+			}
+		}
+		.comming-soon {
+			background-color: #f4f0f0aa;
+
+			position: relative;
+			color: #1a5086aa;
+
+			&::after {
+				content: 'comming soon';
+				position: absolute;
+				top: 100px;
+				text-align: center;
+				font-size: 24px;
+				font-weight: bold;
+				color: var(--theme-color);
+				z-index: 1;
 			}
 		}
 	}
 
-	.disabled {
-		pointer-events: none;
+	.play-button {
+		box-sizing: border-box;
+		margin: 16px;
+		height: 45px;
+		width: 120px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--theme-light-color);
+		border-radius: 5px;
+		font-size: 20px;
+		font-weight: bold;
+		text-align: center;
+		color: #ffffff;
 	}
 </style>

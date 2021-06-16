@@ -26,9 +26,9 @@
 		justify-content: space-between;
 		width: 100%;
 		height: 56px;
-		background-color: var(--theme-light-color);
+		background-color: #fffffff0;
 		border-top: 4px solid var(--accent-color);
-		border-bottom: 4px solid var(--accent-color);
+		z-index: 100;
 	}
 
 	.logo {
