@@ -13,6 +13,11 @@
 		href="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/tutorial"
 	/>
 	<title>Tutorial - Quantum Tic-Tac-Toe - Quantum Game Arena</title>
+	<meta
+		property="og:url"
+		content="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/tutorial"
+	/>
+	<meta property="og:title" content="Quantum TTT Tutorial - Quantum Game Arena" />
 </svelte:head>
 
 <TheHeader />
@@ -81,6 +86,20 @@
 <TheFooter />
 
 <style lang="scss">
+	.main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0;
+		margin: var(--header-height) 0 0;
+		width: 100%;
+		box-sizing: border-box;
+
+		section {
+			max-width: var(--contents-width);
+		}
+	}
+
 	.title {
 		font-size: large;
 		font-weight: bold;

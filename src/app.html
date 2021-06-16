@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja-JP">
-	<head>
+	<head prefix="og: http://ogp.me/ns#">
 		<meta charset="utf-8" />
-		<link rel="icon" sizes="16x16 24x24 32x32 48x48 64x64 128x128 256x256" href="/favicon.ico" />
+		<link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />
 		<link rel="icon" type="image/png" sizes="144x144" href="/logo-144x144.png" />
-		<link rel="icon" type="image/png" sizes="192x192" href="/logo-192x192.png" />
-		<link rel="icon" type="image/png" sizes="512x512" href="/logo-512x512.png" />
+		<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+		<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1d2088" />
 
-		<link rel="apple-touch-icon" href="/logo-192x192.png" />
 		<meta name="apple-mobile-web-app-title" content="Quantum Game Arena" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
-
 		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="msapplication-TileColor" content="#1d2088" />
 
 		<link rel="manifest" href="/manifest.webmanifest" />
 		<meta
 			name="viewport"
 			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
 		/>
-		<meta name="theme-color" content="#7a9de3" />
+		<meta name="theme-color" content="#1d2088" />
 		<meta name="background-color" content="#ffffff" />
 		<meta name="application-name" content="Quantum Game Arena" />
 		<meta
@@ -28,24 +29,32 @@
 		/>
 		<meta name="keywords" content="education,games" />
 
-		<!-- <meta property="og:url" content="https://xxx" /> -->
-		<!-- <meta property="og:image" content="https://xxx/ogp-img.png" /> -->
+		<meta
+			property="og:image"
+			content="https://pbs.twimg.com/profile_banners/1398377057772470274/1623818332/1500x500"
+		/>
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1500" />
+		<meta property="og:image:height" content="500" />
+		<meta property="og:image:alt" content="Quantum Game Arena logo" />
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="Quantum Game Arena" />
 		<meta
 			property="og:description"
 			content="Quantum Game Arena は，ゲームを通じて量子力学的世界観を養うことを目的とした量子ゲームの遊び場です．"
 		/>
 		<meta property="og:site_name" content="Quantum Game Arena" />
+		<meta property="og:locale" content="ja_JP" />
 
 		<!-- <meta property="fb:app_id" content="" /> -->
 		<meta name="twitter:card" content="summary" />
-		<!-- <meta name="twitter:url" content="https://xxx" /> -->
-		<!-- <meta name="twitter:site" content="https://xxx" /> -->
+		<meta name="twitter:site" content="@QGameArena" />
+		<!-- <meta name="twitter:creator" content="@u_sho_engineer" /> -->
+		<meta
+			name="twitter:image"
+			content="https://pbs.twimg.com/profile_banners/1398377057772470274/1623818332/1500x500"
+		/>
 		<meta name="twitter:title" content="Quantum Game Arena" />
 		<meta name="twitter:description" content="量子ゲームの遊び場" />
-		<!-- <meta name="twitter:image" content="https://xxx/ogp-img.png" /> -->
-		<meta name="twitter:creator" content="@QGameArena" />
 		%svelte.head%
 	</head>
 	<body>

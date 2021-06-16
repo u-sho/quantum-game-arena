@@ -2,10 +2,13 @@
 
 <style lang="scss">
 	:root {
-		--theme-color: #7a9de3;
-		--theme-light-color: #f0f7ff;
+		--theme-color: #1d2088;
+		--theme-light-color: #f0f8ff;
 		--accent-color: #e45355;
 		--bg-color: #ffffff;
+
+		--header-height: 64px;
+		--contents-width: 712px;
 	}
 
 	:global(body) {
