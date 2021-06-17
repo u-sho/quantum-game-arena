@@ -102,12 +102,19 @@
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: stretch;
+
+		@media screen and (max-width: 600px) {
+			width: 95vw;
+		}
 	}
 
 	.status {
 		box-sizing: border-box;
 		padding: 8px 0;
 		font-size: 24px;
+		@media screen and (max-width: 600px) {
+			font-size: 16px;
+		}
 	}
 
 	.btn-list {
@@ -167,5 +174,10 @@
 		align-items: center;
 		font-size: 24px;
 		font-weight: bold;
+
+		@media screen and (max-width: 600px) {
+			width: 90vw;
+			font-size: 16px;
+		}
 	}
 </style>

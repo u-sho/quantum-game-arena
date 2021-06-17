@@ -28,7 +28,7 @@
 	import Game from './QuantumTTT';
 
 	let game = new Game();
-	game.setStatus("Player X's turn!");
+	game.setStatus('プレイヤーXのターンです');
 	let gameCount = 1;
 
 	let state = game.state;
@@ -67,7 +67,7 @@
 
 	function handleResetGameClick() {
 		game = new Game();
-		game.setStatus("Player X's turn!");
+		game.setStatus('プレイヤーXのターンです');
 		gameCount = 1;
 
 		state = { ...game.state };
