@@ -1,43 +1,45 @@
-<header>
+<script lang="ts">
+	import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
+</script>
+
+<header class="header">
 	<hgroup class="logo">
 		<a sveltekit:prefetch href="/">
-			<img src="/logo-144x144.png" alt="QuantumGameArena" />
+			<TitleLogo styles="height: 44px; margin: 6px 12px;" />
 			<h1>Quantum Game Arena</h1>
 		</a>
 	</hgroup>
 
 	<nav>
 		<ul>
-			<li><a sveltekit:prefetch href="/#about">About</a></li>
-			<li><a sveltekit:prefetch sveltekit:noscroll href="/#games">Games</a></li>
+			<!-- <li><a sveltekit:prefetch href="/#about">About</a></li> -->
+			<li><a sveltekit:prefetch href="/games/quantum-tictactoe">Game</a></li>
 		</ul>
 	</nav>
 </header>
 
 <style lang="scss">
-	header {
+	.header {
+		position: fixed;
+		top: 0;
 		display: flex;
 		justify-content: space-between;
-		height: 3rem;
-		background-color: var(--theme-light-color);
+		width: 100%;
+		height: 56px;
+		background-color: #f0f7fff0;
+		border-top: 4px solid var(--theme-color);
+		border-bottom: 4px solid var(--theme-color);
+		z-index: 100;
 	}
 
 	.logo {
-		height: 3rem;
+		box-sizing: border-box;
 		a {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100%;
-			height: 100%;
-
-			img {
-				height: 2.5rem;
-				width: 2.5rem;
-			}
+			box-sizing: border-box;
 			h1 {
-				font-size: 1.5rem;
-				font-weight: bold;
+				height: 0;
+				width: 0;
+				overflow: hidden;
 				margin: 0;
 			}
 		}
@@ -51,7 +53,7 @@
 			position: relative;
 			padding: 0;
 			margin: 0;
-			height: 3rem;
+			height: 54px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -78,9 +80,9 @@
 					height: 100%;
 					align-items: center;
 					padding: 0 1em;
-					color: var(--heading-color);
-					font-weight: 700;
-					font-size: 1rem;
+					color: var(--theme-color);
+					font-weight: bold;
+					font-size: 16px;
 					text-transform: uppercase;
 					letter-spacing: 10%;
 					text-decoration: none;

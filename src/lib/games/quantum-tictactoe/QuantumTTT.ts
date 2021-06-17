@@ -52,7 +52,7 @@ export default class QuantumTTT {
 				Y: 60 * 5
 			},
 			scores: { X: 0, Y: 0 },
-			status: "Player X's turn!"
+			status: 'プレイヤーXのターンです！'
 		};
 	}
 
@@ -78,7 +78,7 @@ export default class QuantumTTT {
 			if (this.state.leftTimes.X <= 0) {
 				this.setState({
 					isOver: true,
-					status: 'Player X has run out of time.  Player Y wins!'
+					status: 'プレイヤーXの時間切れです。プレイヤーYの勝利です！'
 				});
 			} else {
 				this.setLeftTimes({ X: this.state.leftTimes.X - 1 });
@@ -89,7 +89,7 @@ export default class QuantumTTT {
 			if (this.state.leftTimes.Y <= 0) {
 				this.setState({
 					isOver: true,
-					status: 'Player Y has run out of time.  Player X wins!'
+					status: 'プレイヤーYの時間切れです。プレイヤーXの勝利です！'
 				});
 			} else {
 				this.setLeftTimes({ Y: this.state.leftTimes.Y - 1 });
@@ -103,18 +103,15 @@ export default class QuantumTTT {
 			// initialize timer at game start
 			setInterval(this.timer, 1000);
 
-		if (this.state.isOver) return 'This game is already over!  Start a new game!!';
+		if (this.state.isOver) return 'ゲームは既に終了しています！ 新しいゲームを開始してください';
 
 		if (this.state.cycleSquares) return this._handleCyclicEntanglement(i);
 
 		if (this.state.cSquares[i])
-			return 'This square already has a classical mark!  No more quantum marks can go here >:(';
+			return 'このマスのマークが既に確定しています！ このマスには量子マークを置けません。';
 
 		if (this.isSecondMove() && this.state.lastMove === i)
-			return (
-				"Can't move twice in the same square!\n" +
-				'What do you think this is... regular tic-tac-toe??'
-			);
+			return '同じマスには同じターンに置けません。';
 
 		return this.handleNormalMove(i);
 	}
@@ -122,7 +119,7 @@ export default class QuantumTTT {
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
 	handleNormalMove(i: SquareType): StatusType {
 		const qSquares = [...this.state.qSquares];
-		const marker = `${this.whoseTurn()}${this.state.currentTurn}` as MarkType;
+		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
 		if (qSquares[i].length >= 1) qSquares[i].push(marker);
 		else qSquares[i] = [marker];
@@ -144,28 +141,24 @@ export default class QuantumTTT {
 
 		if (cycle) {
 			const msg =
-				`A loop of entanglement has occurred!  Player ${this.notWhoseTurn()} will decide which of ` +
-				'the possible states the board will collapse into.';
-			return `${msg}  Click one of the squares involved in the loop.`;
+				'循環もつれが発生しました！' +
+				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
+			return `${msg}`;
 		}
 
 		if (this.isSecondMove())
-			return (
-				'Now put a second quantum move.  This move is entangled with your previous move.  When ' +
-				'there is a cycle of entanglement, a collapse will occur and only one of these quantum ' +
-				'marks will turn into a classical mark.'
-			);
+			return '2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。';
 
-		return `Player ${this.whoseTurn()}'s turn!  Put down a quantum move (these are the small marks).`;
+		return `プレイヤー${this.whoseTurn()}のターンです! 量子マークをおいてください。`;
 	}
 
 	// selects square to be collapse point
 	private _handleCyclicEntanglement(i: SquareType): StatusType {
 		if (!this.state.cycleSquares?.includes(i))
-			return 'Must pick square involved in cyclic entanglement!  (is highlighted in blue)';
+			return '循環もつれに関係してるマスを選択してください！';
 
 		this.setState({ collapseSquare: i });
-		return 'Now, choose below which state you want to occupy the selected square.';
+		return 'このマスに確定させるマークを次から選択します。';
 	}
 
 	// collapse square and propagates changes outward
@@ -184,7 +177,7 @@ export default class QuantumTTT {
 				collapseSquare: null
 			});
 
-			return `${this.whoseTurn()} next!`;
+			return `プレイヤー${this.whoseTurn()}のターンです。`;
 		}
 
 		// end of the game
@@ -232,22 +225,22 @@ function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 	const loser = winner === 'X' ? 'Y' : 'X';
 
 	if (scores.X + scores.Y === 1)
-		return `${winner} wins!!!\n ${winner} gets 1 point\n ${loser} gets 0 points`;
+		return `${winner}の勝利です！！\n ${winner}は1.0ポイント \n ${loser}は0ポイント`;
 
 	if (scores.X === 1.5 || scores.Y === 1.5)
 		return (
-			`${winner} wins with a double three-in-a-row!!!\n ${winner} gets 1.5 points \n ` +
-			`${loser} gets 0 points`
+			`${winner} 同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント \n ` +
+			`${loser} は   0ポイント`
 		);
 
 	if (scores.X + scores.Y === 1.5)
 		return (
-			`Both players got three-in-a-row, but ${winner} got it first!  The mark placed in` +
-			`${winner}'s three-in-a-row has a smaller subscript than ${loser} \n ${winner} gets 1 point` +
-			` \n ${loser} gets 0.5 points`
+			`両プレイヤーが同時に1列を完成させました。しかし、${winner} が先に並べました！` +
+			` ${winner}は 1.0ポイント` +
+			`\n ${loser}は 0.5ポイント`
 		);
 
-	return 'No players get three-in-a-row...';
+	return 'どのプレイヤーも列を完成できていません';
 }
 
 type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareType, 3>]>;
@@ -281,7 +274,12 @@ function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
 
 	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
 
-	winners.sort();
+	winners.sort((line1, line2) => {
+		if (line1[0] < line2[0]) return 1;
+		if (line1[0] > line2[0]) return -1;
+		if (line1[1] === 'X') return -1;
+		return 0;
+	});
 	const scores = { X: 0, Y: 0 };
 
 	if (winners.length >= 1) scores[winners[0][1]] = 1;

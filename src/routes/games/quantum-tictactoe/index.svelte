@@ -8,7 +8,13 @@
 </script>
 
 <svelte:head>
+	<link rel="canonical" href="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
+	<meta
+		property="og:url"
+		content="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/"
+	/>
+	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
 <TheHeader />
@@ -48,7 +54,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 0;
-		margin: 0;
+		margin: var(--header-height) 0 0;
 		width: 100%;
 		box-sizing: border-box;
 	}

@@ -20,7 +20,7 @@
 -->
 <script lang="ts">
 	import type { MaxLengthArray } from '$lib/types/generics';
-	import { getOrdinal } from '$lib/utility/getNumeral';
+	import { getOrdinal } from '$lib/utils/getNumeral';
 
 	import GameBoard from './GameBoard.svelte';
 	import GameInfo from './GameInfo.svelte';
@@ -131,5 +131,10 @@
 		margin-top: 50px;
 		text-align: center;
 		background-color: var(--theme-color);
+		color: var(--bg-color);
+		a {
+			color: var(--bg-light-color);
+			text-decoration-line: underline;
+		}
 	}
 </style>

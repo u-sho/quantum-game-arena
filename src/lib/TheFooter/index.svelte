@@ -1,34 +1,64 @@
+<script lang="ts">
+	import LogoWhite from '$lib/assets/logo_white.svg.svelte';
+	import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
+</script>
+
 <footer class="footer">
 	<div class="footer__logo">
 		<a sveltekit:prefetch href="/#top">
-			<img src="/logo-144x144.png" alt="QuantumGameArena" />
+			<LogoWhite styles="height: 100%; max-height: 112px;" />
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
-	twitter
+	<a
+		href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+		class="twitter-share-button"
+		data-show-count="false"
+	>
+		<TwitterLogoWhite styles="width: 24px" />
+		<span>Tweet</span>
+	</a>
 </footer>
 
 <style lang="scss">
 	.footer {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		padding: 40px;
 		background-color: var(--theme-color);
+		color: var(--bg-color);
 		@media (min-width: 480px) {
 			padding: 40px 0;
 		}
 	}
 
-	.footer__logo a {
-		font-weight: bold;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		img {
-			height: 2rem;
+	.footer__logo {
+		margin: 0;
+		padding: 0;
+		display: inline-flex;
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--bg-color);
+			border-bottom: 1px solid var(--bg-color);
 		}
+	}
+
+	.footer__title {
+		margin: 0 0 0 16px;
+		padding: 0;
+		font-weight: bold;
+	}
+
+	a.twitter-share-button {
+		color: #ffffff;
+		font-size: 20px;
 	}
 </style>
