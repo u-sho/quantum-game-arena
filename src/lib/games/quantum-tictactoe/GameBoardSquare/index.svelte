@@ -57,6 +57,11 @@
 		height: 160px;
 		width: 160px;
 		margin: -1px;
+
+		@media screen and (max-width: 600px) {
+			width: 30vw;
+			height: 30vw;
+		}
 	}
 
 	.selected {
