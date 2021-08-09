@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
 	export const prerender = true;
+	import * as animateScroll from 'svelte-scrollto';
 </script>
 
 <script lang="ts">
@@ -23,8 +24,21 @@
 <TheHeader />
 <article>
 	<header class="hero" id="top">
-		<img src={heroImage} alt="" height="500px" />
-		<LogoTitleRowWhite styles="max-width: var(--contents-width-text); margin:16zpx; z-index: 1;" />
+		<img src={heroImage} alt="" />
+		<LogoTitleRowWhite
+			styles="max-width: var(--contents-width-text); margin-bottom: 20vh; margin-right:52px; z-index: 1;"
+		/>
+		<a
+			on:click={() =>
+				animateScroll.scrollTo({
+					element: '#about',
+					offset: -64,
+					duration: 1500
+				})}
+			class="btn_03"
+		>
+			<span>Start</span>
+		</a>
 	</header>
 
 	<section id="about">
@@ -89,8 +103,36 @@
 <TheFooter />
 
 <style lang="scss">
+	a.btn_03 {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 50px;
+		position: relative;
+		background: #228bc8;
+		border: 1px solid #228bc8;
+		border-radius: 30px;
+		box-sizing: border-box;
+		// padding: 0 25px 0 25px;
+		color: #fff;
+		font-size: 24px;
+		letter-spacing: 0.1em;
+		line-height: 1.3;
+		text-align: center;
+		text-decoration: none;
+		transition-duration: 0.3s;
+	}
+	a.btn_03:hover {
+		background: #228bc8;
+		color: #fff;
+	}
+	a.btn_03:hover:before {
+		border-top: 2px solid #228bc8;
+		border-right: 2px solid #228bc8;
+	}
 	article {
-		margin-top: var(--header-height);
+		// margin-top: var(--header-height);
 	}
 
 	.hero {
@@ -99,19 +141,25 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 500px;
+		height: 100vh;
 		background-color: var(--theme-color);
 		overflow: hidden;
-		margin-right: calc(50% - 50vw);
-		margin-left: calc(50% - 50vw);
 
 		img {
 			display: block;
-			width: 100%;
-			height: auto;
+			height: 100%;
+			margin-right: 50px;
 			position: absolute;
-			overflow: hidden;
 			z-index: 0;
+		}
+
+		a {
+			position: absolute;
+			margin-top: 40vh;
+			width: 250px;
+			height: 50px;
+			background-color: var(--theme-color);
+			z-index: 1;
 		}
 	}
 

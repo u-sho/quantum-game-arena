@@ -10,7 +10,7 @@
 
 		--header-height: 64px;
 		--contents-width: 712px;
-		--contents-width-text: 512px;
+		--contents-width-text: 768px;
 	}
 
 	:global(body) {
