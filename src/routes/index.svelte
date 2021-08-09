@@ -26,7 +26,7 @@
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite
-			styles="max-width: var(--contents-width-text); margin-bottom: 20vh; margin-right:52px; z-index: 1;"
+			styles="max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
 		<a
 			href=" "
