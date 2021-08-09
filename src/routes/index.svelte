@@ -29,6 +29,7 @@
 			styles="max-width: var(--contents-width-text); margin-bottom: 20vh; margin-right:52px; z-index: 1;"
 		/>
 		<a
+			href=" "
 			on:click={() =>
 				animateScroll.scrollTo({
 					element: '#about',
