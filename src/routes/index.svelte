@@ -24,9 +24,9 @@
 <article>
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" height="500px" />
-		<LogoTitleRowWhite styles="max-width: var(--contents-width-text); margin:16px; z-index: 1;" />
-		<h1>Quantum Game Arena</h1>
+		<LogoTitleRowWhite styles="max-width: var(--contents-width-text); margin:16zpx; z-index: 1;" />
 	</header>
+
 	<section id="about">
 		<h1 class="section-title">About</h1>
 		<p>
@@ -100,21 +100,18 @@
 		align-items: center;
 		justify-content: center;
 		height: 500px;
-		width: 100vw;
 		background-color: var(--theme-color);
 		overflow: hidden;
+		margin-right: calc(50% - 50vw);
+		margin-left: calc(50% - 50vw);
 
 		img {
+			display: block;
+			width: 100%;
+			height: auto;
 			position: absolute;
 			overflow: hidden;
-			height: 100%;
 			z-index: 0;
-		}
-
-		h1 {
-			width: 0;
-			height: 0;
-			overflow: hidden;
 		}
 	}
 
