@@ -9,15 +9,7 @@ jobs:
         with:
           node-version: '16'
           check-latest: true
-
-      - name: Cache npm
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
