@@ -2,9 +2,9 @@
 	export const prerender = true;
 
 	let dialogElement: HTMLDialogElement;
-	export async function openModal(miliSec: number = 2000) {
+	export async function openModal(miliSec: number = 2400) {
 		dialogElement.showModal();
-		setTimeout(dialogElement.close, miliSec);
+		setTimeout(() => dialogElement.close(), miliSec);
 	}
 </script>
 
@@ -14,10 +14,7 @@
 </script>
 
 <dialog class="modal" bind:this={dialogElement} open={false}>
-	<div class="modal-body">
-		<p>Finally, HTML has a native dialog box element! This is fantastic.</p>
-		<p>And a polyfill makes this usable today.</p>
-	</div>
+	<slot />
 </dialog>
 
 <style lang="scss">
@@ -26,31 +23,33 @@
 		border: 0;
 		border-radius: 0;
 		box-shadow: 0 0 1rem black;
-		background-color: white;
+		background-color: transparent;
 
 		&::backdrop {
 			background-color: rgba(0, 0, 10, 0.3);
 		}
 
 		&[open] {
-			animation: slide-in 2s ease-in-out;
+			transition: cubic-bezier(0, 0, 1, 1);
+			animation: slide-in 2.5s;
 		}
-	}
-
-	.modal-body {
-		padding: 0 1em;
 	}
 
 	@keyframes slide-in {
 		0% {
-			opacity: 0.5;
+			opacity: 0;
 			transform: translateX(100vw);
 		}
-		50% {
+		40% {
+			opacity: 1;
+			transform: translate(0, 0);
+		}
+		60% {
 			opacity: 1;
 			transform: translate(0, 0);
 		}
 		100% {
+			opacity: 0;
 			transform: translateX(-100vw);
 		}
 	}
