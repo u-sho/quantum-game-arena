@@ -3,12 +3,14 @@
 
 	let dialogElement: HTMLDialogElement;
 	export async function openModal(miliSec: number = 2400) {
+		dialogPolyfill.registerDialog(dialogElement);
 		dialogElement.showModal();
 		setTimeout(() => dialogElement.close(), miliSec);
 	}
 </script>
 
 <script lang="ts">
+	import dialogPolyfill from 'dialog-polyfill';
 	import { onMount } from 'svelte';
 	onMount(openModal);
 </script>
@@ -26,6 +28,9 @@
 		background-color: transparent;
 
 		&::backdrop {
+			background-color: rgba(0, 0, 10, 0.3);
+		}
+		& + .backdrop {
 			background-color: rgba(0, 0, 10, 0.3);
 		}
 

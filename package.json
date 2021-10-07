@@ -35,6 +35,9 @@
 		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
+	"dependencies": {
+		"dialog-polyfill": "^0.5.6"
+	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^1.0.0-next.30",
 		"@sveltejs/kit": "^1.0.0-next.180",
