@@ -8,11 +8,11 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/" />
+	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe/" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 	<meta
 		property="og:url"
-		content="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/"
+		content="https://qgame.app/games/quantum-tictactoe/"
 	/>
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
