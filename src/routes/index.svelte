@@ -51,7 +51,6 @@
 				<p>Step3</p>
 				<p>ゲームのプレイ方法を選択</p>
 			</li>
-			<li />
 		</ul>
 	</section>
 	<section id="games">
@@ -65,13 +64,13 @@
 					</a>
 				</li>
 				<li>
-					<div class="comming-soon">
+					<div class="coming-soon">
 						<img src={shogiImage} alt="shogi" width="130px" />
 						<span>量子将棋</span>
 					</div>
 				</li>
 				<li>
-					<div class="comming-soon">
+					<div class="coming-soon">
 						<img src={goGameImage} alt="igo" width="130px" />
 						<span>量子囲碁</span>
 					</div>
@@ -172,7 +171,7 @@
 			box-sizing: border-box;
 
 			a,
-			.comming-soon {
+			.coming-soon {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -194,14 +193,14 @@
 				color: var(--theme-color);
 			}
 		}
-		.comming-soon {
+		.coming-soon {
 			background-color: #f4f0f0aa;
 
 			position: relative;
 			color: #1a5086aa;
 
 			&::after {
-				content: 'comming soon';
+				content: 'coming soon';
 				position: absolute;
 				top: 100px;
 				text-align: center;
