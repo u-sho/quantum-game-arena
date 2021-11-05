@@ -97,7 +97,7 @@
 <div class="game-footer">
 	<p>
 		<small>
-			<a rel="license" href="https://www.gnu.org/licenses/">GNU Pablic Licensed</a>
+			<a rel="license" href="https://www.gnu.org/licenses/">GNU Public Licensed</a>
 		</small>
 	</p>
 	<p>

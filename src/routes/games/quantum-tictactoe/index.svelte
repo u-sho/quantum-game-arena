@@ -8,12 +8,9 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/" />
+	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe/" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
-	<meta
-		property="og:url"
-		content="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/"
-	/>
+	<meta property="og:url" content="https://qgame.app/games/quantum-tictactoe/" />
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
@@ -37,12 +34,12 @@
 				type="application/ecmascript">オフライン対局</a
 			>
 		</li>
-		<li class="comming-soon"><span class="btn">オンライン対局</span></li>
+		<li class="coming-soon"><span class="btn">オンライン対局</span></li>
 	</ul>
 </main>
 <TheFooter>
 	<!--TODO: <menu>
-	<li>seetings</li>
+	<li>settings</li>
 	<li>license</li>
 	<li>share</li>
 	<li>help</li>
@@ -84,7 +81,7 @@
 			}
 		}
 
-		.comming-soon {
+		.coming-soon {
 			opacity: 0.5;
 		}
 	}

@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import type { ErrorLoadInput, ErrorLoad } from '@sveltejs/kit/types/page';
 	export function load({ error, status }: ErrorLoadInput): ReturnType<ErrorLoad> {
-		return { props: { title: `${status}: ${error.message}` } };
+		return { props: { title: `${status}: ${error?.message}` } };
 	}
 </script>
 
@@ -10,9 +10,9 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://quantum-game-arena.vercel.app/" />
+	<link rel="canonical" href="https://qgame.app/" />
 	<title>Quantum Game Arena</title>
-	<meta property="og:url" content="https://quantum-game-arena.vercel.app/" />
+	<meta property="og:url" content="https://qgame.app/" />
 	<meta property="og:title" content="Quantum Game Arena" />
 </svelte:head>
 
