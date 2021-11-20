@@ -84,7 +84,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 0;
+		padding: 0 0 200px;
 		margin: var(--header-height) 0 0;
 		width: 100%;
 		box-sizing: border-box;
@@ -95,13 +95,11 @@
 	}
 
 	.title {
-		font-size: large;
 		font-weight: bold;
 		text-align: center;
 	}
 
 	h2 {
-		font-size: larger;
 		font-weight: bold;
 		text-align: center;
 	}
