@@ -15,7 +15,7 @@
 		class="twitter-share-button"
 		data-show-count="false"
 	>
-		<TwitterLogoWhite styles="width: 24px" />
+		<TwitterLogoWhite styles="width: 1.25rem" />
 		<span>Tweet</span>
 	</a>
 </footer>
@@ -40,14 +40,14 @@
 
 	.footer__logo {
 		margin: 0;
-		padding: 0;
+		padding: 0 0 0.2rem;
 		display: inline-flex;
+		border-bottom: 1px solid var(--bg-color);
 		a {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			color: var(--bg-color);
-			border-bottom: 1px solid var(--bg-color);
 		}
 	}
 
@@ -55,10 +55,18 @@
 		margin: 0 0 0 16px;
 		padding: 0;
 		font-weight: bold;
+
+		@media (max-width: 480px) {
+			line-height: 1.2;
+			font-size: 1.75rem;
+		}
 	}
 
 	a.twitter-share-button {
 		color: #ffffff;
-		font-size: 20px;
+		font-size: 1.25rem;
+		height: 1.5rem;
+		padding: 0.2rem 0;
+		display: block;
 	}
 </style>
