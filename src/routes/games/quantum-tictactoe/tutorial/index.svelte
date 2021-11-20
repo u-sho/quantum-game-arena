@@ -5,6 +5,15 @@
 <script lang="ts">
 	import TheHeader from '$lib/TheHeader/index.svelte';
 	import TheFooter from '$lib/TheFooter/index.svelte';
+
+	import t1Image from '$lib/assets/tutorial1.png';
+	import t2Image from '$lib/assets/tutorial2.png';
+	import t3Image from '$lib/assets/tutorial3.png';
+	import t4Image from '$lib/assets/tutorial4.png';
+	import t5Image from '$lib/assets/tutorial5.png';
+	import t6Image from '$lib/assets/tutorial6.png';
+	import t7Image from '$lib/assets/tutorial7.png';
+	import t8Image from '$lib/assets/tutorial8.png';
 </script>
 
 <svelte:head>
@@ -45,6 +54,7 @@
 						>とは、位置が２つのマスに重ね合わさった（古典）マークのことです</em
 					>。この時点では２つのマスのどちらにあるのかはまだ確定していません。
 				</p>
+				<img src={t1Image} alt="初期盤面（プレイヤー X のターンです）" height="200px" />
 			</li>
 			<li>
 				<p>
@@ -52,6 +62,11 @@
 					<br />
 					同様に量子マークをマークします。
 				</p>
+				<img
+					src={t2Image}
+					alt="２ターン目開始時の盤面（プレイヤー Y のターンです）"
+					height="200px"
+				/>
 			</li>
 			<li>
 				<p>
@@ -61,15 +76,18 @@
 						>量子マークは、他の量子マークがすでにあるマスに重ねてマークすることもできます</em
 					>。
 				</p>
+				<img src={t3Image} alt="２ターン目終了時の盤面" height="200px" />
+				<img src={t4Image} alt="数ターン後に量子マークが多数マークされた盤面" height="200px" />
 			</li>
 			<li>
 				<p>
-					<em class="ja-jp">循環エンタングルメントが発生！</em>
+					<em class="ja-jp">循環もつれが発生！</em>
 					<br />
 					重なり合った量子マークのうち、ある量子マークが２つのうち片方のマスの古典マークであって、もう片方のマスではないかが決まれば、別の量子マークのマスも１通りに決まるようなマークの組ができることがあります。これを<dfn
-						class="ja-jp">「循環エンタングルメント」</dfn
+						class="ja-jp">「循環もつれ」</dfn
 					>といいます。
 				</p>
+				<img src={t5Image} alt="循環もつれの発生した盤面" height="200px" />
 			</li>
 			<li>
 				<p>
@@ -84,6 +102,8 @@
 					をマークしたことで発生した場合は
 					Y）が、量子マークを２つの古典状態のうちのどちらにするか決定します。
 				</p>
+				<img src={t6Image} alt="collapse の選択中の盤面" height="200px" />
+				<img src={t7Image} alt="collapse の選択後の盤面" height="200px" />
 			</li>
 			<li>
 				<p>
@@ -94,6 +114,7 @@
 					>です‼　ただし、量子三目並べでは collapse
 					の後、いくつかの列に同時に古典マークが並ぶことがあります。この場合、できた列に最もあとのターンのマークを有している方の負けとなります。
 				</p>
+				<img src={t8Image} alt="ゲーム終了時の盤面" height="200px" />
 			</li>
 		</ol>
 	</section>
