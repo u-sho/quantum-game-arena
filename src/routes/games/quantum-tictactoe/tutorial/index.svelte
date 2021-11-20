@@ -118,6 +118,16 @@
 			</li>
 		</ol>
 	</section>
+	<!-- TODO
+		<a
+			class="btn"
+			sveltekit:prefetch
+			href="/games/quantum-tictactoe/play/human"
+			type="application/ecmascript"
+		>
+			Let's play!
+		</a>
+	-->
 </main>
 <TheFooter />
 
