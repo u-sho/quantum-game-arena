@@ -50,8 +50,8 @@
 	.main {
 		display: flex;
 		flex-direction: column;
-		padding: 0;
-		margin: var(--header-height) 0 0;
+		padding: var(--header-height) 0 0;
+		margin: 0;
 		width: 100%;
 		box-sizing: border-box;
 	}
@@ -72,9 +72,9 @@
 				display: inline-block;
 				box-sizing: border-box;
 				border-radius: 1.2rem;
-				width: 10rem;
+				width: 11rem;
 				height: 2.5rem;
-				line-height: 1.5;
+				line-height: 2.5rem;
 				font-size: 1.25rem;
 				background-color: var(--theme-color);
 				color: var(--bg-color);
