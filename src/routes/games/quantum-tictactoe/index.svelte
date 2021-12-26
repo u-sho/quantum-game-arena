@@ -8,12 +8,9 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/" />
+	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe/" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
-	<meta
-		property="og:url"
-		content="https://quantum-game-arena.vercel.app/games/quantum-tictactoe/"
-	/>
+	<meta property="og:url" content="https://qgame.app/games/quantum-tictactoe/" />
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
@@ -37,12 +34,12 @@
 				type="application/ecmascript">オフライン対局</a
 			>
 		</li>
-		<li class="comming-soon"><span class="btn">オンライン対局</span></li>
+		<li class="coming-soon"><span class="btn">オンライン対局</span></li>
 	</ul>
 </main>
 <TheFooter>
 	<!--TODO: <menu>
-	<li>seetings</li>
+	<li>settings</li>
 	<li>license</li>
 	<li>share</li>
 	<li>help</li>
@@ -53,8 +50,8 @@
 	.main {
 		display: flex;
 		flex-direction: column;
-		padding: 0;
-		margin: var(--header-height) 0 0;
+		padding: var(--header-height) 0 0;
+		margin: 0;
 		width: 100%;
 		box-sizing: border-box;
 	}
@@ -75,16 +72,16 @@
 				display: inline-block;
 				box-sizing: border-box;
 				border-radius: 1.2rem;
-				width: 10rem;
+				width: 11rem;
 				height: 2.5rem;
-				line-height: 1.5;
+				line-height: 2.5rem;
 				font-size: 1.25rem;
 				background-color: var(--theme-color);
 				color: var(--bg-color);
 			}
 		}
 
-		.comming-soon {
+		.coming-soon {
 			opacity: 0.5;
 		}
 	}
