@@ -154,6 +154,8 @@ export default class QuantumTTT {
 
 	// selects square to be collapse point
 	private _handleCyclicEntanglement(i: SquareType): StatusType {
+		// HACK: https://github.com/snyk/vscode-extension/issues/200
+		// deepcode ignore AttrAccessOnNull: snyk cannot recognize optional chaining.
 		if (!this.state.cycleSquares?.includes(i))
 			return '循環もつれに関係してるマスを選択してください！';
 
