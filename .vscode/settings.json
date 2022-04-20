@@ -23,8 +23,6 @@
 	"eslint.run": "onSave",
 	"prettier.enable": true,
 	/* snyk */
-	// HACK: npm lockfileVersion 3 has been not supported yet
-	"snyk.advanced.additionalParameters": "--strict-out-of-sync=false",
 	"snyk.features.codeQuality": true,
 	"snyk.features.codeSecurity": true,
 	"snyk.features.openSourceSecurity": true,
