@@ -1,21 +1,17 @@
 <script context="module" lang="ts">
 	export const prerender = true;
-
-	let dialogElement: HTMLDialogElement;
-	export async function openModal(miliSec: number = 2400) {
-		dialogPolyfill.registerDialog(dialogElement);
-		dialogElement.showModal();
-		setTimeout(() => dialogElement.close(), miliSec);
-	}
 </script>
 
 <script lang="ts">
-	import dialogPolyfill from 'dialog-polyfill';
 	import { onMount } from 'svelte';
-	onMount(openModal);
+	let dialogElement: HTMLDialogElement;
+	onMount(() => {
+		dialogElement.showModal();
+		setTimeout(() => dialogElement.close(), 2400);
+	});
 </script>
 
-<dialog class="modal" bind:this={dialogElement} open={false}>
+<dialog class="modal" bind:this={dialogElement}>
 	<slot />
 </dialog>
 
@@ -26,10 +22,9 @@
 		border-radius: 0;
 		box-shadow: 0 0 1rem black;
 		background-color: transparent;
+		pointer-events: none;
 
-		&::backdrop {
-			background-color: rgba(0, 0, 10, 0.3);
-		}
+		&::backdrop,
 		& + .backdrop {
 			background-color: rgba(0, 0, 10, 0.3);
 		}
@@ -37,6 +32,10 @@
 		&[open] {
 			transition: cubic-bezier(0, 0, 1, 1);
 			animation: slide-in 2.5s;
+		}
+
+		&:not([open]) {
+			opacity: 0;
 		}
 	}
 
