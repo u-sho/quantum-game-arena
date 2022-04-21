@@ -71,7 +71,7 @@
 		gameCount = 1;
 
 		state = { ...game.state };
-		status = game.state.status;
+		message = game.state.status;
 	}
 </script>
 

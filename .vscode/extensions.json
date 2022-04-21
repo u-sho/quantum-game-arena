@@ -2,6 +2,7 @@
 	"recommendations": [
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
+		"snyk-security.snyk-vulnerability-scanner",
 		"svelte.svelte-vscode",
 		"sissel.scss-style-tag"
 	]
