@@ -13,13 +13,34 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"allowJs": true,
-		"checkJs": true,
+		"allowJs": false,
 		"strict": true,
 		"baseUrl": ".",
 		"paths": {
 			"$lib/*": ["src/lib/*"]
-		}
+		},
+
+		"allowUnreachableCode": true,
+		"allowUnusedLabels": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		"downlevelIteration": true,
+		"importHelpers": true,
+		"newLine": "lf",
+		"noEmitHelpers": true,
+		"preserveValueImports": true,
+		"removeComments": true,
+
+		"plugins": [
+			{ "name": "typescript-styled-plugin" },
+			{ "name": "typescript-eslint-language-service" }
+		]
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"],
 	"exclude": ["node_modules", ".svelte-kit"]
