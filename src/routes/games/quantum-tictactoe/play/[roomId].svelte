@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
-	export const prerender = false;
+export const prerender = false;
 </script>
 
 <script lang="ts">
-	import TheHeader from '$lib/TheHeader/index.svelte';
-	// import OnlineApp from '$lib/games/quantum-tictactoe/OnlineApp.svelte';
+import TheHeader from '$lib/TheHeader/index.svelte';
+// import OnlineApp from '$lib/games/quantum-tictactoe/OnlineApp.svelte';
 </script>
 
 <svelte:head>
@@ -22,13 +22,13 @@
 </main>
 
 <style lang="scss">
-	.main {
-		width: 100%;
-		height: 100%;
-		margin-top: var(--header-height);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-	}
+.main {
+	width: 100%;
+	height: 100%;
+	margin-top: var(--header-height);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
 </style>

@@ -19,20 +19,20 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-	import QuantumMarks from './MarkQuantums.svelte';
-	import ClassicalMark from './MarkClassical.svelte';
-	import type { StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
+import QuantumMarks from './MarkQuantums.svelte';
+import ClassicalMark from './MarkClassical.svelte';
+import type { StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
 
-	export let cMark: StateType['cSquares'][0];
-	export let qMarks: StateType['qSquares'][0];
-	export let cycleMarks: StateType['cycleMarks'];
-	export let isHighlighted: boolean;
-	export let isBeingCollapsed: boolean;
-	export let onClick: () => void;
+export let cMark: StateType['cSquares'][0];
+export let qMarks: StateType['qSquares'][0];
+export let cycleMarks: StateType['cycleMarks'];
+export let isHighlighted: boolean;
+export let isBeingCollapsed: boolean;
+export let onClick: () => void;
 
-	$: squareClass = cMark
-		? 'square'
-		: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
+$: squareClass = cMark
+	? 'square'
+	: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
 </script>
 
 <div class={squareClass} on:click|preventDefault={(_) => onClick()}>
@@ -51,65 +51,65 @@
 </div>
 
 <style lang="scss">
-	.square {
-		background: var(--bg-color);
-		border: 2px solid var(--theme-color);
-		height: 160px;
-		width: 160px;
-		margin: -1px;
+.square {
+	background: var(--bg-color);
+	border: 2px solid var(--theme-color);
+	height: 160px;
+	width: 160px;
+	margin: -1px;
 
-		@media screen and (max-width: 600px) {
-			width: 30vw;
-			height: 30vw;
+	@media screen and (max-width: 600px) {
+		width: 30vw;
+		height: 30vw;
+	}
+}
+
+.selected {
+	color: var(--accent-color);
+}
+
+.highlighted {
+	position: relative;
+	overflow: hidden;
+	color: var(--theme-color);
+
+	.border-dashing {
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+
+		&:nth-of-type(1) {
+			transform: rotate(0deg);
 		}
-	}
+		&:nth-of-type(2) {
+			transform: rotate(90deg);
+		}
+		&:nth-of-type(3) {
+			transform: rotate(180deg);
+		}
+		&:nth-of-type(4) {
+			transform: rotate(270deg);
+		}
 
-	.selected {
-		color: var(--accent-color);
-	}
-
-	.highlighted {
-		position: relative;
-		overflow: hidden;
-		color: var(--theme-color);
-
-		.border-dashing {
+		i {
+			border-bottom: 5px dashed var(--theme-color);
 			display: block;
-			width: 100%;
-			height: 100%;
 			position: absolute;
-
-			&:nth-of-type(1) {
-				transform: rotate(0deg);
-			}
-			&:nth-of-type(2) {
-				transform: rotate(90deg);
-			}
-			&:nth-of-type(3) {
-				transform: rotate(180deg);
-			}
-			&:nth-of-type(4) {
-				transform: rotate(270deg);
-			}
-
-			i {
-				border-bottom: 5px dashed var(--theme-color);
-				display: block;
-				position: absolute;
-				left: 0;
-				top: 0;
-				width: 200%;
-				animation: slideDash 2.5s infinite linear;
-			}
+			left: 0;
+			top: 0;
+			width: 200%;
+			animation: slideDash 2.5s infinite linear;
 		}
 	}
+}
 
-	@keyframes slideDash {
-		from {
-			transform: translateX(-50%);
-		}
-		to {
-			transform: translateX(0%);
-		}
+@keyframes slideDash {
+	from {
+		transform: translateX(-50%);
 	}
+	to {
+		transform: translateX(0%);
+	}
+}
 </style>

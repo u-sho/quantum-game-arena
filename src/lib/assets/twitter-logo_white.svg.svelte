@@ -3,7 +3,7 @@
 	available at https://about.twitter.com/en/who-we-are/brand-toolkit
 -->
 <script lang="ts">
-	export let styles: string;
+export let styles: string;
 </script>
 
 <svg
@@ -16,14 +16,9 @@
 	style="enable-background:new 0 0 248 204;{styles}"
 	xml:space="preserve"
 >
-	<style>
-		.twitter-logo--white {
-			fill: #ffffff;
-		}
-	</style>
 	<path
 		id="white_background"
-		class="twitter-logo--white"
+		fill="#fff"
 		d="M221.95,51.29c0.15,2.17,0.15,4.34,0.15,6.53c0,66.73-50.8,143.69-143.69,143.69v-0.04
 		C50.97,201.51,24.1,193.65,1,178.83c3.99,0.48,8,0.72,12.02,0.73c22.74,0.02,44.83-7.61,62.72-21.66
 		c-21.61-0.41-40.56-14.5-47.18-35.07c7.57,1.46,15.37,1.16,22.8-0.87C27.8,117.2,10.85,96.5,10.85,72.46c0-0.22,0-0.43,0-0.64
