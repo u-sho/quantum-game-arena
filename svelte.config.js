@@ -10,10 +10,13 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		amp: false,
-		// TODO: floc: null,
-		ssr: false,
-		target: '#svelte',
-		trailingSlash: 'never'
+		csp: { mode: 'auto' },
+		prerender: { default: true },
+		trailingSlash: 'never',
+		version: {
+			name: Date.now().toString(),
+			pollInterval: 0
+		}
 	}
 };
 
