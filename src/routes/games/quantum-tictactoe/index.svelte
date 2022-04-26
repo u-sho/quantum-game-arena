@@ -1,7 +1,3 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
 	import TheHeader from '$lib/TheHeader/index.svelte';
 	import TheFooter from '$lib/TheFooter/index.svelte';

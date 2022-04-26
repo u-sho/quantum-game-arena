@@ -6,7 +6,7 @@
 const tsjPreset = require('ts-jest/presets').jsWithTsESM;
 
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
-const { compilerOptions } = require('./tsconfig.json');
+const { compilerOptions } = require('./.svelte-kit/tsconfig.json');
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
@@ -37,6 +37,7 @@ module.exports = {
 		'/static/',
 		'/.github/',
 		'/.svelte-kit/',
+		'/.vercel_build_output/',
 		'/.vscode/'
 	],
 

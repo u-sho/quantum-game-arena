@@ -113,11 +113,11 @@ export default class QuantumTTT {
 		if (this.isSecondMove() && this.state.lastMove === i)
 			return '同じマスには同じターンに置けません。';
 
-		return this.handleNormalMove(i);
+		return this._handleNormalMove(i);
 	}
 
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
-	handleNormalMove(i: SquareType): StatusType {
+	private _handleNormalMove(i: SquareType): StatusType {
 		const qSquares = [...this.state.qSquares];
 		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
@@ -125,14 +125,14 @@ export default class QuantumTTT {
 		else qSquares[i] = [marker];
 
 		if (!this.g.hasNode(i)) this.g.addNode(i);
-		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove as number, i, marker);
+		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove as SquareType, i, marker);
 
 		// if cycle is not null, there is a cyclic entanglement.
 		const cycle = this.g.getCycle(i);
 		this.setState({
 			qSquares: qSquares as StateType['qSquares'],
-			cycleSquares: cycle?.[0] as MaxLengthArray<SquareType, 9> | undefined,
-			cycleMarks: cycle?.[1] as MaxLengthArray<MarkType, 9> | undefined,
+			cycleSquares: cycle == null ? null : (cycle[0] as MaxLengthArray<SquareType, 9>),
+			cycleMarks: cycle == null ? null : (cycle[1] as MaxLengthArray<MarkType, 9>),
 			currentTurn: (this.state.currentTurn +
 				Number(this.state.currentSubTurn === 3)) as TurnNumType,
 			currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType,

@@ -11,7 +11,7 @@
 	});
 </script>
 
-<dialog class="modal" bind:this={dialogElement}>
+<dialog class="modal" bind:this={dialogElement} open={false}>
 	<slot />
 </dialog>
 
@@ -24,9 +24,15 @@
 		background-color: transparent;
 		pointer-events: none;
 
-		&::backdrop,
-		& + .backdrop {
-			background-color: rgba(0, 0, 10, 0.3);
+		@supports selector(::backdrop) {
+			&::backdrop {
+				background-color: rgba(0, 0, 10, 0.3);
+			}
+		}
+		@supports not selector(::backdrop) {
+			& + .backdrop {
+				background-color: rgba(0, 0, 10, 0.3);
+			}
 		}
 
 		&[open] {
