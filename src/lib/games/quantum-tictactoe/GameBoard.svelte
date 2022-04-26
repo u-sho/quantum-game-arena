@@ -19,25 +19,24 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-	import BoardSquare from './GameBoardSquare/index.svelte';
-	import type { SquareType, StateType } from './QuantumTTT.type';
+import BoardSquare from './GameBoardSquare/index.svelte';
+import type { SquareType, StateType } from './QuantumTTT.type';
 
-	export let cSquares: StateType['cSquares'];
-	export let qSquares: StateType['qSquares'];
-	export let cycleSquares: StateType['cycleSquares'];
-	export let cycleMarks: StateType['cycleMarks'];
-	export let collapseSquare: StateType['collapseSquare'];
+export let cSquares: StateType['cSquares'];
+export let qSquares: StateType['qSquares'];
+export let cycleSquares: StateType['cycleSquares'];
+export let cycleMarks: StateType['cycleMarks'];
+export let collapseSquare: StateType['collapseSquare'];
 
-	// Passes index of square that was clicked up to Game.handleSquareClick.
-	export let onSquareClick: (i: SquareType) => void;
+// Passes index of square that was clicked up to Game.handleSquareClick.
+export let onSquareClick: (i: SquareType) => void;
 
-	const rows = [0, 1, 2] as const;
-	const columns = [0, 1, 2] as const;
+const rows = [0, 1, 2] as const;
+const columns = [0, 1, 2] as const;
 
-	$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
-		onSquareClick((row * 3 + column) as SquareType);
-	$: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
-		!!cycleSquares?.includes((row * 3 + column) as SquareType);
+$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => onSquareClick((row * 3 + column) as SquareType);
+$: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
+	!!cycleSquares?.includes((row * 3 + column) as SquareType);
 </script>
 
 <div class="game-board">
@@ -58,20 +57,20 @@
 </div>
 
 <style lang="scss">
-	.game-board {
-		border: 2px solid var(--theme-color);
-		display: flex;
-		flex-wrap: nowrap;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
+.game-board {
+	border: 2px solid var(--theme-color);
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 
-	.game-board--row {
-		display: flex;
-		flex-wrap: nowrap;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	}
+.game-board--row {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
 </style>

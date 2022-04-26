@@ -1,6 +1,6 @@
 <script lang="ts">
-	import TheHeader from '$lib/TheHeader/index.svelte';
-	import OfflineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
+import TheHeader from '$lib/TheHeader/index.svelte';
+import OfflineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 </script>
 
 <svelte:head>
@@ -18,13 +18,13 @@
 </main>
 
 <style lang="scss">
-	.main {
-		width: 100%;
-		height: 100%;
-		margin-top: var(--header-height);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-	}
+.main {
+	width: 100%;
+	height: 100%;
+	margin-top: var(--header-height);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
 </style>

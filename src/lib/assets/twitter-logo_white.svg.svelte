@@ -3,7 +3,7 @@
 	available at https://about.twitter.com/en/who-we-are/brand-toolkit
 -->
 <script lang="ts">
-	export let styles: string;
+export let styles: string;
 </script>
 
 <svg
