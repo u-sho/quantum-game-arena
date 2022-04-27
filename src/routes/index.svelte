@@ -12,6 +12,8 @@
 	import goGameImage from '$lib/assets/gogame.png';
 	import shogiImage from '$lib/assets/shogi.png';
 	import tictactoeImage from '$lib/assets/tic-tac-toe.png';
+
+	let footerHeight: number;
 </script>
 
 <svelte:head>
@@ -22,7 +24,7 @@
 </svelte:head>
 
 <TheHeader />
-<article>
+<article style="padding-bottom: {footerHeight}px;">
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite
@@ -100,7 +102,7 @@
 		</a>
 	</section>
 </article>
-<TheFooter />
+<TheFooter bind:h={footerHeight} />
 
 <style lang="scss">
 	a.btn_03 {
@@ -132,7 +134,7 @@
 		border-right: 2px solid #228bc8;
 	}
 	article {
-		// margin-top: var(--header-height);
+		margin-top: var(--header-height);
 	}
 
 	.hero {
