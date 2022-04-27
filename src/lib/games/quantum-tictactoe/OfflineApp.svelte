@@ -19,60 +19,60 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-	import type { MaxLengthArray } from '$lib/types/generics';
-	import { getOrdinal } from '$lib/utils/getNumeral';
+import type { MaxLengthArray } from '$lib/types/generics';
+import { getOrdinal } from '$lib/utils/getNumeral';
 
-	import GameBoard from './GameBoard.svelte';
-	import GameInfo from './GameInfo.svelte';
-	import type { MarkType, SquareType } from './QuantumTTT.type';
-	import Game from './QuantumTTT';
+import GameBoard from './GameBoard.svelte';
+import GameInfo from './GameInfo.svelte';
+import type { MarkType, SquareType } from './QuantumTTT.type';
+import Game from './QuantumTTT';
 
-	let game = new Game();
+let game = new Game();
+game.setStatus('プレイヤーXのターンです');
+let gameCount = 1;
+
+let state = game.state;
+let message = state.status;
+
+$: choices =
+	state.collapseSquare !== null
+		? (state.qSquares[state.collapseSquare]?.filter((choice) =>
+				state.cycleMarks?.includes(choice)
+		  ) as MaxLengthArray<MarkType, 3> | undefined)
+		: undefined;
+
+function handleSquareClick(i: SquareType) {
+	const status = game.handleSquareClick(i);
+	console.table(game.state);
+
+	state = { ...game.state };
+	message = status;
+}
+
+function handleCollapse(mark: MarkType) {
+	const status = game.handleCollapse(mark);
+
+	state = { ...game.state };
+	message = status;
+}
+
+function handleNextGameClick() {
+	game = new Game();
+	game.setState({ scores: { ...state.scores } });
+	gameCount += 1;
+
+	state = { ...game.state };
+	message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
+}
+
+function handleResetGameClick() {
+	game = new Game();
 	game.setStatus('プレイヤーXのターンです');
-	let gameCount = 1;
+	gameCount = 1;
 
-	let state = game.state;
-	let message = state.status;
-
-	$: choices =
-		state.collapseSquare !== null
-			? (state.qSquares[state.collapseSquare]?.filter((choice) =>
-					state.cycleMarks?.includes(choice)
-			  ) as MaxLengthArray<MarkType, 3> | undefined)
-			: undefined;
-
-	function handleSquareClick(i: SquareType) {
-		const status = game.handleSquareClick(i);
-		console.table(game.state);
-
-		state = { ...game.state };
-		message = status;
-	}
-
-	function handleCollapse(mark: MarkType) {
-		const status = game.handleCollapse(mark);
-
-		state = { ...game.state };
-		message = status;
-	}
-
-	function handleNextGameClick() {
-		game = new Game();
-		game.setState({ scores: { ...state.scores } });
-		gameCount += 1;
-
-		state = { ...game.state };
-		message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
-	}
-
-	function handleResetGameClick() {
-		game = new Game();
-		game.setStatus('プレイヤーXのターンです');
-		gameCount = 1;
-
-		state = { ...game.state };
-		status = game.state.status;
-	}
+	state = { ...game.state };
+	message = game.state.status;
+}
 </script>
 
 <div class="game">
@@ -118,23 +118,23 @@
 </div>
 
 <style lang="scss">
-	.game {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		flex-wrap: wrap;
-		margin-top: 50px;
-	}
+.game {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 50px;
+}
 
-	.game-footer {
-		width: 100%;
-		margin-top: 50px;
-		text-align: center;
-		background-color: var(--theme-color);
-		color: var(--bg-color);
-		a {
-			color: var(--bg-light-color);
-			text-decoration-line: underline;
-		}
+.game-footer {
+	width: 100%;
+	margin-top: 50px;
+	text-align: center;
+	background-color: var(--theme-color);
+	color: var(--bg-color);
+	a {
+		color: var(--bg-light-color);
+		text-decoration-line: underline;
 	}
+}
 </style>

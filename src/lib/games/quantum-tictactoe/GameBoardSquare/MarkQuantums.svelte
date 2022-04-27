@@ -19,20 +19,20 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-	import type { MarkType, StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
+import type { MarkType, StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
 
-	export let qMarks: StateType['qSquares'][0];
-	export let cycleMarks: StateType['cycleMarks'];
-	export let isHighlighted: boolean;
-	export let isBeingCollapsed: boolean;
+export let qMarks: StateType['qSquares'][0];
+export let cycleMarks: StateType['cycleMarks'];
+export let isHighlighted: boolean;
+export let isBeingCollapsed: boolean;
 
-	function getTextColor(mark: MarkType) {
-		if (cycleMarks?.includes(mark)) {
-			if (isBeingCollapsed) return 'red';
-			if (isHighlighted) return 'blue';
-		}
-		return 'white';
+function getTextColor(mark: MarkType) {
+	if (cycleMarks?.includes(mark)) {
+		if (isBeingCollapsed) return 'red';
+		if (isHighlighted) return 'blue';
 	}
+	return 'white';
+}
 </script>
 
 <div class="quantum-marks">
@@ -42,41 +42,41 @@
 </div>
 
 <style lang="scss">
-	.quantum-marks {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 8px;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-		align-items: flex-start;
-		cursor: pointer;
-		user-select: none;
-		-moz-user-select: none;
-		-webkit-user-select: none;
-	}
+.quantum-marks {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 8px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	cursor: pointer;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
 
-	.white,
-	.blue,
-	.red {
-		margin: 4px 8px;
-		font-size: 24px;
-		font-weight: bold;
-		line-height: 32px;
-	}
+.white,
+.blue,
+.red {
+	margin: 4px 8px;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 32px;
+}
 
-	.white {
-		color: var(--bg-light-color);
-		text-shadow: 0.125px 1px var(--theme-color);
-	}
+.white {
+	color: var(--bg-light-color);
+	text-shadow: 0.125px 1px var(--theme-color);
+}
 
-	.blue {
-		color: var(--theme-color);
-	}
+.blue {
+	color: var(--theme-color);
+}
 
-	.red {
-		color: var(--accent-color);
-	}
+.red {
+	color: var(--accent-color);
+}
 </style>
