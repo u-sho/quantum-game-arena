@@ -254,3 +254,6 @@ $RECYCLE.BIN/
 /build
 /functions
 /.vercel_build_output
+
+### CI outputs ###
+snyk.sarif

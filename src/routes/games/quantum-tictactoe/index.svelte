@@ -1,10 +1,8 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
-	import TheHeader from '$lib/TheHeader/index.svelte';
-	import TheFooter from '$lib/TheFooter/index.svelte';
+import TheHeader from '$lib/TheHeader/index.svelte';
+import TheFooter from '$lib/TheFooter/index.svelte';
+
+let footerHeight: number;
 </script>
 
 <svelte:head>
@@ -15,7 +13,7 @@
 </svelte:head>
 
 <TheHeader />
-<main class="main">
+<main class="main" style="padding-bottom:{footerHeight}px">
 	<h1 class="main--title">Quantum Tic-Tac-Toe</h1>
 	<ul class="nav">
 		<li>
@@ -37,7 +35,7 @@
 		<li class="coming-soon"><span class="btn">オンライン対局</span></li>
 	</ul>
 </main>
-<TheFooter>
+<TheFooter bind:h={footerHeight}>
 	<!--TODO: <menu>
 	<li>settings</li>
 	<li>license</li>
@@ -47,42 +45,42 @@
 </TheFooter>
 
 <style lang="scss">
-	.main {
-		display: flex;
-		flex-direction: column;
-		padding: var(--header-height) 0 0;
-		margin: 0;
-		width: 100%;
+.main {
+	display: flex;
+	flex-direction: column;
+	padding: var(--header-height) 0 0;
+	margin: 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.main--title {
+	text-align: center;
+}
+
+.nav {
+	text-align: center;
+	li {
+		list-style-type: none;
 		box-sizing: border-box;
-	}
+		margin: 1.5rem;
+		padding: auto;
 
-	.main--title {
-		text-align: center;
-	}
-
-	.nav {
-		text-align: center;
-		li {
-			list-style-type: none;
+		.btn {
+			display: inline-block;
 			box-sizing: border-box;
-			margin: 1.5rem;
-			padding: auto;
-
-			.btn {
-				display: inline-block;
-				box-sizing: border-box;
-				border-radius: 1.2rem;
-				width: 11rem;
-				height: 2.5rem;
-				line-height: 2.5rem;
-				font-size: 1.25rem;
-				background-color: var(--theme-color);
-				color: var(--bg-color);
-			}
-		}
-
-		.coming-soon {
-			opacity: 0.5;
+			border-radius: 1.2rem;
+			width: 11rem;
+			height: 2.5rem;
+			line-height: 2.5rem;
+			font-size: 1.25rem;
+			background-color: var(--theme-color);
+			color: var(--bg-color);
 		}
 	}
+
+	.coming-soon {
+		opacity: 0.5;
+	}
+}
 </style>

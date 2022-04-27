@@ -1,4 +1,5 @@
 {
+	"svelteIndentScriptAndStyle": false,
 	"useTabs": true,
 	"singleQuote": true,
 	"trailingComma": "none",

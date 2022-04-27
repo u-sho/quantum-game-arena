@@ -22,11 +22,15 @@
 	"eslint.probe": ["javascript", "typescript", "html", "svelte"],
 	"eslint.run": "onSave",
 	"prettier.enable": true,
+	/* snyk */
+	"snyk.features.codeQuality": true,
+	"snyk.features.codeSecurity": true,
+	"snyk.features.openSourceSecurity": true,
 	/* Svelte */
 	"svelte.enable-ts-plugin": true,
 	"[svelte]": {
 		"editor.defaultFormatter": "svelte.svelte-vscode"
 	},
 	/* TypeScript */
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "${workspaceFolder}/node_modules/typescript/lib"
 }

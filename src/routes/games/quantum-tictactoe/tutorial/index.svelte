@@ -1,19 +1,17 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
-	import TheHeader from '$lib/TheHeader/index.svelte';
-	import TheFooter from '$lib/TheFooter/index.svelte';
+import TheHeader from '$lib/TheHeader/index.svelte';
+import TheFooter from '$lib/TheFooter/index.svelte';
 
-	import t1Image from '$lib/assets/tutorial1.png';
-	import t2Image from '$lib/assets/tutorial2.png';
-	import t3Image from '$lib/assets/tutorial3.png';
-	import t4Image from '$lib/assets/tutorial4.png';
-	import t5Image from '$lib/assets/tutorial5.png';
-	import t6Image from '$lib/assets/tutorial6.png';
-	import t7Image from '$lib/assets/tutorial7.png';
-	import t8Image from '$lib/assets/tutorial8.png';
+import t1Image from '$lib/assets/tutorial1.png';
+import t2Image from '$lib/assets/tutorial2.png';
+import t3Image from '$lib/assets/tutorial3.png';
+import t4Image from '$lib/assets/tutorial4.png';
+import t5Image from '$lib/assets/tutorial5.png';
+import t6Image from '$lib/assets/tutorial6.png';
+import t7Image from '$lib/assets/tutorial7.png';
+import t8Image from '$lib/assets/tutorial8.png';
+
+let footerHeight: number;
 </script>
 
 <svelte:head>
@@ -24,7 +22,7 @@
 </svelte:head>
 
 <TheHeader />
-<main class="main">
+<main class="main" style="padding-bottom:{footerHeight}px">
 	<h1 class="title">Quantum Tic-Tac-Toe Tutorial</h1>
 
 	<section>
@@ -129,36 +127,36 @@
 		</a>
 	-->
 </main>
-<TheFooter />
+<TheFooter bind:h={footerHeight} />
 
 <style lang="scss">
-	.main {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 0 0 200px;
-		margin: var(--header-height) 0 0;
-		width: 100%;
-		box-sizing: border-box;
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 0 200px;
+	margin: var(--header-height) 0 0;
+	width: 100%;
+	box-sizing: border-box;
 
-		section {
-			max-width: var(--contents-width);
-		}
+	section {
+		max-width: var(--contents-width);
 	}
+}
 
-	.title {
-		font-weight: bold;
-		text-align: center;
-	}
+.title {
+	font-weight: bold;
+	text-align: center;
+}
 
-	h2 {
-		font-weight: bold;
-		text-align: center;
-	}
+h2 {
+	font-weight: bold;
+	text-align: center;
+}
 
-	em.ja-jp,
-	dfn.ja-jp {
-		font-style: normal;
-		font-weight: bold;
-	}
+em.ja-jp,
+dfn.ja-jp {
+	font-style: normal;
+	font-weight: bold;
+}
 </style>
