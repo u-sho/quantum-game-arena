@@ -1,6 +1,8 @@
 <script lang="ts">
 import TheHeader from '$lib/TheHeader/index.svelte';
 import TheFooter from '$lib/TheFooter/index.svelte';
+
+let footerHeight: number;
 </script>
 
 <svelte:head>
@@ -11,7 +13,7 @@ import TheFooter from '$lib/TheFooter/index.svelte';
 </svelte:head>
 
 <TheHeader />
-<main class="main">
+<main class="main" style="padding-bottom:{footerHeight}px">
 	<h1 class="main--title">Quantum Tic-Tac-Toe</h1>
 	<ul class="nav">
 		<li>
@@ -33,7 +35,7 @@ import TheFooter from '$lib/TheFooter/index.svelte';
 		<li class="coming-soon"><span class="btn">オンライン対局</span></li>
 	</ul>
 </main>
-<TheFooter>
+<TheFooter bind:h={footerHeight}>
 	<!--TODO: <menu>
 	<li>settings</li>
 	<li>license</li>

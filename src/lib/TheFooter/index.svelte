@@ -1,9 +1,10 @@
 <script lang="ts">
 import LogoWhite from '$lib/assets/logo_white.svg.svelte';
 import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
+export let h: number;
 </script>
 
-<footer class="footer">
+<footer class="footer" bind:clientHeight={h}>
 	<div class="footer__logo">
 		<a sveltekit:prefetch href="/#top">
 			<LogoWhite styles="height: 100%; max-height: 112px;" />

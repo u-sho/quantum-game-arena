@@ -1,3 +1,8 @@
+<script context="module" lang="ts">
+export const prerender = true;
+import { scrollTo } from 'svelte-scrollto';
+</script>
+
 <script lang="ts">
 import TheHeader from '$lib/TheHeader/index.svelte';
 import TheFooter from '$lib/TheFooter/index.svelte';
@@ -7,6 +12,8 @@ import heroImage from '$lib/assets/hero.png';
 import goGameImage from '$lib/assets/gogame.png';
 import shogiImage from '$lib/assets/shogi.png';
 import tictactoeImage from '$lib/assets/tic-tac-toe.png';
+
+let footerHeight: number;
 </script>
 
 <svelte:head>
@@ -17,12 +24,26 @@ import tictactoeImage from '$lib/assets/tic-tac-toe.png';
 </svelte:head>
 
 <TheHeader />
-<article>
+<article style="padding-bottom: {footerHeight}px;">
 	<header class="hero" id="top">
-		<img src={heroImage} alt="" height="500px" />
-		<LogoTitleRowWhite styles="max-width: var(--contents-width-text); margin:16px; z-index: 1;" />
-		<h1>Quantum Game Arena</h1>
+		<img src={heroImage} alt="" />
+		<LogoTitleRowWhite
+			styles="max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
+		/>
+		<a
+			href=" "
+			on:click={() =>
+				scrollTo({
+					element: '#about',
+					offset: -64,
+					duration: 1500
+				})}
+			class="btn_03"
+		>
+			<span>Start</span>
+		</a>
 	</header>
+
 	<section id="about">
 		<h1 class="section-title">About</h1>
 		<p>
@@ -81,9 +102,34 @@ import tictactoeImage from '$lib/assets/tic-tac-toe.png';
 		</a>
 	</section>
 </article>
-<TheFooter />
+<TheFooter bind:h={footerHeight} />
 
 <style lang="scss">
+a.btn_03 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 50px;
+	position: relative;
+	background: #228bc8;
+	border: 1px solid #228bc8;
+	border-radius: 30px;
+	box-sizing: border-box;
+	// padding: 0 25px 0 25px;
+	color: #fff;
+	font-size: 24px;
+	letter-spacing: 0.1em;
+	transition-duration: 0.3s;
+	&:hover {
+		background: #228bc8;
+		color: #fff;
+	}
+
+	span {
+		line-height: 1;
+	}
+}
 article {
 	margin-top: var(--header-height);
 }
@@ -94,22 +140,26 @@ article {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 500px;
-	width: 100vw;
+	height: 100vh;
+	min-height: 417px;
 	background-color: var(--theme-color);
 	overflow: hidden;
 
 	img {
-		position: absolute;
-		overflow: hidden;
+		display: block;
 		height: 100%;
+		margin-right: 50px;
+		position: absolute;
 		z-index: 0;
 	}
 
-	h1 {
-		width: 0;
-		height: 0;
-		overflow: hidden;
+	a {
+		position: absolute;
+		margin-top: 40vh;
+		width: 250px;
+		height: 50px;
+		background-color: var(--theme-color);
+		z-index: 1;
 	}
 }
 
@@ -119,7 +169,7 @@ section {
 	justify-content: center;
 	flex-direction: column;
 	width: 100%;
-	padding: 28px 0;
+	padding: var(--header-height) 0;
 
 	&:nth-child(even) {
 		background-color: var(--bg-light-color);
