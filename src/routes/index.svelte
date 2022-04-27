@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 	export const prerender = true;
-	import * as animateScroll from 'svelte-scrollto';
+	import { scrollTo } from 'svelte-scrollto';
 </script>
 
 <script lang="ts">
@@ -33,7 +33,7 @@
 		<a
 			href=" "
 			on:click={() =>
-				animateScroll.scrollTo({
+				scrollTo({
 					element: '#about',
 					offset: -64,
 					duration: 1500
