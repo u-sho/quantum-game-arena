@@ -172,7 +172,7 @@
 		justify-content: center;
 		flex-direction: column;
 		width: 100%;
-		padding: 28px 0;
+		padding: var(--header-height) 0;
 
 		&:nth-child(even) {
 			background-color: var(--bg-light-color);
