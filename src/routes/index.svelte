@@ -111,27 +111,22 @@
 		align-items: center;
 		width: 100%;
 		height: 50px;
-		position: relative;
 		background: #228bc8;
 		border: 1px solid #228bc8;
 		border-radius: 30px;
-		box-sizing: border-box;
 		// padding: 0 25px 0 25px;
 		color: #fff;
 		font-size: 24px;
 		letter-spacing: 0.1em;
-		line-height: 1.3;
-		text-align: center;
-		text-decoration: none;
 		transition-duration: 0.3s;
-	}
-	a.btn_03:hover {
-		background: #228bc8;
-		color: #fff;
-	}
-	a.btn_03:hover:before {
-		border-top: 2px solid #228bc8;
-		border-right: 2px solid #228bc8;
+		&:hover {
+			background: #228bc8;
+			color: #fff;
+		}
+
+		span {
+			line-height: 1;
+		}
 	}
 	article {
 		margin-top: var(--header-height);
