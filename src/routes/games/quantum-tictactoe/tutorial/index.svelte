@@ -10,6 +10,8 @@ import t5Image from '$lib/assets/tutorial5.png';
 import t6Image from '$lib/assets/tutorial6.png';
 import t7Image from '$lib/assets/tutorial7.png';
 import t8Image from '$lib/assets/tutorial8.png';
+
+let footerHeight: number;
 </script>
 
 <svelte:head>
@@ -20,7 +22,7 @@ import t8Image from '$lib/assets/tutorial8.png';
 </svelte:head>
 
 <TheHeader />
-<main class="main">
+<main class="main" style="padding-bottom:{footerHeight}px">
 	<h1 class="title">Quantum Tic-Tac-Toe Tutorial</h1>
 
 	<section>
@@ -125,7 +127,7 @@ import t8Image from '$lib/assets/tutorial8.png';
 		</a>
 	-->
 </main>
-<TheFooter />
+<TheFooter bind:h={footerHeight} />
 
 <style lang="scss">
 .main {
