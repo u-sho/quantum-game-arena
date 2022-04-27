@@ -111,9 +111,11 @@ a.btn_03 {
 	align-items: center;
 	width: 100%;
 	height: 50px;
+	position: relative;
 	background: #228bc8;
 	border: 1px solid #228bc8;
 	border-radius: 30px;
+	box-sizing: border-box;
 	// padding: 0 25px 0 25px;
 	color: #fff;
 	font-size: 24px;
