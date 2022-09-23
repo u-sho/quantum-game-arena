@@ -9,7 +9,6 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
-		amp: false,
 		csp: { mode: 'auto' },
 		prerender: { default: true },
 		trailingSlash: 'never',
