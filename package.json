@@ -39,7 +39,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^1.0.0-next.72",
-		"@sveltejs/kit": "^1.0.0-next.456",
+		"@sveltejs/kit": "^1.0.0-next.468",
 		"@types/jest": "^27.4.1",
 		"@typescript-eslint/eslint-plugin": "^5.38.0",
 		"@typescript-eslint/parser": "^5.38.0",
