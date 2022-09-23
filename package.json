@@ -38,13 +38,13 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^1.0.0-next.71",
-		"@sveltejs/kit": "^1.0.0-next.454",
+		"@sveltejs/adapter-vercel": "^1.0.0-next.72",
+		"@sveltejs/kit": "^1.0.0-next.455",
 		"@types/jest": "^27.4.1",
-		"@typescript-eslint/eslint-plugin": "^5.33.1",
-		"@typescript-eslint/parser": "^5.33.1",
-		"@typescript/lib-dom": "npm:@types/web@^0.0.62",
-		"eslint": "^8.22.0",
+		"@typescript-eslint/eslint-plugin": "^5.38.0",
+		"@typescript-eslint/parser": "^5.38.0",
+		"@typescript/lib-dom": "npm:@types/web@^0.0.74",
+		"eslint": "^8.23.1",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"jest": "^27.5.1",
@@ -58,7 +58,7 @@
 		"svelte-scrollto": "^0.2.0",
 		"ts-jest": "^27.1.4",
 		"tslib": "^2.4.0",
-		"typescript": "~4.7.4",
+		"typescript": "~4.8.3",
 		"typescript-eslint-language-service": "^5.0.0",
 		"typescript-styled-plugin": "^0.18.2",
 		"vite": "^3.1.3"
