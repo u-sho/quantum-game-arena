@@ -10,7 +10,14 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		csp: { mode: 'auto' },
-		prerender: { default: true },
+		prerender: {
+			onError: ({ status, path, referrer, referenceType }) => {
+				const errorMessage = `${status} ${path}${
+					referrer ? ` (${referenceType} from ${referrer})` : ''
+				}`;
+				throw new Error(errorMessage);
+			}
+		},
 		trailingSlash: 'never',
 		version: {
 			name: Date.now().toString(),
