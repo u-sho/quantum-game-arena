@@ -1,7 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
 	plugins: [sveltekit()],
 	preview: {
 		port: 3000,
@@ -11,6 +11,4 @@ const config = {
 		port: 3000,
 		strictPort: true
 	}
-};
-
-export default config;
+});
