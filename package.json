@@ -38,8 +38,8 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^1.0.0-next.62",
-		"@sveltejs/kit": "^1.0.0-next.374",
+		"@sveltejs/adapter-vercel": "^1.0.0-next.66",
+		"@sveltejs/kit": "^1.0.0-next.405",
 		"@types/jest": "^27.4.1",
 		"@typescript-eslint/eslint-plugin": "^5.33.1",
 		"@typescript-eslint/parser": "^5.33.1",

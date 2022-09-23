@@ -38,6 +38,7 @@ module.exports = {
 		'/.github/',
 		'/.svelte-kit/',
 		'/.vercel_build_output/',
+		'/.vercel/',
 		'/.vscode/'
 	],
 
