@@ -19,7 +19,7 @@ let footerHeight: number;
 		<li>
 			<a
 				class="btn"
-				sveltekit:prefetch
+				data-sveltekit-prefetch
 				href="/games/quantum-tictactoe/tutorial"
 				type="text/html;charset=utf-8">チュートリアル</a
 			>
@@ -27,7 +27,7 @@ let footerHeight: number;
 		<li>
 			<a
 				class="btn"
-				sveltekit:prefetch
+				data-sveltekit-prefetch
 				href="/games/quantum-tictactoe/play/human"
 				type="application/ecmascript">オフライン対局</a
 			>

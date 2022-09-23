@@ -4,7 +4,7 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 
 <header class="header">
 	<hgroup class="logo">
-		<a sveltekit:prefetch href="/">
+		<a data-sveltekit-prefetch href="/">
 			<TitleLogo styles="height: 44px; margin: 6px 12px;" />
 			<h1>Quantum Game Arena</h1>
 		</a>
@@ -12,8 +12,8 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 
 	<nav>
 		<ul>
-			<!-- <li><a sveltekit:prefetch href="/#about">About</a></li> -->
-			<li><a sveltekit:prefetch href="/games/quantum-tictactoe">Game</a></li>
+			<!-- <li><a data-sveltekit-prefetch href="/#about">About</a></li> -->
+			<li><a data-sveltekit-prefetch href="/games/quantum-tictactoe">Game</a></li>
 		</ul>
 	</nav>
 </header>

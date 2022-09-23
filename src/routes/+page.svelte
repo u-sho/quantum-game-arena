@@ -28,6 +28,7 @@ let footerHeight: number;
 			styles="max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
 		<a
+			data-sveltekit-noscroll
 			href=" "
 			on:click={() =>
 				scrollTo({
@@ -72,7 +73,7 @@ let footerHeight: number;
 		<nav>
 			<ul class="game-list">
 				<li>
-					<a sveltekit:prefetch href="/games/quantum-tictactoe" type="text/html">
+					<a data-sveltekit-prefetch href="/games/quantum-tictactoe" type="text/html">
 						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" />
 						<span>量子三目並べ</span>
 					</a>
@@ -94,7 +95,7 @@ let footerHeight: number;
 	</section>
 	<section id="play">
 		<h1 class="play--title">さあ量子の世界へ...</h1>
-		<a sveltekit:prefetch href="/games/quantum-tictactoe" class="play--button">
+		<a data-sveltekit-prefetch href="/games/quantum-tictactoe" class="play--button">
 			<span>Play</span>
 		</a>
 	</section>
