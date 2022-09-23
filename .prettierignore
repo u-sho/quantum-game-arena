@@ -7,3 +7,4 @@ package-lock.json
 .*ignore
 LICENSE
 .vercel_build_output
+.vercel

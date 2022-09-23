@@ -9,8 +9,8 @@ jobs:
           - ubuntu-latest
           - macos-latest
         node_version:
-          - 14
           - 16
+          - 18
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v3
