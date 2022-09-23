@@ -73,7 +73,7 @@ let footerHeight: number;
 		<nav>
 			<ul class="game-list">
 				<li>
-					<a data-sveltekit-prefetch href="/games/quantum-tictactoe" type="text/html">
+					<a href="/games/quantum-tictactoe" type="text/html">
 						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" />
 						<span>量子三目並べ</span>
 					</a>
@@ -95,7 +95,7 @@ let footerHeight: number;
 	</section>
 	<section id="play">
 		<h1 class="play--title">さあ量子の世界へ...</h1>
-		<a data-sveltekit-prefetch href="/games/quantum-tictactoe" class="play--button">
+		<a href="/games/quantum-tictactoe" class="play--button">
 			<span>Play</span>
 		</a>
 	</section>

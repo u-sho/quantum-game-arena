@@ -6,7 +6,7 @@ export let h: number;
 
 <footer class="footer" bind:clientHeight={h}>
 	<div class="footer__logo">
-		<a data-sveltekit-prefetch href="/#top">
+		<a href="/#top">
 			<LogoWhite styles="height: 100%; max-height: 112px;" />
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>

@@ -119,7 +119,7 @@ let footerHeight: number;
 	<!-- TODO
 		<a
 			class="btn"
-			data-sveltekit-prefetch
+			
 			href="/games/quantum-tictactoe/play/human"
 			type="application/ecmascript"
 		>

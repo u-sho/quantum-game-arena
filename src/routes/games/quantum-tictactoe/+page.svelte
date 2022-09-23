@@ -17,19 +17,13 @@ let footerHeight: number;
 	<h1 class="main--title">Quantum Tic-Tac-Toe</h1>
 	<ul class="nav">
 		<li>
-			<a
-				class="btn"
-				data-sveltekit-prefetch
-				href="/games/quantum-tictactoe/tutorial"
-				type="text/html;charset=utf-8">チュートリアル</a
+			<a class="btn" href="/games/quantum-tictactoe/tutorial" type="text/html;charset=utf-8"
+				>チュートリアル</a
 			>
 		</li>
 		<li>
-			<a
-				class="btn"
-				data-sveltekit-prefetch
-				href="/games/quantum-tictactoe/play/human"
-				type="application/ecmascript">オフライン対局</a
+			<a class="btn" href="/games/quantum-tictactoe/play/human" type="application/ecmascript"
+				>オフライン対局</a
 			>
 		</li>
 		<li class="coming-soon"><span class="btn">オンライン対局</span></li>
@@ -60,6 +54,8 @@ let footerHeight: number;
 
 .nav {
 	text-align: center;
+	padding: 0;
+
 	li {
 		list-style-type: none;
 		box-sizing: border-box;
