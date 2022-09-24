@@ -2,8 +2,10 @@
 static/**
 build/**
 node_modules/**
+coverage/**
 package-lock.json
 .npmrc
 .*ignore
 LICENSE
 .vercel_build_output
+.vercel

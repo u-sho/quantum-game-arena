@@ -1,10 +1,7 @@
-<script context="module" lang="ts">
-export const prerender = false;
-</script>
-
 <script lang="ts">
 import TheHeader from '$lib/TheHeader/index.svelte';
 // import OnlineApp from '$lib/games/quantum-tictactoe/OnlineApp.svelte';
+import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 </script>
 
 <svelte:head>
@@ -18,7 +15,7 @@ import TheHeader from '$lib/TheHeader/index.svelte';
 <main class="main">
 	<!-- <SvelteDipper /> -->
 	<h1 class="title">Quantum Tic-Tac-Toe</h1>
-	<!-- TODO: <OnlineApp /> -->
+	<OnlineApp />
 </main>
 
 <style lang="scss">
