@@ -3,7 +3,7 @@ import TheHeader from '$lib/TheHeader/index.svelte';
 import TheFooter from '$lib/TheFooter/index.svelte';
 
 import LogoTitleRowWhite from '$lib/assets/logo-title_row-white.svg.svelte';
-import heroImage from '$lib/assets/hero.png';
+import heroImage from '$lib/assets/hero.webp';
 import goGameImage from '$lib/assets/gogame.png';
 import shogiImage from '$lib/assets/shogi.png';
 import tictactoeImage from '$lib/assets/tic-tac-toe.png';
