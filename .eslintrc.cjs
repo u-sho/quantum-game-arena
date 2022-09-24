@@ -21,6 +21,10 @@ module.exports = {
 				'@typescript-eslint/ban-ts-comment': 'off',
 				'@typescript-eslint/no-unused-vars': 'off'
 			}
+		},
+		{
+			files: ['*.cjs'],
+			rules: { '@typescript-eslint/no-require-imports': 'off' }
 		}
 	],
 	rules: {
@@ -54,7 +58,7 @@ module.exports = {
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 'latest',
-		project: './tsconfig.json'
+		project: './tsconfig.eslint.json'
 	},
 	env: {
 		browser: true,

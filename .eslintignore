@@ -1,7 +1,6 @@
-*.cjs
-*.js
 .svelte-kit/**
 .vercel/**
 static/**
 build/**
+coverage/**
 node_modules/**
