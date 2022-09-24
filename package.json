@@ -31,11 +31,12 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-		"ci": "run-p lint check test",
+		"ci": "run-p format:dry lint:dry check test",
 		"test": "jest",
-		"lint": "prettier --cache --check --plugin-search-dir=. . && eslint .",
-		"format": "prettier --cache --write --plugin-search-dir=. ."
+		"format:dry": "prettier --cache --check --plugin-search-dir=. .",
+		"lint:dry": "eslint --cache --cache-location ./node_modules/.cache/eslint/.eslintcache .",
+		"format": "prettier --cache --write --plugin-search-dir=. .",
+		"lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint/.eslintcache ."
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^1.0.0-next.77",
@@ -44,7 +45,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.38.0",
 		"@typescript-eslint/parser": "^5.38.0",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.74",
-		"eslint": "^8.23.1",
+		"eslint": "^8.24.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"jest": "^29.0.3",
