@@ -29,7 +29,7 @@ let footerHeight: number;
 		/>
 		<a
 			data-sveltekit-noscroll
-			href=" "
+			href="/#about"
 			on:click={() =>
 				scrollTo({
 					element: '#about',
