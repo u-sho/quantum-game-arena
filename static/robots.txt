@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /games/quantum-tictactoe/play/human
+Disallow: /games/quantum-tictactoe/play/
