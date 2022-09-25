@@ -213,6 +213,9 @@ section {
 		list-style-type: none;
 		margin: 16px;
 		box-sizing: border-box;
+		--card-bg-color: #f4f0f0;
+		--card-bg-color-rgb: 244, 240, 240;
+		--card-bg-color-hover: #f6f2f2;
 
 		a,
 		.coming-soon {
@@ -233,25 +236,31 @@ section {
 		}
 
 		a {
-			background-color: #f4f0f0;
+			background-color: var(--card-bg-color);
 			color: var(--theme-color);
+			box-sizing: border-box;
+
+			&:hover {
+				background-color: var(--card-bg-color-hover);
+				border: 2px solid var(--theme-light-color);
+			}
 		}
-	}
-	.coming-soon {
-		background-color: #f4f0f0aa;
 
-		position: relative;
-		color: #1a5086aa;
+		.coming-soon {
+			position: relative;
+			background-color: rgba(var(--card-bg-color-rgb), 0.6);
+			color: rgba(var(--theme-color-rgb), 0.8);
 
-		&::after {
-			content: 'coming soon';
-			position: absolute;
-			top: 100px;
-			text-align: center;
-			font-size: 24px;
-			font-weight: bold;
-			color: var(--theme-color);
-			z-index: 1;
+			&::after {
+				content: 'coming soon';
+				position: absolute;
+				top: 100px;
+				text-align: center;
+				font-size: 24px;
+				font-weight: bold;
+				color: rgba(var(--theme-color-rgb), 0.9);
+				z-index: 1;
+			}
 		}
 	}
 }
@@ -267,16 +276,20 @@ section {
 .play--button {
 	box-sizing: border-box;
 	margin: 16px;
-	height: 45px;
-	width: 120px;
+	height: 48px;
+	width: 180px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--theme-light-color);
-	border-radius: 5px;
-	font-size: 20px;
+	background-color: var(--theme-color);
+	border-radius: 10px;
+	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
 	color: #ffffff;
+
+	&:hover {
+		background-color: var(--theme-light-color);
+	}
 }
 </style>
