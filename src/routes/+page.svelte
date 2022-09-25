@@ -74,19 +74,19 @@ let footerHeight: number;
 			<ul class="game-list">
 				<li>
 					<a href="/games/quantum-tictactoe" type="text/html">
-						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" />
+						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" height="130px" />
 						<span>量子三目並べ</span>
 					</a>
 				</li>
 				<li>
 					<div class="coming-soon">
-						<img src={shogiImage} alt="shogi" width="130px" />
+						<img src={shogiImage} alt="shogi" width="130px" height="130px" />
 						<span>量子将棋</span>
 					</div>
 				</li>
 				<li>
 					<div class="coming-soon">
-						<img src={goGameImage} alt="igo" width="130px" />
+						<img src={goGameImage} alt="igo" width="130px" height="130px" />
 						<span>量子囲碁</span>
 					</div>
 				</li>
