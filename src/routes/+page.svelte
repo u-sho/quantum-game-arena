@@ -25,7 +25,7 @@ let footerHeight: number;
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite
-			styles="max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
+			styles="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
 		<a
 			data-sveltekit-noscroll
