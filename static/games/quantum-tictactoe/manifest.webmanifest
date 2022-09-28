@@ -5,7 +5,7 @@
 	"lang": "ja-JP",
 	"description": "Quantum Game Arena は，ゲームを通じて量子力学的世界観を養うことを目的とした量子ゲームの遊び場です．",
 	"categories": ["education", "games"],
-	"start_url": "https://qgame.app/games/quantum-tictactoe",
+	"start_url": "https://qgame.app/games/quantum-tictactoe/",
 	"shortcuts": [
 		{
 			"name": "Offline Play - Quantum Tic-Tac-Toe - Quantum Game Arena",
