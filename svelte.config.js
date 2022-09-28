@@ -11,7 +11,7 @@ const config = {
 		adapter: adapter(),
 		csp: {
 			directives: {
-				'default-src': ['self'],
+				'default-src': ['self', 'vitals.vercel-insights.com'],
 				'frame-src': ['none'],
 				'img-src': [
 					'self',
