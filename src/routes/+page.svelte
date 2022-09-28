@@ -15,6 +15,7 @@ let footerHeight: number;
 
 <svelte:head>
 	<link rel="canonical" href="https://qgame.app" />
+	<link rel="manifest" href="/manifest.webmanifest" />
 	<title>Quantum Game Arena</title>
 	<meta property="og:url" content="https://qgame.app" />
 	<meta property="og:title" content="Quantum Game Arena" />
