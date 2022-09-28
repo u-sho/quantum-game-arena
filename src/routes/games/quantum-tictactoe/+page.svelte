@@ -7,7 +7,7 @@ let footerHeight: number;
 
 <svelte:head>
 	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe" />
-	<link rel="manifest" href="https://qgame.app/games/quantum-tictactoe/manifest.webmanifest" />
+	<link rel="manifest" href="./quantum-tictactoe/manifest.webmanifest" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 	<meta property="og:url" content="https://qgame.app/games/quantum-tictactoe" />
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
