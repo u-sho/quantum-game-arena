@@ -6,6 +6,7 @@
 	"description": "Quantum Game Arena は，ゲームを通じて量子力学的世界観を養うことを目的とした量子ゲームの遊び場です．",
 	"categories": ["education", "games"],
 	"start_url": "./",
+	"scope": "https://qgame.app/games/quantum-tictactoe/",
 	"shortcuts": [
 		{
 			"name": "Offline Play - Quantum Tic-Tac-Toe - Quantum Game Arena",
@@ -19,35 +20,35 @@
 	"display": "fullscreen",
 	"icons": [
 		{
-			"src": "/favicon.ico",
+			"src": "https://qgame.app/favicon.ico",
 			"sizes": "16x16 32x32 48x48",
 			"type": "image/x-icon"
 		},
 		{
-			"src": "/logo-144x144.png",
+			"src": "https://qgame.app/logo-144x144.png",
 			"sizes": "144x144",
 			"type": "image/png",
 			"purpose": "maskable"
 		},
 		{
-			"src": "/android-chrome-192x192.png",
+			"src": "https://qgame.app/android-chrome-192x192.png",
 			"sizes": "192x192",
 			"type": "image/png"
 		},
 		{
-			"src": "/android-chrome-512x512.png",
+			"src": "https://qgame.app/android-chrome-512x512.png",
 			"sizes": "512x512",
 			"type": "image/png"
 		},
 		{
-			"src": "/safari-pinned-tab.svg",
+			"src": "https://qgame.app/safari-pinned-tab.svg",
 			"type": "image/svg",
 			"purpose": "maskable"
 		}
 	],
 	"screenshots": [
 		{
-			"src": "/screenshot_pixel5_quantumTTT.png",
+			"src": "https://qgame.app/screenshot_pixel5_quantumTTT.png",
 			"sizes": "1081x2340",
 			"type": "image/png"
 		}
