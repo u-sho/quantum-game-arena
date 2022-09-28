@@ -4,9 +4,9 @@ import TheFooter from '$lib/TheFooter/index.svelte';
 
 import LogoTitleRowWhite from '$lib/assets/logo-title_row-white.svg.svelte';
 import heroImage from '$lib/assets/hero.webp';
-import goGameImage from '$lib/assets/gogame.png';
-import shogiImage from '$lib/assets/shogi.png';
-import tictactoeImage from '$lib/assets/tic-tac-toe.png';
+import goGameImage from '$lib/assets/gogame.webp';
+import shogiImage from '$lib/assets/shogi.webp';
+import tictactoeImage from '$lib/assets/tic-tac-toe.webp';
 
 import { scrollTo } from 'svelte-scrollto';
 
