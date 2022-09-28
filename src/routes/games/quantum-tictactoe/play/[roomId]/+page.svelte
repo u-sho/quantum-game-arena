@@ -6,7 +6,7 @@ import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 
 <svelte:head>
 	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe/play/[roomId]" />
-	<link rel="manifest" href="https://qgame.app/games/quantum-tictactoe/manifest.webmanifest" />
+	<link rel="manifest" href="/games/quantum-tictactoe/manifest.webmanifest" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 	<meta property="og:url" content="https://qgame.app/games/quantum-tictactoe/play/[roomId]" />
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
