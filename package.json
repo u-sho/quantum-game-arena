@@ -39,8 +39,8 @@
 		"lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint/.eslintcache ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^1.0.0-next.77",
-		"@sveltejs/kit": "^1.0.0-next.502",
+		"@sveltejs/adapter-vercel": "^1.0.0-next.79",
+		"@sveltejs/kit": "^1.0.0-next.516",
 		"@types/jest": "^29.1.2",
 		"@typescript-eslint/eslint-plugin": "^5.40.0",
 		"@typescript-eslint/parser": "^5.40.0",
@@ -63,7 +63,7 @@
 		"typescript": "~4.8.4",
 		"typescript-eslint-language-service": "^5.0.0",
 		"typescript-styled-plugin": "^0.18.2",
-		"vite": "^3.1.3",
+		"vite": "^3.1.8",
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.8.4"
 	},
 	"engines": {
