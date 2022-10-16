@@ -28,14 +28,17 @@ npm run build
 Please exec formatter & linter before commit.
 
 ```bash
-# check & fix format
+# check format
+npm run format:dry
+
+# fix format
 npm run format
 
-# check format & lint
-npm run lint
+# check lint
+npm run lint:dry
 
 # fix lint
-npm run lint --fix
+npm run lint
 ```
 
 ## Component Naming
