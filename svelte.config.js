@@ -9,9 +9,27 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
-		amp: false,
-		csp: { mode: 'auto' },
-		prerender: { default: true },
+		csp: {
+			directives: {
+				'default-src': ['self', 'vitals.vercel-insights.com'],
+				'frame-src': ['none'],
+				'img-src': [
+					'self',
+					'https://pbs.twimg.com/profile_banners/1398377057772470274/1623818332/*'
+				],
+				'media-src': ['none'],
+				'object-src': ['none'],
+				'style-src': ['self', 'unsafe-inline']
+			}
+		},
+		prerender: {
+			onError: ({ status, path, referrer, referenceType }) => {
+				const errorMessage = `${status} ${path}${
+					referrer ? ` (${referenceType} from ${referrer})` : ''
+				}`;
+				throw new Error(errorMessage);
+			}
+		},
 		trailingSlash: 'never',
 		version: {
 			name: Date.now().toString(),

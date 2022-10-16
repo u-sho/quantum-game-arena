@@ -232,7 +232,7 @@ function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 	if (scores.X === 1.5 || scores.Y === 1.5)
 		return (
 			`${winner} 同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント \n ` +
-			`${loser} は   0ポイント`
+			`${loser} は 0ポイント`
 		);
 
 	if (scores.X + scores.Y === 1.5)

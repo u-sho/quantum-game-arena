@@ -4,6 +4,7 @@
 		"esbenp.prettier-vscode",
 		"snyk-security.snyk-vulnerability-scanner",
 		"svelte.svelte-vscode",
-		"sissel.scss-style-tag"
+		"sissel.scss-style-tag",
+		"styled-components.vscode-styled-components"
 	]
 }
