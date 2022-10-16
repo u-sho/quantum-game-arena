@@ -5,6 +5,16 @@ const isProduction = () => process.env.NODE_ENV === 'production';
  */
 module.exports = {
 	root: true,
+	ignorePatterns: [
+		'.git/**',
+		'.svelte-kit/**',
+		'.vercel/**',
+		'.vercel_build_output/**',
+		'static/**',
+		'build/**',
+		'coverage/**',
+		'node_modules/**'
+	],
 	parser: '@typescript-eslint/parser',
 	extends: [
 		'eslint:recommended',
