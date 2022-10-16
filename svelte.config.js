@@ -12,14 +12,12 @@ const config = {
 		csp: {
 			directives: {
 				'default-src': ['self', 'vitals.vercel-insights.com'],
-				'frame-src': ['none'],
 				'img-src': [
 					'self',
-					'https://pbs.twimg.com/profile_banners/1398377057772470274/1623818332/*'
+					'https://pbs.twimg.com/profile_banners/1398377057772470274/1623818332/*',
+					'vitals.vercel-insights.com'
 				],
-				'media-src': ['none'],
-				'object-src': ['none'],
-				'style-src': ['self', 'unsafe-inline']
+				'style-src': ['self', 'unsafe-inline', 'vitals.vercel-insights.com']
 			}
 		},
 		prerender: {
