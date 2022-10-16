@@ -41,8 +41,8 @@ class Node {
 }
 
 /** Need both Node and Edge for multi-graph, as each node can have multiple
-    edges between them, whose uniqueness needs to be accounted for.
-*/
+ * edges between them, whose uniqueness needs to be accounted for.
+ */
 class Edge {
 	start: Node;
 	end: Node;

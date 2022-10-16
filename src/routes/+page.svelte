@@ -3,10 +3,10 @@ import TheHeader from '$lib/TheHeader/index.svelte';
 import TheFooter from '$lib/TheFooter/index.svelte';
 
 import LogoTitleRowWhite from '$lib/assets/logo-title_row-white.svg.svelte';
-import heroImage from '$lib/assets/hero.png';
-import goGameImage from '$lib/assets/gogame.png';
-import shogiImage from '$lib/assets/shogi.png';
-import tictactoeImage from '$lib/assets/tic-tac-toe.png';
+import heroImage from '$lib/assets/hero.webp';
+import goGameImage from '$lib/assets/gogame.webp';
+import shogiImage from '$lib/assets/shogi.webp';
+import tictactoeImage from '$lib/assets/tic-tac-toe.webp';
 
 import { scrollTo } from 'svelte-scrollto';
 
@@ -14,9 +14,9 @@ let footerHeight: number;
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://qgame.app/" />
+	<link rel="canonical" href="https://qgame.app" />
 	<title>Quantum Game Arena</title>
-	<meta property="og:url" content="https://qgame.app/" />
+	<meta property="og:url" content="https://qgame.app" />
 	<meta property="og:title" content="Quantum Game Arena" />
 </svelte:head>
 
@@ -25,11 +25,11 @@ let footerHeight: number;
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite
-			styles="max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
+			styles="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
 		<a
 			data-sveltekit-noscroll
-			href=" "
+			href="/#about"
 			on:click={() =>
 				scrollTo({
 					element: '#about',
@@ -74,19 +74,19 @@ let footerHeight: number;
 			<ul class="game-list">
 				<li>
 					<a href="/games/quantum-tictactoe" type="text/html">
-						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" />
+						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" height="130px" />
 						<span>量子三目並べ</span>
 					</a>
 				</li>
 				<li>
 					<div class="coming-soon">
-						<img src={shogiImage} alt="shogi" width="130px" />
+						<img src={shogiImage} alt="shogi" width="130px" height="130px" />
 						<span>量子将棋</span>
 					</div>
 				</li>
 				<li>
 					<div class="coming-soon">
-						<img src={goGameImage} alt="igo" width="130px" />
+						<img src={goGameImage} alt="igo" width="130px" height="130px" />
 						<span>量子囲碁</span>
 					</div>
 				</li>
@@ -213,6 +213,9 @@ section {
 		list-style-type: none;
 		margin: 16px;
 		box-sizing: border-box;
+		--card-bg-color: #f4f0f0;
+		--card-bg-color-rgb: 244, 240, 240;
+		--card-bg-color-hover: #f6f2f2;
 
 		a,
 		.coming-soon {
@@ -233,25 +236,31 @@ section {
 		}
 
 		a {
-			background-color: #f4f0f0;
+			background-color: var(--card-bg-color);
 			color: var(--theme-color);
+			box-sizing: border-box;
+
+			&:hover {
+				background-color: var(--card-bg-color-hover);
+				border: 2px solid var(--theme-light-color);
+			}
 		}
-	}
-	.coming-soon {
-		background-color: #f4f0f0aa;
 
-		position: relative;
-		color: #1a5086aa;
+		.coming-soon {
+			position: relative;
+			background-color: rgba(var(--card-bg-color-rgb), 0.6);
+			color: rgba(var(--theme-color-rgb), 0.8);
 
-		&::after {
-			content: 'coming soon';
-			position: absolute;
-			top: 100px;
-			text-align: center;
-			font-size: 24px;
-			font-weight: bold;
-			color: var(--theme-color);
-			z-index: 1;
+			&::after {
+				content: 'coming soon';
+				position: absolute;
+				top: 100px;
+				text-align: center;
+				font-size: 24px;
+				font-weight: bold;
+				color: rgba(var(--theme-color-rgb), 0.9);
+				z-index: 1;
+			}
 		}
 	}
 }
@@ -267,16 +276,20 @@ section {
 .play--button {
 	box-sizing: border-box;
 	margin: 16px;
-	height: 45px;
-	width: 120px;
+	height: 48px;
+	width: 180px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--theme-light-color);
-	border-radius: 5px;
-	font-size: 20px;
+	background-color: var(--theme-color);
+	border-radius: 10px;
+	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
 	color: #ffffff;
+
+	&:hover {
+		background-color: var(--theme-light-color);
+	}
 }
 </style>

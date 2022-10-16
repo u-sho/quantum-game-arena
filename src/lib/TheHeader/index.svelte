@@ -12,7 +12,7 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 
 	<nav>
 		<ul>
-			<!-- <li><a  href="/#about">About</a></li> -->
+			<!-- <li><a href="/#about">About</a></li> -->
 			<li><a href="/games/quantum-tictactoe">Game</a></li>
 		</ul>
 	</nav>

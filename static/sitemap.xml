@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://qgame.app</loc>
+		<lastmod>2022-09-29</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</url>
+
+	<url>
+		<loc>https://qgame.app/games/quantum-tictactoe</loc>
+		<lastmod>2022-09-29</lastmod>
+		<changefreq>yearly</changefreq>
+		<priority>0.8</priority>
+	</url>
+
+	<url>
+		<loc>https://qgame.app/games/quantum-tictactoe/tutorial</loc>
+		<lastmod>2022-09-29</lastmod>
+		<changefreq>yearly</changefreq>
+	</url>
+
+	<url>
+		<loc>https://qgame.app/games/quantum-tictactoe/play/human</loc>
+		<lastmod>2022-09-29</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>1.0</priority>
+	</url>
+</urlset>

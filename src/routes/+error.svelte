@@ -3,9 +3,9 @@ import { page } from '$app/stores';
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://qgame.app/" />
+	<link rel="canonical" href="https://qgame.app" />
 	<title>Quantum Game Arena</title>
-	<meta property="og:url" content="https://qgame.app/" />
+	<meta property="og:url" content="https://qgame.app" />
 	<meta property="og:title" content="Quantum Game Arena" />
 </svelte:head>
 
