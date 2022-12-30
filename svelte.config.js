@@ -14,6 +14,7 @@ const config = {
 				'default-src': ['self', 'vitals.vercel-insights.com'],
 				'img-src': [
 					'self',
+					'data:',
 					'https://pbs.twimg.com/profile_banners/1398377057772470274/1623818332/*',
 					'vitals.vercel-insights.com'
 				],
@@ -22,10 +23,10 @@ const config = {
 		},
 		prerender: {
 			handleHttpError: ({ status, path, referrer, referenceType, message }) => {
-				if (message.length > 0) throw new Error(message);
-				const errorMessage = `${status} ${path}${
-					referrer ? ` (${referenceType} from ${referrer})` : ''
-				}`;
+				const errorMessage =
+					message.length > 0
+						? message
+						: `${status} ${path}${referrer ? ` (${referenceType} from ${referrer})` : ''}`;
 				throw new Error(errorMessage);
 			}
 		},
