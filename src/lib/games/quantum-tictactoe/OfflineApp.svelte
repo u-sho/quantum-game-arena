@@ -43,7 +43,7 @@ $: choices =
 
 function handleSquareClick(i: SquareType) {
 	const status = game.handleSquareClick(i);
-	if (process.env['NODE_ENV'] !== 'production') console.table(game.state);
+	if (import.meta.env.DEV) console.table(game.state);
 
 	state = { ...game.state };
 	message = status;

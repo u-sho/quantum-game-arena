@@ -21,14 +21,14 @@ const config = {
 			}
 		},
 		prerender: {
-			onError: ({ status, path, referrer, referenceType }) => {
+			handleHttpError: ({ status, path, referrer, referenceType, message }) => {
+				if (message.length > 0) throw new Error(message);
 				const errorMessage = `${status} ${path}${
 					referrer ? ` (${referenceType} from ${referrer})` : ''
 				}`;
 				throw new Error(errorMessage);
 			}
 		},
-		trailingSlash: 'never',
 		version: {
 			name: Date.now().toString(),
 			pollInterval: 0

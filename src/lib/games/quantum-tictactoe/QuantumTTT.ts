@@ -163,7 +163,7 @@ export default class QuantumTTT {
 
 	// collapse square and propagates changes outward
 	handleCollapse(mark: MarkType): StatusType {
-		if (process.env['NODE_ENV'] !== 'production') console.log(mark);
+		if (import.meta.env.DEV) console.log(mark);
 		const i = this.state.collapseSquare as number;
 		const visited = new Set([mark]);
 
