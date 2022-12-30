@@ -105,7 +105,7 @@ export default class QuantumTTT {
 
 		if (this.state.isOver) return 'ゲームは既に終了しています！ 新しいゲームを開始してください';
 
-		if (this.state.cycleSquares) return this._handleCyclicEntanglement(i);
+		if (this.state.cycleSquares?.length) return this._handleCyclicEntanglement(i);
 
 		if (this.state.cSquares[i])
 			return 'このマスのマークが既に確定しています！ このマスには量子マークを置けません。';
@@ -121,7 +121,8 @@ export default class QuantumTTT {
 		const qSquares = [...this.state.qSquares];
 		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
-		if (qSquares[i].length >= 1) qSquares[i].push(marker);
+		if (qSquares[i].length >= 1)
+			(qSquares[i] as Exclude<typeof qSquares[typeof i], []>).push(marker);
 		else qSquares[i] = [marker];
 
 		if (!this.g.hasNode(i)) this.g.addNode(i);
@@ -154,7 +155,7 @@ export default class QuantumTTT {
 
 	// selects square to be collapse point
 	private _handleCyclicEntanglement(i: SquareType): StatusType {
-		if (!this.state.cycleSquares?.includes(i))
+		if (!(this.state.cycleSquares as Exclude<StateType['cycleSquares'], null | []>).includes(i))
 			return '循環もつれに関係してるマスを選択してください！';
 
 		this.setState({ collapseSquare: i });

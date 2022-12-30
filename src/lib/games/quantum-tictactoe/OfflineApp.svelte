@@ -35,9 +35,9 @@ let state = game.state;
 let message = state.status;
 
 $: choices =
-	state.collapseSquare !== null
+	state.collapseSquare !== null && state.cycleMarks !== null
 		? (state.qSquares[state.collapseSquare]?.filter((choice) =>
-				state.cycleMarks?.includes(choice)
+				(state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
 		  ) as MaxLengthArray<MarkType, 3> | undefined)
 		: undefined;
 
