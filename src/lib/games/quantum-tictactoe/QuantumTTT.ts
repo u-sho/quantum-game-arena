@@ -133,22 +133,26 @@ export default class QuantumTTT {
 
 		// if cycle is not null, there is a cyclic entanglement.
 		const cycle = this.g.getCycle(i);
+		if (cycle) {
+			const msg =
+				'循環もつれが発生しました！' +
+				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
+			this.setState({
+				qSquares,
+				cycleSquares: cycle && (cycle[0] as MaxLengthArray<SquareType, 9>),
+				cycleMarks: cycle && (cycle[1] as MaxLengthArray<MarkType, 9>),
+				lastMove: i
+			});
+			return `${msg}`;
+		}
+
 		this.setState({
 			qSquares,
-			cycleSquares: cycle && (cycle[0] as MaxLengthArray<SquareType, 9>),
-			cycleMarks: cycle && (cycle[1] as MaxLengthArray<MarkType, 9>),
 			currentTurn: (this.state.currentTurn +
 				Number(this.state.currentSubTurn === 3)) as TurnNumType,
 			currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType,
 			lastMove: i
 		});
-
-		if (cycle) {
-			const msg =
-				'循環もつれが発生しました！' +
-				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
-			return `${msg}`;
-		}
 
 		if (this.isSecondMove())
 			return '2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。';
@@ -178,7 +182,10 @@ export default class QuantumTTT {
 			this.setState({
 				cycleSquares: null,
 				cycleMarks: null,
-				collapseSquare: null
+				collapseSquare: null,
+				currentTurn: (this.state.currentTurn +
+					Number(this.state.currentSubTurn === 3)) as TurnNumType,
+				currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType
 			});
 
 			return `プレイヤー${this.whoseTurn()}のターンです。`;

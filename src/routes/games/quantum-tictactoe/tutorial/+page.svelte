@@ -95,7 +95,7 @@ let footerHeight: number;
 					>のです。
 					<br />
 					循環エンタングルメントを発生させたプレイヤー<em class="ja-jp">ではない</em>プレイヤー（X
-					をマークしたことで発生した場合は
+					がマークしたことで発生した場合は
 					Y）が、量子マークを２つの古典状態のうちのどちらにするか決定します。
 				</p>
 				<img src={t6Image} alt="collapse の選択中の盤面" height="200px" />
