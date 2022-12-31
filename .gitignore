@@ -258,3 +258,4 @@ $RECYCLE.BIN/
 
 ### CI outputs ###
 snyk.sarif
+.dccache

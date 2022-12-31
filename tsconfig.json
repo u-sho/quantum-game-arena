@@ -25,9 +25,6 @@
 		"noEmitHelpers": true,
 		"removeComments": true,
 
-		"plugins": [
-			{ "name": "typescript-styled-plugin" },
-			{ "name": "typescript-eslint-language-service" }
-		]
+		"plugins": [{ "name": "typescript-eslint-language-service" }]
 	}
 }
