@@ -1,5 +1,4 @@
 <script lang="ts">
-import TheHeader from '$lib/TheHeader/index.svelte';
 import TheFooter from '$lib/TheFooter/index.svelte';
 
 import t1Image from '$lib/assets/tutorial1.png';
@@ -21,7 +20,6 @@ let footerHeight: number;
 	<meta property="og:title" content="Quantum TTT Tutorial - Quantum Game Arena" />
 </svelte:head>
 
-<TheHeader />
 <main class="main" style="padding-bottom:{footerHeight}px">
 	<h1 class="title">Quantum Tic-Tac-Toe Tutorial</h1>
 

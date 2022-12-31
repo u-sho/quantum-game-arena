@@ -1,5 +1,4 @@
 <script lang="ts">
-import TheHeader from '$lib/TheHeader/index.svelte';
 import TheFooter from '$lib/TheFooter/index.svelte';
 
 import LogoTitleRowWhite from '$lib/assets/logo-title_row-white.svg.svelte';
@@ -20,7 +19,6 @@ let footerHeight: number;
 	<meta property="og:title" content="Quantum Game Arena" />
 </svelte:head>
 
-<TheHeader />
 <article style="padding-bottom: {footerHeight}px;">
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />

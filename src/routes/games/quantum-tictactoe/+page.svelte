@@ -1,5 +1,4 @@
 <script lang="ts">
-import TheHeader from '$lib/TheHeader/index.svelte';
 import TheFooter from '$lib/TheFooter/index.svelte';
 
 let footerHeight: number;
@@ -12,7 +11,6 @@ let footerHeight: number;
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
-<TheHeader />
 <main class="main" style="padding-bottom:{footerHeight}px">
 	<h1 class="main--title">Quantum Tic-Tac-Toe</h1>
 	<ul class="nav">

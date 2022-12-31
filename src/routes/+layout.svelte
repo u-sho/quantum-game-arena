@@ -1,7 +1,9 @@
 <script lang="ts">
+import TheHeader from '$lib/TheHeader/index.svelte';
 import '../global.css';
 </script>
 
+<TheHeader />
 <slot />
 
 <style lang="scss">
