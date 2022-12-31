@@ -1,5 +1,4 @@
 <script lang="ts">
-import TheHeader from '$lib/TheHeader/index.svelte';
 // import OnlineApp from '$lib/games/quantum-tictactoe/OnlineApp.svelte';
 import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 </script>
@@ -11,7 +10,6 @@ import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
-<TheHeader />
 <main class="main">
 	<!-- <SvelteDipper /> -->
 	<h1 class="title">Quantum Tic-Tac-Toe</h1>

@@ -107,7 +107,7 @@ export let onResetGameClick: () => void;
 }
 
 .game-info {
-	margin-left: 20px;
+	margin: 0 20px 0;
 	top: 0px;
 	width: 480px;
 	display: flex;
@@ -116,7 +116,9 @@ export let onResetGameClick: () => void;
 	align-items: stretch;
 
 	@media screen and (max-width: 600px) {
-		width: 95vw;
+		margin-left: auto;
+		margin-right: auto;
+		width: 90vw;
 	}
 }
 
@@ -188,7 +190,8 @@ export let onResetGameClick: () => void;
 	font-weight: bold;
 
 	@media screen and (max-width: 600px) {
-		width: 90vw;
+		padding-left: 4px;
+		padding-right: 4px;
 		font-size: 16px;
 	}
 }
