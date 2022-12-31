@@ -100,18 +100,16 @@ export default class Graph {
 
 		// case two: cycle of len 2
 		const start = this.getNode(startId);
-		const visited: Set<Node> = new Set();
 		const endToEdge: Map<Node, Edge> = new Map();
 
 		for (const edge of start.edges) {
-			if (visited.has(edge.end)) {
+			if (endToEdge.has(edge.end)) {
 				return [
 					[edge.start.id, edge.end.id],
-					[edge.key, endToEdge.get(edge.end)?.key as EdgeKeyType]
+					[edge.key, (endToEdge.get(edge.end) as Edge).key]
 				];
 			}
 
-			visited.add(edge.end);
 			endToEdge.set(edge.end, edge);
 		}
 
