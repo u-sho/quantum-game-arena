@@ -47,7 +47,11 @@ export let onResetGameClick: () => void;
 	{#if choices}
 		<div class="btn-list">
 			{#each choices as choice (choice)}
-				<div class="btn collapse-choice" on:click|preventDefault={(_) => onChoiceClick(choice)}>
+				<div
+					class="btn collapse-choice"
+					on:click|preventDefault={(_) => onChoiceClick(choice)}
+					on:keypress|preventDefault={(_) => onChoiceClick(choice)}
+				>
 					<span>{choice[0]}<sub>{choice[1]}</sub></span>
 				</div>
 			{/each}
@@ -55,10 +59,18 @@ export let onResetGameClick: () => void;
 	{/if}
 	{#if isGameOver}
 		<div class="btn-list">
-			<div class="btn next-game" on:click|preventDefault={onNextGameClick}>
+			<div
+				class="btn next-game"
+				on:click|preventDefault={onNextGameClick}
+				on:keypress|preventDefault={onNextGameClick}
+			>
 				<span class="btn-text">Next</span>
 			</div>
-			<div class="btn reset-game" on:click|preventDefault={onResetGameClick}>
+			<div
+				class="btn reset-game"
+				on:click|preventDefault={onResetGameClick}
+				on:keypress|preventDefault={onResetGameClick}
+			>
 				<span class="btn-text">Reset</span>
 			</div>
 		</div>

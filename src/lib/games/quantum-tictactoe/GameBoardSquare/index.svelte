@@ -35,7 +35,11 @@ $: squareClass = cMark
 	: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
 </script>
 
-<div class={squareClass} on:click|preventDefault={(_) => onClick()}>
+<div
+	class={squareClass}
+	on:click|preventDefault={(_) => onClick()}
+	on:keypress|preventDefault={(_) => onClick()}
+>
 	<div>
 		<span class="border-dashing"><i /></span>
 		<span class="border-dashing"><i /></span>

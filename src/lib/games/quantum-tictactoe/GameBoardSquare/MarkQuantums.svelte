@@ -27,7 +27,8 @@ export let isHighlighted: boolean;
 export let isBeingCollapsed: boolean;
 
 function getTextColor(mark: MarkType) {
-	if (cycleMarks?.includes(mark)) {
+	if (!cycleMarks?.length) return 'white';
+	if (cycleMarks.includes(mark)) {
 		if (isBeingCollapsed) return 'red';
 		if (isHighlighted) return 'blue';
 	}

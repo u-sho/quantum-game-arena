@@ -38,8 +38,11 @@ export default class QuantumTTT {
 		this.g = new Graph();
 		this.timer = this.timer.bind(this);
 		this.state = {
-			cSquares: Array(9).fill(null) as ConstArray<null, 9>,
-			qSquares: Array(9).fill([]) as ConstArray<[], 9>,
+			cSquares: [null, null, null, null, null, null, null, null, null] satisfies ConstArray<
+				null,
+				9
+			>,
+			qSquares: [[], [], [], [], [], [], [], [], []] satisfies ConstArray<[], 9>,
 			currentTurn: 1,
 			currentSubTurn: 0,
 			lastMove: null,
@@ -118,10 +121,11 @@ export default class QuantumTTT {
 
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
 	private _handleNormalMove(i: SquareType): StatusType {
-		const qSquares = [...this.state.qSquares];
+		const qSquares: StateType['qSquares'] = [...this.state.qSquares];
 		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
-		if (qSquares[i].length >= 1) qSquares[i].push(marker);
+		if (qSquares[i].length >= 1)
+			(qSquares[i] as Exclude<typeof qSquares[typeof i], []>).push(marker);
 		else qSquares[i] = [marker];
 
 		if (!this.g.hasNode(i)) this.g.addNode(i);
@@ -130,9 +134,9 @@ export default class QuantumTTT {
 		// if cycle is not null, there is a cyclic entanglement.
 		const cycle = this.g.getCycle(i);
 		this.setState({
-			qSquares: qSquares as StateType['qSquares'],
-			cycleSquares: cycle == null ? null : (cycle[0] as MaxLengthArray<SquareType, 9>),
-			cycleMarks: cycle == null ? null : (cycle[1] as MaxLengthArray<MarkType, 9>),
+			qSquares,
+			cycleSquares: cycle && (cycle[0] as MaxLengthArray<SquareType, 9>),
+			cycleMarks: cycle && (cycle[1] as MaxLengthArray<MarkType, 9>),
 			currentTurn: (this.state.currentTurn +
 				Number(this.state.currentSubTurn === 3)) as TurnNumType,
 			currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType,
@@ -154,7 +158,7 @@ export default class QuantumTTT {
 
 	// selects square to be collapse point
 	private _handleCyclicEntanglement(i: SquareType): StatusType {
-		if (!this.state.cycleSquares?.includes(i))
+		if (!(this.state.cycleSquares as Exclude<StateType['cycleSquares'], null | []>).includes(i))
 			return '循環もつれに関係してるマスを選択してください！';
 
 		this.setState({ collapseSquare: i });
@@ -163,7 +167,7 @@ export default class QuantumTTT {
 
 	// collapse square and propagates changes outward
 	handleCollapse(mark: MarkType): StatusType {
-		if (process.env['NODE_ENV'] !== 'production') console.log(mark);
+		if (import.meta.env.DEV) console.log(mark);
 		const i = this.state.collapseSquare as number;
 		const visited = new Set([mark]);
 
@@ -199,8 +203,8 @@ export default class QuantumTTT {
 	}
 
 	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>) {
-		const cSquares = [...this.state.cSquares] as StateType['cSquares'];
-		const qSquares = [...this.state.qSquares] as StateType['qSquares'];
+		const cSquares: StateType['cSquares'] = [...this.state.cSquares];
+		const qSquares: StateType['qSquares'] = [...this.state.qSquares];
 		cSquares[i] = mark;
 		qSquares[i] = [];
 
@@ -280,14 +284,14 @@ function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
 		if (line1[1] === 'X') return -1;
 		return 0;
 	});
-	const scores = { X: 0, Y: 0 };
 
+	const scores: {
+		X: 0 | 0.5 | 1 | 1.5;
+		Y: 0 | 0.5 | 1 | 1.5;
+	} = { X: 0, Y: 0 };
 	if (winners.length >= 1) scores[winners[0][1]] = 1;
 	if (winners.length >= 2) scores[winners[1][1]] += 0.5;
 	if (winners.length === 3) scores[winners[2][1]] += 0.5;
 
-	return scores as {
-		X: 0 | 0.5 | 1 | 1.5;
-		Y: 0 | 0.5 | 1 | 1.5;
-	};
+	return scores;
 }
