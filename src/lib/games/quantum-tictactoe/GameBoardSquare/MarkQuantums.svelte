@@ -27,7 +27,8 @@ export let isHighlighted: boolean;
 export let isBeingCollapsed: boolean;
 
 function getTextColor(mark: MarkType) {
-	if (cycleMarks?.includes(mark)) {
+	if (!cycleMarks?.length) return 'white';
+	if (cycleMarks.includes(mark)) {
 		if (isBeingCollapsed) return 'red';
 		if (isHighlighted) return 'blue';
 	}
@@ -65,6 +66,19 @@ function getTextColor(mark: MarkType) {
 	font-size: 24px;
 	font-weight: bold;
 	line-height: 32px;
+
+	@media screen and (max-width: 600px) {
+		width: calc(100% / 3 - 8px);
+		margin: 2px 4px;
+		text-align: center;
+		font-size: 21px;
+		line-height: 28px;
+	}
+
+	@media screen and (max-width: 400px) {
+		font-size: 18px;
+		line-height: 24px;
+	}
 }
 
 .white {

@@ -36,7 +36,7 @@ const columns = [0, 1, 2] as const;
 
 $: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => onSquareClick((row * 3 + column) as SquareType);
 $: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
-	!!cycleSquares?.includes((row * 3 + column) as SquareType);
+	!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType);
 </script>
 
 <div class="game-board">

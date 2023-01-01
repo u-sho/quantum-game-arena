@@ -28,22 +28,21 @@ import type { MarkType, SquareType } from './QuantumTTT.type';
 import Game from './QuantumTTT';
 
 let game = new Game();
-game.setStatus('プレイヤーXのターンです');
 let gameCount = 1;
 
 let state = game.state;
 let message = state.status;
 
 $: choices =
-	state.collapseSquare !== null
+	state.collapseSquare !== null && state.cycleMarks !== null
 		? (state.qSquares[state.collapseSquare]?.filter((choice) =>
-				state.cycleMarks?.includes(choice)
+				(state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
 		  ) as MaxLengthArray<MarkType, 3> | undefined)
 		: undefined;
 
 function handleSquareClick(i: SquareType) {
 	const status = game.handleSquareClick(i);
-	console.table(game.state);
+	if (import.meta.env.DEV) console.table(game.state);
 
 	state = { ...game.state };
 	message = status;
@@ -67,7 +66,6 @@ function handleNextGameClick() {
 
 function handleResetGameClick() {
 	game = new Game();
-	game.setStatus('プレイヤーXのターンです');
 	gameCount = 1;
 
 	state = { ...game.state };
