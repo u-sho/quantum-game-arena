@@ -25,6 +25,7 @@
 		"noEmitHelpers": true,
 		"removeComments": true,
 
+		"types": ["vitest/importMeta"],
 		"plugins": [{ "name": "typescript-eslint-language-service" }]
 	}
 }

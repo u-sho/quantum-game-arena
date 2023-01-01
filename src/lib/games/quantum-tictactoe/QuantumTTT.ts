@@ -38,11 +38,8 @@ export default class QuantumTTT {
 		this.g = new Graph();
 		this.timer = this.timer.bind(this);
 		this.state = {
-			cSquares: [null, null, null, null, null, null, null, null, null] satisfies ConstArray<
-				null,
-				9
-			>,
-			qSquares: [[], [], [], [], [], [], [], [], []] satisfies ConstArray<[], 9>,
+			cSquares: [null, null, null, null, null, null, null, null, null],
+			qSquares: [[], [], [], [], [], [], [], [], []],
 			currentTurn: 1,
 			currentSubTurn: 0,
 			lastMove: null,
@@ -64,9 +61,6 @@ export default class QuantumTTT {
 	}
 	setLeftTimes(obj: Readonly<RequiredAtLeastOne<StateType['leftTimes']>>): void {
 		Object.assign(this.state.leftTimes, obj);
-	}
-	setStatus(msg: Readonly<StatusType>): void {
-		this.setState({ status: msg });
 	}
 
 	whoseTurn(): PlayerType {
@@ -135,7 +129,7 @@ export default class QuantumTTT {
 		const cycle = this.g.getCycle(i);
 		if (cycle) {
 			const msg =
-				'循環もつれが発生しました！' +
+				'循環もつれが発生しました！\n' +
 				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
 			this.setState({
 				qSquares,
@@ -157,7 +151,7 @@ export default class QuantumTTT {
 		if (this.isSecondMove())
 			return '2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。';
 
-		return `プレイヤー${this.whoseTurn()}のターンです! 量子マークをおいてください。`;
+		return `プレイヤー${this.whoseTurn()}のターンです! 量子マークを置いてください。`;
 	}
 
 	// selects square to be collapse point
@@ -240,13 +234,13 @@ function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 
 	if (scores.X === 1.5 || scores.Y === 1.5)
 		return (
-			`${winner} 同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント \n ` +
-			`${loser} は 0ポイント`
+			`${winner}が同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント\n` +
+			`${loser}は 0ポイント`
 		);
 
 	if (scores.X + scores.Y === 1.5)
 		return (
-			`両プレイヤーが同時に1列を完成させました。しかし、${winner} が先に並べました！` +
+			`両プレイヤーが同時に1列を完成させました。しかし、${winner}が先に並べました！` +
 			` ${winner}は 1.0ポイント` +
 			`\n ${loser}は 0.5ポイント`
 		);
