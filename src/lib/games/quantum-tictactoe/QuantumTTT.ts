@@ -38,11 +38,8 @@ export default class QuantumTTT {
 		this.g = new Graph();
 		this.timer = this.timer.bind(this);
 		this.state = {
-			cSquares: [null, null, null, null, null, null, null, null, null] satisfies ConstArray<
-				null,
-				9
-			>,
-			qSquares: [[], [], [], [], [], [], [], [], []] satisfies ConstArray<[], 9>,
+			cSquares: [null, null, null, null, null, null, null, null, null],
+			qSquares: [[], [], [], [], [], [], [], [], []],
 			currentTurn: 1,
 			currentSubTurn: 0,
 			lastMove: null,
