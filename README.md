@@ -41,6 +41,23 @@ npm run lint:dry
 npm run lint
 ```
 
+## Typecheck
+
+```sh
+npm run check
+```
+
+## Test
+
+### Unit Test
+
+We use Vitest to unit test.
+Vitest reports coverage to ./coverage folder.
+
+```sh
+npm run test
+```
+
 ## Component Naming
 
 1. **Single-file component filename casing**: filenames of single-file components should be always PascalCase.
