@@ -13,7 +13,9 @@ const VITEST_IGNORE_PATTERNS = [
 
 const VITEST_COVERAGE_IGNORE_PATTERNS = [
 	...VITEST_IGNORE_PATTERNS,
-	'**/*.d.ts',
+	'**/*.svelte', // E2E test is needed
+	'src/routes/**/+*.ts',
+	'**/*.{type,d}.ts',
 	'test{,s}/**',
 	'**/*{.,-}{test,spec}{,-d}.{ts,svelte}',
 	'**/__tests__/**',
