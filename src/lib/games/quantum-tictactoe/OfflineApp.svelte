@@ -33,11 +33,14 @@ let gameCount = 1;
 let state = game.state;
 let message = state.status;
 
+// XXX: if `as string[]` isn't written, ts says "Each member of the union type has signatures, but none of those signatures are compatible with each other."
 $: choices =
 	state.collapseSquare !== null && state.cycleMarks !== null
-		? (state.qSquares[state.collapseSquare]?.filter((choice) =>
-				(state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
-		  ) as MaxLengthArray<MarkType, 3> | undefined)
+		? ((
+				state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []> as string[]
+		  ).filter((choice) =>
+				(state.cycleMarks as Exclude<typeof state.cycleMarks, null>).includes(choice as MarkType)
+		  ) as MaxLengthArray<MarkType, 3>)
 		: undefined;
 
 function handleSquareClick(i: SquareType) {

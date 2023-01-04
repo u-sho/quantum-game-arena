@@ -19,21 +19,21 @@
  * along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { MarkType } from './QuantumTTT.type';
+import type { RangeLengthArray } from '$lib/types/generics';
 
-export type NodeIdType = number;
-export type EdgeKeyType = MarkType;
+export type IdType = number | string | symbol;
 
-type NodesType = {
-	[id in NodeIdType]: Node;
+type NodesType<NodeIdType extends IdType, EdgeIdType extends IdType> = Map<
+	NodeIdType,
+	Node<NodeIdType, EdgeIdType>
+>;
+type EdgesType<EdgeIdType extends IdType, NodeIdType extends IdType> = {
+	[key in EdgeIdType]?: Edge<EdgeIdType, NodeIdType>;
 };
-type EdgesType = {
-	[key in EdgeKeyType]?: Edge;
-};
 
-class Node {
+class Node<NodeIdType extends IdType, EdgeIdType extends IdType> {
 	id: NodeIdType;
-	edges: Edge[];
+	edges: Array<Edge<EdgeIdType, NodeIdType>>;
 	constructor(id: Readonly<NodeIdType>) {
 		this.id = id;
 		this.edges = [];
@@ -43,96 +43,89 @@ class Node {
 /** Need both Node and Edge for multi-graph, as each node can have multiple
  * edges between them, whose uniqueness needs to be accounted for.
  */
-class Edge {
-	start: Node;
-	end: Node;
-	key: EdgeKeyType;
-	constructor(node1: Node, node2: Node, key: Readonly<EdgeKeyType>) {
+class Edge<EdgeIdType extends IdType, NodeIdType extends IdType> {
+	start: NodeIdType;
+	end: NodeIdType;
+	key: EdgeIdType;
+	constructor(node1: Readonly<NodeIdType>, node2: Readonly<NodeIdType>, key: Readonly<EdgeIdType>) {
 		this.start = node1;
 		this.end = node2;
 		this.key = key;
 	}
 }
 
-export default class Graph {
-	nodes: NodesType;
-	edges: EdgesType;
+export default class Graph<NodeIdType extends IdType, EdgeIdType extends IdType> {
+	nodes: NodesType<NodeIdType, EdgeIdType>;
+	edges: EdgesType<EdgeIdType, NodeIdType>;
 	constructor() {
-		this.nodes = {};
+		this.nodes = new Map();
 		this.edges = {};
 	}
 
 	addNode(id: Readonly<NodeIdType>): void {
-		this.nodes[id] = new Node(id);
+		this.nodes.set(id, new Node(id));
 	}
 
-	getNode(id: Readonly<NodeIdType>): Node {
-		return this.nodes[id];
+	getOrInsertNode(id: Readonly<NodeIdType>): Node<NodeIdType, EdgeIdType> {
+		if (!this.hasNode(id)) this.addNode(id);
+		return this.nodes.get(id) as Node<NodeIdType, EdgeIdType>;
 	}
 
 	hasNode(id: Readonly<NodeIdType>): boolean {
-		return id in this.nodes;
+		return this.nodes.has(id);
 	}
 
-	addEdge(id1: Readonly<NodeIdType>, id2: Readonly<NodeIdType>, key: Readonly<EdgeKeyType>): void {
-		if (!(id1 in this.nodes)) this.addNode(id1);
-		if (!(id2 in this.nodes)) this.addNode(id2);
+	addEdge(id1: Readonly<NodeIdType>, id2: Readonly<NodeIdType>, key: Readonly<EdgeIdType>): void {
+		const edge = new Edge(id1, id2, key);
+		const reverseEdge = new Edge(id2, id1, key);
 
-		const edge = new Edge(this.getNode(id1), this.getNode(id2), key);
-		const reverseEdge = new Edge(this.getNode(id2), this.getNode(id1), key);
-
-		this.getNode(id1).edges.push(edge);
-		this.getNode(id2).edges.push(reverseEdge);
-		this.edges[key] = edge;
+		this.getOrInsertNode(id1).edges.push(edge);
+		this.getOrInsertNode(id2).edges.push(reverseEdge);
+		this.edges[key as EdgeIdType] = edge;
 	}
 
 	numNodes(): number {
-		return Object.keys(this.nodes).length;
+		return this.nodes.size;
 	}
 
 	/**
 	 * @param startId - id of one of the nodes involved in the cycle
 	 * @return List of Nodes and Edges involved in cycle
 	 */
-	getCycle(startId: Readonly<NodeIdType>): null | [NodeIdType[], EdgeKeyType[]] {
+	getCycle(
+		startId: Readonly<NodeIdType>
+	): null | [RangeLengthArray<NodeIdType, 2>, RangeLengthArray<EdgeIdType, 2>] {
+		// startId has no edge
+		if (!this.hasNode(startId)) return null;
+
 		// case one: graph too small for cycles
 		if (this.numNodes() < 2) return null;
 
 		// case two: cycle of len 2
-		const start = this.getNode(startId);
-		const endToEdge: Map<Node, Edge> = new Map();
-
-		for (const edge of start.edges) {
-			if (endToEdge.has(edge.end)) {
-				return [
-					[edge.start.id, edge.end.id],
-					[edge.key, (endToEdge.get(edge.end) as Edge).key]
-				];
-			}
-
-			endToEdge.set(edge.end, edge);
+		if (this.numNodes() === 2) {
+			const { end: maybeEnd, key: edge1 } = this.getOrInsertNode(startId).edges[0];
+			const { end: maybeStart, key: edge2 } = this.getOrInsertNode(maybeEnd).edges[0];
+			if (edge1 !== edge2) return null;
+			return [
+				[maybeStart, maybeEnd],
+				[edge1, edge2]
+			];
 		}
 
 		// case three: cycle of len > 2
-		const q = [start];
-		const layers: Map<Node, number> = new Map(); // maps node to layer
-		const prev: Map<Node, Edge | null> = new Map(); // maps node to its associated edge
-		layers.set(start, 0);
-		prev.set(start, null);
+		const queue = [startId];
+		const visitedNodes = new Set<NodeIdType>();
+		visitedNodes.add(startId);
+		const passedEdges: EdgeIdType[] = [];
 
-		while (q !== undefined && q.length > 0) {
-			const curr = q.shift() as Node;
-			const layer = layers.get(curr) as number;
-
-			for (const edge of curr.edges) {
-				if (layers.has(edge.end)) {
-					if (layers.get(edge.end) === layer - 1) continue; // node we just came from
-					return this._constructPath(edge, prev);
+		while (queue && queue.length > 0) {
+			const currentNode = queue.shift() as NodeIdType;
+			for (const edge of this.getOrInsertNode(currentNode).edges) {
+				passedEdges.push(edge.key);
+				if (visitedNodes.has(edge.end)) {
+					return this._constructPath(edge.end, passedEdges as RangeLengthArray<EdgeIdType, 1>);
 				}
-
-				q.push(edge.end);
-				layers.set(edge.end, layer + 1);
-				prev.set(edge.end, edge);
+				queue.push(edge.end);
 			}
 		}
 
@@ -140,32 +133,31 @@ export default class Graph {
 	}
 
 	private _constructPath(
-		edge: Readonly<Edge>,
-		prev: Readonly<Map<Node, Edge | null>>
-	): [NodeIdType[], EdgeKeyType[]] {
-		const cycleNodeIds = [];
-		const cycleEdgeKeys = [edge.key];
-		let currNode: Node, currEdge: Edge;
+		lastNodeId: Readonly<NodeIdType>,
+		edgeIdsIncludeACycle: Readonly<RangeLengthArray<EdgeIdType, 1>>
+	): [RangeLengthArray<NodeIdType, 2>, RangeLengthArray<EdgeIdType, 2>] {
+		const cycleNodeIds: NodeIdType[] = [lastNodeId];
+		const cycleEdgeIds: EdgeIdType[] = [];
 
-		// go around one way
-		currNode = edge.start;
-		while (prev.get(currNode)) {
-			currEdge = prev.get(currNode) as Edge;
-			cycleNodeIds.push(currNode.id);
-			cycleEdgeKeys.push(currEdge.key);
-			currNode = currEdge.start;
+		for (let i = edgeIdsIncludeACycle.length - 1; i >= 0; i--) {
+			const currEdge: Edge<EdgeIdType, NodeIdType> = this.edges[edgeIdsIncludeACycle[i]] as Edge<
+				EdgeIdType,
+				NodeIdType
+			>;
+			const prevNodeId: NodeIdType = cycleNodeIds.at(-1) as NodeIdType;
+			if (currEdge.start !== prevNodeId && currEdge.end !== prevNodeId) continue;
+			const currNodeId: NodeIdType = currEdge.end === prevNodeId ? currEdge.start : currEdge.end;
+			cycleNodeIds.push(currNodeId);
+			cycleEdgeIds.push(currEdge.key);
+			if (currNodeId === lastNodeId)
+				return [
+					cycleNodeIds as RangeLengthArray<NodeIdType, 2>,
+					cycleEdgeIds as RangeLengthArray<EdgeIdType, 1>
+				];
 		}
-		cycleNodeIds.push(currNode.id); /// get start node only once
-
-		// go around the other way
-		currNode = edge.end;
-		while (prev.get(currNode)) {
-			currEdge = prev.get(currNode) as Edge;
-			cycleNodeIds.unshift(currNode.id);
-			cycleEdgeKeys.unshift(currEdge.key);
-			currNode = currEdge.start;
-		}
-
-		return [cycleNodeIds, cycleEdgeKeys];
+		return [
+			cycleNodeIds as RangeLengthArray<NodeIdType, 2>,
+			cycleEdgeIds as RangeLengthArray<EdgeIdType, 1>
+		];
 	}
 }

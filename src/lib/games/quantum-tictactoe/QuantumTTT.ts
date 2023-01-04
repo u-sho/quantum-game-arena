@@ -32,7 +32,7 @@ import type {
 import Graph from './Graph';
 
 export default class QuantumTTT {
-	g: Graph;
+	g: Graph<SquareType, MarkType>;
 	state: StateType;
 	constructor() {
 		this.g = new Graph();
@@ -100,12 +100,13 @@ export default class QuantumTTT {
 			// initialize timer at game start
 			setInterval(this.timer, 1000);
 
-		if (this.state.isOver) return 'ゲームは既に終了しています！ 新しいゲームを開始してください';
+		if (this.state.isOver)
+			return 'ゲームは既に終了しています！\n' + '新しいゲームを開始してください';
 
 		if (this.state.cycleSquares) return this._handleCyclicEntanglement(i);
 
 		if (this.state.cSquares[i])
-			return 'このマスのマークが既に確定しています！ このマスには量子マークを置けません。';
+			return 'このマスはマークが既に確定しています！　このマスには量子マークを置けません。';
 
 		if (this.isSecondMove() && this.state.lastMove === i)
 			return '同じマスには同じターンに置けません。';
@@ -128,52 +129,61 @@ export default class QuantumTTT {
 		// if cycle is not null, there is a cyclic entanglement.
 		const cycle = this.g.getCycle(i);
 		if (cycle) {
-			const msg =
+			const status =
 				'循環もつれが発生しました！\n' +
 				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
 			this.setState({
+				status,
 				qSquares,
-				cycleSquares: cycle && (cycle[0] as MaxLengthArray<SquareType, 9>),
-				cycleMarks: cycle && (cycle[1] as MaxLengthArray<MarkType, 9>),
+				cycleSquares: cycle[0],
+				cycleMarks: cycle[1],
 				lastMove: i
 			});
-			return `${msg}`;
+			return status;
 		}
 
+		const status = this.isSecondMove()
+			? '2個目の量子マークを置いてください。\n' +
+			  '循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。'
+			: `プレイヤー${this.whoseTurn()}のターンです！` + '　量子マークを置いてください。';
 		this.setState({
+			status,
 			qSquares,
 			currentTurn: (this.state.currentTurn +
 				Number(this.state.currentSubTurn === 3)) as TurnNumType,
 			currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType,
 			lastMove: i
 		});
-
-		if (this.isSecondMove())
-			return '2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。';
-
-		return `プレイヤー${this.whoseTurn()}のターンです! 量子マークを置いてください。`;
+		return status;
 	}
 
 	// selects square to be collapse point
 	private _handleCyclicEntanglement(i: SquareType): StatusType {
-		if (!(this.state.cycleSquares as Exclude<StateType['cycleSquares'], null | []>).includes(i))
-			return '循環もつれに関係してるマスを選択してください！';
+		if (!(this.state.cycleSquares as Exclude<StateType['cycleSquares'], null | []>).includes(i)) {
+			const status = '循環もつれに関係してるマスを選択してください！';
+			this.setState({ status });
+			return status;
+		}
 
-		this.setState({ collapseSquare: i });
-		return 'このマスに確定させるマークを次から選択します。';
+		const status = 'このマスに確定させるマークを次から選択します。';
+		this.setState({ status, collapseSquare: i });
+		return status;
 	}
 
 	// collapse square and propagates changes outward
 	handleCollapse(mark: MarkType): StatusType {
-		if (import.meta.env.DEV) console.log(mark);
-		const i = this.state.collapseSquare as number;
+		if (import.meta.env.DEV) console.log(`handleCollapse is called by ${mark}`);
+		const i = this.state.collapseSquare as SquareType;
 		const visited = new Set([mark]);
 
 		this._handleCollapseHelper(mark, i, visited);
 
 		const scores = _calculateScores(this.state.cSquares);
 		if (scores === null) {
+			const status = `プレイヤー${this.whoseTurn()}のターンです。`;
+
 			this.setState({
+				status,
 				cycleSquares: null,
 				cycleMarks: null,
 				collapseSquare: null,
@@ -182,7 +192,7 @@ export default class QuantumTTT {
 				currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType
 			});
 
-			return `プレイヤー${this.whoseTurn()}のターンです。`;
+			return status;
 		}
 
 		// end of the game
@@ -203,7 +213,7 @@ export default class QuantumTTT {
 		return status;
 	}
 
-	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>) {
+	private _handleCollapseHelper(mark: MarkType, i: SquareType, visited: Set<MarkType>) {
 		const cSquares: StateType['cSquares'] = [...this.state.cSquares];
 		const qSquares: StateType['qSquares'] = [...this.state.qSquares];
 		cSquares[i] = mark;
@@ -211,10 +221,10 @@ export default class QuantumTTT {
 
 		this.setState({ cSquares, qSquares });
 
-		for (const edge of this.g.getNode(i).edges) {
+		for (const edge of this.g.getOrInsertNode(i).edges) {
 			if (!visited.has(edge.key)) {
 				visited.add(edge.key);
-				this._handleCollapseHelper(edge.key, edge.end.id, visited);
+				this._handleCollapseHelper(edge.key, edge.end, visited);
 			}
 		}
 	}

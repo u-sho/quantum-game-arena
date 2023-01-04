@@ -31,7 +31,7 @@ export type PlayerType = 'X' | 'Y';
 /**
  * A turn is the set of X's 2 moves and Y's 2 moves.
  */
-export type TurnNumType = 1 | 2 | 3 | 4 | 5 | 6;
+export type TurnNumType = 1 | 2 | 3 | 4 | 5;
 
 /**
  * `Pi` is `i`th turn mark of player `P`.
@@ -88,12 +88,12 @@ export type StateType = {
 	/**
 	 * Cyclic-entanglement squares. `null` if no cyclic-entanglement.
 	 */
-	cycleSquares: MaxLengthArray<SquareType, 9> | null;
+	cycleSquares: Exclude<MaxLengthArray<SquareType, 9>, [] | [SquareType]> | null;
 
 	/**
 	 * Cyclic-entanglement marks. `null` if no cyclic-entanglement.
 	 */
-	cycleMarks: MaxLengthArray<MarkType, 9> | null;
+	cycleMarks: Exclude<MaxLengthArray<MarkType, 9>, [] | [MarkType]> | null;
 
 	/**
 	 * Square selected to be origin of collapse, if there is a cycle.

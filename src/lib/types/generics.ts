@@ -29,6 +29,8 @@ export type ConstArray<T, N extends number> = N extends 0
 /** fixed _max_ length array */
 export type MaxLengthArray<T, N extends number> = N extends 0
 	? []
+	: N extends 1
+	? [] | [T]
 	: N extends 3
 	? [] | [T] | [T, T] | [T, T, T]
 	: N extends 4
@@ -43,4 +45,13 @@ export type MaxLengthArray<T, N extends number> = N extends 0
 	? MaxLengthArray<T, 7> | ConstArray<T, 8>
 	: N extends 9
 	? MaxLengthArray<T, 8> | ConstArray<T, 9>
+	: never;
+
+/** fixed _min_ length array */
+export type RangeLengthArray<T, MIN extends number = 0, MAX extends number = 9> = MIN extends 0
+	? MaxLengthArray<T, MAX>
+	: MIN extends 1
+	? Exclude<MaxLengthArray<T, MAX>, []>
+	: MIN extends 2
+	? Exclude<MaxLengthArray<T, MAX>, [] | [T]>
 	: never;
