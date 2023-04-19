@@ -21,6 +21,8 @@
 
 		"downlevelIteration": true,
 		"importHelpers": true,
+		"preserveValueImports": false,
+		"verbatimModuleSyntax": true,
 		"newLine": "lf",
 		"noEmitHelpers": true,
 		"removeComments": true,
