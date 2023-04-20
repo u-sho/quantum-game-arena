@@ -119,7 +119,7 @@ export default class QuantumTTT {
 		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
 		if (qSquares[i].length >= 1)
-			(qSquares[i] as Exclude<typeof qSquares[typeof i], []>).push(marker);
+			(qSquares[i] as Exclude<(typeof qSquares)[typeof i], []>).push(marker);
 		else qSquares[i] = [marker];
 
 		if (!this.g.hasNode(i)) this.g.addNode(i);
