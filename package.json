@@ -65,6 +65,9 @@
 		"vitest": "0.30.1",
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.8.6"
 	},
+	"dependencies": {
+		"@vercel/analytics": "^1.0.1"
+	},
 	"engines": {
 		"node": "18.x",
 		"npm": ">=7.21.1"
