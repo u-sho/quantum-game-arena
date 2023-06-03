@@ -44,7 +44,9 @@ export default defineConfig({
 			exclude: VITEST_COVERAGE_IGNORE_PATTERNS
 		},
 		typecheck: {
-			tsconfig: './tsconfig.eslint.json'
+			checker: 'tsc',
+			include: ['**/*{.,-}{test-d,spec-d}.{ts,svelte}'],
+			tsconfig: './tsconfig.vitest-typecheck.json'
 		}
 	},
 	define: {
