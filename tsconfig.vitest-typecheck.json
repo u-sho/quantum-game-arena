@@ -1,0 +1,56 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"]
+		},
+		"rootDirs": [".", "./.svelte-kit/types"],
+		"verbatimModuleSyntax": true,
+		"isolatedModules": true,
+		"lib": ["esnext", "DOM", "DOM.Iterable"],
+		"moduleResolution": "node",
+		"module": "esnext",
+		"target": "esnext",
+
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"allowJs": false,
+		"strict": true,
+
+		"allowUnreachableCode": true,
+		"allowUnusedLabels": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		"downlevelIteration": true,
+		"importHelpers": true,
+
+		"newLine": "lf",
+		"noEmitHelpers": true,
+		"removeComments": true,
+
+		"types": ["vitest/importMeta"]
+	},
+	"include": [
+		"./.svelte-kit/ambient.d.ts",
+		"./.svelte-kit/types/**/$types.d.ts",
+		"./vite.config.ts",
+		"./src/**/*.ts",
+		"./src/**/*.svelte",
+		"./tests/**/*.ts",
+		"./tests/**/*.svelte"
+	],
+	"exclude": [
+		"./node_modules/**",
+		"./.svelte-kit/[!ambient.d.ts]**",
+		"./src/service-worker/index.ts"
+	]
+}

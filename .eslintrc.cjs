@@ -58,6 +58,7 @@ module.exports = {
 		'@typescript-eslint/no-confusing-non-null-assertion': 'warn',
 		'@typescript-eslint/no-duplicate-imports': 'error',
 		'@typescript-eslint/no-implicit-any-catch': 'error',
+		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
 		'@typescript-eslint/unbound-method': 'off'
 	},
