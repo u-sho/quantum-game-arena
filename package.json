@@ -46,7 +46,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.59.8",
 		"@typescript-eslint/parser": "^5.59.9",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.99",
-		"@vitest/coverage-c8": "0.31.4",
+		"@vitest/coverage-c8": "0.32.0",
 		"better-typescript-lib": "^2.3.1",
 		"eslint": "^8.42.0",
 		"eslint-config-prettier": "^8.8.0",
