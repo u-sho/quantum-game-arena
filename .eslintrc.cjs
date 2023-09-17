@@ -18,8 +18,8 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	extends: [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:@typescript-eslint/recommended-requiring-type-checking',
+		'plugin:@typescript-eslint/recommended-type-checked',
+		'plugin:@typescript-eslint/stylistic-type-checked',
 		'prettier'
 	],
 	plugins: ['svelte3', '@typescript-eslint'],
@@ -39,7 +39,9 @@ module.exports = {
 	],
 	rules: {
 		'no-console': isProduction() ? 'error' : 'off',
+
 		eqeqeq: ['error', 'always', { null: 'ignore' }],
+		'no-duplicate-imports': ['error', { includeExports: true }],
 		'no-unused-expressions': 'error',
 		'no-var': 'error',
 		'prefer-const': 'error',
@@ -49,17 +51,13 @@ module.exports = {
 
 		'@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
-		'@typescript-eslint/consistent-type-imports': [
-			'error',
-			{ prefer: 'type-imports', disallowTypeAnnotations: true }
-		],
+		'@typescript-eslint/consistent-type-exports': 'error',
+		'@typescript-eslint/consistent-type-imports': 'error',
 		'@typescript-eslint/member-delimiter-style': 'error',
-		'@typescript-eslint/method-signature-style': ['error', 'property'],
-		'@typescript-eslint/no-confusing-non-null-assertion': 'warn',
-		'@typescript-eslint/no-duplicate-imports': 'error',
-		'@typescript-eslint/no-implicit-any-catch': 'error',
+		'@typescript-eslint/method-signature-style': 'error',
 		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
+
 		'@typescript-eslint/unbound-method': 'off'
 	},
 	settings: {

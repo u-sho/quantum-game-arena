@@ -123,7 +123,7 @@ export default class QuantumTTT {
 		else qSquares[i] = [marker];
 
 		if (!this.g.hasNode(i)) this.g.addNode(i);
-		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove as SquareType, i, marker);
+		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove!, i, marker);
 
 		// if cycle is not null, there is a cyclic entanglement.
 		const cycle = this.g.getCycle(i);
@@ -265,6 +265,7 @@ function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): W
 
 	for (const line of lines) {
 		const [s1, s2, s3] = [squares[line[0]], squares[line[1]], squares[line[2]]];
+		// eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
 		if (s1 && s2 && s3 && s1[0] === s2[0] && s1[0] === s3[0]) {
 			const subscripts = [s1[1], s2[1], s3[1]].map(Number) as ConstArray<TurnNumType, 3>;
 			winners.push([Math.max(...subscripts) as TurnNumType, s1[0] as PlayerType, line]);

@@ -100,13 +100,13 @@ export default class Graph {
 
 		// case two: cycle of len 2
 		const start = this.getNode(startId);
-		const endToEdge: Map<Node, Edge> = new Map();
+		const endToEdge = new Map<Node, Edge>();
 
 		for (const edge of start.edges) {
 			if (endToEdge.has(edge.end)) {
 				return [
 					[edge.start.id, edge.end.id],
-					[edge.key, (endToEdge.get(edge.end) as Edge).key]
+					[edge.key, endToEdge.get(edge.end)!.key]
 				];
 			}
 
@@ -115,14 +115,14 @@ export default class Graph {
 
 		// case three: cycle of len > 2
 		const q = [start];
-		const layers: Map<Node, number> = new Map(); // maps node to layer
-		const prev: Map<Node, Edge | null> = new Map(); // maps node to its associated edge
+		const layers = new Map<Node, number>(); // maps node to layer
+		const prev = new Map<Node, Edge | null>(); // maps node to its associated edge
 		layers.set(start, 0);
 		prev.set(start, null);
 
 		while (q !== undefined && q.length > 0) {
-			const curr = q.shift() as Node;
-			const layer = layers.get(curr) as number;
+			const curr = q.shift()!;
+			const layer = layers.get(curr)!;
 
 			for (const edge of curr.edges) {
 				if (layers.has(edge.end)) {
@@ -150,7 +150,7 @@ export default class Graph {
 		// go around one way
 		currNode = edge.start;
 		while (prev.get(currNode)) {
-			currEdge = prev.get(currNode) as Edge;
+			currEdge = prev.get(currNode)!;
 			cycleNodeIds.push(currNode.id);
 			cycleEdgeKeys.push(currEdge.key);
 			currNode = currEdge.start;
@@ -160,7 +160,7 @@ export default class Graph {
 		// go around the other way
 		currNode = edge.end;
 		while (prev.get(currNode)) {
-			currEdge = prev.get(currNode) as Edge;
+			currEdge = prev.get(currNode)!;
 			cycleNodeIds.unshift(currNode.id);
 			cycleEdgeKeys.unshift(currEdge.key);
 			currNode = currEdge.start;
