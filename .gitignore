@@ -259,3 +259,5 @@ $RECYCLE.BIN/
 ### CI outputs ###
 snyk.sarif
 .dccache
+tsconfig.vitest-temp.json
+vite.config.ts.timestamp-*
