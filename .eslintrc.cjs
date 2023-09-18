@@ -33,6 +33,10 @@ module.exports = {
 			}
 		},
 		{
+			files: ['*.js', '*.cjs'],
+			rules: { '@typescript-eslint/explicit-function-return-type': 'off' }
+		},
+		{
 			files: ['*.cjs'],
 			rules: { '@typescript-eslint/no-require-imports': 'off' }
 		}
@@ -53,6 +57,7 @@ module.exports = {
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
 		'@typescript-eslint/consistent-type-exports': 'error',
 		'@typescript-eslint/consistent-type-imports': 'error',
+		'@typescript-eslint/explicit-function-return-type': 'error',
 		'@typescript-eslint/member-delimiter-style': 'error',
 		'@typescript-eslint/method-signature-style': 'error',
 		'@typescript-eslint/no-import-type-side-effects': 'error',

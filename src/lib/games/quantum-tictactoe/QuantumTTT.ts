@@ -203,7 +203,7 @@ export default class QuantumTTT {
 		return status;
 	}
 
-	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>) {
+	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>): void {
 		const cSquares: StateType['cSquares'] = [...this.state.cSquares];
 		const qSquares: StateType['qSquares'] = [...this.state.qSquares];
 		cSquares[i] = mark;
@@ -217,6 +217,7 @@ export default class QuantumTTT {
 				this._handleCollapseHelper(edge.key, edge.end.id, visited);
 			}
 		}
+		return;
 	}
 
 	isSecondMove(): boolean {
@@ -225,29 +226,6 @@ export default class QuantumTTT {
 }
 
 // pure functions to help with game logic in index.js
-function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
-	const winner = scores.X > scores.Y ? 'X' : 'Y';
-	const loser = winner === 'X' ? 'Y' : 'X';
-
-	if (scores.X + scores.Y === 1)
-		return `${winner}の勝利です！！\n ${winner}は1.0ポイント \n ${loser}は0ポイント`;
-
-	if (scores.X === 1.5 || scores.Y === 1.5)
-		return (
-			`${winner}が同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント\n` +
-			`${loser}は 0ポイント`
-		);
-
-	if (scores.X + scores.Y === 1.5)
-		return (
-			`両プレイヤーが同時に1列を完成させました。しかし、${winner}が先に並べました！` +
-			` ${winner}は 1.0ポイント` +
-			`\n ${loser}は 0.5ポイント`
-		);
-
-	return 'どのプレイヤーも列を完成できていません';
-}
-
 type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareType, 3>]>;
 function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): WinnersType {
 	const lines: ConstArray<ConstArray<SquareType, 3>, 8> = [
@@ -275,7 +253,10 @@ function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): W
 	return winners;
 }
 
-function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
+type OneGameScoresType = Record<PlayerType, 0 | 0.5 | 1 | 1.5>;
+function _calculateScores(
+	squares: Readonly<ConstArray<MarkType | null, 9>>
+): null | OneGameScoresType {
 	const winners = _calculateWinners(squares);
 
 	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
@@ -287,13 +268,33 @@ function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
 		return 0;
 	});
 
-	const scores: {
-		X: 0 | 0.5 | 1 | 1.5;
-		Y: 0 | 0.5 | 1 | 1.5;
-	} = { X: 0, Y: 0 };
+	const scores: OneGameScoresType = { X: 0, Y: 0 };
 	if (winners.length >= 1) scores[winners[0][1]] = 1;
 	if (winners.length >= 2) scores[winners[1][1]] += 0.5;
 	if (winners.length === 3) scores[winners[2][1]] += 0.5;
 
 	return scores;
+}
+
+function _getWinnerMsg(scores: Readonly<OneGameScoresType>): StatusType {
+	const winner = scores.X > scores.Y ? 'X' : 'Y';
+	const loser = winner === 'X' ? 'Y' : 'X';
+
+	if (scores.X + scores.Y === 1)
+		return `${winner}の勝利です！！\n ${winner}は1.0ポイント \n ${loser}は0ポイント`;
+
+	if (scores.X === 1.5 || scores.Y === 1.5)
+		return (
+			`${winner}が同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント\n` +
+			`${loser}は 0ポイント`
+		);
+
+	if (scores.X + scores.Y === 1.5)
+		return (
+			`両プレイヤーが同時に1列を完成させました。しかし、${winner}が先に並べました！` +
+			` ${winner}は 1.0ポイント` +
+			`\n ${loser}は 0.5ポイント`
+		);
+
+	return 'どのプレイヤーも列を完成できていません';
 }
