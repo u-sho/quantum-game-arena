@@ -20,6 +20,7 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended-type-checked',
 		'plugin:@typescript-eslint/stylistic-type-checked',
+		'plugin:@typescript-eslint/strict-type-checked',
 		'prettier'
 	],
 	plugins: ['svelte3', '@typescript-eslint'],
@@ -63,6 +64,7 @@ module.exports = {
 		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
 
+		'@typescript-eslint/non-nullable-type-assertion-style': 'off',
 		'@typescript-eslint/unbound-method': 'off'
 	},
 	settings: {

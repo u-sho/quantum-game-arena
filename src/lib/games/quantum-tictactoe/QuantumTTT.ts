@@ -123,7 +123,7 @@ export default class QuantumTTT {
 		else qSquares[i] = [marker];
 
 		if (!this.g.hasNode(i)) this.g.addNode(i);
-		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove!, i, marker);
+		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove as SquareType, i, marker);
 
 		// if cycle is not null, there is a cyclic entanglement.
 		const cycle = this.g.getCycle(i);
@@ -133,8 +133,8 @@ export default class QuantumTTT {
 				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
 			this.setState({
 				qSquares,
-				cycleSquares: cycle && (cycle[0] as MaxLengthArray<SquareType, 9>),
-				cycleMarks: cycle && (cycle[1] as MaxLengthArray<MarkType, 9>),
+				cycleSquares: cycle[0] as MaxLengthArray<SquareType, 9>,
+				cycleMarks: cycle[1] as MaxLengthArray<MarkType, 9>,
 				lastMove: i
 			});
 			return `${msg}`;

@@ -106,7 +106,7 @@ export default class Graph {
 			if (endToEdge.has(edge.end)) {
 				return [
 					[edge.start.id, edge.end.id],
-					[edge.key, endToEdge.get(edge.end)!.key]
+					[edge.key, (endToEdge.get(edge.end) as Edge).key]
 				];
 			}
 
@@ -120,9 +120,9 @@ export default class Graph {
 		layers.set(start, 0);
 		prev.set(start, null);
 
-		while (q !== undefined && q.length > 0) {
-			const curr = q.shift()!;
-			const layer = layers.get(curr)!;
+		while (q.length > 0) {
+			const curr = q.shift() as Node;
+			const layer = layers.get(curr) as number;
 
 			for (const edge of curr.edges) {
 				if (layers.has(edge.end)) {
@@ -150,7 +150,7 @@ export default class Graph {
 		// go around one way
 		currNode = edge.start;
 		while (prev.get(currNode)) {
-			currEdge = prev.get(currNode)!;
+			currEdge = prev.get(currNode) as Edge;
 			cycleNodeIds.push(currNode.id);
 			cycleEdgeKeys.push(currEdge.key);
 			currNode = currEdge.start;
@@ -160,7 +160,7 @@ export default class Graph {
 		// go around the other way
 		currNode = edge.end;
 		while (prev.get(currNode)) {
-			currEdge = prev.get(currNode)!;
+			currEdge = prev.get(currNode) as Edge;
 			cycleNodeIds.unshift(currNode.id);
 			cycleEdgeKeys.unshift(currEdge.key);
 			currNode = currEdge.start;
