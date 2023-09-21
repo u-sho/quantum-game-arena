@@ -123,6 +123,10 @@ module.exports = {
 		'@typescript-eslint/prefer-enum-initializers': 'error',
 		'@typescript-eslint/prefer-readonly': 'error',
 		// '@typescript-eslint/prefer-readonly-parameter-types': 'error',
+		'@typescript-eslint/prefer-regexp-exec': 'error',
+		'@typescript-eslint/promise-function-async': 'error',
+		'@typescript-eslint/require-array-sort-compare': 'error',
+		'@typescript-eslint/switch-exhaustiveness-check': 'error',
 
 		'@typescript-eslint/non-nullable-type-assertion-style': 'off',
 		'@typescript-eslint/unbound-method': 'off'
