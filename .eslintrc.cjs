@@ -40,6 +40,10 @@ module.exports = {
 		{
 			files: ['*.cjs'],
 			rules: { '@typescript-eslint/no-require-imports': 'off' }
+		},
+		{
+			files: ['./*.config.*', '.eslintrc.cjs'],
+			rules: { '@typescript-eslint/naming-convention': 'off' }
 		}
 	],
 	rules: {
@@ -59,10 +63,59 @@ module.exports = {
 		'@typescript-eslint/consistent-type-exports': 'error',
 		'@typescript-eslint/consistent-type-imports': 'error',
 		'@typescript-eslint/explicit-function-return-type': 'error',
-		'@typescript-eslint/member-delimiter-style': 'error',
+		'@typescript-eslint/explicit-member-accessibility': ['warn', { accessibility: 'no-public' }],
+		'@typescript-eslint/member-delimiter-style': 'warn',
 		'@typescript-eslint/method-signature-style': 'error',
+		camelcase: 'off',
+		'@typescript-eslint/naming-convention': [
+			'warn',
+			{
+				selector: 'default',
+				format: ['camelCase'],
+				leadingUnderscore: 'forbid',
+				trailingUnderscore: 'forbid'
+			},
+			{
+				selector: 'variable',
+				modifiers: ['global', 'const'],
+				format: ['camelCase', 'UPPER_CASE']
+			},
+			{
+				selector: 'memberLike',
+				modifiers: ['private'],
+				format: ['camelCase'],
+				leadingUnderscore: 'require'
+			},
+			{
+				selector: 'typeLike',
+				format: ['PascalCase']
+			},
+			{
+				// for non-exported functions
+				selector: 'function',
+				modifiers: ['global'],
+				format: ['camelCase'],
+				leadingUnderscore: 'require'
+			},
+			{
+				selector: 'function',
+				modifiers: ['exported', 'global'],
+				format: ['camelCase'],
+				leadingUnderscore: 'forbid'
+			},
+			{
+				// exception for QuantumTTT player names
+				selector: 'objectLiteralProperty',
+				filter: { regex: '^(X|Y)$', match: true },
+				format: ['PascalCase']
+			}
+		],
 		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
+		'@typescript-eslint/no-unnecessary-qualifier': 'error',
+		'@typescript-eslint/no-useless-empty-export': 'error',
+		'@typescript-eslint/prefer-enum-initializers': 'error',
+		'@typescript-eslint/prefer-readonly': 'error',
 
 		'@typescript-eslint/non-nullable-type-assertion-style': 'off',
 		'@typescript-eslint/unbound-method': 'off'
