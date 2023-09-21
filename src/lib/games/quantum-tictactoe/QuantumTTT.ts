@@ -32,10 +32,10 @@ import type {
 import Graph from './Graph';
 
 export default class QuantumTTT {
-	g: Graph;
+	protected _g: Graph;
 	state: StateType;
 	constructor() {
-		this.g = new Graph();
+		this._g = new Graph();
 		this.timer = this.timer.bind(this);
 		this.state = {
 			cSquares: [null, null, null, null, null, null, null, null, null],
@@ -122,11 +122,11 @@ export default class QuantumTTT {
 			(qSquares[i] as Exclude<(typeof qSquares)[typeof i], []>).push(marker);
 		else qSquares[i] = [marker];
 
-		if (!this.g.hasNode(i)) this.g.addNode(i);
-		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove as SquareType, i, marker);
+		if (!this._g.hasNode(i)) this._g.addNode(i);
+		if (this.isSecondMove()) this._g.addEdge(this.state.lastMove as SquareType, i, marker);
 
 		// if cycle is not null, there is a cyclic entanglement.
-		const cycle = this.g.getCycle(i);
+		const cycle = this._g.getCycle(i);
 		if (cycle) {
 			const msg =
 				'循環もつれが発生しました！\n' +
@@ -211,7 +211,7 @@ export default class QuantumTTT {
 
 		this.setState({ cSquares, qSquares });
 
-		for (const edge of this.g.getNode(i).edges) {
+		for (const edge of this._g.getNode(i).edges) {
 			if (!visited.has(edge.key)) {
 				visited.add(edge.key);
 				this._handleCollapseHelper(edge.key, edge.end.id, visited);
@@ -226,9 +226,11 @@ export default class QuantumTTT {
 }
 
 // pure functions to help with game logic in index.js
-type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareType, 3>]>;
+type LineType = ConstArray<SquareType, 3>;
+type WinnerType = [TurnNumType, PlayerType, LineType];
+type WinnersType = WinnerType[];
 function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): WinnersType {
-	const lines: ConstArray<ConstArray<SquareType, 3>, 8> = [
+	const lines = [
 		[0, 1, 2],
 		[3, 4, 5],
 		[6, 7, 8],
@@ -237,10 +239,9 @@ function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): W
 		[2, 5, 8],
 		[0, 4, 8],
 		[2, 4, 6]
-	];
+	] satisfies ConstArray<LineType, 8>;
 
 	const winners: WinnersType = [];
-
 	for (const line of lines) {
 		const [s1, s2, s3] = [squares[line[0]], squares[line[1]], squares[line[2]]];
 		// eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
@@ -261,7 +262,7 @@ function _calculateScores(
 
 	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
 
-	winners.sort((line1, line2) => {
+	winners.sort((line1: Readonly<WinnerType>, line2: Readonly<WinnerType>): -1 | 0 | 1 => {
 		if (line1[0] < line2[0]) return 1;
 		if (line1[0] > line2[0]) return -1;
 		if (line1[1] === 'X') return -1;

@@ -32,7 +32,7 @@ type EdgesType = {
 };
 
 class Node {
-	id: NodeIdType;
+	readonly id: NodeIdType;
 	edges: Edge[];
 	constructor(id: Readonly<NodeIdType>) {
 		this.id = id;
@@ -44,9 +44,9 @@ class Node {
  * edges between them, whose uniqueness needs to be accounted for.
  */
 class Edge {
-	start: Node;
-	end: Node;
-	key: EdgeKeyType;
+	readonly start: Node;
+	readonly end: Node;
+	readonly key: EdgeKeyType;
 	constructor(node1: Node, node2: Node, key: Readonly<EdgeKeyType>) {
 		this.start = node1;
 		this.end = node2;

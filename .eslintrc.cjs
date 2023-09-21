@@ -87,6 +87,12 @@ module.exports = {
 				leadingUnderscore: 'require'
 			},
 			{
+				selector: 'memberLike',
+				modifiers: ['protected'],
+				format: ['camelCase'],
+				leadingUnderscore: 'require'
+			},
+			{
 				selector: 'typeLike',
 				format: ['PascalCase']
 			},
@@ -116,6 +122,7 @@ module.exports = {
 		'@typescript-eslint/no-useless-empty-export': 'error',
 		'@typescript-eslint/prefer-enum-initializers': 'error',
 		'@typescript-eslint/prefer-readonly': 'error',
+		// '@typescript-eslint/prefer-readonly-parameter-types': 'error',
 
 		'@typescript-eslint/non-nullable-type-assertion-style': 'off',
 		'@typescript-eslint/unbound-method': 'off'
