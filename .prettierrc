@@ -1,4 +1,5 @@
 {
+	"plugins": ["prettier-plugin-svelte"],
 	"svelteIndentScriptAndStyle": false,
 	"useTabs": true,
 	"singleQuote": true,
