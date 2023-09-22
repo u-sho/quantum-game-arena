@@ -37,8 +37,10 @@ $: squareClass = cMark
 
 <div
 	class={squareClass}
-	on:click|preventDefault={(_) => onClick()}
-	on:keypress|preventDefault={(_) => onClick()}
+	on:click|preventDefault={onClick}
+	on:keypress|preventDefault={onClick}
+	role="button"
+	tabindex="0"
 >
 	<div>
 		<span class="border-dashing"><i /></span>

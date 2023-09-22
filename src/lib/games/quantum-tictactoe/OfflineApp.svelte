@@ -35,44 +35,46 @@ let message = state.status;
 
 $: choices =
 	state.collapseSquare !== null && state.cycleMarks !== null
-		? ((
-				state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []> as string[]
-		  )?.filter((choice) =>
-				(state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice as MarkType)
+		? ((state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
+				(choice) => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
 		  ) as MaxLengthArray<MarkType, 3> | undefined)
 		: undefined;
 
-function handleSquareClick(i: SquareType) {
+const handleSquareClick = (i: SquareType): void => {
 	const status = game.handleSquareClick(i);
 	if (import.meta.env.DEV) console.table(game.state);
 
 	state = { ...game.state };
 	message = status;
-}
+	return;
+};
 
-function handleCollapse(mark: MarkType) {
+const handleCollapse = (mark: MarkType): void => {
 	const status = game.handleCollapse(mark);
 
 	state = { ...game.state };
 	message = status;
-}
+	return;
+};
 
-function handleNextGameClick() {
+const handleNextGameClick = (): void => {
 	game = new Game();
 	game.setState({ scores: { ...state.scores } });
 	gameCount += 1;
 
 	state = { ...game.state };
 	message = `The ${getOrdinal(gameCount)} game!\n${game.state.status}`;
-}
+	return;
+};
 
-function handleResetGameClick() {
+const handleResetGameClick = (): void => {
 	game = new Game();
 	gameCount = 1;
 
 	state = { ...game.state };
 	message = game.state.status;
-}
+	return;
+};
 </script>
 
 <div class="game">

@@ -21,11 +21,17 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended-type-checked',
 		'plugin:@typescript-eslint/stylistic-type-checked',
 		'plugin:@typescript-eslint/strict-type-checked',
+		// 'plugin:svelte/recommended',
+		'plugin:svelte/prettier',
 		'prettier'
 	],
-	plugins: ['svelte3', '@typescript-eslint'],
+	plugins: ['@typescript-eslint'],
 	overrides: [
-		{ files: ['*.svelte'], processor: 'svelte3/svelte3' },
+		{
+			files: ['*.svelte'],
+			parser: 'svelte-eslint-parser',
+			parserOptions: { parser: '@typescript-eslint/parser' }
+		},
 		{
 			files: ['*.test.ts'],
 			rules: {
@@ -81,6 +87,13 @@ module.exports = {
 				format: ['camelCase', 'UPPER_CASE']
 			},
 			{
+				selector: 'parameter',
+				modifiers: ['unused'],
+				format: ['camelCase'],
+				leadingUnderscore: 'require',
+				trailingUnderscore: 'allow'
+			},
+			{
 				selector: 'memberLike',
 				modifiers: ['private'],
 				format: ['camelCase'],
@@ -111,7 +124,7 @@ module.exports = {
 			},
 			{
 				// exception for QuantumTTT player names
-				selector: 'objectLiteralProperty',
+				selector: 'property',
 				filter: { regex: '^(X|Y)$', match: true },
 				format: ['PascalCase']
 			}
@@ -119,6 +132,8 @@ module.exports = {
 		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
 		'@typescript-eslint/no-unnecessary-qualifier': 'error',
+		'no-unused-vars': 'off',
+		'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 		'@typescript-eslint/no-useless-empty-export': 'error',
 		'@typescript-eslint/prefer-enum-initializers': 'error',
 		'@typescript-eslint/prefer-readonly': 'error',
@@ -138,7 +153,8 @@ module.exports = {
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 'latest',
-		project: './tsconfig.eslint.json'
+		project: './tsconfig.eslint.json',
+		extraFileExtensions: ['.svelte']
 	},
 	env: {
 		browser: true,
