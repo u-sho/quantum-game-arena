@@ -40,6 +40,11 @@ export let onNextGameClick: () => void;
 
 // Reset scores & Go to new game
 export let onResetGameClick: () => void;
+
+// click a square
+const onClick = (choice: MarkType) => (): void => {
+	onChoiceClick(choice);
+};
 </script>
 
 <div class="game-info">
@@ -49,8 +54,10 @@ export let onResetGameClick: () => void;
 			{#each choices as choice (choice)}
 				<div
 					class="btn collapse-choice"
-					on:click|preventDefault={(_) => onChoiceClick(choice)}
-					on:keypress|preventDefault={(_) => onChoiceClick(choice)}
+					on:click|preventDefault={onClick(choice)}
+					on:keypress|preventDefault={onClick(choice)}
+					role="button"
+					tabindex="0"
 				>
 					<span>{choice[0]}<sub>{choice[1]}</sub></span>
 				</div>
@@ -63,6 +70,8 @@ export let onResetGameClick: () => void;
 				class="btn next-game"
 				on:click|preventDefault={onNextGameClick}
 				on:keypress|preventDefault={onNextGameClick}
+				role="button"
+				tabindex="0"
 			>
 				<span class="btn-text">Next</span>
 			</div>
@@ -70,6 +79,8 @@ export let onResetGameClick: () => void;
 				class="btn reset-game"
 				on:click|preventDefault={onResetGameClick}
 				on:keypress|preventDefault={onResetGameClick}
+				role="button"
+				tabindex="0"
 			>
 				<span class="btn-text">Reset</span>
 			</div>

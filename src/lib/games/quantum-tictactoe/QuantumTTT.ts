@@ -32,10 +32,10 @@ import type {
 import Graph from './Graph';
 
 export default class QuantumTTT {
-	g: Graph;
+	protected _g: Graph;
 	state: StateType;
 	constructor() {
-		this.g = new Graph();
+		this._g = new Graph();
 		this.timer = this.timer.bind(this);
 		this.state = {
 			cSquares: [null, null, null, null, null, null, null, null, null],
@@ -122,19 +122,19 @@ export default class QuantumTTT {
 			(qSquares[i] as Exclude<(typeof qSquares)[typeof i], []>).push(marker);
 		else qSquares[i] = [marker];
 
-		if (!this.g.hasNode(i)) this.g.addNode(i);
-		if (this.isSecondMove()) this.g.addEdge(this.state.lastMove as SquareType, i, marker);
+		if (!this._g.hasNode(i)) this._g.addNode(i);
+		if (this.isSecondMove()) this._g.addEdge(this.state.lastMove as SquareType, i, marker);
 
 		// if cycle is not null, there is a cyclic entanglement.
-		const cycle = this.g.getCycle(i);
+		const cycle = this._g.getCycle(i);
 		if (cycle) {
 			const msg =
 				'循環もつれが発生しました！\n' +
 				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
 			this.setState({
 				qSquares,
-				cycleSquares: cycle && (cycle[0] as MaxLengthArray<SquareType, 9>),
-				cycleMarks: cycle && (cycle[1] as MaxLengthArray<MarkType, 9>),
+				cycleSquares: cycle[0] as MaxLengthArray<SquareType, 9>,
+				cycleMarks: cycle[1] as MaxLengthArray<MarkType, 9>,
 				lastMove: i
 			});
 			return `${msg}`;
@@ -203,7 +203,7 @@ export default class QuantumTTT {
 		return status;
 	}
 
-	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>) {
+	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>): void {
 		const cSquares: StateType['cSquares'] = [...this.state.cSquares];
 		const qSquares: StateType['qSquares'] = [...this.state.qSquares];
 		cSquares[i] = mark;
@@ -211,12 +211,13 @@ export default class QuantumTTT {
 
 		this.setState({ cSquares, qSquares });
 
-		for (const edge of this.g.getNode(i).edges) {
+		for (const edge of this._g.getNode(i).edges) {
 			if (!visited.has(edge.key)) {
 				visited.add(edge.key);
 				this._handleCollapseHelper(edge.key, edge.end.id, visited);
 			}
 		}
+		return;
 	}
 
 	isSecondMove(): boolean {
@@ -225,7 +226,58 @@ export default class QuantumTTT {
 }
 
 // pure functions to help with game logic in index.js
-function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
+type LineType = ConstArray<SquareType, 3>;
+type WinnerType = [TurnNumType, PlayerType, LineType];
+type WinnersType = WinnerType[];
+function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): WinnersType {
+	const lines = [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8],
+		[0, 3, 6],
+		[1, 4, 7],
+		[2, 5, 8],
+		[0, 4, 8],
+		[2, 4, 6]
+	] satisfies ConstArray<LineType, 8>;
+
+	const winners: WinnersType = [];
+	for (const line of lines) {
+		const [s1, s2, s3] = [squares[line[0]], squares[line[1]], squares[line[2]]];
+		// eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
+		if (s1 && s2 && s3 && s1[0] === s2[0] && s1[0] === s3[0]) {
+			const subscripts = [s1[1], s2[1], s3[1]].map(Number) as ConstArray<TurnNumType, 3>;
+			winners.push([Math.max(...subscripts) as TurnNumType, s1[0] as PlayerType, line]);
+		}
+	}
+
+	return winners;
+}
+
+type OneGameScoresType = Record<PlayerType, 0 | 0.5 | 1 | 1.5>;
+function _calculateScores(
+	squares: Readonly<ConstArray<MarkType | null, 9>>
+): null | OneGameScoresType {
+	const winners = _calculateWinners(squares);
+
+	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
+
+	winners.sort((line1: Readonly<WinnerType>, line2: Readonly<WinnerType>): -1 | 0 | 1 => {
+		if (line1[0] < line2[0]) return 1;
+		if (line1[0] > line2[0]) return -1;
+		if (line1[1] === 'X') return -1;
+		return 0;
+	});
+
+	const scores: OneGameScoresType = { X: 0, Y: 0 };
+	if (winners.length >= 1) scores[winners[0][1]] = 1;
+	if (winners.length >= 2) scores[winners[1][1]] += 0.5;
+	if (winners.length === 3) scores[winners[2][1]] += 0.5;
+
+	return scores;
+}
+
+function _getWinnerMsg(scores: Readonly<OneGameScoresType>): StatusType {
 	const winner = scores.X > scores.Y ? 'X' : 'Y';
 	const loser = winner === 'X' ? 'Y' : 'X';
 
@@ -246,53 +298,4 @@ function _getWinnerMsg(scores: Readonly<{ X: number; Y: number }>) {
 		);
 
 	return 'どのプレイヤーも列を完成できていません';
-}
-
-type WinnersType = Array<[TurnNumType, PlayerType, ConstArray<SquareType, 3>]>;
-function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): WinnersType {
-	const lines: ConstArray<ConstArray<SquareType, 3>, 8> = [
-		[0, 1, 2],
-		[3, 4, 5],
-		[6, 7, 8],
-		[0, 3, 6],
-		[1, 4, 7],
-		[2, 5, 8],
-		[0, 4, 8],
-		[2, 4, 6]
-	];
-
-	const winners: WinnersType = [];
-
-	for (const line of lines) {
-		const [s1, s2, s3] = [squares[line[0]], squares[line[1]], squares[line[2]]];
-		if (s1 && s2 && s3 && s1[0] === s2[0] && s1[0] === s3[0]) {
-			const subscripts = [s1[1], s2[1], s3[1]].map(Number) as ConstArray<TurnNumType, 3>;
-			winners.push([Math.max(...subscripts) as TurnNumType, s1[0] as PlayerType, line]);
-		}
-	}
-
-	return winners;
-}
-
-function _calculateScores(squares: Readonly<ConstArray<MarkType | null, 9>>) {
-	const winners = _calculateWinners(squares);
-
-	if (winners.length === 0 && squares.filter((x) => !x).length > 1) return null;
-
-	winners.sort((line1, line2) => {
-		if (line1[0] < line2[0]) return 1;
-		if (line1[0] > line2[0]) return -1;
-		if (line1[1] === 'X') return -1;
-		return 0;
-	});
-
-	const scores: {
-		X: 0 | 0.5 | 1 | 1.5;
-		Y: 0 | 0.5 | 1 | 1.5;
-	} = { X: 0, Y: 0 };
-	if (winners.length >= 1) scores[winners[0][1]] = 1;
-	if (winners.length >= 2) scores[winners[1][1]] += 0.5;
-	if (winners.length === 3) scores[winners[2][1]] += 0.5;
-
-	return scores;
 }
