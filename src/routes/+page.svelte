@@ -10,6 +10,14 @@ import tictactoeImage from '$lib/assets/tic-tac-toe.webp';
 import { scrollTo } from 'svelte-scrollto';
 
 let footerHeight: number;
+
+const scrollToAbout = (): void => {
+	scrollTo({
+		element: '#about',
+		offset: -64,
+		duration: 1500
+	});
+};
 </script>
 
 <svelte:head>
@@ -25,17 +33,7 @@ let footerHeight: number;
 		<LogoTitleRowWhite
 			styles="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
-		<a
-			data-sveltekit-noscroll
-			href="/#about"
-			on:click={() =>
-				scrollTo({
-					element: '#about',
-					offset: -64,
-					duration: 1500
-				})}
-			class="btn_03"
-		>
+		<a data-sveltekit-noscroll href="/#about" on:click={scrollToAbout} class="btn_03">
 			<span>Start</span>
 		</a>
 	</header>
@@ -166,6 +164,7 @@ section {
 	flex-direction: column;
 	width: 100%;
 	padding: var(--header-height) 0;
+	scroll-margin-top: var(--header-height);
 
 	&:nth-child(even) {
 		background-color: var(--bg-light-color);

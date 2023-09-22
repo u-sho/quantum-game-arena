@@ -34,8 +34,10 @@ export let onSquareClick: (i: SquareType) => void;
 const rows = [0, 1, 2] as const;
 const columns = [0, 1, 2] as const;
 
-$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => onSquareClick((row * 3 + column) as SquareType);
-$: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
+$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
+	onSquareClick((row * 3 + column) as SquareType);
+};
+$: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
 	!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType);
 </script>
 
@@ -49,7 +51,7 @@ $: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2) =>
 					{cycleMarks}
 					isHighlighted={isHighlighted(row, column)}
 					isBeingCollapsed={collapseSquare === row * 3 + column}
-					onClick={() => onClick(row, column)}
+					onClick={onClick(row, column)}
 				/>
 			{/each}
 		</div>

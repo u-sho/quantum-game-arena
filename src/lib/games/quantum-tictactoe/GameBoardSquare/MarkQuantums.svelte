@@ -26,14 +26,14 @@ export let cycleMarks: StateType['cycleMarks'];
 export let isHighlighted: boolean;
 export let isBeingCollapsed: boolean;
 
-function getTextColor(mark: MarkType) {
+const getTextColor = (mark: MarkType): 'white' | 'blue' | 'red' => {
 	if (!cycleMarks?.length) return 'white';
 	if (cycleMarks.includes(mark)) {
 		if (isBeingCollapsed) return 'red';
 		if (isHighlighted) return 'blue';
 	}
 	return 'white';
-}
+};
 </script>
 
 <div class="quantum-marks">
