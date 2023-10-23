@@ -11,13 +11,9 @@ export let h: number;
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
-	<a
-		href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-		class="twitter-share-button"
-		data-show-count="false"
-	>
+	<a href="https://twitter.com/QGameArena" class="twitter-button">
 		<TwitterLogoWhite styles="width: 1.25rem" />
-		<span>Tweet</span>
+		<span>@QGameArena</span>
 	</a>
 </footer>
 
@@ -63,7 +59,7 @@ export let h: number;
 	}
 }
 
-a.twitter-share-button {
+a.twitter-button {
 	color: #ffffff;
 	font-size: 1.25rem;
 	height: 1.5rem;
