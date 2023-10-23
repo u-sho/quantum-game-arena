@@ -1,6 +1,7 @@
 <script lang="ts">
 import LogoWhite from '$lib/assets/logo_white.svg.svelte';
 import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
+import GithubMarkWhite from '$lib/assets/github-mark-white.svg.svelte';
 export let h: number;
 </script>
 
@@ -11,14 +12,18 @@ export let h: number;
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
-	<a
-		href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-		class="twitter-share-button"
-		data-show-count="false"
-	>
-		<TwitterLogoWhite styles="width: 1.25rem" />
-		<span>Tweet</span>
-	</a>
+	<div class="footer__links">
+		<a href="https://twitter.com/QGameArena" class="twitter-button">
+			<TwitterLogoWhite styles="width: 1.25rem" />
+		</a>
+		<a href="https://github.com/u-sho/quantum-game-arena" class="github-button">
+			<GithubMarkWhite styles="width: 1.25rem; height: 1.25rem" />
+		</a>
+	</div>
+	<p class="copyright">
+		&copy; 2021-{new Date().getFullYear()}
+		<a rel="author" href="https://github.com/u-sho">Shouhei Uechi</a> & Takuma Nishimura.
+	</p>
 </footer>
 
 <style lang="scss">
@@ -63,11 +68,35 @@ export let h: number;
 	}
 }
 
-a.twitter-share-button {
+.footer__links {
+	margin: 0;
+	padding: 0.2rem;
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	a {
+		margin: 0 0.5rem;
+	}
+}
+
+a.twitter-button,
+a.github-button {
 	color: #ffffff;
 	font-size: 1.25rem;
 	height: 1.5rem;
 	padding: 0.2rem 0;
 	display: block;
+}
+
+p.copyright {
+	margin: 0;
+	padding: 0;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	text-align: center;
+}
+a[rel='author'] {
+	color: #ffffff;
 }
 </style>
