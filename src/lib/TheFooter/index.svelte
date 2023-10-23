@@ -20,6 +20,10 @@ export let h: number;
 			<GithubMarkWhite styles="width: 1.25rem; height: 1.25rem" />
 		</a>
 	</div>
+	<p class="copyright">
+		&copy; 2021-{new Date().getFullYear()}
+		<a rel="author" href="https://github.com/u-sho">Shouhei Uechi</a> & Takuma Nishimura.
+	</p>
 </footer>
 
 <style lang="scss">
@@ -83,5 +87,16 @@ a.github-button {
 	height: 1.5rem;
 	padding: 0.2rem 0;
 	display: block;
+}
+
+p.copyright {
+	margin: 0;
+	padding: 0;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	text-align: center;
+}
+a[rel='author'] {
+	color: #ffffff;
 }
 </style>
