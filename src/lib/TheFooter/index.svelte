@@ -1,6 +1,7 @@
 <script lang="ts">
 import LogoWhite from '$lib/assets/logo_white.svg.svelte';
 import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
+import GithubMarkWhite from '$lib/assets/github-mark-white.svg.svelte';
 export let h: number;
 </script>
 
@@ -11,10 +12,14 @@ export let h: number;
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
-	<a href="https://twitter.com/QGameArena" class="twitter-button">
-		<TwitterLogoWhite styles="width: 1.25rem" />
-		<span>@QGameArena</span>
-	</a>
+	<div class="footer__links">
+		<a href="https://twitter.com/QGameArena" class="twitter-button">
+			<TwitterLogoWhite styles="width: 1.25rem" />
+		</a>
+		<a href="https://github.com/u-sho/quantum-game-arena" class="github-button">
+			<GithubMarkWhite styles="width: 1.25rem; height: 1.25rem" />
+		</a>
+	</div>
 </footer>
 
 <style lang="scss">
@@ -59,7 +64,20 @@ export let h: number;
 	}
 }
 
-a.twitter-button {
+.footer__links {
+	margin: 0;
+	padding: 0.2rem;
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	a {
+		margin: 0 0.5rem;
+	}
+}
+
+a.twitter-button,
+a.github-button {
 	color: #ffffff;
 	font-size: 1.25rem;
 	height: 1.5rem;
