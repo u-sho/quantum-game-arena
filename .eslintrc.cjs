@@ -82,6 +82,11 @@ module.exports = {
 				trailingUnderscore: 'forbid'
 			},
 			{
+				selector: 'import',
+				filter: { regex: '[0-9a-z]Image$', match: false },
+				format: ['PascalCase']
+			},
+			{
 				selector: 'variable',
 				modifiers: ['global', 'const'],
 				format: ['camelCase', 'UPPER_CASE']
