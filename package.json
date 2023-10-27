@@ -65,7 +65,7 @@
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.8.8"
 	},
 	"dependencies": {
-		"@vercel/analytics": "^1.0.1"
+		"@vercel/analytics": "^1.1.0"
 	},
 	"engines": {
 		"node": "18.x",
