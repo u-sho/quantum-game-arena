@@ -137,6 +137,7 @@ module.exports = {
 		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
 		'@typescript-eslint/no-unnecessary-qualifier': 'error',
+		'@typescript-eslint/no-unsafe-unary-minus': 'error',
 		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 		'@typescript-eslint/no-useless-empty-export': 'error',
