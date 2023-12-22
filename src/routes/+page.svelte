@@ -196,6 +196,15 @@ section {
 	}
 }
 
+.playflow {
+	list-style-type: none;
+	li > p:first-child {
+		font-weight: bold;
+		color: var(--theme-color);
+		margin-left: 0;
+	}
+}
+
 .game-list {
 	display: flex;
 	align-items: center;
