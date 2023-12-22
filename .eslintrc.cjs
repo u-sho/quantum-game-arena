@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 const isProduction = () => process.env.NODE_ENV === 'production';
 
 /**
