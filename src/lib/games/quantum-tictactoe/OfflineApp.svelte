@@ -37,7 +37,7 @@ $: choices =
 	state.collapseSquare !== null && state.cycleMarks !== null
 		? ((state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
 				(choice) => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
-		  ) as MaxLengthArray<MarkType, 3> | undefined)
+			) as MaxLengthArray<MarkType, 3> | undefined)
 		: undefined;
 
 const handleSquareClick = (i: SquareType): void => {
