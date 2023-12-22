@@ -3,7 +3,9 @@ import { onMount } from 'svelte';
 let dialogElement: HTMLDialogElement;
 onMount(() => {
 	dialogElement.showModal();
-	setTimeout(() => { dialogElement.close(); }, 2400);
+	setTimeout(() => {
+		dialogElement.close();
+	}, 2400);
 });
 </script>
 
