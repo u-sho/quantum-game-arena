@@ -42,9 +42,9 @@ $: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
 </script>
 
 <div class="game-board">
-	{#each rows as row}
+	{#each rows as row (row)}
 		<div class="game-board--row">
-			{#each columns as column}
+			{#each columns as column (column)}
 				<BoardSquare
 					cMark={cSquares[row * 3 + column]}
 					qMarks={qSquares[row * 3 + column]}

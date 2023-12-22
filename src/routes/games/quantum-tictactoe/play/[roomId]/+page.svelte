@@ -26,4 +26,8 @@ import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 	align-items: center;
 	justify-content: space-between;
 }
+
+.title {
+	text-align: center;
+}
 </style>

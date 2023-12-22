@@ -21,7 +21,7 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended-type-checked',
 		'plugin:@typescript-eslint/stylistic-type-checked',
 		'plugin:@typescript-eslint/strict-type-checked',
-		// 'plugin:svelte/recommended',
+		'plugin:svelte/recommended',
 		'plugin:svelte/prettier',
 		'prettier'
 	],
@@ -30,7 +30,15 @@ module.exports = {
 		{
 			files: ['*.svelte'],
 			parser: 'svelte-eslint-parser',
-			parserOptions: { parser: '@typescript-eslint/parser' }
+			parserOptions: { parser: '@typescript-eslint/parser' },
+			rules: {
+				'no-trailing-spaces': 'off',
+				'svelte/no-trailing-spaces': ['warn', { skipBlankLines: false, ignoreComments: false }]
+			}
+		},
+		{
+			files: ['*.svg.svelte'],
+			rules: { 'svelte/require-optimized-style-attribute': 'off' }
 		},
 		{
 			files: ['*.test.ts'],
@@ -57,12 +65,25 @@ module.exports = {
 
 		eqeqeq: ['error', 'always', { null: 'ignore' }],
 		'no-duplicate-imports': ['error', { includeExports: true }],
+		'no-trailing-spaces': 'warn',
 		'no-unused-expressions': 'error',
 		'no-var': 'error',
 		'prefer-const': 'error',
 
 		// use '$lib/*' instead
 		'no-restricted-imports': ['error', { patterns: ['../*', 'src/lib/*'] }],
+
+		'svelte/no-dupe-on-directives': 'error',
+		'svelte/no-dupe-use-directives': 'error',
+		'svelte/no-reactive-reassign': ['error', { props: true }],
+		'svelte/no-target-blank': 'error',
+		'svelte/no-immutable-reactive-statements': 'error',
+		'svelte/no-inline-styles': 'off',
+		'svelte/no-unused-class-name': 'warn',
+		'svelte/no-useless-mustaches': 'warn',
+		'svelte/require-each-key': 'error',
+		'svelte/require-optimized-style-attribute': 'warn',
+		'svelte/valid-each-key': 'error',
 
 		'@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -137,6 +158,7 @@ module.exports = {
 		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
 		'@typescript-eslint/no-unnecessary-qualifier': 'error',
+		'@typescript-eslint/no-unsafe-unary-minus': 'error',
 		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 		'@typescript-eslint/no-useless-empty-export': 'error',
@@ -152,8 +174,7 @@ module.exports = {
 		'@typescript-eslint/unbound-method': 'off'
 	},
 	settings: {
-		'svelte3/ignore-styles': () => true,
-		'svelte3/typescript': () => require('typescript')
+		svelte: { kit: { files: { routes: 'src/routes' } } }
 	},
 	parserOptions: {
 		sourceType: 'module',

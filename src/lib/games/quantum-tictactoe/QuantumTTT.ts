@@ -137,7 +137,7 @@ export default class QuantumTTT {
 				cycleMarks: cycle[1] as MaxLengthArray<MarkType, 9>,
 				lastMove: i
 			});
-			return `${msg}`;
+			return msg;
 		}
 
 		this.setState({
