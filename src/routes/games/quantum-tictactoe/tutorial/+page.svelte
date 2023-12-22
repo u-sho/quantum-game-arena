@@ -118,7 +118,6 @@ let footerHeight: number;
 	<!-- TODO
 		<a
 			class="btn"
-			
 			href="/games/quantum-tictactoe/play/human"
 			type="application/ecmascript"
 		>
