@@ -1,5 +1,5 @@
 <script lang="ts">
-import TheFooter from '$lib/TheFooter/index.svelte';
+import AppFooter from '$lib/AppFooter.svelte';
 
 import LogoTitleRowWhite from '$lib/assets/logo-title_row-white.svg.svelte';
 import heroImage from '$lib/assets/hero.webp';
@@ -96,7 +96,7 @@ const scrollToAbout = (): void => {
 		</a>
 	</section>
 </article>
-<TheFooter bind:h={footerHeight} />
+<AppFooter bind:h={footerHeight} />
 
 <style lang="scss">
 a.btn_03 {

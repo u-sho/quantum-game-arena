@@ -19,7 +19,7 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import BoardSquare from './GameBoardSquare/index.svelte';
+import GameBoardSquare from './GameBoardSquare.svelte';
 import type { SquareType, StateType } from './QuantumTTT.type';
 
 export let cSquares: StateType['cSquares'];
@@ -45,7 +45,7 @@ $: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
 	{#each rows as row (row)}
 		<div class="game-board--row">
 			{#each columns as column (column)}
-				<BoardSquare
+				<GameBoardSquare
 					cMark={cSquares[row * 3 + column]}
 					qMarks={qSquares[row * 3 + column]}
 					{cycleMarks}

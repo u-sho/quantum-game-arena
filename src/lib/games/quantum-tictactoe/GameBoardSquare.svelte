@@ -19,8 +19,8 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import QuantumMarks from './MarkQuantums.svelte';
-import ClassicalMark from './MarkClassical.svelte';
+import QuantumMarks from './GameBoardSquareMarkQuantums.svelte';
+import ClassicalMark from './GameBoardSquareMarkClassical.svelte';
 import type { StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
 
 export let cMark: StateType['cSquares'][0];

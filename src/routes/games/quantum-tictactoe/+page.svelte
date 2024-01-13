@@ -1,5 +1,5 @@
 <script lang="ts">
-import TheFooter from '$lib/TheFooter/index.svelte';
+import AppFooter from '$lib/AppFooter.svelte';
 
 let footerHeight: number;
 </script>
@@ -27,14 +27,14 @@ let footerHeight: number;
 		<li class="coming-soon"><span class="btn">オンライン対局</span></li>
 	</ul>
 </main>
-<TheFooter bind:h={footerHeight}>
+<AppFooter bind:h={footerHeight}>
 	<!--TODO: <menu>
 	<li>settings</li>
 	<li>license</li>
 	<li>share</li>
 	<li>help</li>
 </menu> -->
-</TheFooter>
+</AppFooter>
 
 <style lang="scss">
 .main {
