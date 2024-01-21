@@ -62,7 +62,7 @@
 		"tslib": "^2.6.2",
 		"typescript": "~5.3.2",
 		"typescript-eslint-language-service": "^5.0.5",
-		"vite": "^5.0.10",
+		"vite": "^5.0.12",
 		"vitest": "^1.1.0",
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.9.2"
 	},
