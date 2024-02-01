@@ -41,9 +41,9 @@
 		"lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint/.eslintcache ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^4.0.3",
-		"@sveltejs/kit": "^2.4.3",
-		"@sveltejs/vite-plugin-svelte": "^3.0.1",
+		"@sveltejs/adapter-vercel": "^5.1.0",
+		"@sveltejs/kit": "^2.5.0",
+		"@sveltejs/vite-plugin-svelte": "^3.0.2",
 		"@typescript-eslint/eslint-plugin": "^6.20.0",
 		"@typescript-eslint/parser": "^6.20.0",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.130",
