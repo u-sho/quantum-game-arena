@@ -42,7 +42,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^4.0.3",
-		"@sveltejs/kit": "^2.0.6",
+		"@sveltejs/kit": "^2.4.3",
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
 		"@typescript-eslint/eslint-plugin": "^6.20.0",
 		"@typescript-eslint/parser": "^6.20.0",
@@ -62,7 +62,7 @@
 		"tslib": "^2.6.2",
 		"typescript": "~5.3.2",
 		"typescript-eslint-language-service": "^5.0.5",
-		"vite": "^5.0.10",
+		"vite": "^5.0.12",
 		"vitest": "^1.1.0",
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.9.2"
 	},
