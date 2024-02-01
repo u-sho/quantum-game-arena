@@ -1,5 +1,5 @@
 <script lang="ts">
-import TheFooter from '$lib/TheFooter/index.svelte';
+import AppFooter from '$lib/AppFooter.svelte';
 
 import t1Image from '$lib/assets/tutorial1.png';
 import t2Image from '$lib/assets/tutorial2.png';
@@ -125,7 +125,7 @@ let footerHeight: number;
 		</a>
 	-->
 </main>
-<TheFooter bind:h={footerHeight} />
+<AppFooter bind:h={footerHeight} />
 
 <style lang="scss">
 .main {
