@@ -2,16 +2,15 @@
 	"extends": "./tsconfig.json",
 	"include": [
 		"./.svelte-kit/ambient.d.ts",
+		"./.svelte-kit/non-ambient.d.ts",
 		"./.svelte-kit/types/**/$types.d.ts",
+		"./svelte.config.js",
 		"./vite.config.ts",
 		"./src/**/*.ts",
 		"./src/**/*.svelte",
 		"./tests/**/*.ts",
 		"./tests/**/*.svelte",
 
-		"./**/*.test.ts",
-		"./**/*.test-d.ts",
-		"./.eslintrc.cjs",
-		"./svelte.config.js"
+		"./.eslintrc.cjs"
 	]
 }
