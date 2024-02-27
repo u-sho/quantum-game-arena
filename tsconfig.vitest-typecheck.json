@@ -51,8 +51,6 @@
 		"./tests/**/*.svelte"
 	],
 	"exclude": [
-		"./node_modules/**",
-		"./.svelte-kit/[!ambient.d.ts]**",
-		"./src/service-worker/index.ts"
+		"./node_modules/**"
 	]
 }
