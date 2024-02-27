@@ -44,7 +44,7 @@
 		"@sveltejs/adapter-vercel": "^5.1.0",
 		"@sveltejs/kit": "^2.5.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
-		"@typescript-eslint/eslint-plugin": "^6.20.0",
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
 		"@typescript-eslint/parser": "^6.21.0",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.130",
 		"@vitest/coverage-v8": "^1.2.2",
