@@ -1,6 +1,6 @@
 {
 	"name": "quantum-game-arena",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "The play area of Quantum Games that aim to grew up the intuition of Quantum Mechanics.",
 	"keywords": [
 		"education",
@@ -44,8 +44,8 @@
 		"@sveltejs/adapter-vercel": "^5.1.0",
 		"@sveltejs/kit": "^2.5.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
-		"@typescript-eslint/eslint-plugin": "^6.20.0",
-		"@typescript-eslint/parser": "^6.20.0",
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"@typescript-eslint/parser": "^6.21.0",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.130",
 		"@vitest/coverage-v8": "^1.2.2",
 		"better-typescript-lib": "^2.6.0",
@@ -53,10 +53,10 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"npm-run-all": "^4.1.5",
-		"prettier": "^3.2.4",
+		"prettier": "^3.2.5",
 		"prettier-plugin-svelte": "^3.1.2",
 		"sass": "^1.70.0",
-		"svelte": "^4.2.9",
+		"svelte": "^4.2.12",
 		"svelte-check": "^3.6.3",
 		"svelte-scrollto": "0.2.0",
 		"tslib": "^2.6.2",
@@ -72,6 +72,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@vercel/analytics": "^1.1.2"
+		"@vercel/analytics": "^1.2.2",
+		"@vercel/speed-insights": "^1.0.10"
 	}
 }
