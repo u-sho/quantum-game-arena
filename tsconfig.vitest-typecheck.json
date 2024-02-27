@@ -8,7 +8,7 @@
 		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
 		"lib": ["esnext", "DOM", "DOM.Iterable"],
-		"moduleResolution": "node",
+		"moduleResolution": "Bundler",
 		"module": "esnext",
 		"target": "esnext",
 
@@ -41,7 +41,9 @@
 	},
 	"include": [
 		"./.svelte-kit/ambient.d.ts",
+		"./.svelte-kit/non-ambient.d.ts",
 		"./.svelte-kit/types/**/$types.d.ts",
+		"./svelte.config.js",
 		"./vite.config.ts",
 		"./src/**/*.ts",
 		"./src/**/*.svelte",
