@@ -12,5 +12,6 @@
 		"./tests/**/*.svelte",
 
 		"./.eslintrc.cjs"
-	]
+	],
+	"exclude": ["./node_modules/**"]
 }
