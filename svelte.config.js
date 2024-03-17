@@ -15,7 +15,8 @@ const config = {
 					'https://pbs.twimg.com/profile_banners/1398377057772470274/1623818332/*',
 					'vitals.vercel-insights.com'
 				],
-				'style-src': ['self', 'unsafe-inline', 'vitals.vercel-insights.com']
+				'style-src': ['self', 'unsafe-inline', 'vitals.vercel-insights.com'],
+				'script-src-elem': ['self', 'va.vercel-scripts.com']
 			}
 		},
 		prerender: {
