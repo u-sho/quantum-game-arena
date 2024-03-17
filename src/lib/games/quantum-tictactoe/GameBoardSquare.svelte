@@ -30,15 +30,20 @@ export let isHighlighted: boolean;
 export let isBeingCollapsed: boolean;
 export let onClick: () => void;
 
+export let squareName: `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
+
 $: squareClass = cMark
 	? 'square'
 	: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
+
+$: ariaLabel = `${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`;
 </script>
 
 <div
 	class={squareClass}
 	on:click|preventDefault={onClick}
 	on:keypress|preventDefault={onClick}
+	aria-label={ariaLabel}
 	role="button"
 	tabindex="0"
 >

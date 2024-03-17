@@ -13,10 +13,18 @@ export let h: number;
 		</a>
 	</div>
 	<div class="footer__links">
-		<a href="https://twitter.com/QGameArena" class="twitter-button">
+		<a
+			href="https://twitter.com/QGameArena"
+			class="twitter-button"
+			aria-label="Twitter (X) account"
+		>
 			<TwitterLogoWhite styles="width: 1.25rem" />
 		</a>
-		<a href="https://github.com/u-sho/quantum-game-arena" class="github-button">
+		<a
+			href="https://github.com/u-sho/quantum-game-arena"
+			class="github-button"
+			aria-label="GitHub repository"
+		>
 			<GithubMarkWhite styles="width: 1.25rem; height: 1.25rem" />
 		</a>
 	</div>

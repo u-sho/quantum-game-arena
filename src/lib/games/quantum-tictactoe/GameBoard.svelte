@@ -39,6 +39,15 @@ $: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
 };
 $: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
 	!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType);
+
+const currentSquareName = (
+	row: 0 | 1 | 2,
+	column: 0 | 1 | 2
+): `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square` => {
+	const verticalPosition = row === 0 ? 'upper' : row === 1 ? 'middle' : 'lower';
+	const horizontalPosition = column === 0 ? 'left' : column === 1 ? 'center' : 'right';
+	return `${verticalPosition} ${horizontalPosition} square`;
+};
 </script>
 
 <div class="game-board">
@@ -52,6 +61,7 @@ $: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
 					isHighlighted={isHighlighted(row, column)}
 					isBeingCollapsed={collapseSquare === row * 3 + column}
 					onClick={onClick(row, column)}
+					squareName={currentSquareName(row, column)}
 				/>
 			{/each}
 		</div>
