@@ -2,7 +2,7 @@
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://qgame.app</loc>
-		<lastmod>2022-09-29</lastmod>
+		<lastmod>2023-12-22</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
@@ -16,13 +16,13 @@
 
 	<url>
 		<loc>https://qgame.app/games/quantum-tictactoe/tutorial</loc>
-		<lastmod>2022-09-29</lastmod>
+		<lastmod>2023-09-23</lastmod>
 		<changefreq>yearly</changefreq>
 	</url>
 
 	<url>
 		<loc>https://qgame.app/games/quantum-tictactoe/play/human</loc>
-		<lastmod>2022-09-29</lastmod>
+		<lastmod>2023-12-22</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>1.0</priority>
 	</url>
