@@ -27,7 +27,7 @@ const scrollToAbout = (): void => {
 	<meta property="og:title" content="Quantum Game Arena" />
 </svelte:head>
 
-<article style="padding-bottom: {footerHeight}px;">
+<article style:padding-bottom="{footerHeight}px">
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite

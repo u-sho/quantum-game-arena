@@ -11,7 +11,7 @@ let footerHeight: number;
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
-<main class="main" style="padding-bottom:{footerHeight}px">
+<main class="main" style:padding-bottom="{footerHeight}px">
 	<h1 class="main--title">Quantum Tic-Tac-Toe</h1>
 	<ul class="nav">
 		<li>
@@ -28,7 +28,7 @@ let footerHeight: number;
 	</ul>
 </main>
 <AppFooter bind:h={footerHeight}>
-	<!--TODO: <menu>
+	<!-- TODO: <menu>
 	<li>settings</li>
 	<li>license</li>
 	<li>share</li>

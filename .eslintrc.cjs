@@ -19,14 +19,12 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	extends: [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended-type-checked',
 		'plugin:@typescript-eslint/stylistic-type-checked',
 		'plugin:@typescript-eslint/strict-type-checked',
-		'plugin:svelte/recommended',
+		'plugin:svelte/all',
 		'plugin:svelte/prettier',
 		'prettier'
 	],
-	plugins: ['@typescript-eslint'],
 	overrides: [
 		{
 			files: ['*.svelte'],
@@ -40,13 +38,6 @@ module.exports = {
 		{
 			files: ['*.svg.svelte'],
 			rules: { 'svelte/require-optimized-style-attribute': 'off' }
-		},
-		{
-			files: ['*.test.ts'],
-			rules: {
-				'@typescript-eslint/ban-ts-comment': 'off',
-				'@typescript-eslint/no-unused-vars': 'off'
-			}
 		},
 		{
 			files: ['*.js', '*.cjs'],
@@ -74,17 +65,16 @@ module.exports = {
 		// use '$lib/*' instead
 		'no-restricted-imports': ['error', { patterns: ['../*', 'src/lib/*'] }],
 
-		'svelte/no-dupe-on-directives': 'error',
-		'svelte/no-dupe-use-directives': 'error',
 		'svelte/no-reactive-reassign': ['error', { props: true }],
-		'svelte/no-target-blank': 'error',
-		'svelte/no-immutable-reactive-statements': 'error',
+		'svelte/block-lang': ['error', { script: 'ts', style: 'scss' }],
 		'svelte/no-inline-styles': 'off',
 		'svelte/no-unused-class-name': 'warn',
 		'svelte/no-useless-mustaches': 'warn',
-		'svelte/require-each-key': 'error',
+		'svelte/no-restricted-html-elements': 'off',
 		'svelte/require-optimized-style-attribute': 'warn',
-		'svelte/valid-each-key': 'error',
+		'svelte/sort-attributes': 'off',
+		'svelte/experimental-require-slot-types': 'off',
+		'svelte/experimental-require-strict-events': 'off',
 
 		'@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -169,6 +159,7 @@ module.exports = {
 		'@typescript-eslint/prefer-regexp-exec': 'error',
 		'@typescript-eslint/promise-function-async': 'error',
 		'@typescript-eslint/require-array-sort-compare': 'error',
+		'@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
 		'@typescript-eslint/switch-exhaustiveness-check': 'error',
 
 		'@typescript-eslint/non-nullable-type-assertion-style': 'off',
@@ -179,13 +170,13 @@ module.exports = {
 	},
 	parserOptions: {
 		sourceType: 'module',
-		ecmaVersion: 'latest',
+		ecmaVersion: 2023,
 		project: './tsconfig.eslint.json',
 		extraFileExtensions: ['.svelte']
 	},
 	env: {
 		browser: true,
-		es2022: true,
+		es2023: true,
 		node: true
 	}
 };
