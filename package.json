@@ -37,9 +37,9 @@
 		"test": "vitest",
 		"vitest:all": "run-s typecheck:vitest test",
 		"format:dry": "prettier --cache --check .",
-		"lint:dry": "eslint --cache --cache-location ./node_modules/.cache/eslint/.eslintcache .",
+		"lint:dry": "eslint .",
 		"format": "prettier --cache --write .",
-		"lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint/.eslintcache ."
+		"lint": "eslint --fix ."
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^5.1.1",
