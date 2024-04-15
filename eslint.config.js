@@ -40,6 +40,9 @@ const defaultConfig = {
 			...globals.es2021
 		}
 	},
+	linterOptions: {
+		reportUnusedDisableDirectives: true
+	},
 	plugins: {
 		'@typescript-eslint': tsEslintPlugin
 	},
@@ -147,6 +150,10 @@ const defaultConfig = {
 		'@typescript-eslint/prefer-readonly': 'error',
 		// '@typescript-eslint/prefer-readonly-parameter-types': 'error',
 		'@typescript-eslint/prefer-regexp-exec': 'error',
+		'@typescript-eslint/prefer-string-starts-ends-with': [
+			'error',
+			{ allowSingleElementEquality: 'always' }
+		],
 		'@typescript-eslint/promise-function-async': 'error',
 		'@typescript-eslint/require-array-sort-compare': 'error',
 		'@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
