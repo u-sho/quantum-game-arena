@@ -11,7 +11,7 @@
 		"./tests/**/*.ts",
 		"./tests/**/*.svelte",
 
-		"./.eslintrc.cjs"
+		"./eslint.config.js"
 	],
 	"exclude": ["./node_modules/**"]
 }

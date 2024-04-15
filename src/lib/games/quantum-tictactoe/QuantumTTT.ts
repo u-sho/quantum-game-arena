@@ -70,8 +70,8 @@ export default class QuantumTTT {
 		return this.state.currentSubTurn < 2 ? 'Y' : 'X';
 	}
 
-	timer(): void {
-		if (this.whoseTurn() === 'X') {
+	timer = (): void => {
+		if (this.whoseTurn() === 'X' && !this.state.cycleSquares?.length) {
 			if (this.state.leftTimes.X <= 0) {
 				this.setState({
 					isOver: true,
@@ -82,7 +82,7 @@ export default class QuantumTTT {
 			}
 		}
 
-		if (this.whoseTurn() === 'Y') {
+		if (this.whoseTurn() === 'Y' && !this.state.cycleSquares?.length) {
 			if (this.state.leftTimes.Y <= 0) {
 				this.setState({
 					isOver: true,
@@ -92,7 +92,7 @@ export default class QuantumTTT {
 				this.setLeftTimes({ Y: this.state.leftTimes.Y - 1 });
 			}
 		}
-	}
+	};
 
 	// dispatches click to appropriate handler based on state
 	handleSquareClick(i: SquareType): StatusType {
