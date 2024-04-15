@@ -19,7 +19,8 @@ const ignores = [
 	'static/**',
 	'build/**',
 	'coverage/**',
-	'node_modules/**'
+	'node_modules/**',
+	'vite.config.ts.timestamp*'
 ];
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
