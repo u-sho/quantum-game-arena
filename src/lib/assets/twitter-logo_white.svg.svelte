@@ -13,7 +13,8 @@ export let styles: string;
 	x="0px"
 	y="0px"
 	viewBox="0 0 248 204"
-	style="enable-background:new 0 0 248 204;{styles}"
+	style:enable-background="new 0 0 248 204"
+	style={styles}
 	xml:space="preserve"
 >
 	<path

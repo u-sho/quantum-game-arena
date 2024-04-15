@@ -4,7 +4,6 @@
 	"editor.insertSpaces": false,
 	"editor.renderControlCharacters": true,
 	"editor.renderWhitespace": "boundary",
-	"editor.tabSize": 2,
 	"editor.trimAutoWhitespace": true,
 	"files.eol": "\n",
 	"files.insertFinalNewline": true,
@@ -32,5 +31,10 @@
 		"editor.defaultFormatter": "svelte.svelte-vscode"
 	},
 	/* TypeScript */
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	/* YAML */
+	"[yaml]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	}
 }

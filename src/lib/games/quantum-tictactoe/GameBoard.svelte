@@ -34,9 +34,10 @@ export let onSquareClick: (i: SquareType) => void;
 const rows = [0, 1, 2] as const;
 const columns = [0, 1, 2] as const;
 
-$: onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
+const onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
 	onSquareClick((row * 3 + column) as SquareType);
 };
+// eslint-disable-next-line svelte/no-reactive-functions
 $: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
 	!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType);
 
