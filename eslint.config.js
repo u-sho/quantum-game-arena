@@ -203,12 +203,14 @@ const svelteConfig = {
 /** @type {import('eslint').Linter.FlatConfig}*/
 const svelteSvgConfig = {
 	files: ['src/**/*.svg.svelte'],
+	ignores,
 	rules: { 'svelte/require-optimized-style-attribute': 'off' }
 };
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
 const anyConfigConfig = {
 	files: ['*.config.*'],
+	ignores,
 	rules: {
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/naming-convention': 'off'
@@ -218,6 +220,7 @@ const anyConfigConfig = {
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
 const eslintConfigConfig = {
 	files: ['eslint.config.js'],
+	ignores,
 	rules: { '@typescript-eslint/no-unsafe-member-access': 'off' }
 };
 
