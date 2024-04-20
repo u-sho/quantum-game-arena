@@ -25,7 +25,6 @@ const ignores = [
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
 const defaultConfig = {
-	files: ['**/*.{js,cjs,mjs,ts,svelte}'],
 	ignores,
 	languageOptions: {
 		parser: tsEslint.parser,
@@ -167,7 +166,6 @@ const defaultConfig = {
 /** @type {import('eslint').Linter.FlatConfig}*/
 const svelteConfig = {
 	files: ['src/**/*.svelte'],
-	ignores,
 	languageOptions: {
 		parser: svelteEslintParser,
 		parserOptions: {
@@ -178,7 +176,6 @@ const svelteConfig = {
 		globals: defaultConfig.languageOptions?.globals
 	},
 	plugins: {
-		'@typescript-eslint': tsEslintPlugin,
 		svelte: eslintPluginSvelteConfig
 	},
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -203,14 +200,12 @@ const svelteConfig = {
 /** @type {import('eslint').Linter.FlatConfig}*/
 const svelteSvgConfig = {
 	files: ['src/**/*.svg.svelte'],
-	ignores,
 	rules: { 'svelte/require-optimized-style-attribute': 'off' }
 };
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
 const anyConfigConfig = {
 	files: ['*.config.*'],
-	ignores,
 	rules: {
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/naming-convention': 'off'
@@ -220,7 +215,6 @@ const anyConfigConfig = {
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
 const eslintConfigConfig = {
 	files: ['eslint.config.js'],
-	ignores,
 	rules: { '@typescript-eslint/no-unsafe-member-access': 'off' }
 };
 
