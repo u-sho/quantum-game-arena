@@ -3,7 +3,6 @@ import { configDefaults, defineConfig } from 'vitest/config';
 
 const VITEST_IGNORE_PATTERNS = [
 	...configDefaults.exclude,
-	'coverage/**',
 	'.github/**',
 	'.svelte-kit/**',
 	'.vercel_build_output/**',
@@ -15,12 +14,8 @@ const VITEST_COVERAGE_IGNORE_PATTERNS = [
 	...VITEST_IGNORE_PATTERNS,
 	'**/*.svelte', // E2E test is needed
 	'src/routes/**/+*.ts',
-	'**/*.{type,d}.ts',
-	'test{,s}/**',
 	'**/*{.,-}{test,spec}{,-d}.{ts,svelte}',
-	'**/__tests__/**',
-	'**/{vite,svelte}.config.{js,ts}',
-	'**/.{eslint,prettier}rc.{js,cjs,yml}'
+	'svelte.config.js'
 ] satisfies typeof configDefaults.coverage.exclude;
 
 export default defineConfig({

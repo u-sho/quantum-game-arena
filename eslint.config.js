@@ -12,14 +12,13 @@ const { configs: __, ...eslintPluginSvelteConfig } = eslintPluginSvelte;
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.FileSpec[]}*/
 const ignores = [
-	'.git/**',
-	'.svelte-kit/**',
-	'.vercel/**',
-	'.vercel_build_output/**',
-	'static/**',
-	'build/**',
-	'coverage/**',
-	'node_modules/**',
+	'.svelte-kit/',
+	'.vercel/',
+	'.vercel_build_output/',
+	'static/',
+	'build/',
+	'coverage/',
+	'node_modules/',
 	'vite.config.ts.timestamp*'
 ];
 
