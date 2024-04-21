@@ -7,9 +7,6 @@ import globals from 'globals';
 
 const isProduction = () => process.env.NODE_ENV === 'production';
 
-const { configs: _, ...tsEslintPlugin } = tsEslint.plugin;
-const { configs: __, ...eslintPluginSvelteConfig } = eslintPluginSvelte;
-
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.FileSpec[]}*/
 const ignores = [
 	'.svelte-kit/',
@@ -22,9 +19,25 @@ const ignores = [
 	'vite.config.ts.timestamp*'
 ];
 
-/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
-const defaultConfig = {
-	ignores,
+/** @type {import('typescript-eslint').Config} */
+const commonConfig = [
+	{ ignores },
+	{
+		linterOptions: {
+			reportUnusedDisableDirectives: true
+		}
+	}
+];
+
+const defaultConfig = tsEslint.config({
+	files: ['**/*.js', '**/*.ts', '**/*.svelte'],
+	/** @type {import('typescript-eslint').ConfigWithExtends['extends']} */
+	extends: [
+		eslint.configs.recommended,
+		...tsEslint.configs.strictTypeChecked,
+		...tsEslint.configs.stylisticTypeChecked,
+		eslintConfigPrettier
+	],
 	languageOptions: {
 		parser: tsEslint.parser,
 		parserOptions: {
@@ -35,24 +48,10 @@ const defaultConfig = {
 		},
 		globals: {
 			...globals.browser,
-			...globals.node,
-			...globals.es2021
+			...globals.node
 		}
 	},
-	linterOptions: {
-		reportUnusedDisableDirectives: true
-	},
-	plugins: {
-		'@typescript-eslint': tsEslintPlugin
-	},
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	rules: {
-		...eslint.configs.recommended.rules,
-		...tsEslint.configs.eslintRecommended.rules,
-		...tsEslint.configs.strictTypeChecked[2].rules,
-		...tsEslint.configs.stylisticTypeChecked[2].rules,
-		...eslintConfigPrettier.rules,
-
 		'no-console': isProduction() ? 'error' : 'off',
 
 		eqeqeq: ['error', 'always', { null: 'ignore' }],
@@ -160,27 +159,22 @@ const defaultConfig = {
 
 		'@typescript-eslint/non-nullable-type-assertion-style': 'off'
 	}
-};
+});
 
-/** @type {import('eslint').Linter.FlatConfig}*/
-const svelteConfig = {
-	files: ['src/**/*.svelte'],
+const svelteConfig = tsEslint.config({
+	files: ['**/*.svelte'],
+	extends: [
+		...eslintPluginSvelte.configs['flat/all'],
+		...eslintPluginSvelte.configs['flat/prettier']
+	],
 	languageOptions: {
 		parser: svelteEslintParser,
 		parserOptions: {
-			sourceType: 'module',
-			ecmaVersion: 2023,
 			parser: tsEslint.parser
-		},
-		globals: defaultConfig.languageOptions?.globals
+		}
 	},
-	plugins: {
-		svelte: eslintPluginSvelteConfig
-	},
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+	/** @type {import('eslint').Linter.RulesRecord}*/
 	rules: {
-		...eslintPluginSvelte.configs.all.rules,
-		...eslintPluginSvelte.configs.prettier.rules,
 		'svelte/no-reactive-reassign': ['error', { props: true }],
 		'svelte/block-lang': ['error', { script: 'ts', style: 'scss' }],
 		'svelte/no-inline-styles': 'off',
@@ -194,11 +188,11 @@ const svelteConfig = {
 		'no-trailing-spaces': 'off',
 		'svelte/no-trailing-spaces': ['warn', { skipBlankLines: false, ignoreComments: false }]
 	}
-};
+});
 
 /** @type {import('eslint').Linter.FlatConfig}*/
 const svelteSvgConfig = {
-	files: ['src/**/*.svg.svelte'],
+	files: ['**/*.svg.svelte'],
 	rules: { 'svelte/require-optimized-style-attribute': 'off' }
 };
 
@@ -218,4 +212,11 @@ const eslintConfigConfig = {
 };
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
-export default [defaultConfig, svelteConfig, svelteSvgConfig, anyConfigConfig, eslintConfigConfig];
+export default [
+	...commonConfig,
+	...defaultConfig,
+	...svelteConfig,
+	svelteSvgConfig,
+	anyConfigConfig,
+	eslintConfigConfig
+];
