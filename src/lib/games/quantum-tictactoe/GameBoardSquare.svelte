@@ -21,7 +21,7 @@
 <script lang="ts">
 import QuantumMarks from './GameBoardSquareMarkQuantums.svelte';
 import ClassicalMark from './GameBoardSquareMarkClassical.svelte';
-import type { StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
+import type { StateType } from './QuantumTTT.type';
 
 export let cMark: StateType['cSquares'][0];
 export let qMarks: StateType['qSquares'][0];
