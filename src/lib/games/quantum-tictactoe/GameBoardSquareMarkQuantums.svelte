@@ -19,7 +19,7 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import type { MarkType, StateType } from '$lib/games/quantum-tictactoe/QuantumTTT.type';
+import type { MarkType, StateType } from './QuantumTTT.type';
 
 export let qMarks: StateType['qSquares'][0];
 export let cycleMarks: StateType['cycleMarks'];
