@@ -1,8 +1,8 @@
-import eslint from '@eslint/js';
+import eslintJs from '@eslint/js';
 import tsEslint from 'typescript-eslint';
-import eslintPluginSvelte from 'eslint-plugin-svelte';
-import svelteEslintParser from 'svelte-eslint-parser';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import sveltePlugin from 'eslint-plugin-svelte';
+import svelteParser from 'svelte-eslint-parser';
+import prettierConfig from 'eslint-config-prettier';
 import globals from 'globals';
 
 const isProduction = () => process.env.NODE_ENV === 'production';
@@ -10,13 +10,13 @@ const isProduction = () => process.env.NODE_ENV === 'production';
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.FileSpec[]}*/
 const ignores = [
 	'.svelte-kit/',
-	'.vercel/',
-	'.vercel_build_output/',
+	'.vercel/', // adapter-vercel output dir
+	'.vercel_build_output/', // old output dir
 	'static/',
 	'build/',
-	'coverage/',
+	'coverage/', // vitest coverage
 	'node_modules/',
-	'vite.config.ts.timestamp*'
+	'vite.config.ts.timestamp*' // vite temp file
 ];
 
 /** @type {import('typescript-eslint').Config} */
@@ -31,12 +31,11 @@ const commonConfig = [
 
 const defaultConfig = tsEslint.config({
 	files: ['**/*.js', '**/*.ts', '**/*.svelte'],
-	/** @type {import('typescript-eslint').ConfigWithExtends['extends']} */
 	extends: [
-		eslint.configs.recommended,
+		eslintJs.configs.recommended,
 		...tsEslint.configs.strictTypeChecked,
 		...tsEslint.configs.stylisticTypeChecked,
-		eslintConfigPrettier
+		prettierConfig
 	],
 	languageOptions: {
 		parser: tsEslint.parser,
@@ -44,10 +43,12 @@ const defaultConfig = tsEslint.config({
 			sourceType: 'module',
 			ecmaVersion: 2023,
 			project: './tsconfig.eslint.json',
+			tsconfigRootDir: import.meta.dirname,
 			extraFileExtensions: ['.svelte']
 		},
 		globals: {
 			...globals.browser,
+			...globals.es2021,
 			...globals.node
 		}
 	},
@@ -61,8 +62,10 @@ const defaultConfig = tsEslint.config({
 		'no-var': 'error',
 		'prefer-const': 'error',
 
-		// use '$lib/*' instead
-		'no-restricted-imports': ['error', { patterns: ['../*', 'src/lib/*'] }],
+		'no-restricted-imports': [
+			'error',
+			{ patterns: [{ group: ['../*', 'src/lib/*'], message: 'use `$lib/*` instead' }] }
+		],
 
 		'@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -139,10 +142,7 @@ const defaultConfig = tsEslint.config({
 		'@typescript-eslint/no-unnecessary-qualifier': 'error',
 		'@typescript-eslint/no-unsafe-unary-minus': 'error',
 		'no-unused-vars': 'off',
-		'@typescript-eslint/no-unused-vars': [
-			'error',
-			{ argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
-		],
+		'@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 		'@typescript-eslint/no-useless-empty-export': 'error',
 		'@typescript-eslint/prefer-enum-initializers': 'error',
 		'@typescript-eslint/prefer-readonly': 'error',
@@ -163,17 +163,14 @@ const defaultConfig = tsEslint.config({
 
 const svelteConfig = tsEslint.config({
 	files: ['**/*.svelte'],
-	extends: [
-		...eslintPluginSvelte.configs['flat/all'],
-		...eslintPluginSvelte.configs['flat/prettier']
-	],
+	extends: [...sveltePlugin.configs['flat/all'], ...sveltePlugin.configs['flat/prettier']],
 	languageOptions: {
-		parser: svelteEslintParser,
+		parser: svelteParser,
 		parserOptions: {
 			parser: tsEslint.parser
 		}
 	},
-	/** @type {import('eslint').Linter.RulesRecord}*/
+	/** @type {import('eslint').Linter.RulesRecord} */
 	rules: {
 		'svelte/no-reactive-reassign': ['error', { props: true }],
 		'svelte/block-lang': ['error', { script: 'ts', style: 'scss' }],
@@ -198,25 +195,18 @@ const svelteSvgConfig = {
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
 const anyConfigConfig = {
-	files: ['*.config.*'],
+	files: ['**/*.config.*'],
 	rules: {
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/naming-convention': 'off'
 	}
 };
 
-/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
-const eslintConfigConfig = {
-	files: ['eslint.config.js'],
-	rules: { '@typescript-eslint/no-unsafe-member-access': 'off' }
-};
-
-/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
+/** @type {import('typescript-eslint').Config} */
 export default [
-	...commonConfig,
 	...defaultConfig,
 	...svelteConfig,
 	svelteSvgConfig,
 	anyConfigConfig,
-	eslintConfigConfig
+	...commonConfig
 ];
