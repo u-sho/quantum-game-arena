@@ -54,6 +54,7 @@ const handleSquareClick = (i: SquareType): void => {
 		message = status;
 	} else {
 		message = 'AI is thinking!';
+		return;
 	}
 
 	const isAIResolvableCollapse =
