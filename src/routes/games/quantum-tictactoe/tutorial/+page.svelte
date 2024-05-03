@@ -20,7 +20,7 @@ let footerHeight: number;
 	<meta property="og:title" content="Quantum TTT Tutorial - Quantum Game Arena" />
 </svelte:head>
 
-<main class="main" style="padding-bottom:{footerHeight}px">
+<main class="main" style:padding-bottom="{footerHeight}px">
 	<h1 class="title">Quantum Tic-Tac-Toe Tutorial</h1>
 
 	<section>

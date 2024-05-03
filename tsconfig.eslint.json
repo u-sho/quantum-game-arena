@@ -1,8 +1,12 @@
 {
 	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"lib": [],
+		"types": ["vitest/importMeta", "@typescript/lib-esnext", "@typescript/lib-dom"]
+	},
 	"include": [
-		"./.svelte-kit/ambient.d.ts",
-		"./.svelte-kit/non-ambient.d.ts",
+		".svelte-kit/ambient.d.ts",
+		".svelte-kit/non-ambient.d.ts",
 		"./.svelte-kit/types/**/$types.d.ts",
 		"./svelte.config.js",
 		"./vite.config.ts",
@@ -11,7 +15,7 @@
 		"./tests/**/*.ts",
 		"./tests/**/*.svelte",
 
-		"./.eslintrc.cjs"
+		"./eslint.config.js"
 	],
 	"exclude": ["./node_modules/**"]
 }
