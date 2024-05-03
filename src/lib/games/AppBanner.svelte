@@ -2,10 +2,8 @@
 import { onMount } from 'svelte';
 let dialogElement: HTMLDialogElement;
 onMount(() => {
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 	dialogElement.showModal();
 	setTimeout(() => {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 		dialogElement.close();
 	}, 2400);
 });
