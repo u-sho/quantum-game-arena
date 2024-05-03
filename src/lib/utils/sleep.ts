@@ -7,9 +7,10 @@ export { sleep };
 if (import.meta.vitest) {
 	const { test, expect } = import.meta.vitest;
 	test('sleep', async () => {
+		const sleepTime = 100;
 		const start = Date.now();
-		await sleep(1000);
+		await sleep(sleepTime);
 		const end = Date.now();
-		expect(end - start).toBeGreaterThanOrEqual(1000);
+		expect(end - start).toBeGreaterThanOrEqual(sleepTime);
 	});
 }
