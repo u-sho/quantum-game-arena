@@ -22,12 +22,12 @@
 import type { MaxLengthArray } from '$lib/types/generics';
 import { getRandomInt } from '$lib/utils/getRandomInt';
 import { getOrdinal } from '$lib/utils/getNumeral';
+import { sleep } from '$lib/utils/sleep';
 
 import GameBoard from './GameBoard.svelte';
 import GameInfo from './GameInfo.svelte';
 import type { MarkType, SquareType } from './QuantumTTT.type';
 import Game from './QuantumTTT';
-import { sleep } from '$lib/utils/sleep';
 
 let game = new Game();
 let gameCount = 1;
@@ -62,23 +62,37 @@ const handleSquareClick = (i: SquareType): void => {
 		game.whoseTurn() === 'X' && state.cycleSquares && state.cycleSquares.length > 0;
 	if (isAIResolvableCollapse) {
 		message = 'AI is thinking...';
-		sleep(1200).then(async () => {
-			await aiResolveCollapse();
-			await sleep(700);
-			if (game.state.isOver) {
-				message = game.state.status;
+		sleep(1200)
+			.then(async () => {
+				await aiResolveCollapse();
+				await sleep(700);
+
+				if (game.state.isOver) {
+					message = game.state.status;
+					return;
+				}
+
+				message = 'AI is thinking...';
+				await sleep(1200);
+				aiMove();
 				return;
-			}
-			message = 'AI is thinking...';
-			sleep(1200).then(() => aiMove());
-		});
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 		return;
 	}
 
 	const isAIMove = game.whoseTurn() === 'Y' && !state.cycleSquares;
 	if (isAIMove) {
 		message = 'AI is thinking...';
-		sleep(1200).then(() => aiMove());
+		sleep(1200)
+			.then(() => {
+				aiMove();
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	}
 	return;
 };
@@ -99,25 +113,28 @@ const aiMove = (): void => {
 };
 
 const aiResolveCollapse = async (): Promise<void> => {
-	const randomInt = getRandomInt({ min: 0, max: state.cycleSquares!.length - 1 });
-	const aiChoiceSquare = state.cycleSquares![randomInt];
-	game.handleSquareClick(aiChoiceSquare);
-	state = { ...game.state };
+	if (state.cycleSquares != null) {
+		const randomInt = getRandomInt({ min: 0, max: state.cycleSquares.length - 1 });
+		const aiChoiceSquare = state.cycleSquares[randomInt];
+		game.handleSquareClick(aiChoiceSquare);
+		state = { ...game.state };
+	}
 
 	message = 'AI is thinking...';
 	await sleep(1200);
-
-	const aiChoiceMark = choices![getRandomInt({ min: 0, max: choices!.length - 1 })];
+	if (choices === undefined) return;
+	const aiChoiceMark = choices[getRandomInt({ min: 0, max: choices.length - 1 })];
 	game.handleCollapse(aiChoiceMark);
 	state = { ...game.state };
+
 	message = 'AI resolved collapse!';
 	return;
 };
 
 const handleCollapse = (mark: MarkType): void => {
-	const isPlayerResolvableCollapse =
-		game.whoseTurn() === 'Y' && state.cycleSquares && state.cycleSquares.length > 0;
+	const isPlayerResolvableCollapse = game.whoseTurn() === 'Y';
 	if (!isPlayerResolvableCollapse) return;
+
 	const status = game.handleCollapse(mark);
 
 	state = { ...game.state };
