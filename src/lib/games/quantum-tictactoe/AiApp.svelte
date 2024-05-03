@@ -43,6 +43,7 @@ $: choices =
 		: undefined;
 
 const handleSquareClick = (i: SquareType): void => {
+	if (game.state.isOver) return;
 	const isPlayerMove = game.whoseTurn() === 'X' && !state.cycleSquares;
 	const isPlayerResolvableCollapse =
 		game.whoseTurn() === 'Y' && state.cycleSquares && state.cycleSquares.length > 0;
@@ -61,15 +62,17 @@ const handleSquareClick = (i: SquareType): void => {
 		game.whoseTurn() === 'X' && state.cycleSquares && state.cycleSquares.length > 0;
 	if (isAIResolvableCollapse) {
 		message = 'AI is thinking...';
-		sleep(1200).then(() => {
-			const randomInt = getRandomInt({ min: 0, max: state.cycleSquares!.length - 1 });
-			const aiMove = state.cycleSquares![randomInt];
-			game.handleSquareClick(aiMove);
-			state = { ...game.state };
-
+		sleep(1200).then(async () => {
+			await aiResolveCollapse();
+			await sleep(700);
+			if (game.state.isOver) {
+				message = game.state.status;
+				return;
+			}
 			message = 'AI is thinking...';
-			sleep(1200).then(() => aiCollapse());
+			sleep(1200).then(() => aiMove());
 		});
+		return;
 	}
 
 	const isAIMove = game.whoseTurn() === 'Y' && !state.cycleSquares;
@@ -95,18 +98,26 @@ const aiMove = (): void => {
 	return;
 };
 
-const aiCollapse = (): void => {
-	const aiChoice = choices ? choices[getRandomInt({ min: 0, max: choices.length - 1 })] : null;
-	if (aiChoice) handleCollapse(aiChoice);
+const aiResolveCollapse = async (): Promise<void> => {
+	const randomInt = getRandomInt({ min: 0, max: state.cycleSquares!.length - 1 });
+	const aiChoiceSquare = state.cycleSquares![randomInt];
+	game.handleSquareClick(aiChoiceSquare);
+	state = { ...game.state };
 
-	if (game.whoseTurn() === 'Y') {
-		message = 'AI is thinking...';
-		sleep(1200).then(() => aiMove());
-	}
+	message = 'AI is thinking...';
+	await sleep(1200);
+
+	const aiChoiceMark = choices![getRandomInt({ min: 0, max: choices!.length - 1 })];
+	game.handleCollapse(aiChoiceMark);
+	state = { ...game.state };
+	message = 'AI resolved collapse!';
 	return;
 };
 
 const handleCollapse = (mark: MarkType): void => {
+	const isPlayerResolvableCollapse =
+		game.whoseTurn() === 'Y' && state.cycleSquares && state.cycleSquares.length > 0;
+	if (!isPlayerResolvableCollapse) return;
 	const status = game.handleCollapse(mark);
 
 	state = { ...game.state };
