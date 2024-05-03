@@ -1,44 +1,8 @@
 {
+	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"paths": {
-			"$lib": ["./src/lib"],
-			"$lib/*": ["./src/lib/*"]
-		},
-		"rootDirs": [".", "./.svelte-kit/types"],
-		"verbatimModuleSyntax": true,
-		"isolatedModules": true,
 		"lib": [],
-		"moduleResolution": "Bundler",
-		"module": "esnext",
-		"target": "esnext",
-
-		"sourceMap": true,
-		"esModuleInterop": true,
-		"skipLibCheck": false,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"allowJs": false,
-		"strict": true,
-
-		"allowUnreachableCode": true,
-		"allowUnusedLabels": true,
-		"exactOptionalPropertyTypes": true,
-		"noImplicitOverride": true,
-		"noImplicitReturns": true,
-		"noPropertyAccessFromIndexSignature": true,
-		"noUncheckedIndexedAccess": false,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-
-		"downlevelIteration": true,
-		"importHelpers": true,
-
-		"newLine": "lf",
-		"noEmitHelpers": true,
-		"removeComments": true,
-
-		"types": ["vitest/importMeta", "@typescript/lib-esnext", "@typescript/lib-dom"],
-		"plugins": [{ "name": "typescript-eslint-language-service" }]
+		"types": ["vitest/importMeta", "@typescript/lib-esnext", "@typescript/lib-dom"]
 	},
 	"include": [
 		".svelte-kit/ambient.d.ts",
