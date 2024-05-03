@@ -20,6 +20,10 @@ let footerHeight: number;
 			>
 		</li>
 		<li>
+			<a class="btn" href="/games/quantum-tictactoe/play/ai" type="application/ecmascript">AI対局</a
+			>
+		</li>
+		<li>
 			<a class="btn" href="/games/quantum-tictactoe/play/human" type="application/ecmascript"
 				>オフライン対局</a
 			>
