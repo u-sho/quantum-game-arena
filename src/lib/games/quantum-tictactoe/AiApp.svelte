@@ -67,7 +67,7 @@ const handleSquareClick = (i: SquareType): void => {
 		message = 'AI is thinking...';
 		sleep(1200)
 			.then(async () => {
-				await aiResolveCollapse();
+				await aiHandleCollapse();
 				await sleep(700);
 
 				if (game.state.isOver) {
@@ -115,7 +115,7 @@ const aiMove = (): void => {
 	return;
 };
 
-const aiResolveCollapse = async (): Promise<void> => {
+const aiHandleCollapse = async (): Promise<void> => {
 	if (state.cycleSquares != null) {
 		const randomInt = getRandomInt({ min: 0, max: state.cycleSquares.length - 1 });
 		const aiChoiceSquare = state.cycleSquares[randomInt];
