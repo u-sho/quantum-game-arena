@@ -51,7 +51,7 @@
 		"@sveltejs/vite-plugin-svelte": "^3.1.0",
 		"@types/eslint__js": "^8.42.3",
 		"@types/eslint-config-prettier": "^6.11.3",
-		"@types/node": "^20.12.8",
+		"@types/node": "^20.12.12",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.143",
 		"@vitest/coverage-v8": "1.6.0",
 		"better-typescript-lib": "~2.7.0",
