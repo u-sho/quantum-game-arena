@@ -3,9 +3,9 @@ import AiApp from '$lib/games/quantum-tictactoe/AiApp.svelte';
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe/play/human" />
+	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe/play/ai" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
-	<meta property="og:url" content="https://qgame.app/games/quantum-tictactoe/play/human" />
+	<meta property="og:url" content="https://qgame.app/games/quantum-tictactoe/play/ai" />
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
 </svelte:head>
 
