@@ -53,7 +53,7 @@
 		"@types/eslint-config-prettier": "^6.11.3",
 		"@types/node": "^20.12.8",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.143",
-		"@vitest/coverage-v8": "1.5.3",
+		"@vitest/coverage-v8": "1.6.0",
 		"better-typescript-lib": "~2.7.0",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
@@ -70,7 +70,7 @@
 		"typescript-eslint": "^7.10.0",
 		"typescript-eslint-language-service": "^5.0.5",
 		"vite": "^5.2.11",
-		"vitest": "1.5.3",
+		"vitest": "1.6.0",
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.9.2"
 	},
 	"engines": {
