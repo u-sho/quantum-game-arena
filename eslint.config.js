@@ -7,7 +7,7 @@ import globals from 'globals';
 
 const isProduction = () => process.env.NODE_ENV === 'production';
 
-/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.FileSpec[]}*/
+/** @type {import('eslint').Linter.FlatConfig['ignores']} */
 const ignores = [
 	'.svelte-kit/',
 	'.vercel/', // adapter-vercel output dir
