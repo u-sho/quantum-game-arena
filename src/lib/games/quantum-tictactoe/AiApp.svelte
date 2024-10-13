@@ -204,7 +204,7 @@ const handleResetGameClick = (): void => {
 	</p>
 </div>
 
-<style lang="scss">
+<style>
 .game {
 	display: flex;
 	flex-direction: row;
@@ -219,7 +219,7 @@ const handleResetGameClick = (): void => {
 	text-align: center;
 	background-color: var(--theme-color);
 	color: var(--bg-color);
-	a {
+	& a {
 		color: var(--bg-light-color);
 		text-decoration-line: underline;
 	}

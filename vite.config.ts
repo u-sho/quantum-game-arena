@@ -20,6 +20,9 @@ const VITEST_COVERAGE_IGNORE_PATTERNS = [
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	// build: {
+	// 	cssMinify: 'lightningcss'
+	// },
 	preview: {
 		port: 3000,
 		strictPort: true

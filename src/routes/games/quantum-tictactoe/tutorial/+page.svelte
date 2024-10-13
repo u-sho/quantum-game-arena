@@ -127,7 +127,7 @@ let footerHeight: number;
 </main>
 <AppFooter bind:h={footerHeight} />
 
-<style lang="scss">
+<style>
 .main {
 	display: flex;
 	flex-direction: column;
@@ -137,7 +137,7 @@ let footerHeight: number;
 	width: 100%;
 	box-sizing: border-box;
 
-	section {
+	& section {
 		max-width: var(--contents-width);
 	}
 }
