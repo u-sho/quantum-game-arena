@@ -28,7 +28,7 @@ export let cMark: MarkType;
 	<span>{cMark[0]}<sub>{cMark[1]}</sub></span>
 </div>
 
-<style lang="scss">
+<style>
 .classical-mark {
 	box-sizing: border-box;
 	margin: 0;
@@ -51,7 +51,7 @@ span {
 	font-weight: bold;
 	line-height: 1;
 
-	sub {
+	& sub {
 		font-size: 30px;
 	}
 }

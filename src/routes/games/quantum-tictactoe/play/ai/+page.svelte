@@ -15,7 +15,7 @@ import AiApp from '$lib/games/quantum-tictactoe/AiApp.svelte';
 	<AiApp />
 </main>
 
-<style lang="scss">
+<style>
 .main {
 	width: 100%;
 	height: 100%;

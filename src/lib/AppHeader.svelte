@@ -18,7 +18,7 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 	</nav>
 </header>
 
-<style lang="scss">
+<style>
 .header {
 	position: fixed;
 	top: 0;
@@ -34,9 +34,9 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 
 .logo {
 	box-sizing: border-box;
-	a {
+	& a {
 		box-sizing: border-box;
-		h1 {
+		& h1 {
 			height: 0;
 			width: 0;
 			overflow: hidden;
@@ -49,7 +49,7 @@ nav {
 	display: flex;
 	justify-content: center;
 
-	ul {
+	& ul {
 		position: relative;
 		padding: 0;
 		margin: 0;
@@ -60,7 +60,7 @@ nav {
 		list-style: none;
 		background-size: contain;
 
-		li {
+		& li {
 			position: relative;
 			height: 100%;
 			&::before {
@@ -75,7 +75,7 @@ nav {
 				border-top: var(--size) solid var(--accent-color);
 			}
 
-			a {
+			& a {
 				display: flex;
 				height: 100%;
 				align-items: center;

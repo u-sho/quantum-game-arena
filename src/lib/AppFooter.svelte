@@ -34,7 +34,7 @@ export let h: number;
 	</p>
 </footer>
 
-<style lang="scss">
+<style>
 .footer {
 	position: absolute;
 	bottom: 0;
@@ -57,7 +57,7 @@ export let h: number;
 	padding: 0 0 0.2rem;
 	display: inline-flex;
 	border-bottom: 1px solid var(--bg-color);
-	a {
+	& a {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -83,7 +83,7 @@ export let h: number;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	a {
+	& a {
 		margin: 0 0.5rem;
 	}
 }

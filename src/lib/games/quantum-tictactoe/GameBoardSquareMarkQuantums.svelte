@@ -42,7 +42,7 @@ const getTextColor = (mark: MarkType): 'white' | 'blue' | 'red' => {
 	{/each}
 </div>
 
-<style lang="scss">
+<style>
 .quantum-marks {
 	box-sizing: border-box;
 	margin: 0;

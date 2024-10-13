@@ -93,7 +93,7 @@ const onClick = (choice: MarkType) => (): void => {
 	</div>
 </div>
 
-<style lang="scss">
+<style>
 .collapse-choice {
 	width: 50px;
 	height: 50px;
@@ -112,7 +112,7 @@ const onClick = (choice: MarkType) => (): void => {
 		color: var(--bg-color);
 	}
 
-	sub {
+	& sub {
 		font-size: 16px;
 	}
 }
@@ -162,7 +162,7 @@ const onClick = (choice: MarkType) => (): void => {
 	text-align: center;
 	cursor: pointer;
 
-	.btn-text {
+	& .btn-text {
 		font-size: 24px;
 		line-height: 50px;
 	}

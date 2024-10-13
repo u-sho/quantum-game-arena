@@ -61,7 +61,7 @@ $: ariaLabel = `${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${
 	{/if}
 </div>
 
-<style lang="scss">
+<style>
 .square {
 	background: var(--bg-color);
 	border: 2px solid var(--theme-color);
@@ -84,7 +84,7 @@ $: ariaLabel = `${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${
 	overflow: hidden;
 	color: var(--theme-color);
 
-	.border-dashing {
+	& .border-dashing {
 		display: block;
 		width: 100%;
 		height: 100%;
@@ -103,7 +103,7 @@ $: ariaLabel = `${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${
 			transform: rotate(270deg);
 		}
 
-		i {
+		& i {
 			border-bottom: 5px dashed var(--theme-color);
 			display: block;
 			position: absolute;

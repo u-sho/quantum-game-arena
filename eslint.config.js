@@ -173,7 +173,7 @@ const svelteConfig = tsEslint.config({
 	/** @type {import('eslint').Linter.RulesRecord} */
 	rules: {
 		'svelte/no-reactive-reassign': ['error', { props: true }],
-		'svelte/block-lang': ['error', { script: 'ts', style: 'scss' }],
+		'svelte/block-lang': ['error', { script: 'ts', style: ['lightningcss', 'css', null] }],
 		'svelte/no-inline-styles': 'off',
 		'svelte/no-unused-class-name': 'warn',
 		'svelte/no-useless-mustaches': 'warn',

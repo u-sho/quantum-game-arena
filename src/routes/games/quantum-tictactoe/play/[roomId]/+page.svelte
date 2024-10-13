@@ -15,7 +15,7 @@ import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 	<OnlineApp />
 </main>
 
-<style lang="scss">
+<style>
 .main {
 	width: 100%;
 	height: 100%;
