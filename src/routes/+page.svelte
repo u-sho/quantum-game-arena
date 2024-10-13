@@ -7,17 +7,16 @@ import goGameImage from '$lib/assets/gogame.webp';
 import shogiImage from '$lib/assets/shogi.webp';
 import tictactoeImage from '$lib/assets/tic-tac-toe.webp';
 
-import { scrollTo } from 'svelte-scrollto';
+import { scrollRef, scrollTo } from 'svelte-scrolling';
+import type { ScrollToOptions } from 'svelte-scrolling/dist/types/options';
 
 let footerHeight: number;
 
-const scrollToAbout = (): void => {
-	scrollTo({
-		element: '#about',
-		offset: -64,
-		duration: 1500
-	});
-};
+const scrollToAbout = {
+	ref: 'about',
+	offset: 0,
+	duration: 1500
+} satisfies ScrollToOptions;
 </script>
 
 <svelte:head>
@@ -33,12 +32,12 @@ const scrollToAbout = (): void => {
 		<LogoTitleRowWhite
 			styles="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
-		<a data-sveltekit-noscroll href="/#about" on:click={scrollToAbout} class="btn_03">
+		<a data-sveltekit-noscroll href="/#about" use:scrollTo={scrollToAbout} class="btn_03">
 			<span>Start</span>
 		</a>
 	</header>
 
-	<section id="about">
+	<section id="about" use:scrollRef={'about'}>
 		<h1 class="section-title">About</h1>
 		<p>
 			Quantum Game Arena
