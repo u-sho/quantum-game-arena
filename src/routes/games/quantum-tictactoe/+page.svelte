@@ -40,7 +40,7 @@ let footerHeight: number;
 </menu> -->
 </AppFooter>
 
-<style lang="scss">
+<style>
 .main {
 	display: flex;
 	flex-direction: column;
@@ -58,13 +58,13 @@ let footerHeight: number;
 	text-align: center;
 	padding: 0;
 
-	li {
+	& li {
 		list-style-type: none;
 		box-sizing: border-box;
 		margin: 1.5rem;
 		padding: auto;
 
-		.btn {
+		& .btn {
 			display: inline-block;
 			box-sizing: border-box;
 			border-radius: 1.2rem;
@@ -77,7 +77,7 @@ let footerHeight: number;
 		}
 	}
 
-	.coming-soon {
+	& .coming-soon {
 		opacity: 0.5;
 	}
 }

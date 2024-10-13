@@ -7,7 +7,7 @@ import globals from 'globals';
 
 const isProduction = () => process.env.NODE_ENV === 'production';
 
-/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.FileSpec[]}*/
+/** @type {import('eslint').Linter.Config['ignores']} */
 const ignores = [
 	'.svelte-kit/',
 	'.vercel/', // adapter-vercel output dir
@@ -73,7 +73,7 @@ const defaultConfig = tsEslint.config({
 		'@typescript-eslint/consistent-type-imports': 'error',
 		'@typescript-eslint/explicit-function-return-type': 'error',
 		'@typescript-eslint/explicit-member-accessibility': ['warn', { accessibility: 'no-public' }],
-		'@typescript-eslint/member-delimiter-style': 'warn',
+		// '@typescript-eslint/member-delimiter-style': 'warn',
 		'@typescript-eslint/method-signature-style': 'error',
 		camelcase: 'off',
 		'@typescript-eslint/naming-convention': [
@@ -173,7 +173,7 @@ const svelteConfig = tsEslint.config({
 	/** @type {import('eslint').Linter.RulesRecord} */
 	rules: {
 		'svelte/no-reactive-reassign': ['error', { props: true }],
-		'svelte/block-lang': ['error', { script: 'ts', style: 'scss' }],
+		'svelte/block-lang': ['error', { script: 'ts', style: ['css', null] }],
 		'svelte/no-inline-styles': 'off',
 		'svelte/no-unused-class-name': 'warn',
 		'svelte/no-useless-mustaches': 'warn',
@@ -187,7 +187,7 @@ const svelteConfig = tsEslint.config({
 	}
 });
 
-/** @type {import('eslint').Linter.FlatConfig}*/
+/** @type {import('eslint').Linter.Config}*/
 const svelteSvgConfig = {
 	files: ['**/*.svg.svelte'],
 	rules: { 'svelte/require-optimized-style-attribute': 'off' }

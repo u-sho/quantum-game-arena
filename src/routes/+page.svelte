@@ -7,17 +7,16 @@ import goGameImage from '$lib/assets/gogame.webp';
 import shogiImage from '$lib/assets/shogi.webp';
 import tictactoeImage from '$lib/assets/tic-tac-toe.webp';
 
-import { scrollTo } from 'svelte-scrollto';
+import { scrollRef, scrollTo } from 'svelte-scrolling';
+import type { ScrollToOptions } from 'svelte-scrolling/dist/types/options';
 
 let footerHeight: number;
 
-const scrollToAbout = (): void => {
-	scrollTo({
-		element: '#about',
-		offset: -64,
-		duration: 1500
-	});
-};
+const scrollToAbout = {
+	ref: 'about',
+	offset: 0,
+	duration: 1500
+} satisfies ScrollToOptions;
 </script>
 
 <svelte:head>
@@ -33,12 +32,12 @@ const scrollToAbout = (): void => {
 		<LogoTitleRowWhite
 			styles="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
-		<a data-sveltekit-noscroll href="/#about" on:click={scrollToAbout} class="btn_03">
+		<a data-sveltekit-noscroll href="/#about" use:scrollTo={scrollToAbout} class="btn_03">
 			<span>Start</span>
 		</a>
 	</header>
 
-	<section id="about">
+	<section id="about" use:scrollRef={'about'}>
 		<h1 class="section-title">About</h1>
 		<p>
 			Quantum Game Arena
@@ -98,7 +97,7 @@ const scrollToAbout = (): void => {
 </article>
 <AppFooter bind:h={footerHeight} />
 
-<style lang="scss">
+<style>
 a.btn_03 {
 	display: flex;
 	justify-content: center;
@@ -110,7 +109,7 @@ a.btn_03 {
 	border: 1px solid #228bc8;
 	border-radius: 30px;
 	box-sizing: border-box;
-	// padding: 0 25px 0 25px;
+	/* padding: 0 25px 0 25px; */
 	color: #fff;
 	font-size: 24px;
 	letter-spacing: 0.1em;
@@ -120,7 +119,7 @@ a.btn_03 {
 		color: #fff;
 	}
 
-	span {
+	& span {
 		line-height: 1;
 	}
 }
@@ -139,7 +138,7 @@ article {
 	background-color: var(--theme-color);
 	overflow: hidden;
 
-	img {
+	& img {
 		display: block;
 		height: 100%;
 		margin-right: 50px;
@@ -147,7 +146,7 @@ article {
 		z-index: 0;
 	}
 
-	a {
+	& a {
 		position: absolute;
 		margin-top: 40vh;
 		width: 250px;
@@ -170,7 +169,7 @@ section {
 		background-color: var(--bg-light-color);
 	}
 
-	p {
+	& p {
 		max-width: var(--contents-width-text);
 		margin: 16px;
 	}
@@ -198,7 +197,7 @@ section {
 
 .playflow {
 	list-style-type: none;
-	li > p:first-child {
+	& li > p:first-child {
 		font-weight: bold;
 		color: var(--theme-color);
 		margin-left: 0;
@@ -215,7 +214,7 @@ section {
 	padding: 0;
 	margin: 0;
 
-	li {
+	& li {
 		list-style-type: none;
 		margin: 16px;
 		box-sizing: border-box;
@@ -223,8 +222,8 @@ section {
 		--card-bg-color-rgb: 244, 240, 240;
 		--card-bg-color-hover: #f6f2f2;
 
-		a,
-		.coming-soon {
+		& a,
+		& .coming-soon {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -232,16 +231,16 @@ section {
 			width: 180px;
 			height: 250px;
 
-			img {
+			& img {
 				margin: 16px 16px 0;
 			}
-			span {
+			& span {
 				margin: 0 0 16px;
 				font-weight: bold;
 			}
 		}
 
-		a {
+		& a {
 			background-color: var(--card-bg-color);
 			color: var(--theme-color);
 			box-sizing: border-box;
@@ -252,7 +251,7 @@ section {
 			}
 		}
 
-		.coming-soon {
+		& .coming-soon {
 			position: relative;
 			background-color: rgba(var(--card-bg-color-rgb), 0.6);
 			color: rgba(var(--theme-color-rgb), 0.8);

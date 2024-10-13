@@ -4,7 +4,6 @@ import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 </script>
 
 <svelte:head>
-	<link rel="canonical" href="https://qgame.app/games/quantum-tictactoe/play/[roomId]" />
 	<title>Quantum Tic-Tac-Toe - Quantum Game Arena</title>
 	<meta property="og:url" content="https://qgame.app/games/quantum-tictactoe/play/[roomId]" />
 	<meta property="og:title" content="Quantum Tic-Tac-Toe - Quantum Game Arena" />
@@ -16,7 +15,7 @@ import OnlineApp from '$lib/games/quantum-tictactoe/OfflineApp.svelte';
 	<OnlineApp />
 </main>
 
-<style lang="scss">
+<style>
 .main {
 	width: 100%;
 	height: 100%;

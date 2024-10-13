@@ -1,5 +1,5 @@
 User-agent: *
-Allow: /games/quantum-tictactoe/play/human
-Disallow: /games/quantum-tictactoe/play/
+Allow: /games/quantum-tictactoe/
+Disallow: /games/quantum-tictactoe/play/online/*
 
 Sitemap: https://qgame.app/sitemap.xml

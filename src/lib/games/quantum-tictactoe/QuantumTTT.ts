@@ -157,7 +157,7 @@ export default class QuantumTTT {
 	// selects square to be collapse point
 	private _handleCyclicEntanglement(i: SquareType): StatusType {
 		if (!(this.state.cycleSquares as Exclude<StateType['cycleSquares'], null | []>).includes(i))
-			return '循環もつれに関係してるマスを選択してください！';
+			return '循環もつれに関係しているマスを選択してください！';
 
 		this.setState({ collapseSquare: i });
 		return 'このマスに確定させるマークを次から選択します。';

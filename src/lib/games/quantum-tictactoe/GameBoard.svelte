@@ -69,7 +69,7 @@ const currentSquareName = (
 	{/each}
 </div>
 
-<style lang="scss">
+<style>
 .game-board {
 	border: 2px solid var(--theme-color);
 	display: flex;

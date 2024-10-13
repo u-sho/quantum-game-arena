@@ -13,7 +13,7 @@ onMount(() => {
 	<slot />
 </dialog>
 
-<style lang="scss">
+<style>
 .modal {
 	padding: 0;
 	border: 0;
