@@ -7,7 +7,7 @@ import globals from 'globals';
 
 const isProduction = () => process.env.NODE_ENV === 'production';
 
-/** @type {import('eslint').Linter.FlatConfig['ignores']} */
+/** @type {import('eslint').Linter.Config['ignores']} */
 const ignores = [
 	'.svelte-kit/',
 	'.vercel/', // adapter-vercel output dir
@@ -187,7 +187,7 @@ const svelteConfig = tsEslint.config({
 	}
 });
 
-/** @type {import('eslint').Linter.FlatConfig}*/
+/** @type {import('eslint').Linter.Config}*/
 const svelteSvgConfig = {
 	files: ['**/*.svg.svelte'],
 	rules: { 'svelte/require-optimized-style-attribute': 'off' }
