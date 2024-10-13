@@ -5,13 +5,22 @@
 	--accent-color: #e45355;
 	--bg-light-color: #f0f7ff;
 	--bg-color: #ffffff;
+	--text-color: #000000;
 
 	--header-height: 64px;
 	--contents-width: 712px;
 	--contents-width-text: 512px;
+
+	@media (prefers-color-scheme: dark) {
+		--bg-color: #000;
+		--bg-light-color: #1a1a1a;
+		--text-color: #ffffff;
+	}
 }
 
 body {
+	background-color: var(--bg-color);
+	color: var(--text-color);
 	margin: 0;
 	padding: 0;
 }
