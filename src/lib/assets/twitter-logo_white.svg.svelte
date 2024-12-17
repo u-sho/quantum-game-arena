@@ -3,7 +3,7 @@
 	available at https://about.twitter.com/en/who-we-are/brand-toolkit
 -->
 <script lang="ts">
-export let styles: string;
+const { style }: { style?: string } = $props();
 </script>
 
 <svg
@@ -14,7 +14,7 @@ export let styles: string;
 	y="0px"
 	viewBox="0 0 248 204"
 	style:enable-background="new 0 0 248 204"
-	style={styles}
+	{style}
 	xml:space="preserve"
 >
 	<path

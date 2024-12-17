@@ -1,9 +1,9 @@
 <script lang="ts">
-export let styles: string;
+const { style }: { style?: string } = $props();
 </script>
 
 <!-- available at https://github.com/logos -->
-<svg width="98" height="96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 96" style={styles}>
+<svg width="98" height="96" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 96" {style}>
 	<path
 		fill="#fff"
 		fill-rule="evenodd"

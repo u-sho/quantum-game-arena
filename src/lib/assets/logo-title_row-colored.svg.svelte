@@ -1,5 +1,5 @@
 <script lang="ts">
-export let styles: string;
+const { style }: { style?: string } = $props();
 </script>
 
 <svg
@@ -7,7 +7,7 @@ export let styles: string;
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	viewBox="0 0 940 230.13"
-	style={styles}
+	{style}
 	fill="#1d2088"
 >
 	<defs>

@@ -1,5 +1,8 @@
 <script lang="ts">
-import { onMount } from 'svelte';
+import { onMount, type Snippet } from 'svelte';
+
+const { children }: { children: Snippet } = $props();
+
 let dialogElement: HTMLDialogElement;
 onMount(() => {
 	dialogElement.showModal();
@@ -10,7 +13,7 @@ onMount(() => {
 </script>
 
 <dialog class="modal" bind:this={dialogElement} open={false}>
-	<slot />
+	{@render children()}
 </dialog>
 
 <style>
@@ -22,15 +25,8 @@ onMount(() => {
 	background-color: transparent;
 	pointer-events: none;
 
-	@supports selector(::backdrop) {
-		&::backdrop {
-			background-color: rgba(0, 0, 10, 0.3);
-		}
-	}
-	@supports not selector(::backdrop) {
-		& + .backdrop {
-			background-color: rgba(0, 0, 10, 0.3);
-		}
+	&::backdrop {
+		background-color: rgba(0, 0, 10, 0.3);
 	}
 
 	&[open] {

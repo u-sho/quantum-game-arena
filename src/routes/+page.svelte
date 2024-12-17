@@ -30,7 +30,7 @@ const scrollToAbout = {
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite
-			styles="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
+			style="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
 		<a data-sveltekit-noscroll href="/#about" use:scrollTo={scrollToAbout} class="btn_03">
 			<span>Start</span>
@@ -43,7 +43,7 @@ const scrollToAbout = {
 			Quantum Game Arena
 			は、「量子ゲーム」をアカウント登録なしで遊ぶことができるオンライン遊技場です。
 			<br />
-			量子力学の基本的な概念を取り入れた「量子ゲーム」では，その複雑ゆえに遊びごたえのあるプレイ感を楽しめます。
+			量子力学の基本的な概念を取り入れた「量子ゲーム」は、その複雑ゆえに遊びごたえのあるプレイ感を楽しめます。
 		</p>
 	</section>
 	<section id="howtoplay">
@@ -167,11 +167,18 @@ section {
 
 	&:nth-child(even) {
 		background-color: var(--bg-light-color);
+		color: black;
+
+		@media (prefers-color-scheme: dark) {
+			background-color: #1a1a1a;
+			color: white;
+		}
 	}
 
 	& p {
 		max-width: var(--contents-width-text);
 		margin: 16px;
+		line-height: 1.5;
 	}
 }
 

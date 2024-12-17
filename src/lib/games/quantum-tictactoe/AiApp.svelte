@@ -1,3 +1,5 @@
+<!-- @migration-task Error while migrating Svelte code: can't migrate `let state = game.state;` to `$state` because there's a variable named state.
+     Rename the variable and try again or migrate by hand. -->
 <!--
 	QuantumTicTacToe is made by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
 	  Copyright (C) 2021  Shouhei Uechi
@@ -26,6 +28,7 @@ import { sleep } from '$lib/utils/sleep';
 
 import GameBoard from './GameBoard.svelte';
 import GameInfo from './GameInfo.svelte';
+import GameFooter from './GameFooter.svelte';
 import type { MarkType, SquareType } from './QuantumTTT.type';
 import Game from './QuantumTTT';
 
@@ -181,28 +184,7 @@ const handleResetGameClick = (): void => {
 		onResetGameClick={handleResetGameClick}
 	/>
 </div>
-<div class="game-footer">
-	<p>
-		<small>
-			<a rel="license" href="https://www.gnu.org/licenses/">GNU Public Licensed</a>
-		</small>
-	</p>
-	<p>
-		<small>
-			QuantumTicTacToe is written by Rohan Pandit in 2017 and changed by Shouhei Uechi in 2021.
-		</small>
-		<br />
-		<small>
-			Copyright &copy; 2021
-			<a rel="author" href="https://github.com/u-sho">Shouhei Uechi</a>. Rights reserved.
-		</small>
-		<br />
-		<small>
-			Copyright &copy; 2017 Rohan Pandit, available at
-			<a href="https://github.com/rohanp/QuantumTicTacToe/tree/master/">his GitHub repository</a>.
-		</small>
-	</p>
-</div>
+<GameFooter />
 
 <style>
 .game {
@@ -211,17 +193,5 @@ const handleResetGameClick = (): void => {
 	justify-content: center;
 	flex-wrap: wrap;
 	margin-top: 50px;
-}
-
-.game-footer {
-	width: 100%;
-	margin-top: 50px;
-	text-align: center;
-	background-color: var(--theme-color);
-	color: var(--bg-color);
-	& a {
-		color: var(--bg-light-color);
-		text-decoration-line: underline;
-	}
 }
 </style>
