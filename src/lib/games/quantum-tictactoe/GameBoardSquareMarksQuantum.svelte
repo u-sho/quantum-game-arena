@@ -21,10 +21,14 @@
 <script lang="ts">
 import type { MarkType, StateType } from './QuantumTTT.type';
 
-export let qMarks: StateType['qSquares'][0];
-export let cycleMarks: StateType['cycleMarks'];
-export let isHighlighted: boolean;
-export let isBeingCollapsed: boolean;
+type GameBoardSquareMarksQuantumProps = {
+	qMarks: StateType['qSquares'][0];
+	cycleMarks: StateType['cycleMarks'];
+	isHighlighted: boolean;
+	isBeingCollapsed: boolean;
+};
+const { qMarks, cycleMarks, isHighlighted, isBeingCollapsed }: GameBoardSquareMarksQuantumProps =
+	$props();
 
 const getTextColor = (mark: MarkType): 'white' | 'blue' | 'red' => {
 	if (!cycleMarks?.length) return 'white';

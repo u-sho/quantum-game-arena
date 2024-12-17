@@ -5,7 +5,7 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 <header class="header">
 	<hgroup class="logo">
 		<a href="/">
-			<TitleLogo styles="height: 44px; margin: 6px 12px;" />
+			<TitleLogo style="height: 44px; margin: 6px 12px;" />
 			<h1>Quantum Game Arena</h1>
 		</a>
 	</hgroup>

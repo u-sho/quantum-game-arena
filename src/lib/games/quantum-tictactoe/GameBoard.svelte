@@ -22,14 +22,18 @@
 import GameBoardSquare from './GameBoardSquare.svelte';
 import type { SquareType, StateType } from './QuantumTTT.type';
 
-export let cSquares: StateType['cSquares'];
-export let qSquares: StateType['qSquares'];
-export let cycleSquares: StateType['cycleSquares'];
-export let cycleMarks: StateType['cycleMarks'];
-export let collapseSquare: StateType['collapseSquare'];
+type Props = {
+	cSquares: StateType['cSquares'];
+	qSquares: StateType['qSquares'];
+	cycleSquares: StateType['cycleSquares'];
+	cycleMarks: StateType['cycleMarks'];
+	collapseSquare: StateType['collapseSquare'];
+	// Passes index of square that was clicked up to Game.handleSquareClick.
+	onSquareClick: (i: SquareType) => void;
+};
 
-// Passes index of square that was clicked up to Game.handleSquareClick.
-export let onSquareClick: (i: SquareType) => void;
+const { cSquares, qSquares, cycleSquares, cycleMarks, collapseSquare, onSquareClick }: Props =
+	$props();
 
 const rows = [0, 1, 2] as const;
 const columns = [0, 1, 2] as const;
@@ -37,9 +41,11 @@ const columns = [0, 1, 2] as const;
 const onClick = (row: 0 | 1 | 2, column: 0 | 1 | 2) => (): void => {
 	onSquareClick((row * 3 + column) as SquareType);
 };
-// eslint-disable-next-line svelte/no-reactive-functions
-$: isHighlighted = (row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
-	!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType);
+
+const isHighlighted = $derived(
+	(row: 0 | 1 | 2, column: 0 | 1 | 2): boolean =>
+		!!cycleSquares?.length && cycleSquares.includes((row * 3 + column) as SquareType)
+);
 
 const currentSquareName = (
 	row: 0 | 1 | 2,

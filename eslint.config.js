@@ -137,6 +137,10 @@ const defaultConfig = tsEslint.config({
 				format: ['PascalCase']
 			}
 		],
+		'@typescript-eslint/no-confusing-void-expression': [
+			'error',
+			{ ignoreVoidReturningFunctions: true }
+		],
 		'@typescript-eslint/no-import-type-side-effects': 'error',
 		'@typescript-eslint/no-require-imports': 'error',
 		'@typescript-eslint/no-unnecessary-qualifier': 'error',
