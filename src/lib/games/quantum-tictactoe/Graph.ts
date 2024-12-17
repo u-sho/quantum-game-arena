@@ -24,12 +24,8 @@ import type { MarkType } from './QuantumTTT.type';
 export type NodeIdType = number;
 export type EdgeKeyType = MarkType;
 
-type NodesType = {
-	[id in NodeIdType]: Node;
-};
-type EdgesType = {
-	[key in EdgeKeyType]?: Edge;
-};
+type NodesType = Record<NodeIdType, Node>;
+type EdgesType = Partial<Record<EdgeKeyType, Edge>>;
 
 class Node {
 	readonly id: NodeIdType;

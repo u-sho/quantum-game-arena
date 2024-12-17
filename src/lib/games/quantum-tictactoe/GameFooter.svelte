@@ -18,6 +18,8 @@
 	You should have received a copy of the GNU General Public License
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
+<script lang="ts"></script>
+
 <div class="game-footer">
 	<p>
 		<small>
