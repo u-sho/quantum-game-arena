@@ -28,7 +28,7 @@ let footerHeight: number;
 				>オフライン対局</a
 			>
 		</li>
-		<li class="coming-soon"><span class="btn">オンライン対局</span></li>
+		<li class="coming-soon"><span class="btn btn--disabled">オンライン対局</span></li>
 	</ul>
 </main>
 <AppFooter bind:h={footerHeight}>
@@ -73,7 +73,11 @@ let footerHeight: number;
 			line-height: 2.5rem;
 			font-size: 1.25rem;
 			background-color: var(--theme-color);
-			color: var(--bg-color);
+			color: white;
+		}
+
+		& .btn--disabled {
+			cursor: not-allowed;
 		}
 	}
 

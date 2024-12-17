@@ -1,5 +1,5 @@
 <script lang="ts">
-export let styles: string;
+export let style: string;
 </script>
 
 <svg
@@ -7,7 +7,7 @@ export let styles: string;
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	viewBox="0 0 834.83 729.84"
-	style={styles}
+	{style}
 >
 	<path
 		fill="#fff"

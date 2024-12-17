@@ -8,7 +8,9 @@ export let h: number;
 <footer class="footer" bind:clientHeight={h}>
 	<div class="footer__logo">
 		<a href="/#top">
-			<LogoWhite styles="height: 100%; max-height: 112px;" />
+			<LogoWhite
+				style="height: 100%; min-height: 1.75rem; max-height: 4rem; width: 100%; min-width: calc(1.75rem * 729.84/834.83); max-width: calc(112px * 834.83/729.84);"
+			/>
 			<h1 class="footer__title">Quantum Game Arena</h1>
 		</a>
 	</div>
@@ -18,14 +20,14 @@ export let h: number;
 			class="twitter-button"
 			aria-label="Twitter (X) account"
 		>
-			<TwitterLogoWhite styles="width: 1.25rem" />
+			<TwitterLogoWhite style="width: 1.25rem" />
 		</a>
 		<a
 			href="https://github.com/u-sho/quantum-game-arena"
 			class="github-button"
 			aria-label="GitHub repository"
 		>
-			<GithubMarkWhite styles="width: 1.25rem; height: 1.25rem" />
+			<GithubMarkWhite style="width: 1.25rem; height: 1.25rem" />
 		</a>
 	</div>
 	<p class="copyright">
@@ -46,7 +48,7 @@ export let h: number;
 	align-items: center;
 	padding: 40px;
 	background-color: var(--theme-color);
-	color: var(--bg-color);
+	color: white;
 	@media (min-width: 480px) {
 		padding: 40px 0;
 	}
@@ -54,21 +56,24 @@ export let h: number;
 
 .footer__logo {
 	margin: 0;
-	padding: 0 0 0.2rem;
+	padding: 0 0 0.5rem;
 	display: inline-flex;
-	border-bottom: 1px solid var(--bg-color);
+	border-bottom: 1px solid white;
 	& a {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--bg-color);
+		color: white;
 	}
 }
 
 .footer__title {
 	margin: 0 0 0 16px;
 	padding: 0;
+	font-family: 'Arial', 'Hiragino Kaku Gothic', 'Noto Sans JP', sans-serif;
 	font-weight: bold;
+	font-size: 2rem;
+	text-wrap: nowrap;
 
 	@media (max-width: 480px) {
 		line-height: 1.2;
@@ -90,7 +95,7 @@ export let h: number;
 
 a.twitter-button,
 a.github-button {
-	color: #ffffff;
+	color: inherit;
 	font-size: 1.25rem;
 	height: 1.5rem;
 	padding: 0.2rem 0;
@@ -105,6 +110,6 @@ p.copyright {
 	text-align: center;
 }
 a[rel='author'] {
-	color: #ffffff;
+	color: inherit;
 }
 </style>

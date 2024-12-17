@@ -83,7 +83,11 @@ const getTextColor = (mark: MarkType): 'white' | 'blue' | 'red' => {
 
 .white {
 	color: var(--bg-light-color);
-	text-shadow: 0.125px 1px var(--theme-color);
+	text-shadow: 0.5px 0.5px 5px var(--theme-color);
+
+	@media (prefers-color-scheme: dark) {
+		text-shadow: 0 0 5px var(--bg-light-color);
+	}
 }
 
 .blue {
