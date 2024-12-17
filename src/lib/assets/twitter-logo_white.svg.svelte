@@ -3,7 +3,7 @@
 	available at https://about.twitter.com/en/who-we-are/brand-toolkit
 -->
 <script lang="ts">
-export let style: string;
+const { style }: { style?: string } = $props();
 </script>
 
 <svg

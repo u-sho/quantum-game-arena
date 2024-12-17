@@ -1,5 +1,5 @@
 <script lang="ts">
-export let style: string;
+const { style }: { style?: string } = $props();
 </script>
 
 <!-- available at https://github.com/logos -->

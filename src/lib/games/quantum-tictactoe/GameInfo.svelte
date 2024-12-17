@@ -23,69 +23,90 @@ import type { MaxLengthArray } from '$lib/types/generics';
 
 import type { MarkType } from './QuantumTTT.type';
 
-// Contains marks in selected square if collapse ongoing
-export let choices: MaxLengthArray<MarkType, 3> | undefined;
+type GameInfoProps = {
+	// Contains marks in selected square if collapse ongoing
+	choices: MaxLengthArray<MarkType, 3> | undefined;
+	// Passes selected choice of mark up to Game.handleCollapse
+	onChoiceClick: (choice: MarkType) => void;
+	// Conveys player information about the state of the game
+	status: string;
+	isGameOver: boolean;
+	scores: { X: number; Y: number };
+	// Go to next game with scores
+	onNextGameClick: () => void;
+	// Reset scores & Go to new game
+	onResetGameClick: () => void;
+};
+const {
+	choices,
+	onChoiceClick,
+	status,
+	isGameOver,
+	scores,
+	onNextGameClick,
+	onResetGameClick
+}: GameInfoProps = $props();
 
-// Passes selected choice of mark up to Game.handleCollapse
-export let onChoiceClick: (choice: MarkType) => void;
-
-// Conveys player information about the state of the game
-export let status: string;
-
-export let isGameOver: boolean;
-export let scores: { X: number; Y: number };
-
-// Go to next game with scores
-export let onNextGameClick: () => void;
-
-// Reset scores & Go to new game
-export let onResetGameClick: () => void;
-
-// click a square
-const onClick = (choice: MarkType) => (): void => {
-	onChoiceClick(choice);
+type GameInfoButtonProps = {
+	buttonClass: 'next-game' | 'reset-game' | 'collapse-choice';
+	choice?: MarkType;
+	onClick: () => void;
 };
 </script>
 
+{#snippet gameInfoButton({ buttonClass, choice, onClick }: GameInfoButtonProps)}
+	<div
+		class="btn {buttonClass}"
+		onclick={(e: MouseEvent): void => {
+			e.preventDefault();
+			onClick();
+		}}
+		onkeypress={(e: KeyboardEvent): void => {
+			if (e.key !== 'Enter' && e.key !== ' ') return;
+			e.preventDefault();
+			onClick();
+		}}
+		role="button"
+		tabindex="0"
+	>
+		<span class="btn-text">
+			{#if buttonClass === 'collapse-choice' && choice}
+				{choice[0]}<sub>{choice[1]}</sub>
+			{:else if buttonClass === 'next-game'}
+				Next
+			{:else if buttonClass === 'reset-game'}
+				Reset
+			{/if}
+		</span>
+	</div>
+{/snippet}
+
 <div class="game-info">
 	<p class="status">{status}</p>
+
 	{#if choices}
 		<div class="btn-list">
 			{#each choices as choice (choice)}
-				<div
-					class="btn collapse-choice"
-					on:click|preventDefault={onClick(choice)}
-					on:keypress|preventDefault={onClick(choice)}
-					role="button"
-					tabindex="0"
-				>
-					<span>{choice[0]}<sub>{choice[1]}</sub></span>
-				</div>
+				<!-- eslint-disable-next-line @typescript-eslint/no-confusing-void-expression -->
+				{@render gameInfoButton({
+					buttonClass: 'collapse-choice',
+					choice,
+					onClick: (): void => onChoiceClick(choice)
+				})}
 			{/each}
 		</div>
 	{/if}
+
 	{#if isGameOver}
 		<div class="btn-list">
-			<div
-				class="btn next-game"
-				on:click|preventDefault={onNextGameClick}
-				on:keypress|preventDefault={onNextGameClick}
-				role="button"
-				tabindex="0"
-			>
-				<span class="btn-text">Next</span>
-			</div>
-			<div
-				class="btn reset-game"
-				on:click|preventDefault={onResetGameClick}
-				on:keypress|preventDefault={onResetGameClick}
-				role="button"
-				tabindex="0"
-			>
-				<span class="btn-text">Reset</span>
-			</div>
+			<!-- eslint-disable-next-line @typescript-eslint/no-confusing-void-expression -->
+			{@render gameInfoButton({ buttonClass: 'reset-game', onClick: onResetGameClick })}
+
+			<!-- eslint-disable-next-line @typescript-eslint/no-confusing-void-expression -->
+			{@render gameInfoButton({ buttonClass: 'next-game', onClick: onNextGameClick })}
 		</div>
 	{/if}
+
 	<div class="scores">
 		Current scores:
 		<span>X: {scores.X}</span>,
@@ -94,29 +115,6 @@ const onClick = (choice: MarkType) => (): void => {
 </div>
 
 <style>
-.collapse-choice {
-	width: 50px;
-	height: 50px;
-	font-size: 24px;
-	font-family: inherit;
-	border: 2px solid var(--accent-color);
-	color: var(--accent-color);
-	text-align: center;
-	cursor: pointer;
-	margin: 5px;
-	background-color: var(--bg-color);
-	user-select: none;
-
-	&:hover {
-		background-color: var(--accent-color);
-		color: var(--bg-color);
-	}
-
-	& sub {
-		font-size: 16px;
-	}
-}
-
 .game-info {
 	margin: 0 20px 0;
 	top: 0px;
@@ -168,21 +166,40 @@ const onClick = (choice: MarkType) => (): void => {
 	}
 }
 
-.next-game {
+.collapse-choice {
 	background-color: var(--bg-color);
 	border-color: var(--accent-color);
 	color: var(--accent-color);
 	font-weight: bold;
+	padding-left: 4px;
+	user-select: none;
+
+	&:hover {
+		background-color: var(--accent-color);
+		color: var(--bg-color);
+	}
+
+	& sub {
+		font-size: 16px;
+		line-height: 16px;
+	}
+}
+
+.reset-game {
+	background-color: var(--bg-color);
+	border-color: var(--accent-color);
+	color: var(--accent-color);
 	&:hover {
 		background-color: var(--accent-color);
 		color: var(--bg-color);
 	}
 }
 
-.reset-game {
+.next-game {
 	background-color: var(--bg-color);
 	border-color: var(--theme-color);
 	color: var(--theme-color);
+	font-weight: bold;
 	&:hover {
 		color: var(--bg-color);
 		background-color: var(--theme-color);

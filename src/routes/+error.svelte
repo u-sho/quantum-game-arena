@@ -1,6 +1,6 @@
 <script lang="ts">
 import { page } from '$app/stores';
-$: ({ status, error } = $page);
+const { status, error } = $derived($page);
 </script>
 
 <svelte:head>

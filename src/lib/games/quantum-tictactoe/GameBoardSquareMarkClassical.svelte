@@ -21,7 +21,8 @@
 <script lang="ts">
 import type { MarkType } from './QuantumTTT.type';
 
-export let cMark: MarkType;
+type GameBoardSquareMarkClassicalProps = { cMark: MarkType };
+const { cMark }: GameBoardSquareMarkClassicalProps = $props();
 </script>
 
 <div class="classical-mark">

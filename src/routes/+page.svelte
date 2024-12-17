@@ -30,7 +30,7 @@ const scrollToAbout = {
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite
-			styles="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
+			style="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
 		<a data-sveltekit-noscroll href="/#about" use:scrollTo={scrollToAbout} class="btn_03">
 			<span>Start</span>

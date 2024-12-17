@@ -19,39 +19,60 @@
 	along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <script lang="ts">
-import QuantumMarks from './GameBoardSquareMarkQuantums.svelte';
+import QuantumMarks from './GameBoardSquareMarksQuantum.svelte';
 import ClassicalMark from './GameBoardSquareMarkClassical.svelte';
 import type { StateType } from './QuantumTTT.type';
 
-export let cMark: StateType['cSquares'][0];
-export let qMarks: StateType['qSquares'][0];
-export let cycleMarks: StateType['cycleMarks'];
-export let isHighlighted: boolean;
-export let isBeingCollapsed: boolean;
-export let onClick: () => void;
+type GameBoardSquareProps = {
+	cMark: StateType['cSquares'][0];
+	qMarks: StateType['qSquares'][0];
+	cycleMarks: StateType['cycleMarks'];
+	isHighlighted: boolean;
+	isBeingCollapsed: boolean;
+	onClick: () => void;
+	squareName: `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
+};
+const {
+	cMark,
+	qMarks,
+	cycleMarks,
+	isHighlighted,
+	isBeingCollapsed,
+	onClick,
+	squareName
+}: GameBoardSquareProps = $props();
 
-export let squareName: `${'upper' | 'middle' | 'lower'} ${'left' | 'center' | 'right'} square`;
+const squareClass = $derived(
+	cMark
+		? 'square'
+		: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`
+);
 
-$: squareClass = cMark
-	? 'square'
-	: `square${isHighlighted ? ' highlighted' : ''}${isBeingCollapsed ? ' selected' : ''}`;
-
-$: ariaLabel = `${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`;
+const ariaLabel = $derived(
+	`${cMark ? `Classical ${cMark}` : qMarks.length > 0 ? `Quantum ${qMarks.join(', ')}` : ''} on ${squareName}`
+);
 </script>
 
 <div
 	class={squareClass}
-	on:click|preventDefault={onClick}
-	on:keypress|preventDefault={onClick}
+	onclick={(e: MouseEvent): void => {
+		e.preventDefault();
+		onClick();
+	}}
+	onkeypress={(e: KeyboardEvent): void => {
+		if (e.key !== 'Enter' && e.key !== ' ') return;
+		e.preventDefault();
+		onClick();
+	}}
 	aria-label={ariaLabel}
 	role="button"
 	tabindex="0"
 >
 	<div>
-		<span class="border-dashing"><i /></span>
-		<span class="border-dashing"><i /></span>
-		<span class="border-dashing"><i /></span>
-		<span class="border-dashing"><i /></span>
+		<span class="border-dashing"><i></i></span>
+		<span class="border-dashing"><i></i></span>
+		<span class="border-dashing"><i></i></span>
+		<span class="border-dashing"><i></i></span>
 	</div>
 	{#if cMark}
 		<ClassicalMark {cMark} />
