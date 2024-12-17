@@ -3,7 +3,7 @@ import LogoWhite from '$lib/assets/logo_white.svg.svelte';
 import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
 import GithubMarkWhite from '$lib/assets/github-mark-white.svg.svelte';
 
-let { h = $bindable() }: { h: number } = $props();
+let { h = $bindable(100) }: { h: number } = $props();
 </script>
 
 <footer class="footer" bind:clientHeight={h}>
