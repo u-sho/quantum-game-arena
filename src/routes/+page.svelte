@@ -168,6 +168,11 @@ section {
 	&:nth-child(even) {
 		background-color: var(--bg-light-color);
 		color: black;
+
+		@media (prefers-color-scheme: dark) {
+			background-color: #1a1a1a;
+			color: white;
+		}
 	}
 
 	& p {
