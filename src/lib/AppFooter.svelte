@@ -48,7 +48,7 @@ export let h: number;
 	align-items: center;
 	padding: 40px;
 	background-color: var(--theme-color);
-	color: 'white';
+	color: white;
 	@media (min-width: 480px) {
 		padding: 40px 0;
 	}
@@ -58,12 +58,12 @@ export let h: number;
 	margin: 0;
 	padding: 0 0 0.5rem;
 	display: inline-flex;
-	border-bottom: 1px solid var(--bg-color);
+	border-bottom: 1px solid white;
 	& a {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--bg-color);
+		color: white;
 	}
 }
 
