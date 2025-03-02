@@ -20,5 +20,4 @@ jobs:
         run: npm ci
 
       - name: Lint Check & Test
-        run: npx svelte-kit sync
-        run: npm run ci
+        run: npx svelte-kit sync && npm run ci
