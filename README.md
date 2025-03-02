@@ -1,5 +1,7 @@
 # Quantum Game Arena
 
+![Quantum Game Arena](https://github.com/user-attachments/assets/c67841ea-cecc-485c-b372-b7c45ac61429)
+
 powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
 
 ## Developing
