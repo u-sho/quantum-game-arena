@@ -1,6 +1,6 @@
 {
 	"name": "quantum-game-arena",
-	"version": "0.9.0",
+	"version": "0.9.1",
 	"description": "The play area of Quantum Games that aim to grew up the intuition of Quantum Mechanics.",
 	"keywords": [
 		"education",
@@ -66,7 +66,7 @@
 		"typescript": "~5.7.3",
 		"typescript-eslint": "^8.25.0",
 		"typescript-eslint-language-service": "^5.0.5",
-		"vite": "^6.2.0",
+		"vite": "^6.2.4",
 		"vitest": "^3.0.7",
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.11.0"
 	},
