@@ -2,7 +2,6 @@
 
 ![6137f800-cec1-11eb-8794-82cbef733846](https://github.com/user-attachments/assets/c67841ea-cecc-485c-b372-b7c45ac61429)
 
-
 powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
 
 ## Developing
