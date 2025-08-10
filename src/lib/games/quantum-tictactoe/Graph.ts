@@ -139,7 +139,7 @@ export default class Graph {
 		edge: Readonly<Edge>,
 		prev: Readonly<Map<Node, Edge | null>>
 	): [NodeIdType[], EdgeKeyType[]] {
-		const cycleNodeIds = [];
+		const cycleNodeIds: NodeIdType[] = [];
 		const cycleEdgeKeys = [edge.key];
 		let currNode: Node, currEdge: Edge;
 
