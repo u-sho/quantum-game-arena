@@ -3,7 +3,7 @@
 	<url>
 		<loc>https://qgame.app</loc>
 		<lastmod>2023-12-22</lastmod>
-		<changefreq>monthly</changefreq>
+		<changefreq>yearly</changefreq>
 		<priority>0.8</priority>
 	</url>
 
@@ -16,21 +16,21 @@
 
 	<url>
 		<loc>https://qgame.app/games/quantum-tictactoe/tutorial</loc>
-		<lastmod>2023-09-23</lastmod>
+		<lastmod>2025-08-11</lastmod>
 		<changefreq>yearly</changefreq>
 	</url>
 
 	<url>
 		<loc>https://qgame.app/games/quantum-tictactoe/play/ai</loc>
 		<lastmod>2024-05-04</lastmod>
-		<changefreq>monthly</changefreq>
+		<changefreq>yearly</changefreq>
 		<priority>1.0</priority>
 	</url>
 
 	<url>
 		<loc>https://qgame.app/games/quantum-tictactoe/play/human</loc>
 		<lastmod>2023-12-22</lastmod>
-		<changefreq>monthly</changefreq>
+		<changefreq>yearly</changefreq>
 		<priority>0.8</priority>
 	</url>
 </urlset>
