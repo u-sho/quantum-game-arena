@@ -69,7 +69,7 @@ let { h = $bindable() }: { h: number } = $props();
 }
 
 .footer__title {
-	margin: 0 0 0 16px;
+	margin: 0 0 0 1rem;
 	padding: 0;
 	font-family: 'Arial', 'Hiragino Kaku Gothic', 'Noto Sans JP', sans-serif;
 	font-weight: bold;
@@ -77,6 +77,7 @@ let { h = $bindable() }: { h: number } = $props();
 	text-wrap: nowrap;
 
 	@media (max-width: 480px) {
+		margin-left: 0.5rem;
 		line-height: 1.2;
 		font-size: 1.75rem;
 	}
