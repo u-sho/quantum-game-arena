@@ -1,7 +1,6 @@
 type GetRandomInt = (prop: { min?: number; max: number; excepts?: number[] }) => number;
 
-const getRandomInt: GetRandomInt = ({ min, max, excepts }) => {
-	if (min === undefined) min = 0;
+const getRandomInt: GetRandomInt = ({ min = 0, max, excepts }) => {
 	if (!Number.isInteger(min) || !Number.isInteger(max))
 		console.error('getRandomInt: arguments min and max should be integers.');
 

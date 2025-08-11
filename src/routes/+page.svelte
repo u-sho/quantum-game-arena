@@ -125,6 +125,7 @@ a.btn_03 {
 }
 article {
 	margin-top: var(--header-height);
+	padding-bottom: 200px;
 }
 
 .hero {
