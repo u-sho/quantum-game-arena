@@ -41,7 +41,7 @@ const defaultConfig = tsEslint.config({
 		parser: tsEslint.parser,
 		parserOptions: {
 			sourceType: 'module',
-			ecmaVersion: 2023,
+			ecmaVersion: 'latest',
 			project: './tsconfig.eslint.json',
 			tsconfigRootDir: import.meta.dirname,
 			extraFileExtensions: ['.svelte']
