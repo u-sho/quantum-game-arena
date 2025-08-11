@@ -24,16 +24,14 @@ describe('RequiredAtLeastOne<T>', () => {
 	});
 
 	test('is assignable other types?', () => {
-		// TODO: `toBeAssignableToTypeOf` instead of `toMatchTypeOf`
-		// see https://github.com/mmkal/expect-type/issues/10
-		expectTypeOf({ foo: 'str' }).not.toMatchTypeOf<Options>();
-		expectTypeOf({ bar: 'str' }).not.toMatchTypeOf<Options>();
-		expectTypeOf({ bar: 5, baz: 5 }).not.toMatchTypeOf<Options>();
-		expectTypeOf({ bar: 'str', baz: 'str' }).not.toMatchTypeOf<Options>();
-		expectTypeOf({ foo: 5, baz: 5 }).not.toMatchTypeOf<Options>();
-		expectTypeOf({ foo: 'str', baz: 'str' }).not.toMatchTypeOf<Options>();
-		expectTypeOf({ foo: 5, bar: 'str' }).not.toMatchTypeOf<Options>();
-		expectTypeOf({ foo: 'str', bar: 3 }).not.toMatchTypeOf<Options>();
+		expectTypeOf({ foo: 'str' }).not.toMatchObjectType<Options>();
+		expectTypeOf({ bar: 'str' }).not.toMatchObjectType<Options>();
+		expectTypeOf({ bar: 5, baz: 5 }).not.toMatchObjectType<Options>();
+		expectTypeOf({ bar: 'str', baz: 'str' }).not.toMatchObjectType<Options>();
+		expectTypeOf({ foo: 5, baz: 5 }).not.toMatchObjectType<Options>();
+		expectTypeOf({ foo: 'str', baz: 'str' }).not.toMatchObjectType<Options>();
+		expectTypeOf({ foo: 5, bar: 'str' }).not.toMatchObjectType<Options>();
+		expectTypeOf({ foo: 'str', bar: 3 }).not.toMatchObjectType<Options>();
 		expectTypeOf<Options>().not.toHaveProperty('who');
 	});
 });
@@ -56,16 +54,14 @@ describe('RequiredAtLeastOne<T, K>', () => {
 	});
 
 	test('is assignable other types?', () => {
-		// TODO: `toBeAssignableToTypeOf` instead of `toMatchTypeOf`
-		// see https://github.com/mmkal/expect-type/issues/10
-		expectTypeOf({ foo: 'str' }).not.toMatchTypeOf<NumOptions>();
-		expectTypeOf({ bar: 'str' }).not.toMatchTypeOf<NumOptions>();
-		expectTypeOf({ bar: 5, baz: 5 }).not.toMatchTypeOf<NumOptions>();
-		expectTypeOf({ bar: 'str', baz: 'str' }).not.toMatchTypeOf<NumOptions>();
-		expectTypeOf({ foo: 5, baz: 5 }).not.toMatchTypeOf<NumOptions>();
-		expectTypeOf({ foo: 'str', baz: 'str' }).not.toMatchTypeOf<NumOptions>();
-		expectTypeOf({ foo: 5, bar: 'str' }).not.toMatchTypeOf<NumOptions>();
-		expectTypeOf({ foo: 'str', bar: 3 }).not.toMatchTypeOf<NumOptions>();
+		expectTypeOf({ foo: 'str' }).not.toMatchObjectType<NumOptions>();
+		expectTypeOf({ bar: 'str' }).not.toMatchObjectType<NumOptions>();
+		expectTypeOf({ bar: 5, baz: 5 }).not.toMatchObjectType<NumOptions>();
+		expectTypeOf({ bar: 'str', baz: 'str' }).not.toMatchObjectType<NumOptions>();
+		expectTypeOf({ foo: 5, baz: 5 }).not.toMatchObjectType<NumOptions>();
+		expectTypeOf({ foo: 'str', baz: 'str' }).not.toMatchObjectType<NumOptions>();
+		expectTypeOf({ foo: 5, bar: 'str' }).not.toMatchObjectType<NumOptions>();
+		expectTypeOf({ foo: 'str', bar: 3 }).not.toMatchObjectType<NumOptions>();
 		expectTypeOf<NumOptions>().not.toHaveProperty('who');
 	});
 });
