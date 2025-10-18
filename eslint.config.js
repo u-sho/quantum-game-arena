@@ -4,6 +4,7 @@ import sveltePlugin from 'eslint-plugin-svelte';
 import svelteParser from 'svelte-eslint-parser';
 import prettierConfig from 'eslint-config-prettier';
 import globals from 'globals';
+import { defineConfig } from 'eslint/config';
 
 const isProduction = () => process.env.NODE_ENV === 'production';
 
@@ -19,7 +20,7 @@ const ignores = [
 	'vite.config.ts.timestamp*' // vite temp file
 ];
 
-/** @type {import('typescript-eslint').Config} */
+/** @type {import('eslint').Linter.Config[]} */
 const commonConfig = [
 	{ ignores },
 	{
@@ -29,7 +30,7 @@ const commonConfig = [
 	}
 ];
 
-const defaultConfig = tsEslint.config({
+const defaultConfig = defineConfig({
 	files: ['**/*.js', '**/*.ts', '**/*.svelte'],
 	extends: [
 		eslintJs.configs.recommended,
@@ -165,7 +166,7 @@ const defaultConfig = tsEslint.config({
 	}
 });
 
-const svelteConfig = tsEslint.config({
+const svelteConfig = defineConfig({
 	files: ['**/*.svelte'],
 	extends: [...sveltePlugin.configs['flat/all'], ...sveltePlugin.configs['flat/prettier']],
 	languageOptions: {
@@ -191,13 +192,13 @@ const svelteConfig = tsEslint.config({
 	}
 });
 
-/** @type {import('eslint').Linter.Config}*/
+/** @type {import('eslint').Linter.Config} */
 const svelteSvgConfig = {
 	files: ['**/*.svg.svelte'],
 	rules: { 'svelte/require-optimized-style-attribute': 'off' }
 };
 
-/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}*/
+/** @type {import('eslint').Linter.Config} */
 const anyConfigConfig = {
 	files: ['**/*.config.*'],
 	rules: {
@@ -206,7 +207,6 @@ const anyConfigConfig = {
 	}
 };
 
-/** @type {import('typescript-eslint').Config} */
 export default [
 	...defaultConfig,
 	...svelteConfig,
