@@ -29,7 +29,7 @@ import { sleep } from '$lib/utils/sleep';
 import GameBoard from './GameBoard.svelte';
 import GameInfo from './GameInfo.svelte';
 import GameFooter from './GameFooter.svelte';
-import type { MarkType, SquareType } from './QuantumTTT.type';
+import type { MarkType, SquareType, StateType } from './QuantumTTT.type';
 import Game from './QuantumTTT';
 
 let game = new Game();
@@ -40,8 +40,10 @@ let message = state.status;
 
 $: choices =
 	state.collapseSquare !== null && state.cycleMarks !== null
-		? ((state.qSquares[state.collapseSquare] as Exclude<MaxLengthArray<MarkType, 9>, []>).filter(
-				(choice) => (state.cycleMarks as Exclude<typeof state.cycleMarks, []>).includes(choice)
+		? ((
+				state.qSquares[state.collapseSquare] as Exclude<StateType['qSquares'][SquareType], []>
+			).filter((choice) =>
+				(state.cycleMarks as Exclude<StateType['cycleMarks'], null | []>).includes(choice)
 			) as MaxLengthArray<MarkType, 3> | undefined)
 		: undefined;
 
@@ -103,7 +105,7 @@ const handleSquareClick = (i: SquareType): void => {
 const aiMove = (): void => {
 	let cSquares: MaxLengthArray<SquareType, 9> = [];
 	for (let i = 0; i < 9; i++) {
-		if (state.cSquares[i] !== null) cSquares = [...cSquares, i as SquareType];
+		if (state.cSquares[i as SquareType] !== null) cSquares = [...cSquares, i as SquareType];
 	}
 	const aiMove1 = getRandomInt({ min: 0, max: 8, excepts: cSquares }) as SquareType;
 	const aiMove2 = getRandomInt({ min: 0, max: 8, excepts: [...cSquares, aiMove1] }) as SquareType;

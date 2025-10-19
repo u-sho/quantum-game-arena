@@ -12,19 +12,8 @@ export type RequiredAtLeastOne<T, K extends keyof T = keyof T> = K extends keyof
 	: never;
 
 /** fixed length array */
-export type ConstArray<T, N extends number> = N extends 0
-	? []
-	: N extends 3
-		? [T, T, T]
-		: N extends 6
-			? [T, T, T, T, T, T]
-			: N extends 7
-				? [T, T, T, T, T, T, T]
-				: N extends 8
-					? [T, T, T, T, T, T, T, T]
-					: N extends 9
-						? [T, ...ConstArray<T, 8>]
-						: never;
+import type { FixedLengthArray as ConstArray } from 'type-fest';
+export type { ConstArray };
 
 /** fixed _max_ length array */
 export type MaxLengthArray<T, N extends number> = N extends 0
@@ -36,11 +25,11 @@ export type MaxLengthArray<T, N extends number> = N extends 0
 			: N extends 5
 				? MaxLengthArray<T, 4> | [T, T, T, T, T]
 				: N extends 6
-					? MaxLengthArray<T, 5> | ConstArray<T, 6>
+					? MaxLengthArray<T, 5> | [T, T, T, T, T, T]
 					: N extends 7
-						? MaxLengthArray<T, 6> | ConstArray<T, 7>
+						? MaxLengthArray<T, 6> | [T, T, T, T, T, T, T]
 						: N extends 8
-							? MaxLengthArray<T, 7> | ConstArray<T, 8>
+							? MaxLengthArray<T, 7> | [T, T, T, T, T, T, T, T]
 							: N extends 9
-								? MaxLengthArray<T, 8> | ConstArray<T, 9>
+								? MaxLengthArray<T, 8> | [T, T, T, T, T, T, T, T, T]
 								: never;

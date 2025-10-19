@@ -61,12 +61,13 @@ const currentSquareName = (
 	{#each rows as row (row)}
 		<div class="game-board--row">
 			{#each columns as column (column)}
+				{@const squareIndex = (row * 3 + column) as SquareType}
 				<GameBoardSquare
-					cMark={cSquares[row * 3 + column]}
-					qMarks={qSquares[row * 3 + column]}
+					cMark={cSquares[squareIndex]}
+					qMarks={qSquares[squareIndex]}
 					{cycleMarks}
 					isHighlighted={isHighlighted(row, column)}
-					isBeingCollapsed={collapseSquare === row * 3 + column}
+					isBeingCollapsed={collapseSquare === squareIndex}
 					onClick={onClick(row, column)}
 					squareName={currentSquareName(row, column)}
 				/>
