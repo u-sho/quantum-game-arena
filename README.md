@@ -2,7 +2,7 @@
 
 ![Quantum Game Arena](https://github.com/user-attachments/assets/c67841ea-cecc-485c-b372-b7c45ac61429)
 
-Quantum Game Arena is a online game arena that allows you to play the "Quantum Games" without registration.
+Quantum Game Arena is an online game arena that allows you to play the "Quantum Games" without registration.
 Quantum Games incorporate fundamental concepts of quantum mechanics.
 You can enjoy the complexity of the quantum games.
 
