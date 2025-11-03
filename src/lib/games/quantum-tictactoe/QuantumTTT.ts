@@ -115,11 +115,11 @@ export default class QuantumTTT {
 
 	// adds quantum mark to square that was clicked on then checks if that created a cycle
 	private _handleNormalMove(i: SquareType): StatusType {
-		const qSquares: StateType['qSquares'] = [...this.state.qSquares];
+		const qSquares = [...this.state.qSquares] as unknown as StateType['qSquares'];
 		const marker: MarkType = `${this.whoseTurn()}${this.state.currentTurn}`;
 
 		if (qSquares[i].length >= 1)
-			(qSquares[i] as Exclude<(typeof qSquares)[typeof i], []>).push(marker);
+			(qSquares[i] as Exclude<StateType['qSquares'][SquareType], []>).push(marker);
 		else qSquares[i] = [marker];
 
 		if (!this._g.hasNode(i)) this._g.addNode(i);
@@ -166,7 +166,7 @@ export default class QuantumTTT {
 	// collapse square and propagates changes outward
 	handleCollapse(mark: MarkType): StatusType {
 		if (import.meta.env.DEV) console.log(mark);
-		const i = this.state.collapseSquare as number;
+		const i = this.state.collapseSquare as SquareType;
 		const visited = new Set([mark]);
 
 		this._handleCollapseHelper(mark, i, visited);
@@ -203,15 +203,15 @@ export default class QuantumTTT {
 		return status;
 	}
 
-	private _handleCollapseHelper(mark: MarkType, i: number, visited: Set<MarkType>): void {
-		const cSquares: StateType['cSquares'] = [...this.state.cSquares];
-		const qSquares: StateType['qSquares'] = [...this.state.qSquares];
+	private _handleCollapseHelper(mark: MarkType, i: SquareType, visited: Set<MarkType>): void {
+		const cSquares = [...this.state.cSquares] as unknown as StateType['cSquares'];
+		const qSquares = [...this.state.qSquares] as unknown as StateType['qSquares'];
 		cSquares[i] = mark;
 		qSquares[i] = [];
 
 		this.setState({ cSquares, qSquares });
 
-		for (const edge of this._g.getNode(i).edges) {
+		for (const edge of this._g.getNode(i)?.edges ?? []) {
 			if (!visited.has(edge.key)) {
 				visited.add(edge.key);
 				this._handleCollapseHelper(edge.key, edge.end.id, visited);
@@ -245,7 +245,9 @@ function _calculateWinners(squares: Readonly<ConstArray<MarkType | null, 9>>): W
 	for (const line of lines) {
 		const [s1, s2, s3] = [squares[line[0]], squares[line[1]], squares[line[2]]];
 		if (s1 && s2 && s3 && s1[0] === s2[0] && s1[0] === s3[0]) {
-			const subscripts = [s1[1], s2[1], s3[1]].map(Number) as ConstArray<TurnNumType, 3>;
+			const subscripts = ([s1[1], s2[1], s3[1]] as ConstArray<`${TurnNumType}`, 3>).map((v) =>
+				parseInt(v, 10)
+			) as ConstArray<TurnNumType, 3>;
 			winners.push([Math.max(...subscripts) as TurnNumType, s1[0] as PlayerType, line]);
 		}
 	}

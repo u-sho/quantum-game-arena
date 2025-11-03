@@ -19,12 +19,12 @@
  * along with QuantumTicTacToe.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import type { MarkType } from './QuantumTTT.type';
+import type { MarkType, SquareType } from './QuantumTTT.type';
 
-export type NodeIdType = number;
+export type NodeIdType = SquareType;
 export type EdgeKeyType = MarkType;
 
-type NodesType = Record<NodeIdType, Node>;
+type NodesType = Partial<Record<NodeIdType, Node>>;
 type EdgesType = Partial<Record<EdgeKeyType, Edge>>;
 
 class Node {
@@ -62,7 +62,7 @@ export default class Graph {
 		this.nodes[id] = new Node(id);
 	}
 
-	getNode(id: Readonly<NodeIdType>): Node {
+	getNode(id: Readonly<NodeIdType>): Node | undefined {
 		return this.nodes[id];
 	}
 
@@ -74,11 +74,13 @@ export default class Graph {
 		if (!(id1 in this.nodes)) this.addNode(id1);
 		if (!(id2 in this.nodes)) this.addNode(id2);
 
-		const edge = new Edge(this.getNode(id1), this.getNode(id2), key);
-		const reverseEdge = new Edge(this.getNode(id2), this.getNode(id1), key);
+		/* eslint-disable @typescript-eslint/no-non-null-assertion */
+		const edge = new Edge(this.getNode(id1)!, this.getNode(id2)!, key);
+		const reverseEdge = new Edge(this.getNode(id2)!, this.getNode(id1)!, key);
 
-		this.getNode(id1).edges.push(edge);
-		this.getNode(id2).edges.push(reverseEdge);
+		this.getNode(id1)!.edges.push(edge);
+		this.getNode(id2)!.edges.push(reverseEdge);
+		/* eslint-enable */
 		this.edges[key] = edge;
 	}
 
@@ -97,6 +99,7 @@ export default class Graph {
 		// case two: cycle of len 2
 		const start = this.getNode(startId);
 		const endToEdge = new Map<Node, Edge>();
+		if (!start) return null;
 
 		for (const edge of start.edges) {
 			if (endToEdge.has(edge.end)) {

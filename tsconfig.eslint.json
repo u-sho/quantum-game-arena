@@ -1,7 +1,6 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"lib": [],
 		"types": ["vitest/importMeta", "@typescript/lib-esnext", "@typescript/lib-dom"]
 	},
 	"include": [
