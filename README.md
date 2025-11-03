@@ -2,7 +2,11 @@
 
 ![Quantum Game Arena](https://github.com/user-attachments/assets/c67841ea-cecc-485c-b372-b7c45ac61429)
 
-powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+Quantum Game Arena is a online game arena that allows you to play the "Quantum Games" without registration.
+Quantum Games incorporate fundamental concepts of quantum mechanics.
+You can enjoy the complexity of the quantum games.
+
+powered by [`SvelteKit`](https://svelte.dev/docs/kit);
 
 ## Developing
 
