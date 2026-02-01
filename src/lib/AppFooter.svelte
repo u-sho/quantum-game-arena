@@ -3,6 +3,7 @@ import LogoWhite from '$lib/assets/logo_white.svg.svelte';
 import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
 import GithubMarkWhite from '$lib/assets/github-mark-white.svg.svelte';
 
+// eslint-disable-next-line @typescript-eslint/no-useless-default-assignment
 let { h = $bindable() }: { h: number } = $props();
 </script>
 
