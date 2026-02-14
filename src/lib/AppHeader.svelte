@@ -1,5 +1,24 @@
 <script lang="ts">
 import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
+import IconSun from '$lib/assets/icon-sun.svg.svelte';
+import IconMoon from '$lib/assets/icon-moon.svg.svelte';
+import IconAuto from '$lib/assets/icon-auto.svg.svelte';
+import { themeStore } from '$lib/stores/theme.svelte';
+
+$effect(() => {
+	const root = document.documentElement;
+	if (themeStore.theme === 'light') {
+		root.setAttribute('data-theme', 'light');
+	} else if (themeStore.theme === 'dark') {
+		root.setAttribute('data-theme', 'dark');
+	} else {
+		root.removeAttribute('data-theme');
+	}
+});
+
+function handleThemeToggle() {
+	themeStore.toggleTheme();
+}
 </script>
 
 <header class="header">
@@ -14,6 +33,17 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 		<ul>
 			<!-- <li><a href="/#about">About</a></li> -->
 			<li><a href="/games/quantum-tictactoe">Game</a></li>
+			<li>
+				<button class="theme-toggle" onclick={handleThemeToggle} aria-label="テーマを切り替え">
+					{#if themeStore.theme === 'light'}
+						<IconSun style="width: 20px; height: 20px;" />
+					{:else if themeStore.theme === 'dark'}
+						<IconMoon style="width: 20px; height: 20px;" />
+					{:else}
+						<IconAuto style="width: 20px; height: 20px;" />
+					{/if}
+				</button>
+			</li>
 		</ul>
 	</nav>
 </header>
@@ -26,7 +56,7 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 	justify-content: space-between;
 	width: 100%;
 	height: 56px;
-	background-color: #f0f7fff0;
+	background-color: var(--bg-light-color);
 	border-top: 4px solid var(--theme-color);
 	border-bottom: 4px solid var(--theme-color);
 	z-index: 100;
@@ -87,6 +117,21 @@ nav {
 				letter-spacing: 10%;
 				text-decoration: none;
 				transition: color 0.2s linear;
+				&:hover {
+					opacity: 0.5;
+				}
+			}
+
+			& .theme-toggle {
+				display: flex;
+				height: 100%;
+				align-items: center;
+				padding: 0 1em;
+				background: none;
+				border: none;
+				color: var(--theme-color);
+				cursor: pointer;
+				transition: opacity 0.2s linear;
 				&:hover {
 					opacity: 0.5;
 				}
