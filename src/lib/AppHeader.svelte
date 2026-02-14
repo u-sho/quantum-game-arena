@@ -16,7 +16,7 @@ $effect(() => {
 	}
 });
 
-function handleThemeToggle() {
+function _handleThemeToggle(): void {
 	themeStore.toggleTheme();
 }
 </script>
@@ -34,7 +34,12 @@ function handleThemeToggle() {
 			<!-- <li><a href="/#about">About</a></li> -->
 			<li><a href="/games/quantum-tictactoe">Game</a></li>
 			<li>
-				<button class="theme-toggle" onclick={handleThemeToggle} aria-label="テーマを切り替え">
+				<button
+					type="button"
+					class="theme-toggle"
+					onclick={_handleThemeToggle}
+					aria-label="テーマを切り替え"
+				>
 					{#if themeStore.theme === 'light'}
 						<IconSun style="width: 20px; height: 20px;" />
 					{:else if themeStore.theme === 'dark'}

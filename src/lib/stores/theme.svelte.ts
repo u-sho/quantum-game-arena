@@ -3,11 +3,11 @@ type Theme = 'light' | 'dark' | 'auto';
 class ThemeStore {
 	theme = $state<Theme>('auto');
 
-	setTheme(newTheme: Theme) {
+	setTheme(newTheme: Theme): void {
 		this.theme = newTheme;
 	}
 
-	toggleTheme() {
+	toggleTheme(): void {
 		if (this.theme === 'light') {
 			this.setTheme('dark');
 		} else if (this.theme === 'dark') {

@@ -1,5 +1,5 @@
 <script lang="ts">
-const { style = '', ...props }: { style?: string; [key: string]: unknown } = $props();
+const { style }: { style?: string } = $props();
 </script>
 
 <svg
@@ -11,7 +11,6 @@ const { style = '', ...props }: { style?: string; [key: string]: unknown } = $pr
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	{style}
-	{...props}
 >
 	<circle cx="12" cy="12" r="5" />
 	<line x1="12" y1="1" x2="12" y2="3" />
