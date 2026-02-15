@@ -7,6 +7,7 @@ import goGameImage from '$lib/assets/gogame.webp';
 import shogiImage from '$lib/assets/shogi.webp';
 import tictactoeImage from '$lib/assets/tic-tac-toe.webp';
 
+import { resolve } from '$app/paths';
 import { scrollRef, scrollTo } from 'svelte-scrolling';
 import type { ScrollToOptions } from 'svelte-scrolling/dist/types/options';
 
@@ -32,6 +33,7 @@ const scrollToAbout = {
 		<LogoTitleRowWhite
 			style="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
 		/>
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve https://github.com/sveltejs/kit/pull/14756 -->
 		<a data-sveltekit-noscroll href="/#about" use:scrollTo={scrollToAbout} class="btn_03">
 			<span>Start</span>
 		</a>
@@ -68,7 +70,7 @@ const scrollToAbout = {
 		<nav>
 			<ul class="game-list">
 				<li>
-					<a href="/games/quantum-tictactoe" type="text/html">
+					<a href={resolve('/games/quantum-tictactoe')} type="text/html">
 						<img src={tictactoeImage} alt="tic-tac-toe" width="130px" height="130px" />
 						<span>量子三目並べ</span>
 					</a>
@@ -90,7 +92,7 @@ const scrollToAbout = {
 	</section>
 	<section id="play">
 		<h1 class="play--title">さあ量子の世界へ...</h1>
-		<a href="/games/quantum-tictactoe" class="play--button">
+		<a href={resolve('/games/quantum-tictactoe')} class="play--button">
 			<span>Play</span>
 		</a>
 	</section>
