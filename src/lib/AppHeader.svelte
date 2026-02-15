@@ -1,6 +1,7 @@
 <script lang="ts">
 import { resolve } from '$app/paths';
 import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
+import ButtonThemeToggle from '$lib/ButtonThemeToggle.svelte';
 </script>
 
 <header>
@@ -15,6 +16,9 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 		<ul>
 			<!-- <li><a href="/#about">About</a></li> -->
 			<li><a href={resolve('/games/quantum-tictactoe')}>Game</a></li>
+			<li>
+				<ButtonThemeToggle />
+			</li>
 		</ul>
 	</nav>
 </header>
@@ -27,7 +31,7 @@ header {
 	justify-content: space-between;
 	width: 100%;
 	height: 56px;
-	background-color: #f0f7fff0;
+	background-color: var(--bg-light-color);
 	border-top: 4px solid var(--theme-color);
 	border-bottom: 4px solid var(--theme-color);
 	z-index: 100;
