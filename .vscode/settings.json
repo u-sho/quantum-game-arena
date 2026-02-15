@@ -36,5 +36,6 @@
 	"[yaml]": {
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
-	}
+	},
+	"snyk.advanced.autoSelectOrganization": true
 }
