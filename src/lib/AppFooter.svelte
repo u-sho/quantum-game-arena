@@ -3,11 +3,13 @@ import LogoWhite from '$lib/assets/logo_white.svg.svelte';
 import TwitterLogoWhite from '$lib/assets/twitter-logo_white.svg.svelte';
 import GithubMarkWhite from '$lib/assets/github-mark-white.svg.svelte';
 
+// eslint-disable-next-line @typescript-eslint/no-useless-default-assignment
 let { h = $bindable() }: { h: number } = $props();
 </script>
 
-<footer class="footer" bind:clientHeight={h}>
+<footer bind:clientHeight={h}>
 	<div class="footer__logo">
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve https://github.com/sveltejs/kit/pull/14756 -->
 		<a href="/#top">
 			<LogoWhite
 				style="height: 100%; min-height: 1.75rem; max-height: 4rem; width: 100%; min-width: calc(1.75rem * 729.84/834.83); max-width: calc(112px * 834.83/729.84);"
@@ -38,7 +40,7 @@ let { h = $bindable() }: { h: number } = $props();
 </footer>
 
 <style>
-.footer {
+footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
