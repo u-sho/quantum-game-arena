@@ -1,10 +1,11 @@
 <script lang="ts">
+import { resolve } from '$app/paths';
 import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 </script>
 
-<header class="header">
-	<hgroup class="logo">
-		<a href="/">
+<header>
+	<hgroup>
+		<a href={resolve('/')}>
 			<TitleLogo style="height: 44px; margin: 6px 12px;" />
 			<h1>Quantum Game Arena</h1>
 		</a>
@@ -13,13 +14,13 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 	<nav>
 		<ul>
 			<!-- <li><a href="/#about">About</a></li> -->
-			<li><a href="/games/quantum-tictactoe">Game</a></li>
+			<li><a href={resolve('/games/quantum-tictactoe')}>Game</a></li>
 		</ul>
 	</nav>
 </header>
 
 <style>
-.header {
+header {
 	position: fixed;
 	top: 0;
 	display: flex;
@@ -30,17 +31,17 @@ import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 	border-top: 4px solid var(--theme-color);
 	border-bottom: 4px solid var(--theme-color);
 	z-index: 100;
-}
 
-.logo {
-	box-sizing: border-box;
-	& a {
+	& hgroup {
 		box-sizing: border-box;
-		& h1 {
-			height: 0;
-			width: 0;
-			overflow: hidden;
-			margin: 0;
+		& a {
+			box-sizing: border-box;
+			& h1 {
+				height: 0;
+				width: 0;
+				overflow: hidden;
+				margin: 0;
+			}
 		}
 	}
 }
