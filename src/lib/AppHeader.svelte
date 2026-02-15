@@ -1,25 +1,7 @@
 <script lang="ts">
 import { resolve } from '$app/paths';
 import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
-import IconSun from '$lib/assets/icon-sun.svg.svelte';
-import IconMoon from '$lib/assets/icon-moon.svg.svelte';
-import IconAuto from '$lib/assets/icon-auto.svg.svelte';
-import { themeStore } from '$lib/stores/theme.svelte';
-
-$effect(() => {
-	const root = document.documentElement;
-	if (themeStore.theme === 'light') {
-		root.setAttribute('data-theme', 'light');
-	} else if (themeStore.theme === 'dark') {
-		root.setAttribute('data-theme', 'dark');
-	} else {
-		root.removeAttribute('data-theme');
-	}
-});
-
-function _handleThemeToggle(): void {
-	themeStore.toggleTheme();
-}
+import ButtonThemeToggle from '$lib/ButtonThemeToggle.svelte';
 </script>
 
 <header>
@@ -35,20 +17,7 @@ function _handleThemeToggle(): void {
 			<!-- <li><a href="/#about">About</a></li> -->
 			<li><a href={resolve('/games/quantum-tictactoe')}>Game</a></li>
 			<li>
-				<button
-					type="button"
-					class="theme-toggle"
-					onclick={_handleThemeToggle}
-					aria-label="テーマを切り替え"
-				>
-					{#if themeStore.theme === 'light'}
-						<IconSun style="width: 20px; height: 20px;" />
-					{:else if themeStore.theme === 'dark'}
-						<IconMoon style="width: 20px; height: 20px;" />
-					{:else}
-						<IconAuto style="width: 20px; height: 20px;" />
-					{/if}
-				</button>
+				<ButtonThemeToggle />
 			</li>
 		</ul>
 	</nav>
@@ -123,21 +92,6 @@ nav {
 				letter-spacing: 10%;
 				text-decoration: none;
 				transition: color 0.2s linear;
-				&:hover {
-					opacity: 0.5;
-				}
-			}
-
-			& .theme-toggle {
-				display: flex;
-				height: 100%;
-				align-items: center;
-				padding: 0 1em;
-				background: none;
-				border: none;
-				color: var(--theme-color);
-				cursor: pointer;
-				transition: opacity 0.2s linear;
 				&:hover {
 					opacity: 0.5;
 				}
