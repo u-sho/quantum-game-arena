@@ -33,7 +33,7 @@
 		"check": "run-p typecheck:*",
 		"typecheck:svelte": "svelte-check",
 		"typecheck:vitest": "vitest --typecheck",
-		"ci": "run-p format:dry lint:dry vitest:all",
+		"ci": "run-p format:dry lint:dry typecheck:svelte vitest:all",
 		"test": "vitest",
 		"vitest:all": "run-s typecheck:vitest test",
 		"format:dry": "prettier --cache --check .",
