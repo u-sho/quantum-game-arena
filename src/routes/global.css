@@ -7,8 +7,8 @@
 	--theme-color-rgb: 26, 80, 134;
 	--theme-light-color: #74aae7;
 	--accent-color: #e45355;
-	--bg-light-color: light-dark(#f0f7ff, #1a1a1a);
-	--bg-color: light-dark(#ffffff, #000000);
+	--bg-light-color: light-dark(#f0f7ff, #001a2f);
+	--bg-color: light-dark(#ffffff, #000010);
 	--text-color: light-dark(#000000, #ffffff);
 
 	/* Manual theme override */
@@ -18,7 +18,7 @@
 		--text-color: #000000;
 	}
 	&[data-theme='dark'] {
-		--bg-light-color: #1a1a1a;
+		--bg-light-color: #001a2f;
 		--bg-color: #000;
 		--text-color: #ffffff;
 	}

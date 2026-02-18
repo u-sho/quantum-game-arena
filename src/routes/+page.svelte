@@ -166,10 +166,6 @@ section {
 	scroll-margin-top: var(--header-height);
 	color: var(--text-color);
 
-	&:nth-child(even) {
-		background-color: var(--bg-light-color);
-	}
-
 	& p {
 		max-width: var(--contents-width-text);
 		margin: 16px;
