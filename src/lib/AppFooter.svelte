@@ -50,7 +50,7 @@ footer {
 	justify-content: center;
 	align-items: center;
 	padding: 40px;
-	background-color: var(--theme-color);
+	background-color: var(--footer-bg-color);
 	color: white;
 	@media (min-width: 480px) {
 		padding: 40px 0;

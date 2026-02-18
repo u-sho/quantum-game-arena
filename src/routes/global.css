@@ -10,17 +10,20 @@
 	--bg-light-color: light-dark(#f0f7ff, #001a2f);
 	--bg-color: light-dark(#ffffff, #000010);
 	--text-color: light-dark(#000000, #ffffff);
+	--footer-bg-color: light-dark(#1a5086, #001a2f);
 
 	/* Manual theme override */
 	&[data-theme='light'] {
 		--bg-light-color: #f0f7ff;
 		--bg-color: #ffffff;
 		--text-color: #000000;
+		--footer-bg-color: #1a5086;
 	}
 	&[data-theme='dark'] {
 		--bg-light-color: #001a2f;
 		--bg-color: #000;
 		--text-color: #ffffff;
+		--footer-bg-color: #001a2f;
 	}
 }
 
