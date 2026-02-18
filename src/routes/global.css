@@ -1,35 +1,27 @@
 :root {
-	--theme-color: #1a5086;
-	--theme-color-rgb: 26, 80, 134;
-	--theme-light-color: #7a9de3;
-	--accent-color: #e45355;
-	--bg-light-color: #f0f7ff;
-	--bg-color: #ffffff;
-	--text-color: #000000;
-
 	--header-height: 64px;
 	--contents-width: 712px;
 	--contents-width-text: 512px;
 
-	@media (prefers-color-scheme: dark) {
+	--theme-color: #1a5086;
+	--theme-color-rgb: 26, 80, 134;
+	--theme-light-color: #74aae7;
+	--accent-color: #e45355;
+	--bg-light-color: light-dark(#f0f7ff, #1a1a1a);
+	--bg-color: light-dark(#ffffff, #000000);
+	--text-color: light-dark(#000000, #ffffff);
+
+	/* Manual theme override */
+	&[data-theme='light'] {
+		--bg-light-color: #f0f7ff;
+		--bg-color: #ffffff;
+		--text-color: #000000;
+	}
+	&[data-theme='dark'] {
 		--bg-light-color: #1a1a1a;
 		--bg-color: #000;
 		--text-color: #ffffff;
 	}
-}
-
-/* Manual theme override for light mode */
-:root[data-theme='light'] {
-	--bg-light-color: #f0f7ff;
-	--bg-color: #ffffff;
-	--text-color: #000000;
-}
-
-/* Manual theme override for dark mode */
-:root[data-theme='dark'] {
-	--bg-light-color: #1a1a1a;
-	--bg-color: #000;
-	--text-color: #ffffff;
 }
 
 body {

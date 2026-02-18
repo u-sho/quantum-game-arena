@@ -118,7 +118,11 @@ let footerHeight: number;
 	</section>
 	<section id="play">
 		<h2>Let's play!</h2>
-		<p>Quantum Tic-Tac-Toeトップ画面に戻ってさっそく遊んでみましょう！</p>
+		<p>
+			以上が量子三目並べの基本的なルールになります。<br />
+			Quantum Tic-Tac-Toeトップ画面に戻ってさっそく遊んでみましょう！
+		</p>
+
 		<a href={resolve('/games/quantum-tictactoe')} class="play--button">
 			<span>Let's Play!</span>
 		</a>
@@ -175,7 +179,7 @@ dfn:lang(ja-JP) {
 	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
-	color: var(--bg-color);
+	color: var(--text-color);
 
 	&:hover {
 		background-color: #f0f7fff0;

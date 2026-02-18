@@ -2,37 +2,37 @@
 import IconSun from '$lib/assets/icon-sun.svg.svelte';
 import IconMoon from '$lib/assets/icon-moon.svg.svelte';
 import IconAuto from '$lib/assets/icon-auto.svg.svelte';
-import { browser } from '$app/environment';
 
 type Theme = 'light' | 'dark' | 'auto';
 
 let theme = $state<Theme>('auto');
+let buttonLabel = $state('ダークテーマに切り替え');
 
-$effect(() => {
-	if (browser) {
-		const root = document.documentElement;
-		if (theme === 'light') {
-			root.setAttribute('data-theme', 'light');
-		} else if (theme === 'dark') {
-			root.setAttribute('data-theme', 'dark');
-		} else {
-			root.removeAttribute('data-theme');
-		}
-	}
-});
-
-function _toggleTheme(): void {
-	if (theme === 'light') {
+const toggleTheme = (): void => {
+	const rootElement = document.documentElement;
+	if (theme === 'auto') {
 		theme = 'dark';
+		buttonLabel = 'ライトテーマに切り替え';
+		rootElement.setAttribute('data-theme', 'dark');
 	} else if (theme === 'dark') {
-		theme = 'auto';
-	} else {
 		theme = 'light';
+		buttonLabel = 'ブラウザのテーマに切り替え';
+		rootElement.setAttribute('data-theme', 'light');
+	} else {
+		theme = 'auto';
+		buttonLabel = 'ダークテーマに切り替え';
+		rootElement.removeAttribute('data-theme');
 	}
-}
+};
 </script>
 
-<button type="button" class="theme-toggle" onclick={_toggleTheme} aria-label="テーマを切り替え">
+<button
+	type="button"
+	class="theme-toggle"
+	onclick={toggleTheme}
+	aria-label={buttonLabel}
+	title={buttonLabel}
+>
 	{#if theme === 'light'}
 		<IconSun style="width: 20px; height: 20px;" />
 	{:else if theme === 'dark'}
