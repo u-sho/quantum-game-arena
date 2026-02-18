@@ -1,4 +1,5 @@
 <script lang="ts">
+import { onMount } from 'svelte';
 import IconSun from '$lib/assets/icon-sun.svg.svelte';
 import IconMoon from '$lib/assets/icon-moon.svg.svelte';
 import IconAuto from '$lib/assets/icon-auto.svg.svelte';
@@ -7,6 +8,25 @@ type Theme = 'light' | 'dark' | 'auto';
 
 let theme = $state<Theme>('auto');
 let buttonLabel = $state('ダークテーマに切り替え');
+
+onMount(() => {
+	const savedTheme = localStorage.getItem('theme');
+	const rootElement = document.documentElement;
+	if (savedTheme === 'dark') {
+		theme = 'dark';
+		buttonLabel = 'ライトテーマに切り替え';
+		rootElement.setAttribute('data-theme', 'dark');
+	} else if (savedTheme === 'light') {
+		theme = 'light';
+		buttonLabel = 'ブラウザのテーマに切り替え';
+		rootElement.setAttribute('data-theme', 'light');
+	} else {
+		theme = 'auto';
+		buttonLabel = 'ダークテーマに切り替え';
+		localStorage.setItem('theme', 'auto');
+		rootElement.removeAttribute('data-theme');
+	}
+});
 
 const toggleTheme = (): void => {
 	const rootElement = document.documentElement;
@@ -23,6 +43,7 @@ const toggleTheme = (): void => {
 		buttonLabel = 'ダークテーマに切り替え';
 		rootElement.removeAttribute('data-theme');
 	}
+	localStorage.setItem('theme', theme);
 };
 </script>
 
