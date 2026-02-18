@@ -54,10 +54,10 @@ const toggleTheme = (): void => {
 	aria-label={buttonLabel}
 	title={buttonLabel}
 >
-	{#if theme === 'light'}
-		<IconSun style="width: 20px; height: 20px;" />
-	{:else if theme === 'dark'}
+	{#if theme === 'auto'}
 		<IconMoon style="width: 20px; height: 20px;" />
+	{:else if theme === 'dark'}
+		<IconSun style="width: 20px; height: 20px;" />
 	{:else}
 		<IconAuto style="width: 20px; height: 20px;" />
 	{/if}
@@ -75,7 +75,7 @@ const toggleTheme = (): void => {
 	cursor: pointer;
 	transition: opacity 0.2s linear;
 	&:hover {
-		opacity: 0.5;
+		opacity: 0.7;
 	}
 }
 </style>
