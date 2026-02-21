@@ -48,7 +48,7 @@
 	width: 100%;
 	margin-top: 50px;
 	text-align: center;
-	background-color: var(--theme-color);
+	background-color: var(--footer-bg-color);
 	color: white;
 	& a {
 		color: white;

@@ -31,11 +31,11 @@ const scrollToAbout = {
 	<header class="hero" id="top">
 		<img src={heroImage} alt="" />
 		<LogoTitleRowWhite
-			style="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh 10px; z-index: 1;"
+			style="width: 100%; max-width: var(--contents-width-text); margin: 0 10px 20vh; z-index: 1;"
 		/>
 		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve https://github.com/sveltejs/kit/pull/14756 -->
-		<a data-sveltekit-noscroll href="/#about" use:scrollTo={scrollToAbout} class="btn_03">
-			<span>Start</span>
+		<a data-sveltekit-noscroll href="/#about" use:scrollTo={scrollToAbout}>
+			<span>Start!</span>
 		</a>
 	</header>
 
@@ -100,31 +100,6 @@ const scrollToAbout = {
 <AppFooter bind:h={footerHeight} />
 
 <style>
-a.btn_03 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 50px;
-	position: relative;
-	background: #228bc8;
-	border: 1px solid #228bc8;
-	border-radius: 30px;
-	box-sizing: border-box;
-	/* padding: 0 25px 0 25px; */
-	color: #fff;
-	font-size: 24px;
-	letter-spacing: 0.1em;
-	transition-duration: 0.3s;
-	&:hover {
-		background: #228bc8;
-		color: #fff;
-	}
-
-	& span {
-		line-height: 1;
-	}
-}
 article {
 	margin-top: var(--header-height);
 	padding-bottom: 200px;
@@ -154,8 +129,30 @@ article {
 		margin-top: 40vh;
 		width: 250px;
 		height: 50px;
-		background-color: var(--theme-color);
 		z-index: 1;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--theme-color);
+		border: 1px solid var(--theme-color);
+		border-radius: 25px;
+		box-sizing: border-box;
+		box-shadow: 0px 0px 10px var(--theme-color);
+		color: #fff;
+		font-size: 24px;
+		font-weight: bold;
+		letter-spacing: 0.1em;
+		transition-duration: 0.3s;
+		&:hover {
+			background-color: var(--theme-light-color);
+			color: #fff;
+			text-shadow: var(--theme-color) 0px 0px 10px;
+		}
+
+		& span {
+			line-height: 1;
+		}
 	}
 }
 
@@ -167,16 +164,7 @@ section {
 	width: 100%;
 	padding: var(--header-height) 0;
 	scroll-margin-top: var(--header-height);
-
-	&:nth-child(even) {
-		background-color: var(--bg-light-color);
-		color: black;
-
-		@media (prefers-color-scheme: dark) {
-			background-color: #1a1a1a;
-			color: white;
-		}
-	}
+	color: var(--text-color);
 
 	& p {
 		max-width: var(--contents-width-text);

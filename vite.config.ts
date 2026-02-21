@@ -34,7 +34,6 @@ export default defineConfig({
 		watch: false,
 		coverage: {
 			enabled: true,
-			all: true,
 			reportsDirectory: './coverage',
 			reportOnFailure: true,
 			exclude: VITEST_COVERAGE_IGNORE_PATTERNS
