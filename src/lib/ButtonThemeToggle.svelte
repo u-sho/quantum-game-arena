@@ -10,21 +10,34 @@ let theme = $state<Theme>('auto');
 let buttonLabel = $state('ダークテーマに切り替え');
 
 onMount(() => {
-	const savedTheme = localStorage.getItem('theme');
-	const rootElement = document.documentElement;
-	if (savedTheme === 'dark') {
-		theme = 'dark';
-		buttonLabel = 'ライトテーマに切り替え';
-		rootElement.setAttribute('data-theme', 'dark');
-	} else if (savedTheme === 'light') {
-		theme = 'light';
-		buttonLabel = 'ブラウザのテーマに切り替え';
-		rootElement.setAttribute('data-theme', 'light');
-	} else {
+	try {
+		const savedTheme = localStorage.getItem('theme');
+		const rootElement = document.documentElement;
+		if (savedTheme === 'dark') {
+			theme = 'dark';
+			buttonLabel = 'ライトテーマに切り替え';
+			rootElement.setAttribute('data-theme', 'dark');
+		} else if (savedTheme === 'light') {
+			theme = 'light';
+			buttonLabel = 'ブラウザのテーマに切り替え';
+			rootElement.setAttribute('data-theme', 'light');
+		} else if (savedTheme === 'auto') {
+			theme = 'auto';
+			buttonLabel = 'ダークテーマに切り替え';
+			localStorage.setItem('theme', 'auto');
+			rootElement.removeAttribute('data-theme');
+		} else {
+			theme = 'auto';
+			buttonLabel = 'ダークテーマに切り替え';
+			localStorage.setItem('theme', 'auto');
+			rootElement.removeAttribute('data-theme');
+		}
+	} catch (error) {
+		console.error('テーマの読み込みに失敗しました:', error);
 		theme = 'auto';
 		buttonLabel = 'ダークテーマに切り替え';
+		document.documentElement.removeAttribute('data-theme');
 		localStorage.setItem('theme', 'auto');
-		rootElement.removeAttribute('data-theme');
 	}
 });
 

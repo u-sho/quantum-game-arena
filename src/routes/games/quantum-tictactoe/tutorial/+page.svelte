@@ -179,7 +179,7 @@ dfn:lang(ja-JP) {
 	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
-	color: var(--text-color);
+	color: white;
 
 	&:hover {
 		background-color: #f0f7fff0;
