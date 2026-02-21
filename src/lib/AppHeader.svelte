@@ -31,7 +31,7 @@ header {
 	justify-content: space-between;
 	width: 100%;
 	height: 56px;
-	background-color: var(--bg-light-color);
+	background-color: var(--header-bg-color);
 	border-top: 4px solid var(--theme-color);
 	border-bottom: 4px solid var(--theme-color);
 	z-index: 100;
