@@ -168,7 +168,7 @@ const defaultConfig = defineConfig({
 
 const svelteConfig = defineConfig({
 	files: ['**/*.svelte'],
-	extends: [...sveltePlugin.configs['flat/all'], ...sveltePlugin.configs['flat/prettier']],
+	extends: [...sveltePlugin.configs.recommended, ...sveltePlugin.configs.prettier],
 	languageOptions: {
 		parser: svelteParser,
 		parserOptions: {
@@ -188,7 +188,9 @@ const svelteConfig = defineConfig({
 		'svelte/experimental-require-slot-types': 'off',
 		'svelte/experimental-require-strict-events': 'off',
 		'no-trailing-spaces': 'off',
-		'svelte/no-trailing-spaces': ['warn', { skipBlankLines: false, ignoreComments: false }]
+		'svelte/no-trailing-spaces': ['warn', { skipBlankLines: false, ignoreComments: false }],
+		// ↓deprecated rules
+		'svelte/no-navigation-without-base': 'off'
 	}
 });
 
