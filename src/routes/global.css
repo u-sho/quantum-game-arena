@@ -39,7 +39,7 @@
 	}
 	&[data-theme='dark'] {
 		--bg-light-color: #001a2f;
-		--bg-color: #000;
+		--bg-color: #000010;
 		--text-color: #ffffff;
 		--footer-bg-color: #001a2f;
 		--header-bg-color: #000010;
