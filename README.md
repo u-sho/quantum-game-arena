@@ -8,16 +8,33 @@ You can enjoy the complexity of the quantum games.
 
 powered by [`SvelteKit`](https://svelte.dev/docs/kit);
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) `^24.11.0` (see `.node-version`)
+- npm `>=7.21.1`
+
 ## Developing
 
-Once you've created a project and installed dependencies with `npm instal`, start a development server:
+Once you've cloned the repository, install dependencies and start a development server:
 
 ```bash
+npm install
+
 npm run dev
 
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
+
+## Deployment
+
+This app is a fully static, pre-rendered site deployed on [Vercel](https://vercel.com) using [`@sveltejs/adapter-vercel`](https://svelte.dev/docs/kit/adapter-vercel).
+
+- All pages are pre-rendered at build time (`export const prerender = true`).
+- There are no server-side API routes or backend services.
+- Vercel configuration is managed in [`vercel.json`](./vercel.json).
+
+To deploy your own instance, import the repository in the [Vercel dashboard](https://vercel.com/new) and it will be deployed automatically on every push to the default branch.
 
 ## Building
 
