@@ -1,0 +1,49 @@
+{
+	"name": "Quantum Tic-Tac-Toe",
+	"short_name": "Quantum TTT",
+	"dir": "ltr",
+	"lang": "ja-JP",
+	"description": "量子三目並べ — ゲームを通じて量子力学的世界観を養う量子ゲームです．",
+	"categories": ["education", "games"],
+	"scope": "/games/quantum-tictactoe/",
+	"start_url": "/games/quantum-tictactoe/",
+	"background_color": "#ffffff",
+	"theme_color": "#1d2088",
+	"display": "fullscreen",
+	"icons": [
+		{
+			"src": "/favicon.ico",
+			"sizes": "16x16 32x32 48x48",
+			"type": "image/x-icon"
+		},
+		{
+			"src": "/logo-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/safari-pinned-tab.svg",
+			"type": "image/svg+xml",
+			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/screenshot_pixel5_quantumTTT.png",
+			"sizes": "1081x2340",
+			"type": "image/png",
+			"form_factor": "narrow"
+		}
+	]
+}
