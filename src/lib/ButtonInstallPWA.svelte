@@ -32,11 +32,11 @@ onMount(() => {
 
 async function _install(): Promise<void> {
 	if (!installPrompt) return;
-	await installPrompt.prompt();
-	const { outcome } = await installPrompt.userChoice;
-	if (outcome === 'accepted') {
-		installPrompt = null;
-	}
+	const promptEvent = installPrompt;
+	// Clear the stored event immediately to avoid reusing a single-use prompt
+	installPrompt = null;
+	await promptEvent.prompt();
+	await promptEvent.userChoice;
 }
 </script>
 
