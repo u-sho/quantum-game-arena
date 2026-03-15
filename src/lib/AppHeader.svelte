@@ -83,6 +83,9 @@ nav {
 				border: var(--size) solid transparent;
 				border-top: var(--size) solid var(--accent-color);
 			}
+			&:not(:has(*))::before {
+				display: none;
+			}
 
 			& a {
 				display: flex;
