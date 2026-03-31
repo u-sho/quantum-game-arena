@@ -84,7 +84,7 @@ const toggleTheme = (): void => {
 	padding: 0 1em;
 	background: none;
 	border: none;
-	color: var(--theme-color);
+	color: var(--header-text-color);
 	cursor: pointer;
 	transition: opacity 0.2s linear;
 	&:hover {
