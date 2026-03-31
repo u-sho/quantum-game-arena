@@ -85,7 +85,7 @@ nav {
 				height: 100%;
 				align-items: center;
 				padding: 0 1em;
-				color: var(--theme-color);
+				color: var(--header-text-color);
 				font-weight: bold;
 				font-size: 16px;
 				text-transform: uppercase;
