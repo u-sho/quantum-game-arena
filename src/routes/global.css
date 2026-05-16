@@ -13,6 +13,10 @@
 	--text-color: light-dark(#000000, #ffffff);
 	--footer-bg-color: light-dark(#1a5086, #001a2f);
 	--header-bg-color: light-dark(#ffffff, #000010);
+	--header-border-color: light-dark(var(--theme-color), var(--theme-light-color));
+	--header-link-color: light-dark(var(--theme-color), var(--theme-light-color));
+	--header-bg-effect: none;
+	--header-glow-shadow: none;
 
 	@media (prefers-color-scheme: light) {
 		--bg-light-color: #f0f7ff;
@@ -20,6 +24,10 @@
 		--text-color: #000000;
 		--footer-bg-color: #1a5086;
 		--header-bg-color: #ffffff;
+		--header-border-color: var(--theme-color);
+		--header-link-color: var(--theme-color);
+		--header-bg-effect: none;
+		--header-glow-shadow: none;
 	}
 	@media (prefers-color-scheme: dark) {
 		--bg-light-color: #001a2f;
@@ -27,6 +35,12 @@
 		--text-color: #ffffff;
 		--footer-bg-color: #001a2f;
 		--header-bg-color: #000010;
+		--header-border-color: var(--theme-light-color);
+		--header-link-color: var(--theme-light-color);
+		--header-bg-effect:
+			radial-gradient(120% 160% at 18% 0%, rgba(116, 170, 231, 0.22) 0%, rgba(0, 0, 16, 0) 60%),
+			radial-gradient(120% 160% at 92% 100%, rgba(228, 83, 85, 0.1) 0%, rgba(0, 0, 16, 0) 55%);
+		--header-glow-shadow: 0 0 24px rgba(116, 170, 231, 0.2), 0 0 10px rgba(116, 170, 231, 0.12);
 	}
 
 	/* Manual theme override */
@@ -36,6 +50,10 @@
 		--text-color: #000000;
 		--footer-bg-color: #1a5086;
 		--header-bg-color: #ffffff;
+		--header-border-color: var(--theme-color);
+		--header-link-color: var(--theme-color);
+		--header-bg-effect: none;
+		--header-glow-shadow: none;
 	}
 	&[data-theme='dark'] {
 		--bg-light-color: #001a2f;
@@ -43,6 +61,12 @@
 		--text-color: #ffffff;
 		--footer-bg-color: #001a2f;
 		--header-bg-color: #000010;
+		--header-border-color: var(--theme-light-color);
+		--header-link-color: var(--theme-light-color);
+		--header-bg-effect:
+			radial-gradient(120% 160% at 18% 0%, rgba(116, 170, 231, 0.22) 0%, rgba(0, 0, 16, 0) 60%),
+			radial-gradient(120% 160% at 92% 100%, rgba(228, 83, 85, 0.1) 0%, rgba(0, 0, 16, 0) 55%);
+		--header-glow-shadow: 0 0 24px rgba(116, 170, 231, 0.2), 0 0 10px rgba(116, 170, 231, 0.12);
 	}
 }
 

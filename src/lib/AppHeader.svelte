@@ -36,8 +36,10 @@ header {
 	width: 100%;
 	height: 56px;
 	background-color: var(--header-bg-color);
-	border-top: 4px solid var(--theme-color);
-	border-bottom: 4px solid var(--theme-color);
+	background-image: var(--header-bg-effect);
+	box-shadow: var(--header-glow-shadow);
+	border-top: 4px solid var(--header-border-color);
+	border-bottom: 4px solid var(--header-border-color);
 	z-index: 100;
 
 	& hgroup {
@@ -92,7 +94,7 @@ nav {
 				height: 100%;
 				align-items: center;
 				padding: 0 1em;
-				color: var(--theme-color);
+				color: var(--header-link-color);
 				font-weight: bold;
 				font-size: 16px;
 				text-transform: uppercase;

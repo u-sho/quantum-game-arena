@@ -55,7 +55,7 @@ async function _install(): Promise<void> {
 	background: none;
 	border: none;
 	cursor: pointer;
-	color: var(--theme-color);
+	color: var(--header-link-color, var(--theme-color));
 	font-weight: bold;
 	font-size: 16px;
 	text-transform: uppercase;
