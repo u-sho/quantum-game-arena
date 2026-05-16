@@ -2,6 +2,7 @@
 import { resolve } from '$app/paths';
 import TitleLogo from '$lib/assets/logo-title_row-colored.svg.svelte';
 import ButtonThemeToggle from '$lib/ButtonThemeToggle.svelte';
+import ButtonInstallPWA from '$lib/ButtonInstallPWA.svelte';
 </script>
 
 <header>
@@ -16,6 +17,9 @@ import ButtonThemeToggle from '$lib/ButtonThemeToggle.svelte';
 		<ul>
 			<!-- <li><a href="/#about">About</a></li> -->
 			<li><a href={resolve('/games/quantum-tictactoe')}>Game</a></li>
+			<li>
+				<ButtonInstallPWA />
+			</li>
 			<li>
 				<ButtonThemeToggle />
 			</li>
@@ -78,6 +82,9 @@ nav {
 				left: calc(50% - var(--size));
 				border: var(--size) solid transparent;
 				border-top: var(--size) solid var(--accent-color);
+			}
+			&:not(:has(*))::before {
+				display: none;
 			}
 
 			& a {

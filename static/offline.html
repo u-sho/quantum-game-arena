@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja-JP" dir="ltr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
+		<title>オフライン — Quantum Game Arena</title>
+		<style>
+			:root {
+				--theme-color: #1a5086;
+				--theme-light-color: #74aae7;
+				--accent-color: #e45355;
+				--bg-color: #ffffff;
+				--bg-light-color: #f0f7ff;
+				--text-color: #000000;
+				color-scheme: light dark;
+			}
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--bg-color: #000010;
+					--bg-light-color: #001a2f;
+					--text-color: #ffffff;
+				}
+			}
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				background-color: var(--bg-color);
+				color: var(--text-color);
+				font-family: Arial, 'Hiragino Kaku Gothic', 'Noto Sans JP', sans-serif;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				min-height: 100svh;
+				text-align: center;
+				padding: 1rem;
+			}
+			.icon {
+				font-size: 4rem;
+				margin-bottom: 1rem;
+				opacity: 0.85;
+				animation: float 3s ease-in-out infinite;
+			}
+			@keyframes float {
+				0%, 100% { transform: translateY(0); }
+				50% { transform: translateY(-8px); }
+			}
+			h1 {
+				font-size: clamp(2rem, 8vw, 3.5rem);
+				font-weight: 900;
+				margin: 0 0 0.5rem;
+				background: linear-gradient(135deg, var(--theme-color) 0%, var(--theme-light-color) 50%, var(--accent-color) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				letter-spacing: -0.02em;
+			}
+			.subtitle {
+				font-size: clamp(0.85rem, 3vw, 1rem);
+				color: var(--text-color);
+				opacity: 0.6;
+				margin: 0 0 1.5rem;
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+			}
+			p {
+				font-size: 1rem;
+				line-height: 1.8;
+				max-width: 480px;
+				margin: 0 0 2rem;
+				color: var(--text-color);
+				opacity: 0.85;
+			}
+			.retry-btn {
+				display: inline-block;
+				padding: 0.7em 2em;
+				border-radius: 9999px;
+				font-weight: bold;
+				font-size: 1rem;
+				letter-spacing: 0.1em;
+				text-decoration: none;
+				color: #ffffff;
+				background: linear-gradient(135deg, var(--theme-color), var(--theme-light-color));
+				box-shadow: 0 0 16px color-mix(in srgb, var(--theme-light-color) 50%, transparent);
+				transition: opacity 0.2s, box-shadow 0.2s;
+			}
+			.retry-btn:hover {
+				opacity: 0.85;
+				box-shadow: 0 0 24px color-mix(in srgb, var(--theme-light-color) 70%, transparent);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="icon" aria-hidden="true">⚛️</div>
+		<h1>オフラインです</h1>
+		<p class="subtitle">Quantum Game Arena</p>
+		<p>
+			インターネット接続が見つかりません。<br />
+			接続を確認してから再試行してください。
+		</p>
+		<a class="retry-btn" href="/">再試行</a>
+	</body>
+</html>

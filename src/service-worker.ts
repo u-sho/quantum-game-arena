@@ -8,13 +8,14 @@ import { build, files, version } from '$service-worker';
 declare const self: ServiceWorkerGlobalScope;
 
 const ASSETS = `cache${version}`;
+const OFFLINE_URL = '/offline.html';
 const cached = [...build, ...files];
 
 self.addEventListener('install', (event) => {
 	event.waitUntil(
 		caches
 			.open(ASSETS)
-			.then(async (cache) => cache.addAll(cached))
+			.then(async (cache) => cache.addAll([...cached, OFFLINE_URL]))
 			.then(() => {
 				void self.skipWaiting();
 			})
@@ -70,6 +71,12 @@ self.addEventListener('fetch', (event) => {
 		} catch (err) {
 			const response = await cache.match(event.request);
 			if (response) return response;
+
+			// return the offline page for navigation requests
+			if (event.request.mode === 'navigate') {
+				const offlineResponse = await cache.match(OFFLINE_URL);
+				if (offlineResponse) return offlineResponse;
+			}
 
 			throw err;
 		}
