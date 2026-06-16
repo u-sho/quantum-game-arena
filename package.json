@@ -70,7 +70,7 @@
 		"typescript": "~5.9.3",
 		"typescript-eslint": "^8.59.3",
 		"typescript-eslint-language-service": "^5.0.5",
-		"vite": "^8.0.13",
+		"vite": "^8.0.16",
 		"vitest": "~4.1.6",
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.11.0"
 	},
