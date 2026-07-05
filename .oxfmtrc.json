@@ -1,4 +1,7 @@
 {
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"sortPackageJson": false,
+	"ignorePatterns": ["static/**", ".npmrc", ".*ignore", "LICENSE"],
 	"svelte": { "indentScriptAndStyle": false },
 	"useTabs": true,
 	"singleQuote": true,
