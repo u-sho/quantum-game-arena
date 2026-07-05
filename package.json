@@ -36,9 +36,9 @@
 		"ci": "run-p format:dry lint:dry typecheck:svelte vitest:all",
 		"test": "vitest",
 		"vitest:all": "run-s typecheck:vitest test",
-		"format:dry": "prettier --cache --check .",
+		"format:dry": "oxfmt --check",
 		"lint:dry": "eslint .",
-		"format": "prettier --cache --write .",
+		"format": "oxfmt",
 		"lint": "eslint --fix ."
 	},
 	"dependencies": {
@@ -60,8 +60,7 @@
 		"eslint-plugin-svelte": "^3.20.0",
 		"globals": "^17.7.0",
 		"npm-run-all2": "^8.0.4",
-		"prettier": "^3.9.1",
-		"prettier-plugin-svelte": "^3.5.2",
+		"oxfmt": "^0.57.0",
 		"svelte": "^5.56.4",
 		"svelte-check": "^4.7.1",
 		"svelte-scrolling": "1.5.1",
