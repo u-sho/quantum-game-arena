@@ -36,6 +36,7 @@ export default defineConfig({
 					'script-src-elem': ['self', 'va.vercel-scripts.com']
 				}
 			},
+			inlineStyleThreshold: 0, // 4096 B is Astro default
 			prerender: {
 				handleHttpError: ({ status, path, referrer, referenceType, message }) => {
 					const errorMessage =
