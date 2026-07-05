@@ -75,8 +75,18 @@
 		"vscode-emmet-helper": "npm:@vscode/emmet-helper@^2.11.0"
 	},
 	"engines": {
-		"node": "^24.11.0",
+		"node": "24.x",
 		"npm": ">=7.21.1"
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"version": "^24.18.0"
+		},
+		"packageManager": {
+			"name": "npm",
+			"version": "^11.17.0"
+		}
 	},
 	"type": "module"
 }
