@@ -10,8 +10,8 @@ powered by [`SvelteKit`](https://svelte.dev/docs/kit);
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) `^24.11.0` (see `.node-version`)
-- npm `>=7.21.1`
+- [Node.js](https://nodejs.org/) `^24.15.0` (see `package.json`)
+- npm `^11.12.1`
 
 ## Developing
 
