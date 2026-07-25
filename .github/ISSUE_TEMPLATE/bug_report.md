@@ -1,40 +1,38 @@
 ---
-name: Bug report / バグ報告
-about: Create a report to help us improve / 改善のためにバグを報告する
+name: Bug report
+about: Create a report to help us improve
 title: '[Bug] '
 labels: bug
 assignees: ''
 ---
 
-## Describe the bug / バグの説明
+日本語でも可。
 
-A clear and concise description of what the bug is.  
-バグの内容を明確・簡潔に説明してください。
+## Describe the bug
 
-## Steps to reproduce / 再現手順
+A clear and concise description of what the bug is.
+
+## Steps to reproduce
 
 1. Go to '...'
 2. Click on '...'
 3. Scroll down to '...'
 4. See error
 
-## Expected behavior / 期待される動作
+## Expected behavior
 
-A clear and concise description of what you expected to happen.  
-期待される動作を明確・簡潔に説明してください。
+A clear and concise description of what you expected to happen.
 
-## Screenshots / スクリーンショット
+## Screenshots
 
-If applicable, add screenshots to help explain your problem.  
-問題の説明に役立つスクリーンショットがあれば追加してください。
+If applicable, add screenshots to help explain your problem.
 
-## Environment / 環境
+## Environment
 
 - OS: [e.g. Windows 11, macOS 15]
 - Browser: [e.g. Chrome 130, Firefox 132, Safari 18]
 - Version: [e.g. 0.10.0]
 
-## Additional context / 追加情報
+## Additional context
 
-Add any other context about the problem here.  
-その他、問題に関する情報があれば記載してください。
+Add any other context about the problem here.
