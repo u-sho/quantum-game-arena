@@ -1,6 +1,6 @@
 ## Summary
 
-Brief description of the changes in this PR.  
+Brief description of the changes in this PR.
 
 ## Related Issue
 

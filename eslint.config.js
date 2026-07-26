@@ -182,15 +182,12 @@ const svelteConfig = defineConfig({
 		'svelte/no-inline-styles': 'off',
 		'svelte/no-unused-class-name': 'warn',
 		'svelte/no-useless-mustaches': 'warn',
-		'svelte/no-restricted-html-elements': 'off',
 		'svelte/require-optimized-style-attribute': 'warn',
 		'svelte/sort-attributes': 'off',
 		'svelte/experimental-require-slot-types': 'off',
 		'svelte/experimental-require-strict-events': 'off',
 		'no-trailing-spaces': 'off',
-		'svelte/no-trailing-spaces': ['warn', { skipBlankLines: false, ignoreComments: false }],
-		// ↓deprecated rules
-		'svelte/no-navigation-without-base': 'off'
+		'svelte/no-trailing-spaces': ['warn', { skipBlankLines: false, ignoreComments: false }]
 	}
 });
 
