@@ -31,6 +31,7 @@ import GameInfo from './GameInfo.svelte';
 import GameFooter from './GameFooter.svelte';
 import type { MarkType, SquareType, StateType } from './QuantumTTT.type';
 import Game from './QuantumTTT';
+import { messages } from '$lib/games/constants';
 
 let game = new Game();
 let gameCount = 1;
@@ -59,14 +60,14 @@ const handleSquareClick = (i: SquareType): void => {
 		state = { ...game.state };
 		message = status;
 	} else {
-		message = 'AI is thinking!';
+		message = messages.thinking;
 		return;
 	}
 
 	const isAIResolvableCollapse =
 		game.whoseTurn() === 'X' && state.cycleSquares && state.cycleSquares.length > 0;
 	if (isAIResolvableCollapse) {
-		message = 'AI is thinking...';
+		message = messages.thinking;
 		sleep(1200)
 			.then(async () => {
 				await aiHandleCollapse();
@@ -77,7 +78,7 @@ const handleSquareClick = (i: SquareType): void => {
 					return;
 				}
 
-				message = 'AI is thinking...';
+				message = messages.thinking;
 				await sleep(1200);
 				aiMove();
 				return;
@@ -90,7 +91,7 @@ const handleSquareClick = (i: SquareType): void => {
 
 	const isAIMove = game.whoseTurn() === 'Y' && !state.cycleSquares;
 	if (isAIMove) {
-		message = 'AI is thinking...';
+		message = messages.thinking;
 		sleep(1200)
 			.then(() => {
 				aiMove();
@@ -125,14 +126,14 @@ const aiHandleCollapse = async (): Promise<void> => {
 		state = { ...game.state };
 	}
 
-	message = 'AI is thinking...';
+	message = messages.thinking;
 	await sleep(1200);
 	if (choices === undefined) return;
 	const aiChoiceMark = choices[getRandomInt({ min: 0, max: choices.length - 1 })];
 	game.handleCollapse(aiChoiceMark);
 	state = { ...game.state };
 
-	message = 'AI resolved collapse!';
+	message = messages.entanglement.resolved;
 	return;
 };
 

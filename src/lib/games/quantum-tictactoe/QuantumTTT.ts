@@ -30,6 +30,7 @@ import type {
 	TurnNumType
 } from './QuantumTTT.type';
 import Graph from './Graph';
+import { messages } from '$lib/games/constants';
 
 export default class QuantumTTT {
 	protected _g: Graph;
@@ -52,7 +53,7 @@ export default class QuantumTTT {
 				Y: 60 * 5
 			},
 			scores: { X: 0, Y: 0 },
-			status: 'プレイヤーXのターンです！'
+			status: messages.xTurn
 		};
 	}
 
@@ -75,7 +76,7 @@ export default class QuantumTTT {
 			if (this.state.leftTimes.X <= 0) {
 				this.setState({
 					isOver: true,
-					status: 'プレイヤーXの時間切れです。プレイヤーYの勝利です！'
+					status: messages.xTimeout
 				});
 			} else {
 				this.setLeftTimes({ X: this.state.leftTimes.X - 1 });
@@ -86,7 +87,7 @@ export default class QuantumTTT {
 			if (this.state.leftTimes.Y <= 0) {
 				this.setState({
 					isOver: true,
-					status: 'プレイヤーYの時間切れです。プレイヤーXの勝利です！'
+					status: messages.yTimeout
 				});
 			} else {
 				this.setLeftTimes({ Y: this.state.leftTimes.Y - 1 });
@@ -100,15 +101,13 @@ export default class QuantumTTT {
 			// initialize timer at game start
 			setInterval(this.timer, 1000);
 
-		if (this.state.isOver) return 'ゲームは既に終了しています！ 新しいゲームを開始してください';
+		if (this.state.isOver) return messages.warns.gameHasBeenOver;
 
 		if (this.state.cycleSquares) return this._handleCyclicEntanglement(i);
 
-		if (this.state.cSquares[i])
-			return 'このマスのマークが既に確定しています！ このマスには量子マークを置けません。';
+		if (this.state.cSquares[i]) return messages.warns.occupiedSquare;
 
-		if (this.isSecondMove() && this.state.lastMove === i)
-			return '同じマスには同じターンに置けません。';
+		if (this.isSecondMove() && this.state.lastMove === i) return messages.warns.sameSquare;
 
 		return this._handleNormalMove(i);
 	}
@@ -129,8 +128,9 @@ export default class QuantumTTT {
 		const cycle = this._g.getCycle(i);
 		if (cycle) {
 			const msg =
-				'循環もつれが発生しました！\n' +
-				`プレイヤー${this.notWhoseTurn()}はマークを確定させるマスを選択してください。`;
+				this.notWhoseTurn() === 'X'
+					? messages.entanglement.selectSquareX
+					: messages.entanglement.selectSquareY;
 			this.setState({
 				qSquares,
 				cycleSquares: cycle[0] as MaxLengthArray<SquareType, 9>,
@@ -148,19 +148,18 @@ export default class QuantumTTT {
 			lastMove: i
 		});
 
-		if (this.isSecondMove())
-			return '2個目の量子マークを置いてください。循環もつれが発生すると、マスにある量子マークのうち1つのマークがそのマスの確定マークになります。';
+		if (this.isSecondMove()) return messages.secondMove;
 
-		return `プレイヤー${this.whoseTurn()}のターンです! 量子マークを置いてください。`;
+		return this.whoseTurn() === 'X' ? messages.xTurn : messages.yTurn;
 	}
 
 	// selects square to be collapse point
 	private _handleCyclicEntanglement(i: SquareType): StatusType {
 		if (!(this.state.cycleSquares as Exclude<StateType['cycleSquares'], null | []>).includes(i))
-			return '循環もつれに関係しているマスを選択してください！';
+			return messages.warns.selectCyclicSquare;
 
 		this.setState({ collapseSquare: i });
-		return 'このマスに確定させるマークを次から選択します。';
+		return messages.entanglement.selectMark;
 	}
 
 	// collapse square and propagates changes outward
@@ -182,7 +181,7 @@ export default class QuantumTTT {
 				currentSubTurn: ((this.state.currentSubTurn + 1) % 4) as SubTurnType
 			});
 
-			return `プレイヤー${this.whoseTurn()}のターンです。`;
+			return this.whoseTurn() === 'X' ? messages.xTurn : messages.yTurn;
 		}
 
 		// end of the game
@@ -279,24 +278,18 @@ function _calculateScores(
 }
 
 function _getWinnerMsg(scores: Readonly<OneGameScoresType>): StatusType {
-	const winner = scores.X > scores.Y ? 'X' : 'Y';
-	const loser = winner === 'X' ? 'Y' : 'X';
+	if (scores.X === 1.5) return `${messages.xDoubleWin}\n${messages.xGets15Points}`;
+	if (scores.Y === 1.5) return `${messages.yDoubleWin}\n${messages.yGets15Points}`;
+	if (scores.X + scores.Y === 0) return messages.draw;
 
-	if (scores.X + scores.Y === 1)
-		return `${winner}の勝利です！！\n ${winner}は1.0ポイント \n ${loser}は0ポイント`;
+	let msg: StatusType = scores.X > scores.Y ? messages.xWin : messages.yWin;
+	if (scores.X + scores.Y === 1.5) {
+		msg = messages.drawer;
+	}
+	if (scores.X === 1) msg += `\n${messages.xGets10Points}`;
+	if (scores.Y === 1) msg += `\n${messages.yGets10Points}`;
+	if (scores.X === 0.5) msg += `\n${messages.xGets05Points}`;
+	if (scores.Y === 0.5) msg += `\n${messages.yGets05Points}`;
 
-	if (scores.X === 1.5 || scores.Y === 1.5)
-		return (
-			`${winner}が同時に2つの列を完成させました！！\n ${winner}は 1.5ポイント\n` +
-			`${loser}は 0ポイント`
-		);
-
-	if (scores.X + scores.Y === 1.5)
-		return (
-			`両プレイヤーが同時に1列を完成させました。しかし、${winner}が先に並べました！` +
-			` ${winner}は 1.0ポイント` +
-			`\n ${loser}は 0.5ポイント`
-		);
-
-	return 'どのプレイヤーも列を完成できていません';
+	return msg;
 }
