@@ -1,6 +1,5 @@
 <script lang="ts">
-import { page } from '$app/stores';
-const { status, error } = $derived($page);
+import { page } from '$app/state';
 </script>
 
 <svelte:head>
@@ -11,5 +10,5 @@ const { status, error } = $derived($page);
 </svelte:head>
 
 <main style:padding="var(--header-height) 1rem 0">
-	<h1>{status}: {error?.message}</h1>
+	<h1>{page.status}: {page.error?.message}</h1>
 </main>
