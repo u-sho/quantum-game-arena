@@ -127,7 +127,7 @@ describe('QuantumTTT', () => {
 	});
 
 	test('resolve cyclic entanglement', () => {
-		expect(game.handleSquareClick(0)).toMatch('確定させるマークを次から選択します');
+		expect(game.handleSquareClick(0)).toMatch('確定させるマークを選んでください');
 		expect(game.handleCollapse('X1')).toMatch('プレイヤーYのターンです');
 
 		// X1 | X2 | Y1
@@ -199,7 +199,7 @@ describe('QuantumTTT', () => {
 
 	test('resolve cyclic entanglement 2', () => {
 		expect(game.handleSquareClick(4)).toMatch('関係しているマスを選択してください');
-		expect(game.handleSquareClick(5)).toMatch('確定させるマークを次から選択します');
+		expect(game.handleSquareClick(5)).toMatch('確定させるマークを選んでください');
 		expect(game.handleSquareClick(4)).toMatch('関係しているマスを選択してください');
 		expect(game.handleCollapse('Y3')).toMatch('Xの勝利');
 

@@ -10,9 +10,9 @@
 	"files.trimFinalNewlines": true,
 	/* format,lint */
 	"editor.codeActionsOnSave": {
-		"source.fixAll": "explicit",
-		"source.fixAll.eslint": "explicit",
-		"source.format.oxc": "explicit"
+		"source.fixAll": "always",
+		"source.fixAll.eslint": "always",
+		"source.format.oxc": "always"
 	},
 	"editor.defaultFormatter": "oxc.oxc-vscode",
 	"editor.formatOnSave": true,
